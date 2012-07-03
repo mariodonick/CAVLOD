@@ -15,7 +15,7 @@ protected:
   virtual ~ContentParser(){}
 
 public:
-  virtual T* parseContent(const char* data, const unsigned int& len) = 0;
+  virtual T* parseContent(char* data, const unsigned int& len) = 0;
 };
 
 
@@ -26,7 +26,7 @@ protected:
   virtual ~TextParser();
 
 protected:
-  Text* parseContent(const char* data, const unsigned int& len);
+  Text* parseContent(char* data, const unsigned int& len);
 };
 
 
@@ -37,7 +37,7 @@ protected:
   virtual ~SensorParser();
 
 protected:
-  Sensor* parseContent(const char* data, const unsigned int& len);
+  Sensor* parseContent(char* data, const unsigned int& len);
 };
 
 
@@ -48,7 +48,7 @@ protected:
   virtual ~PictureParser();
 
 protected:
-  Picture* parseContent(const char* data, const unsigned int& len);
+  Picture* parseContent(char* data, const unsigned int& len);
 };
 
 #endif /* CONTENTPARSER_H_ */

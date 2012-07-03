@@ -43,7 +43,7 @@ DataBlockProcessing<T, Parser, Decoder, Visualizer>::DataBlockProcessing()
 template<class T, class Parser, class Decoder, class Visualizer>
 DataBlockProcessing<T, Parser, Decoder, Visualizer>::~DataBlockProcessing()
 {
-//  std::cout << "destructor DataBlockProcessing\n";
+
 }
 
 template<class T, class Parser, class Decoder, class Visualizer>
@@ -57,7 +57,12 @@ void DataBlockProcessing<T, Parser, Decoder, Visualizer>::start(const DataBlockH
   std::cout << "dblength: " << dbh.getLength().to_uint() << "\n";
   while(curContentPos < totalLength)
   {
-    T* obj = parseContent(&data[curContentPos], totalLength);
+    //only to use reinterpret cast inside the parser
+    char tmp[totalLength];
+    for(unsigned int i = 0; i < totalLength; ++i)
+      tmp[i] = data[curContentPos + i];
+
+    T* obj = parseContent(tmp, totalLength);
     unsigned int len = obj->size();
     curContentPos += len;
 //    std::cout << "curContentPos: " << curContentPos << " Bytes\n";

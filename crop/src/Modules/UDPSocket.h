@@ -22,7 +22,6 @@ public:
   UDPSocket();
   virtual ~UDPSocket();
 
-  void sendData( unsigned char* data, const unsigned int& length, const char* s_addr, const unsigned int& s_port);
 private:
   const ByteArray* receiveData();
   void sendData(const ByteArray& data, const char* s_addr, const unsigned int& s_port);

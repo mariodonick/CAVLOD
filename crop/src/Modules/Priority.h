@@ -11,12 +11,14 @@
 class ByteArray;
 template<class T> class Queue;
 class Ontology;
+template<class T>
 class PrioritizedQueue;
+class PrioQueueData;
 
 class Priority : public Prioritization
 {
 public:
-  Priority(Queue<ByteArray*>& theFifo, PrioritizedQueue& thePrioQueue, const Ontology& ontology);
+  Priority(Queue<ByteArray*>& theFifo, PrioritizedQueue<PrioQueueData*>& thePrioQueue, const Ontology& ontology);
   virtual ~Priority();
 
 private:
@@ -24,7 +26,7 @@ private:
 
 private:
   Queue<ByteArray*>& fifo;
-  PrioritizedQueue& prioQueue;
+  PrioritizedQueue<PrioQueueData*>& prioQueue;
   const Ontology& ontology;
 };
 

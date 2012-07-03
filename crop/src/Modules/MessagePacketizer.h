@@ -17,19 +17,21 @@
 #include "../Tools/Bin.h"
 #include "../DataClasses/DataBlock.h"
 
+template<class T>
 class PrioritizedQueue;
+class PrioQueueData;
 
 class MessagePacketizer : public Packetizer
 {
 public:
-  MessagePacketizer(PrioritizedQueue& prioQueue);
+  MessagePacketizer(PrioritizedQueue<PrioQueueData*>& prioQueue);
   virtual ~MessagePacketizer();
 
 private:
   ByteArray packetizeMessage();
 
 private:
-  PrioritizedQueue& prioQueue;
+  PrioritizedQueue<PrioQueueData*>& prioQueue;
   ByteArray message;
 };
 

@@ -9,8 +9,9 @@
 #include "../Config.h"
 #include "../Types.h"
 #include "../Tools/PrioritizedQueue.h"
+#include "../DataClasses/InterModuleData.h"
 
-MessagePacketizer::MessagePacketizer(PrioritizedQueue& thePrioQueue)
+MessagePacketizer::MessagePacketizer(PrioritizedQueue<PrioQueueData*>& thePrioQueue)
 : prioQueue(thePrioQueue)
 {
 
@@ -28,11 +29,11 @@ ByteArray MessagePacketizer::packetizeMessage()
 //    message.append(db->dataPtr(), db->size());
 //  }
 
-  ByteArray* db = prioQueue.pop();
+  PrioQueueData* data = prioQueue.pop();
 //  std::cout << "packetizer dump: \n";
 //  db->dumpHex(std::cout);
 
-  Bin<24> messageLength = MSG_FIXED_HEADER_LENGTH_BYTES + 2*MSG_ADDRESS_TYPE_IPV6_BYTES + db->size();
+  Bin<24> messageLength = MSG_FIXED_HEADER_LENGTH_BYTES + 2*MSG_ADDRESS_TYPE_IPV6_BYTES + data->content->size();
 
   message.insert(static_cast<Bin<4> >(VERSION_1) );
   message.append(MESSAGE_CONFIG); // todo message config genauer angeben
@@ -45,7 +46,7 @@ ByteArray MessagePacketizer::packetizeMessage()
 //  std::cout << "----------message packetizer db size: "  << db->size() << " \n";
   message.append(messageLength);
 //  std::cout << "----------message size packetize: "  << message.size() << " \n";
-  message.append(db->dataPtr(), db->size());
+  message.append(data->content->dataPtr(), data->content->size());
 
   //message.append( (messageLength >= 0xFFFF) ? CRC_32 : CRC_16);
 

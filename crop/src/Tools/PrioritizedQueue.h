@@ -7,32 +7,75 @@
 #define PRIORITIZEDQUEUE_H_
 
 #include "ByteArray.h"
+#include "Queue.h"
 
-#include <map>
+#include <queue>
+#include <mutex>
+#include <algorithm>
 
-//todo interface bauen
-class ByteArray;
+#include "../DataClasses/InterModuleData.h"
 
-struct PriorityCompare
-{
-  bool operator() (const float& lhs, const float& rhs) const
-  {return lhs > rhs;}
-};
-
-
-class PrioritizedQueue
+template<class T>
+class PrioritizedQueue : public Queue<T>
 {
 public:
   PrioritizedQueue();
   virtual ~PrioritizedQueue();
 
-  ByteArray* pop();
-  void push(const float& key, ByteArray* data);
+  T pop();
+  void push(const T& data);
   const bool isEmpty();
   const std::size_t size();
 
 private:
-  std::map<float, ByteArray*, PriorityCompare> queue;
+  std::priority_queue<T, std::vector<T>, Comparison > queue;
+
+  std::mutex mutex;
 };
+
+
+
+template<class T>
+PrioritizedQueue<T>::PrioritizedQueue()
+: queue( Comparison() )
+{
+
+}
+
+template<class T>
+PrioritizedQueue<T>::~PrioritizedQueue()
+{
+
+}
+
+template<class T>
+T PrioritizedQueue<T>::pop()
+{
+  std::lock_guard<std::mutex> lock(mutex);
+  PrioQueueData* tmp = queue.top();
+//  std::cout << "pop priority: " << std::dec << tmp->first << "\n";
+  queue.pop();
+
+  return tmp;
+}
+
+template<class T>
+void PrioritizedQueue<T>::push(const T& data)
+{
+  std::lock_guard<std::mutex> lock(mutex);
+  queue.push( data );
+}
+
+template<class T>
+const bool PrioritizedQueue<T>::isEmpty()
+{
+  return queue.empty();
+}
+
+template<class T>
+const std::size_t PrioritizedQueue<T>::size()
+{
+  return queue.size();
+}
 
 #endif /* PRIORITIZEDQUEUE_H_ */

@@ -10,7 +10,6 @@ ServerModule::ServerModule()
 : network(new UDPSocket)
 , parser(new MessageParser)
 {
-  network->startServer(PORT);
 }
 
 ServerModule::~ServerModule()

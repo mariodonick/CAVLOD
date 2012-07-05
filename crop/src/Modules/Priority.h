@@ -8,7 +8,6 @@
 
 #include "Prioritization.h"
 
-class ByteArray;
 template<class T> class Queue;
 class Ontology;
 template<class T>
@@ -18,14 +17,14 @@ class CombinedData;
 class Priority : public Prioritization
 {
 public:
-  Priority(Queue<ByteArray*>& theFifo, PrioritizedQueue<CombinedData*>& thePrioQueue, const Ontology& ontology);
+  Priority(Queue<CombinedData*>& theFifo, PrioritizedQueue<CombinedData*>& thePrioQueue, const Ontology& ontology);
   virtual ~Priority();
 
 private:
   void evaluate();
 
 private:
-  Queue<ByteArray*>& fifo;
+  Queue<CombinedData*>& fifo;
   PrioritizedQueue<CombinedData*>& prioQueue;
   const Ontology& ontology;
 };

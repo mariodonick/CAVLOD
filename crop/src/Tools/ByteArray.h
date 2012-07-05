@@ -26,16 +26,24 @@ public:
   template<unsigned int BAND_WIDTH>
   void insert(const Bin<BAND_WIDTH>& data);
   void insert(char* data, const size_t& length);
+
+  void insert(Picture& pic);
+  void insert(Text& text);
+  void insert(Sensor& sensor);
+  void append(Picture& pic);
+  void append(Text& text);
+  void append(Sensor& sensor);
+
+private:
   void insert(DataBlock<Text>& dataBlock);
   void insert(DataBlock<Sensor>& dataBlock);
   void insert(DataBlock<Picture>& dataBlock);
 
+public:
   template<unsigned int BAND_WIDTH>
   void append(const Bin<BAND_WIDTH>& data);
   void append(char* data, const size_t& length);
-  void append(DataBlock<Text>& dataBlock);
-  void append(DataBlock<Sensor>& dataBlock);
-  void append(DataBlock<Picture>& dataBlock);
+
 
   const char& operator[](const std::size_t& index) const;
   const Byte getByte(const std::size_t& index) const;
@@ -53,9 +61,9 @@ private:
   void append(T& data, const std::size_t& byteLength);
   void append(const char* data, const size_t& length);
 
-  void append(Picture& pic);
-  void append(Text& text);
-  void append(Sensor& sensor);
+  void append(DataBlock<Text>& dataBlock);
+  void append(DataBlock<Sensor>& dataBlock);
+  void append(DataBlock<Picture>& dataBlock);
 
   void setBitInChar( char& tmp, const bool& value, const unsigned int& pos);
 

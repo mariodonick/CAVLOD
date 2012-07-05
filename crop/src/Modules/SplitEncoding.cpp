@@ -6,8 +6,9 @@
 #include "Ontology.h"
 #include "../DataManagement/Content.h"
 #include "../DataManagement/DataBlockHeader.h"
-#include "../DataManagement/DataBlock.h"
+//#include "../DataManagement/DataBlock.h"
 #include "../DataManagement/DataTypes.h"
+#include "../DataManagement/CombinedData.h"
 #include "../Tools/ByteArray.h"
 #include "../Tools/Queue.h"
 
@@ -16,7 +17,7 @@
 
 typedef boost::tokenizer<boost::char_separator<char> > Tokenizer;
 
-SplitEncoding::SplitEncoding(const Ontology& theOntology, Queue<ByteArray*>& theQueue)
+SplitEncoding::SplitEncoding(const Ontology& theOntology, Queue<CombinedData*>& theQueue)
 : ontology(theOntology)
 , queue(theQueue)
 {
@@ -53,9 +54,6 @@ void SplitEncoding::partText( const Bin<24>& doid, const std::string& content )
       dbh.setDataObjectID(doid);
       dbh.setSequenceNumber(sequNr);
       dbh.setDataType(TYPE_TEXT);
-
-      DataBlock<Text> db;
-      db.setHeader(dbh);
 
       Text text;
       text.stamp();
@@ -98,14 +96,16 @@ void SplitEncoding::partText( const Bin<24>& doid, const std::string& content )
       ++sequNr;
       tokenPos += *length;
 
-      db.addContent(&text, text.size());
+      ByteArray* content = new ByteArray;
+      content->insert(text);
 
-       ByteArray* byteArr = new ByteArray;
-       byteArr->insert(db);
-       queue.push(byteArr);
+      CombinedData* cd = new CombinedData;
+      cd->header = dbh;
+      cd->content = content;
+
+      queue.push(cd);
     }
   }
-
 }
 
 void SplitEncoding::partSensor(const Bin<24>& doid, const float& value)

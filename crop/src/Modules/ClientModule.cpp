@@ -15,7 +15,7 @@
 
 
 ClientModule::ClientModule()
-: fifo(new Fifo<ByteArray*>)
+: fifo(new Fifo<CombinedData*>)
 , ontology(new OntologyFacade)
 , network(new UDPSocket)
 , partitioning( new SplitEncoding(*ontology, *fifo) )

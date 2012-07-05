@@ -11,7 +11,7 @@
 #include <cassert>
 #include <vector>
 
-Priority::Priority(Queue<ByteArray*>& theFifo, PrioritizedQueue<CombinedData*>& thePrioQueue, const Ontology& theOntology)
+Priority::Priority(Queue<CombinedData*>& theFifo, PrioritizedQueue<CombinedData*>& thePrioQueue, const Ontology& theOntology)
 : fifo(theFifo)
 , prioQueue(thePrioQueue)
 , ontology(theOntology)
@@ -31,8 +31,8 @@ void Priority::evaluate()
   unsigned int i = 0;
   while( !fifo.isEmpty() )
   {
-    CombinedData* data = new CombinedData; // todo WO löschen????
-    data->content = fifo.pop();
+    CombinedData* data = fifo.pop();
+    data->content = data->content;
     data->priority = (*priorities)[i];
     prioQueue.push( data );
     ++i;

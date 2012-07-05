@@ -29,27 +29,34 @@ ByteArray MessagePacketizer::packetizeMessage()
 //    message.append(db->dataPtr(), db->size());
 //  }
 
+  //put datablock
   CombinedData* data = prioQueue.pop();
-//  std::cout << "packetizer dump: \n";
-//  db->dumpHex(std::cout);
 
-  Bin<24> messageLength = MSG_FIXED_HEADER_LENGTH_BYTES + 2*MSG_ADDRESS_TYPE_IPV6_BYTES + data->content->size();
+  // compute db length
+  unsigned int dbLength = DB_HEADER_LENGTH_BYTES + data->content->size();
 
-  message.insert(static_cast<Bin<4> >(VERSION_1) );
-  message.append(MESSAGE_CONFIG); // todo message config genauer angeben
-  message.append(SRC_ADDRESS);
-  message.append(DST_ADDRESS);
-
+  // compute message length
+  Bin<24> messageLength = dbLength + MSG_FIXED_HEADER_LENGTH_BYTES + 2*MSG_ADDRESS_TYPE_IPV6_BYTES;
   messageLength += (messageLength >= 0xFFFF) ? 4 : 2;
 
-//  std::cout << "----------message packetizer complete message size: "  << messageLength.to_uint() << " \n";
-//  std::cout << "----------message packetizer db size: "  << db->size() << " \n";
+  // append message header
+  message.insert(static_cast<Bin<4> >(VERSION_1) );
+  message.append(MESSAGE_CONFIG); // todo message config genauer angeben/ iwo auslesen
+  message.append(SRC_ADDRESS);
+  message.append(DST_ADDRESS);
   message.append(messageLength);
-//  std::cout << "----------message size packetize: "  << message.size() << " \n";
+
+  // append datablock header
+  message.append( data->header.getDataType() );
+  message.append( data->header.getConfig() );
+  message.append( data->header.getDataObjectID() );
+  message.append( data->header.getSequenceNumber() );
+  message.append( Bin<16>( dbLength ) );
+
+  // append datablock content
   message.append(data->content->dataPtr(), data->content->size());
 
-  //message.append( (messageLength >= 0xFFFF) ? CRC_32 : CRC_16);
-
+  //append crc
   if(messageLength >= 0xFFFF)
   {
     message.append(CRC_32);
@@ -58,9 +65,6 @@ ByteArray MessagePacketizer::packetizeMessage()
   {
     message.append(CRC_16);
   }
-
-//  message.dumpBin(std::cout);
-
 
   return message;
 }

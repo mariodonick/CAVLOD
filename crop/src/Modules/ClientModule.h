@@ -9,7 +9,7 @@
 #include "UDPSocket.h"
 #include "../Tools/PrioritizedQueue.h"
 
-class ByteArray;
+class CombinedData;
 class Ontology;
 class Partitioning;
 class Prioritization;
@@ -26,7 +26,7 @@ public:
   void execute();
 
 private:
-  Queue<ByteArray*>* fifo;
+  Queue<CombinedData*>* fifo;
   PrioritizedQueue<CombinedData*> prioQueue;
 
   Ontology* ontology;

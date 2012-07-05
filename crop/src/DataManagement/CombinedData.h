@@ -7,18 +7,23 @@
 #define COMBINEDDATA_H_
 
 #include "DataBlockHeader.h"
+#include "../Tools/ByteArray.h"
 
-class ByteArray;
 
 class CombinedData
 {
 public:
   CombinedData()
   : priority(0.f)
+  , content(nullptr)
   {
 
   }
-  virtual ~CombinedData(){}
+  virtual ~CombinedData()
+  {
+    if(content != nullptr)
+      delete content;
+  }
 
 public:
   float priority;

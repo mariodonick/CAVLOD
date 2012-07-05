@@ -121,6 +121,21 @@ void ByteArray::append(DataBlock<Picture>& dataBlock)
   }
 }
 
+void ByteArray::insert(Text& text)
+{
+  append(text);
+}
+
+void ByteArray::insert(Sensor& sensor)
+{
+  //todo ByteArray::insert sensor implementieren
+}
+
+void ByteArray::insert(Picture& pic)
+{
+  //todo ByteArray::insert pic implementieren
+}
+
 void ByteArray::append(Text& text)
 {
   uint64_t timestamp = text.getTimestamp();

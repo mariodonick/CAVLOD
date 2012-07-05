@@ -13,7 +13,7 @@
 #include <mutex>
 #include <algorithm>
 
-#include "../DataClasses/InterModuleData.h"
+#include "../DataManagement/CombinedData.h"
 
 template<class T>
 class PrioritizedQueue : public Queue<T>
@@ -52,7 +52,7 @@ template<class T>
 T PrioritizedQueue<T>::pop()
 {
   std::lock_guard<std::mutex> lock(mutex);
-  PrioQueueData* tmp = queue.top();
+  CombinedData* tmp = queue.top();
 //  std::cout << "pop priority: " << std::dec << tmp->first << "\n";
   queue.pop();
 

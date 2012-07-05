@@ -6,7 +6,7 @@
 #ifndef VISUALIZER_H_
 #define VISUALIZER_H_
 
-#include "../DataClasses/Content.h"
+#include "../DataManagement/Content.h"
 
 #include <vector>
 

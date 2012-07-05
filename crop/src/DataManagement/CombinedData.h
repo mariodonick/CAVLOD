@@ -1,27 +1,33 @@
 /*
- * @brief InterModuleData.h
+ * @brief CombinedData.h
  *
  */
 
-#ifndef INTERMODULEDATA_H_
-#define INTERMODULEDATA_H_
+#ifndef COMBINEDDATA_H_
+#define COMBINEDDATA_H_
+
+#include "DataBlockHeader.h"
 
 class ByteArray;
 
-class PrioQueueData
+class CombinedData
 {
 public:
-  PrioQueueData()
+  CombinedData()
   : priority(0.f)
   {
 
   }
-  virtual ~PrioQueueData(){}
+  virtual ~CombinedData(){}
 
 public:
   float priority;
+  DataBlockHeader header;
+
   ByteArray* content;
 };
+
+
 
 class Comparison
 {
@@ -31,11 +37,11 @@ public:
   {
     reverse=revparam;
   }
-  bool operator() (const PrioQueueData* lhs, const PrioQueueData* rhs) const
+  bool operator() (const CombinedData* lhs, const CombinedData* rhs) const
   {
     if (reverse) return (lhs->priority > rhs->priority);
     else return (lhs->priority < rhs->priority);
   }
 };
 
-#endif /* INTERMODULEDATA_H_ */
+#endif /* COMBINEDDATA_H_ */

@@ -5,8 +5,8 @@
 #include "MessageParser.h"
 #include "../Config.h"
 #include "../Tools/ByteArray.h"
-#include "../DataClasses/DataBlockHeader.h"
-#include "../DataClasses/DataTypes.h"
+#include "../DataManagement/DataBlockHeader.h"
+#include "../DataManagement/DataTypes.h"
 
 #include <iostream>
 #include <cassert>
@@ -17,7 +17,6 @@ MessageParser::MessageParser()
 
 MessageParser::~MessageParser()
 {
-//  std::cout << "destructor messageParser\n";
 }
 
 void MessageParser::parse(const ByteArray& recv_data)

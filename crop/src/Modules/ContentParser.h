@@ -6,7 +6,7 @@
 #ifndef CONTENTPARSER_H_
 #define CONTENTPARSER_H_
 
-#include "../DataClasses/Content.h"
+#include "../DataManagement/Content.h"
 
 template<class T>
 class ContentParser

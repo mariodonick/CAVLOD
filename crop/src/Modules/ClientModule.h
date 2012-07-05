@@ -27,7 +27,7 @@ public:
 
 private:
   Queue<ByteArray*>* fifo;
-  PrioritizedQueue<PrioQueueData*> prioQueue;
+  PrioritizedQueue<CombinedData*> prioQueue;
 
   Ontology* ontology;
   NetworkIO* network;

@@ -3,8 +3,8 @@
  */
 
 #include "ByteArray.h"
-#include "../DataClasses/DataBlockHeader.h"
-#include "../DataClasses/DataBlock.h"
+#include "../DataManagement/DataBlockHeader.h"
+#include "../DataManagement/DataBlock.h"
 
 ByteArray::ByteArray()
 : bitCount(0)

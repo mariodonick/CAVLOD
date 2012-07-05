@@ -15,23 +15,23 @@
 #include "Packetizer.h"
 #include "../Tools/ByteArray.h"
 #include "../Tools/Bin.h"
-#include "../DataClasses/DataBlock.h"
+#include "../DataManagement/DataBlock.h"
 
 template<class T>
 class PrioritizedQueue;
-class PrioQueueData;
+class CombinedData;
 
 class MessagePacketizer : public Packetizer
 {
 public:
-  MessagePacketizer(PrioritizedQueue<PrioQueueData*>& prioQueue);
+  MessagePacketizer(PrioritizedQueue<CombinedData*>& prioQueue);
   virtual ~MessagePacketizer();
 
 private:
   ByteArray packetizeMessage();
 
 private:
-  PrioritizedQueue<PrioQueueData*>& prioQueue;
+  PrioritizedQueue<CombinedData*>& prioQueue;
   ByteArray message;
 };
 

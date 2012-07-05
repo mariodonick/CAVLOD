@@ -4,10 +4,10 @@
 
 #include "SplitEncoding.h"
 #include "Ontology.h"
-#include "../DataClasses/Content.h"
-#include "../DataClasses/DataBlockHeader.h"
-#include "../DataClasses/DataBlock.h"
-#include "../DataClasses/DataTypes.h"
+#include "../DataManagement/Content.h"
+#include "../DataManagement/DataBlockHeader.h"
+#include "../DataManagement/DataBlock.h"
+#include "../DataManagement/DataTypes.h"
 #include "../Tools/ByteArray.h"
 #include "../Tools/Queue.h"
 

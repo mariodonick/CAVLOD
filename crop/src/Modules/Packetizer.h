@@ -9,7 +9,7 @@
 #define PACKETIZER_H_
 
 #include "../Tools/ByteArray.h"
-#include "../DataClasses/DataBlock.h"
+#include "../DataManagement/DataBlock.h"
 
 #include <string>
 #include <sstream>

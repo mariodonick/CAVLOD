@@ -9,9 +9,9 @@
 #include "../Config.h"
 #include "../Types.h"
 #include "../Tools/PrioritizedQueue.h"
-#include "../DataClasses/InterModuleData.h"
+#include "../DataManagement/CombinedData.h"
 
-MessagePacketizer::MessagePacketizer(PrioritizedQueue<PrioQueueData*>& thePrioQueue)
+MessagePacketizer::MessagePacketizer(PrioritizedQueue<CombinedData*>& thePrioQueue)
 : prioQueue(thePrioQueue)
 {
 
@@ -29,7 +29,7 @@ ByteArray MessagePacketizer::packetizeMessage()
 //    message.append(db->dataPtr(), db->size());
 //  }
 
-  PrioQueueData* data = prioQueue.pop();
+  CombinedData* data = prioQueue.pop();
 //  std::cout << "packetizer dump: \n";
 //  db->dumpHex(std::cout);
 

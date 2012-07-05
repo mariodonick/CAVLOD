@@ -7,7 +7,7 @@
 #define UNIVERSALDECODER_H_
 
 #include "Decoder.h"
-#include "../DataClasses/DataBlock.h"
+#include "../DataManagement/DataBlock.h"
 
 #include <map>
 #include <vector>

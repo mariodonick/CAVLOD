@@ -8,8 +8,8 @@
 
 #include <iostream>
 
-#include "../DataClasses/DataBlock.h"
-#include "../DataClasses/DataBlockHeader.h"
+#include "../DataManagement/DataBlock.h"
+#include "../DataManagement/DataBlockHeader.h"
 #include "../Config.h"
 #include "../Types.h"
 

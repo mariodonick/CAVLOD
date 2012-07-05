@@ -7,7 +7,7 @@
 #define BYTEARRAY_H_
 
 #include "Bin.h"
-#include "../DataClasses/DataBlock.h"
+#include "../DataManagement/DataBlock.h"
 
 #include <vector>
 #include <iosfwd>

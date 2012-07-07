@@ -6,8 +6,6 @@
 #ifndef DECODER_H_
 #define DECODER_H_
 
-template<class T> class DataBlock;
-
 typedef unsigned int Doid;
 typedef unsigned int SequenceNum;
 

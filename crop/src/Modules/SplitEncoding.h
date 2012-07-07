@@ -10,12 +10,12 @@
 
 class Ontology;
 template<class T> class Queue;
-class CombinedData;
+class DataBlock;
 
 class SplitEncoding : public Partitioning
 {
 public:
-  SplitEncoding(const Ontology& ontology, Queue<CombinedData*>& queue);
+  SplitEncoding(const Ontology& ontology, Queue<DataBlock*>& queue);
   virtual ~SplitEncoding();
 
 private:
@@ -24,7 +24,7 @@ private:
 
 private:
   const Ontology& ontology;
-  Queue<CombinedData*>& queue;
+  Queue<DataBlock*>& queue;
 };
 
 #endif /* SPLITENCODING_H_ */

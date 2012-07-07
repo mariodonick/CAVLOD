@@ -9,7 +9,7 @@
 #include "UDPSocket.h"
 #include "../Tools/PrioritizedQueue.h"
 
-class CombinedData;
+class DataBlock;
 class Ontology;
 class Partitioning;
 class Prioritization;
@@ -26,8 +26,8 @@ public:
   void execute();
 
 private:
-  Queue<CombinedData*>* fifo;
-  PrioritizedQueue<CombinedData*> prioQueue;
+  Queue<DataBlock*>* fifo;
+  PrioritizedQueue<DataBlock*> prioQueue;
 
   Ontology* ontology;
   NetworkIO* network;

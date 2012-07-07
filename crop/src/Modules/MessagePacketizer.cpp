@@ -9,9 +9,9 @@
 #include "../Config.h"
 #include "../Types.h"
 #include "../Tools/PrioritizedQueue.h"
-#include "../DataManagement/CombinedData.h"
+#include "../DataManagement/DataBlock.h"
 
-MessagePacketizer::MessagePacketizer(PrioritizedQueue<CombinedData*>& thePrioQueue)
+MessagePacketizer::MessagePacketizer(PrioritizedQueue<DataBlock*>& thePrioQueue)
 : prioQueue(thePrioQueue)
 {
 
@@ -30,10 +30,10 @@ ByteArray MessagePacketizer::packetizeMessage()
 //  }
 
   //put datablock
-  CombinedData* data = prioQueue.pop();
+  DataBlock* data = prioQueue.pop();
 
   // compute db length
-  unsigned int dbLength = DB_HEADER_LENGTH_BYTES + data->content->size();
+  unsigned int dbLength = DB_HEADER_LENGTH_BYTES + data->getContent()->size();
 
   // compute message length
   Bin<24> messageLength = dbLength + MSG_FIXED_HEADER_LENGTH_BYTES + 2*MSG_ADDRESS_TYPE_IPV6_BYTES;
@@ -47,14 +47,14 @@ ByteArray MessagePacketizer::packetizeMessage()
   message.append(messageLength);
 
   // append datablock header
-  message.append( data->header.getDataType() );
-  message.append( data->header.getConfig() );
-  message.append( data->header.getDataObjectID() );
-  message.append( data->header.getSequenceNumber() );
+  message.append( data->getDataType() );
+  message.append( data->getConfig() );
+  message.append( data->getDataObjectID() );
+  message.append( data->getSequenceNumber() );
   message.append( Bin<16>( dbLength ) );
 
   // append datablock content
-  message.append(data->content->dataPtr(), data->content->size());
+  message.append(data->getContent()->dataPtr(), data->getContent()->size());
 
   //append crc
   if(messageLength >= 0xFFFF)

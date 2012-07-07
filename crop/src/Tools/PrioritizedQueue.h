@@ -13,7 +13,7 @@
 #include <mutex>
 #include <algorithm>
 
-#include "../DataManagement/CombinedData.h"
+#include "../DataManagement/DataBlock.h"
 
 template<class T>
 class PrioritizedQueue : public Queue<T>
@@ -28,7 +28,7 @@ public:
   const std::size_t size();
 
 private:
-  std::priority_queue<T, std::vector<T>, Comparison > queue;
+  std::priority_queue<T, std::vector<T>, CompareDB > queue;
 
   std::mutex mutex;
 };
@@ -37,7 +37,7 @@ private:
 
 template<class T>
 PrioritizedQueue<T>::PrioritizedQueue()
-: queue( Comparison() )
+: queue( CompareDB() )
 {
 
 }
@@ -52,7 +52,7 @@ template<class T>
 T PrioritizedQueue<T>::pop()
 {
   std::lock_guard<std::mutex> lock(mutex);
-  CombinedData* tmp = queue.top();
+  T tmp = queue.top();
 //  std::cout << "pop priority: " << std::dec << tmp->first << "\n";
   queue.pop();
 

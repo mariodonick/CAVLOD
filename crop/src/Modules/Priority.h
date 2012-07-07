@@ -12,20 +12,20 @@ template<class T> class Queue;
 class Ontology;
 template<class T>
 class PrioritizedQueue;
-class CombinedData;
+class DataBlock;
 
 class Priority : public Prioritization
 {
 public:
-  Priority(Queue<CombinedData*>& theFifo, PrioritizedQueue<CombinedData*>& thePrioQueue, const Ontology& ontology);
+  Priority(Queue<DataBlock*>& theFifo, PrioritizedQueue<DataBlock*>& thePrioQueue, const Ontology& ontology);
   virtual ~Priority();
 
 private:
   void evaluate();
 
 private:
-  Queue<CombinedData*>& fifo;
-  PrioritizedQueue<CombinedData*>& prioQueue;
+  Queue<DataBlock*>& fifo;
+  PrioritizedQueue<DataBlock*>& prioQueue;
   const Ontology& ontology;
 };
 

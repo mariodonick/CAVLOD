@@ -8,7 +8,7 @@
 #include "../DataManagement/DataBlockHeader.h"
 //#include "../DataManagement/DataBlock.h"
 #include "../DataManagement/DataTypes.h"
-#include "../DataManagement/CombinedData.h"
+#include "../DataManagement/DataBlock.h"
 #include "../Tools/ByteArray.h"
 #include "../Tools/Queue.h"
 
@@ -17,7 +17,7 @@
 
 typedef boost::tokenizer<boost::char_separator<char> > Tokenizer;
 
-SplitEncoding::SplitEncoding(const Ontology& theOntology, Queue<CombinedData*>& theQueue)
+SplitEncoding::SplitEncoding(const Ontology& theOntology, Queue<DataBlock*>& theQueue)
 : ontology(theOntology)
 , queue(theQueue)
 {
@@ -99,11 +99,11 @@ void SplitEncoding::partText( const Bin<24>& doid, const std::string& content )
       ByteArray* content = new ByteArray;
       content->insert(text);
 
-      CombinedData* cd = new CombinedData;
-      cd->header = dbh;
-      cd->content = content;
+      DataBlock* db = new DataBlock;
+      db->setHeader( dbh );
+      db->addContent( content );
 
-      queue.push(cd);
+      queue.push(db);
     }
   }
 }
@@ -118,14 +118,15 @@ void SplitEncoding::partSensor(const Bin<24>& doid, const float& value)
   dbh.setSequenceNumber(++sNr);
   dbh.setDataType(TYPE_SENSOR);
 
-  DataBlock<Sensor> db;
-  db.setHeader(dbh);
+  DataBlock* db = new DataBlock;
+  db->setHeader(dbh);
 
   Sensor sensor;
   sensor.value = value;
-  db.addContent( &sensor, sensor.size() );
 
-//        ByteArray* byteArr = new ByteArray; todo
-      //todo insert des DB in byte array
-      //todo noch in fifo schieben
+  ByteArray* content = new ByteArray;
+  content->insert(sensor);
+  db->addContent( content );
+
+  queue.push(db);
 }

@@ -4,7 +4,6 @@
 
 #include "ByteArray.h"
 #include "../DataManagement/DataBlockHeader.h"
-#include "../DataManagement/DataBlock.h"
 
 ByteArray::ByteArray()
 : bitCount(0)
@@ -72,55 +71,6 @@ void ByteArray::append(const char* data, const size_t& length)
   }
 }
 
-void ByteArray::insert(DataBlock<Text>& dataBlock)
-{
-  clear();
-  append(dataBlock);
-}
-
-void ByteArray::insert(DataBlock<Sensor>& dataBlock)
-{
-  clear();
-  append(dataBlock);
-}
-
-void ByteArray::insert(DataBlock<Picture>& dataBlock)
-{
-  clear();
-  append(dataBlock);
-}
-
-//todo die whileschleife sinnvoll in eine funktion oder so
-void ByteArray::append(DataBlock<Text>& dataBlock)
-{
-  appendHeader( dataBlock.getHeader() );
-
-  while(!dataBlock.isContentEmpty())
-  {
-    append( *dataBlock.getContent() );
-  }
-}
-
-void ByteArray::append(DataBlock<Sensor>& dataBlock)
-{
-  appendHeader( dataBlock.getHeader() );
-
-  while(!dataBlock.isContentEmpty())
-  {
-    append( *dataBlock.getContent() );
-  }
-}
-
-void ByteArray::append(DataBlock<Picture>& dataBlock)
-{
-  appendHeader( dataBlock.getHeader() );
-
-  while(!dataBlock.isContentEmpty())
-  {
-    append( *dataBlock.getContent() );
-  }
-}
-
 void ByteArray::insert(Text& text)
 {
   append(text);
@@ -154,14 +104,14 @@ void ByteArray::append(Picture& pic)
   //todo ByteArray::append pic implementieren
 }
 
-void ByteArray::appendHeader(const DataBlockHeader& header)
-{
-  append( header.getDataType() );
-  append( header.getConfig() );
-  append( header.getDataObjectID() );
-  append( header.getSequenceNumber() );
-  append( header.getLength() );
-}
+//void ByteArray::appendHeader(const DataBlockHeader& header)
+//{
+//  append( header.getDataType() );
+//  append( header.getConfig() );
+//  append( header.getDataObjectID() );
+//  append( header.getSequenceNumber() );
+//  append( header.getLength() );
+//}
 
 void ByteArray::setBitInChar( char& tmp, const bool& value, const unsigned int& pos)
 {

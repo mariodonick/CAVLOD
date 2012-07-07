@@ -19,19 +19,19 @@
 
 template<class T>
 class PrioritizedQueue;
-class CombinedData;
+class DataBlock;
 
 class MessagePacketizer : public Packetizer
 {
 public:
-  MessagePacketizer(PrioritizedQueue<CombinedData*>& prioQueue);
+  MessagePacketizer(PrioritizedQueue<DataBlock*>& prioQueue);
   virtual ~MessagePacketizer();
 
 private:
   ByteArray packetizeMessage();
 
 private:
-  PrioritizedQueue<CombinedData*>& prioQueue;
+  PrioritizedQueue<DataBlock*>& prioQueue;
   ByteArray message;
 };
 

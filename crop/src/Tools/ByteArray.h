@@ -7,7 +7,7 @@
 #define BYTEARRAY_H_
 
 #include "Bin.h"
-#include "../DataManagement/DataBlock.h"
+#include "../DataManagement/Content.h"
 
 #include <vector>
 #include <iosfwd>
@@ -15,7 +15,6 @@
 #include <iomanip>
 
 class DataBlockHeader;
-template<class DATA> class DataBlock;
 
 class ByteArray
 {
@@ -34,16 +33,9 @@ public:
   void append(Text& text);
   void append(Sensor& sensor);
 
-private:
-  void insert(DataBlock<Text>& dataBlock);
-  void insert(DataBlock<Sensor>& dataBlock);
-  void insert(DataBlock<Picture>& dataBlock);
-
-public:
   template<unsigned int BAND_WIDTH>
   void append(const Bin<BAND_WIDTH>& data);
   void append(char* data, const size_t& length);
-
 
   const char& operator[](const std::size_t& index) const;
   const Byte getByte(const std::size_t& index) const;
@@ -56,14 +48,10 @@ public:
   void dumpBin(std::ostream& out) const;
 
 private:
-  void appendHeader(const DataBlockHeader& header);
+//  void appendHeader(const DataBlockHeader& header);
   template<typename T>
   void append(T& data, const std::size_t& byteLength);
   void append(const char* data, const size_t& length);
-
-  void append(DataBlock<Text>& dataBlock);
-  void append(DataBlock<Sensor>& dataBlock);
-  void append(DataBlock<Picture>& dataBlock);
 
   void setBitInChar( char& tmp, const bool& value, const unsigned int& pos);
 

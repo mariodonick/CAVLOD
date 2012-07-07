@@ -52,6 +52,7 @@ private:
 class CompareDB
 {
   bool reverse;
+
 public:
   CompareDB(const bool& revparam = false)
   {

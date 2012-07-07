@@ -26,7 +26,7 @@ public:
   void execute();
 
 private:
-  Queue<DataBlock*>* fifo;
+  Queue<DataBlock*>* dbFifo;
   PrioritizedQueue<DataBlock*> prioQueue;
 
   Ontology* ontology;

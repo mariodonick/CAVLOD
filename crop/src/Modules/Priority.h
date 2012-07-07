@@ -24,7 +24,7 @@ private:
   void evaluate();
 
 private:
-  Queue<DataBlock*>& fifo;
+  Queue<DataBlock*>& dbFifo;
   PrioritizedQueue<DataBlock*>& prioQueue;
   const Ontology& ontology;
 };

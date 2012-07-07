@@ -24,7 +24,7 @@ private:
 
 private:
   const Ontology& ontology;
-  Queue<DataBlock*>& queue;
+  Queue<DataBlock*>& dbFifo;
 };
 
 #endif /* SPLITENCODING_H_ */

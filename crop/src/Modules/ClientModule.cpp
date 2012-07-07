@@ -15,11 +15,11 @@
 
 
 ClientModule::ClientModule()
-: fifo(new Fifo<DataBlock*>)
+: dbFifo(new Fifo<DataBlock*>)
 , ontology(new OntologyFacade)
 , network(new UDPSocket)
-, partitioning( new SplitEncoding(*ontology, *fifo) )
-, prioritization(new Priority(*fifo, prioQueue, *ontology))
+, partitioning( new SplitEncoding(*ontology, *dbFifo) )
+, prioritization(new Priority(*dbFifo, prioQueue, *ontology))
 , packetizer(new MessagePacketizer(prioQueue))
 {
 
@@ -32,7 +32,7 @@ ClientModule::~ClientModule()
   delete partitioning;
   delete network;
   delete ontology;
-  delete fifo;
+  delete dbFifo;
 }
 
 void ClientModule::execute()

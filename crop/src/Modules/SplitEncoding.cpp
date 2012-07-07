@@ -17,9 +17,9 @@
 
 typedef boost::tokenizer<boost::char_separator<char> > Tokenizer;
 
-SplitEncoding::SplitEncoding(const Ontology& theOntology, Queue<DataBlock*>& theQueue)
+SplitEncoding::SplitEncoding(const Ontology& theOntology, Queue<DataBlock*>& theDBFifo)
 : ontology(theOntology)
-, queue(theQueue)
+, dbFifo(theDBFifo)
 {
 }
 
@@ -103,7 +103,7 @@ void SplitEncoding::partText( const Bin<24>& doid, const std::string& content )
       db->setHeader( dbh );
       db->addContent( content );
 
-      queue.push(db);
+      dbFifo.push(db);
     }
   }
 }
@@ -128,5 +128,5 @@ void SplitEncoding::partSensor(const Bin<24>& doid, const float& value)
   content->insert(sensor);
   db->addContent( content );
 
-  queue.push(db);
+  dbFifo.push(db);
 }

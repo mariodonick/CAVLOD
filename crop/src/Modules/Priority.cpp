@@ -11,8 +11,8 @@
 #include <cassert>
 #include <vector>
 
-Priority::Priority(Queue<DataBlock*>& theFifo, PrioritizedQueue<DataBlock*>& thePrioQueue, const Ontology& theOntology)
-: fifo(theFifo)
+Priority::Priority(Queue<DataBlock*>& theDBFifo, PrioritizedQueue<DataBlock*>& thePrioQueue, const Ontology& theOntology)
+: dbFifo(theDBFifo)
 , prioQueue(thePrioQueue)
 , ontology(theOntology)
 {
@@ -26,12 +26,12 @@ void Priority::evaluate()
 {
   const std::vector<float>* priorities = &ontology.getPriortyVec();
 
-  assert( priorities->size() >= fifo.size() );
+  assert( priorities->size() >= dbFifo.size() );
 
   unsigned int i = 0;
-  while( !fifo.isEmpty() )
+  while( !dbFifo.isEmpty() )
   {
-    DataBlock* data = fifo.pop();
+    DataBlock* data = dbFifo.pop();
     data->setPriority( (*priorities)[i] );
     prioQueue.push( data );
     ++i;

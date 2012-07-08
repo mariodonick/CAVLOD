@@ -21,13 +21,21 @@ MessagePacketizer::~MessagePacketizer()
 {
 }
 
-ByteArray MessagePacketizer::packetizeMessage()
+const ByteArray& MessagePacketizer::packetizeMessage()
 {
 //  for(int i=0; i< prioQueue.size(); ++i)
 //  {
 //    ByteArray* db = prioQueue.pop();
 //    message.append(db->dataPtr(), db->size());
 //  }
+
+
+  // if queue is empty we return an empty datablock
+  if( prioQueue.isEmpty() )
+  {
+    message.clear();
+    return message;
+  }
 
   //put datablock
   DataBlock* data = prioQueue.pop();

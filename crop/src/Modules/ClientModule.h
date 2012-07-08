@@ -9,6 +9,8 @@
 #include "UDPSocket.h"
 #include "../Tools/PrioritizedQueue.h"
 
+#include <thread>
+
 class DataBlock;
 class Ontology;
 class Partitioning;
@@ -26,6 +28,9 @@ public:
   void execute();
 
 private:
+  void packetizerThread();
+
+private:
   Queue<DataBlock*>* dbFifo;
   PrioritizedQueue<DataBlock*> prioQueue;
 
@@ -34,6 +39,9 @@ private:
   Partitioning* partitioning;
   Prioritization* prioritization;
   Packetizer* packetizer;
+
+  bool running;
+  std::thread sendingThread;
 };
 
 #endif /* CLIENTMODULE_H_ */

@@ -13,7 +13,6 @@
 #include "../Tools/PrioritizedQueue.h"
 #include "../Tools/ByteArray.h"
 
-
 ClientModule::ClientModule()
 : dbFifo(new Fifo<DataBlock*>)
 , ontology(new OntologyFacade)
@@ -21,12 +20,21 @@ ClientModule::ClientModule()
 , partitioning( new SplitEncoding(*ontology, *dbFifo) )
 , prioritization(new Priority(*dbFifo, prioQueue, *ontology))
 , packetizer(new MessagePacketizer(prioQueue))
+, running(false)
 {
-
+  running = true;
+  sendingThread = std::thread( &ClientModule::packetizerThread, this );
+  std::clog << "client is up and running!\n";
 }
 
 ClientModule::~ClientModule()
 {
+  running = false;
+
+  usleep(200);
+
+  sendingThread.join();
+
   delete packetizer;
   delete prioritization;
   delete partitioning;
@@ -37,9 +45,17 @@ ClientModule::~ClientModule()
 
 void ClientModule::execute()
 {
-  std::string text = "Es folgt ein Beispieltext:\n";
-  text.append("Hallo ich bin ein Beispieltext und komme vom Mars.\n");
-  text.append("Dabei wurde ich zuerst zerstückelt, dann priorisiert, einzeln versendet und auf der Erde wieder zusammengesetzt.");
+  unsigned int doid = 0; // todo typedef nutzen!
+
+  unsigned int loops = 1;
+  std::cout << "How many data you want to send? Number of data:\n";
+  std::cin >> loops;
+
+  while(doid < loops)
+  {
+    std::string text = "Es folgt ein Beispieltext:\n";
+    text.append("Hallo ich bin ein Beispieltext und komme vom Mars.\n");
+    text.append("Dabei wurde ich zuerst zerstückelt, dann priorisiert, einzeln versendet und auf der Erde wieder zusammengesetzt.");
 
 //  std::cout << "Bitte einen Text eingeben:\n";
 //  std::string text;
@@ -50,14 +66,24 @@ void ClientModule::execute()
 //  std::getline(std::cin, text);
 //  std::cout << "Eingabe text: " << text << "\n";
 
-  partitioning->partText(1, text);
-  prioritization->evaluate();
+    ++doid;
+    partitioning->partText(doid, text);
+    prioritization->evaluate();
+  }
 
-  while( !prioQueue.isEmpty() )
+  std::clog << "content reading and processing is done\n";
+}
+
+void ClientModule::packetizerThread()
+{
+  while( running )
   {
-    sleep(SLEEP_SECONDS);
+    sleep(SLEEP_SECONDS); // todo auf events warten? variable schlafenszeiten? irgend etwas ausdenken
 
-    ByteArray arr = packetizer->packetizeMessage();
-    network->sendData(arr, IP_ADDRESS, PORT);
+    const ByteArray& data = packetizer->packetizeMessage();
+    if(data.size() != 0)
+      network->sendData(data, IP_ADDRESS, PORT);
+
+    std::cout << "Sending... Data available in Prioritized Queue: " << prioQueue.size() << "\n";
   }
 }

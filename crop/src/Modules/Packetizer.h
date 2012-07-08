@@ -21,7 +21,7 @@ class Packetizer
 public:
   virtual ~Packetizer(){}
 
-  virtual ByteArray packetizeMessage() = 0;
+  virtual const ByteArray& packetizeMessage() = 0;
 };
 
 #endif /* PACKETIZER_H_ */

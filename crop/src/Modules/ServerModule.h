@@ -20,6 +20,8 @@ public:
 private:
   NetworkIO* network;
   Parser* parser;
+
+  bool running;
 };
 
 #endif /* SERVERMODULE_H_ */

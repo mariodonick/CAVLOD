@@ -95,6 +95,6 @@ void UDPSocket::startServer(const unsigned int& s_port)
 	  cout << ("binding") << endl;
 
 	fromlen_s = sizeof(struct sockaddr_in);
-	write(1,"Server initiated...\nWaiting for message...\n",43);
+	write(1,"Server initiated...\nWaiting for message...\n",43); // todo die ausgabe ist noch an der falschen stelle :D
 }
 

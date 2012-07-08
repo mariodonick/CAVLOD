@@ -9,18 +9,22 @@
 ServerModule::ServerModule()
 : network(new UDPSocket)
 , parser(new MessageParser)
+, running(false)
 {
+  running = true;
+  std::clog << "server is up and running!\n";
 }
 
 ServerModule::~ServerModule()
 {
+  running = false;
   delete parser;
   delete network;
 }
 
 void ServerModule::execute()
 {
-  while(true)
+  while(running)
   {
     const ByteArray* arr = network->receiveData();
     parser->parse(*arr);

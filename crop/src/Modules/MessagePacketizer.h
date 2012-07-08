@@ -28,7 +28,7 @@ public:
   virtual ~MessagePacketizer();
 
 private:
-  ByteArray packetizeMessage();
+  const ByteArray& packetizeMessage();
 
 private:
   PrioritizedQueue<DataBlock*>& prioQueue;

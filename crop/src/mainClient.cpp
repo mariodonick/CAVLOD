@@ -4,31 +4,30 @@
 
 #include "Modules/ClientModule.h"
 
-#include "Modules/UniversalDecoder.h"
+#include <sys/signal.h>
+#include <iostream>
 
-#include <sstream>
+ClientModule* client;
+
+/**
+ * Signal Handler for strg+c Interrupt Signal. Will safely call the shutdown function.
+ */
+void signal_handler_SIGINT (int status)
+{
+  std::cout << "*************       Received SIGINT signal. ********************\n";
+  std::cout << "CoolRunners: Stopping Client Modul\n";
+  delete client; client = nullptr;
+  std::cout << "Log: Stopped  client Module\n";
+  exit(0);
+}
+
 int main()
 {
-  ClientModule mars;
-  mars.execute();
+  signal(SIGINT, signal_handler_SIGINT);
 
+  client = new ClientModule;
+  client->execute();
 
-//  UniversalDecoder<Text> decoder;
-//  for(unsigned int i = 0; i < 2; ++i )
-//    for(unsigned int i = 20; i > 0; --i )
-//    {
-//      Text* text = new Text;
-//      text->line = i;
-//      text->text = "wir fahren nach: ";
-//      std::stringstream ss;
-//      ss << i;
-//      text->text.append(ss.str());
-//      text->text.append(" heute");
-//
-//      decoder.decode(((i%2==0)?0:1), i, text);
-//    }
-
-
-
+  while (true) sleep(300);
   return 0;
 }

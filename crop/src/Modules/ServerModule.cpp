@@ -12,12 +12,13 @@ ServerModule::ServerModule()
 , running(false)
 {
   running = true;
-  std::clog << "server is up and running!\n";
+  std::clog << "Server initiated...\nWaiting for message...\n";
 }
 
 ServerModule::~ServerModule()
 {
   running = false;
+
   delete parser;
   delete network;
 }

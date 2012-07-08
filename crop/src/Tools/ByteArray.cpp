@@ -3,7 +3,6 @@
  */
 
 #include "ByteArray.h"
-#include "../DataManagement/DataBlockHeader.h"
 
 ByteArray::ByteArray()
 : bitCount(0)
@@ -104,22 +103,11 @@ void ByteArray::append(Picture& pic)
   //todo ByteArray::append pic implementieren
 }
 
-//void ByteArray::appendHeader(const DataBlockHeader& header)
-//{
-//  append( header.getDataType() );
-//  append( header.getConfig() );
-//  append( header.getDataObjectID() );
-//  append( header.getSequenceNumber() );
-//  append( header.getLength() );
-//}
-
 void ByteArray::setBitInChar( char& tmp, const bool& value, const unsigned int& pos)
 {
   if(pos > 7){ std::cerr << "ERROR: pos reach out of 8bit char range!\n"; return;}
 
-//  std::cout << "value: " << value << " pos: " << pos << "\n";
   tmp |= (value << pos);
-//  std::cout << "tmp: 0x" << std::hex << int(tmp) << std::dec << "\n";
 }
 
 void ByteArray::dumpHex(std::ostream& out) const
@@ -136,9 +124,6 @@ void ByteArray::dumpBin(std::ostream& out) const
   out << "\n";
   for(std::vector<char>::const_iterator it = vector.begin(); it != vector.end(); ++it)
     out << Byte(*it).to_string() << "\n";
-
-//  std::cout << "dataSize: " << vector.size() << std::endl;
-//  std::cout << "DUMP" << std::endl;
 
   out << "\n";
 }

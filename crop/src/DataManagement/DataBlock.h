@@ -6,23 +6,37 @@
 #ifndef DATABLOCK_H_
 #define DATABLOCK_H_
 
-#include "DataBlockHeader.h"
+#include "../Tools/Bin.h"
 
 #include <iosfwd>
 
 class ByteArray;
-template<unsigned int BAND_WIDTH>
-class Bin;
 
 class DataBlock
 {
+public:
+  class Header
+  {
+  public:
+    Header();
+    virtual ~Header();
+    void dump(std::ostream& out);
+
+  public:
+    Bin<10> dataType;
+    Bin<6> config;
+    Bin<24> dataObjectID;
+    HalfWord sequenceNumber;
+    HalfWord length;
+  };
+
 public:
   DataBlock();
   virtual ~DataBlock();
 
   ByteArray* getContent();
 
-  void setHeader(const DataBlockHeader& dbh);
+  void setHeader(const DataBlock::Header& dbh);
 
   const Bin<24>& getDataObjectID() const;
   const Bin<10>& getDataType() const;
@@ -36,6 +50,7 @@ public:
   void setSequenceNumber(const HalfWord& sn);
   void setConfig(const Bin<6>& conf);
   void setPriority(const float& prio);
+  void setLength(const HalfWord& length);
 
   void addContent(ByteArray* content);
 
@@ -43,7 +58,7 @@ public:
 
 private:
   float priority;
-  DataBlockHeader header;
+  Header header;
 
   ByteArray* content;
 };

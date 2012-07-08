@@ -5,8 +5,6 @@
 #include "SplitEncoding.h"
 #include "Ontology.h"
 #include "../DataManagement/Content.h"
-#include "../DataManagement/DataBlockHeader.h"
-//#include "../DataManagement/DataBlock.h"
 #include "../DataManagement/DataTypes.h"
 #include "../DataManagement/DataBlock.h"
 #include "../Tools/ByteArray.h"
@@ -49,11 +47,11 @@ void SplitEncoding::partText( const Bin<24>& doid, const std::string& content )
     bool tokenEmpty = false;
     for(std::vector<unsigned short int>::const_iterator length = numWords.begin(); length != numWords.end() && !tokenEmpty; ++length)
     {
-      DataBlockHeader dbh;
-      dbh.setConfig(0);
-      dbh.setDataObjectID(doid);
-      dbh.setSequenceNumber(sequNr);
-      dbh.setDataType(TYPE_TEXT);
+      DataBlock::Header dbh;
+      dbh.config = 0;
+      dbh.dataObjectID = doid;
+      dbh.sequenceNumber = sequNr;
+      dbh.dataType = TYPE_TEXT;
 
       Text text;
       text.stamp();
@@ -112,11 +110,11 @@ void SplitEncoding::partSensor(const Bin<24>& doid, const float& value)
 {
   static unsigned int sNr = 0;
 
-  DataBlockHeader dbh;
-  dbh.setConfig(0);
-  dbh.setDataObjectID(doid);
-  dbh.setSequenceNumber(++sNr);
-  dbh.setDataType(TYPE_SENSOR);
+  DataBlock::Header dbh;
+  dbh.config = 0;
+  dbh.dataObjectID = doid;
+  dbh.sequenceNumber = ++sNr;
+  dbh.dataType = TYPE_SENSOR;
 
   DataBlock* db = new DataBlock;
   db->setHeader(dbh);

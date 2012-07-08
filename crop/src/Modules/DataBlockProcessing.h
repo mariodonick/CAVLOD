@@ -9,7 +9,6 @@
 #include <iostream>
 
 #include "../DataManagement/DataBlock.h"
-#include "../DataManagement/DataBlockHeader.h"
 #include "../Config.h"
 #include "../Types.h"
 
@@ -25,7 +24,7 @@ public:
   DataBlockProcessing();
   virtual ~DataBlockProcessing();
 
-  void start(const DataBlockHeader& dbh, const char* data);
+  void start(const DataBlock::Header& dbh, const char* data);
 
 private:
   unsigned int curContentPos;
@@ -47,14 +46,14 @@ DataBlockProcessing<T, Parser, Decoder, Visualizer>::~DataBlockProcessing()
 }
 
 template<class T, class Parser, class Decoder, class Visualizer>
-void DataBlockProcessing<T, Parser, Decoder, Visualizer>::start(const DataBlockHeader& dbh, const char* data)
+void DataBlockProcessing<T, Parser, Decoder, Visualizer>::start(const DataBlock::Header& dbh, const char* data)
 {
   std::cout << "\n---------------DBProcessing---------------------------\n";
 
   curContentPos = 0;
-  unsigned int totalLength = dbh.getLength().to_uint() - DB_HEADER_LENGTH_BYTES;
+  unsigned int totalLength = dbh.length.to_uint() - DB_HEADER_LENGTH_BYTES;
 //  std::cout << "totalLength: " << totalLength << "\n";
-  std::cout << "dblength: " << dbh.getLength().to_uint() << "\n";
+  std::cout << "dblength: " << dbh.length.to_uint() << "\n";
   while(curContentPos < totalLength)
   {
     //only to use reinterpret cast inside the parser
@@ -67,7 +66,7 @@ void DataBlockProcessing<T, Parser, Decoder, Visualizer>::start(const DataBlockH
     curContentPos += len;
 //    std::cout << "curContentPos: " << curContentPos << " Bytes\n";
 
-    decode(dbh.getDataObjectID().to_uint(), dbh.getSequenceNumber().to_uint(), obj);
+    decode(dbh.dataObjectID.to_uint(), dbh.sequenceNumber.to_uint(), obj);
 
     std::cout << "display Text: \n";
     std::cout << "-------------------------------------------------------\n";

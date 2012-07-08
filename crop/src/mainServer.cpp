@@ -16,9 +16,9 @@ ServerModule* server;
 void signal_handler_SIGINT (int status)
 {
   std::cout << "*************       Received SIGINT signal. ********************\n";
-  std::cout << "CoolRunners: Stopping Server Modul\n";
+  std::cout << "Info: Stopping Server Modul\n";
   delete server; server = nullptr;
-  std::cout << "Log: Stopped  Server Module\n";
+  std::cout << "Info: Stopped  Server Module\n";
   exit(0);
 }
 

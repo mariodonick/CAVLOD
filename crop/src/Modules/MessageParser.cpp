@@ -5,7 +5,6 @@
 #include "MessageParser.h"
 #include "../Config.h"
 #include "../Tools/ByteArray.h"
-#include "../DataManagement/DataBlockHeader.h"
 #include "../DataManagement/DataTypes.h"
 
 #include <iostream>
@@ -71,7 +70,7 @@ void MessageParser::parseDB(const ByteArray& data)
   Bin<6> dbConfig = data.getByte(curMsgPos + 1).separate<2, 8>();
   unsigned int offset = DB_DATA_TYPE_CONFIG_BYTES;
 
-  Bin<DB_DATA_OBJECT_ID_BYTES * BIT_PER_BYTE> dbOBID = uchar2Bin<DB_DATA_OBJECT_ID_BYTES * BIT_PER_BYTE>( &data.dataPtr()[curMsgPos + offset] );
+  Bin<DB_DATA_OBJECT_ID_BYTES * BIT_PER_BYTE> dbDoid = uchar2Bin<DB_DATA_OBJECT_ID_BYTES * BIT_PER_BYTE>( &data.dataPtr()[curMsgPos + offset] );
   offset += DB_DATA_OBJECT_ID_BYTES;
 
   Bin<DB_SEQUENCE_NUMBER_BYTES * BIT_PER_BYTE> dbSequNum = uchar2Bin<DB_SEQUENCE_NUMBER_BYTES * BIT_PER_BYTE>( &data.dataPtr()[curMsgPos + offset] );
@@ -83,7 +82,7 @@ void MessageParser::parseDB(const ByteArray& data)
 //  std::cout << "curMsgPos: " << curMsgPos << " Bytes\n";
   std::cout << "dbDataType: 0x" << std::hex << dbDataType.to_uint() << std::dec << "\n";
   std::cout << "dbConfig: 0x" << std::hex << dbConfig.to_uint() << std::dec << "\n";
-  std::cout << "dbOBID: 0x" << std::hex << dbOBID.to_uint() << std::dec << "\n";
+  std::cout << "dbDoid: 0x" << std::hex << dbDoid.to_uint() << std::dec << "\n";
   std::cout << "sequNum: 0x" << std::hex << dbSequNum.to_uint() << std::dec << "\n";
   std::cout << "dbLengthBytes: 0x" << std::hex << dbLengthBytes.to_uint() << " = " << std::dec << dbLengthBytes.to_uint() << " Bytes\n";
 
@@ -91,12 +90,12 @@ void MessageParser::parseDB(const ByteArray& data)
   assert(dbLengthBytes >= DB_HEADER_LENGTH_BYTES);
 
   // fill the received data block header with the parsed data
-  DataBlockHeader dbh;
-  dbh.setConfig(dbConfig);
-  dbh.setDataObjectID(dbOBID);
-  dbh.setDataType(dbDataType);
-  dbh.setSequenceNumber(dbSequNum);
-  dbh.setLength(dbLengthBytes);
+  DataBlock::Header dbh;
+  dbh.config = dbConfig;
+  dbh.dataObjectID = dbDoid;
+  dbh.dataType = dbDataType;
+  dbh.sequenceNumber = dbSequNum;
+  dbh.length = dbLengthBytes;
 
   unsigned int contentPos = curMsgPos + offset;
 //  std::cout << "contentPos: " << contentPos << " Bytes\n";

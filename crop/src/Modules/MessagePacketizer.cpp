@@ -41,7 +41,7 @@ const ByteArray& MessagePacketizer::packetizeMessage()
   DataBlock* data = prioQueue.pop();
 
   // compute db length
-  unsigned int dbLength = DB_HEADER_LENGTH_BYTES + data->getContent()->size();
+  unsigned int dbLength = data->getLength().to_uint();
 
   // compute message length
   Bin<24> messageLength = dbLength + MSG_FIXED_HEADER_LENGTH_BYTES + 2*MSG_ADDRESS_TYPE_IPV6_BYTES;

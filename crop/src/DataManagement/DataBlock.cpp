@@ -6,6 +6,7 @@
 
 #include "../Tools/Bin.h"
 #include "../Tools/ByteArray.h"
+#include "DataTypes.h"
 
 DataBlock::DataBlock()
 : priority(0.f)
@@ -19,34 +20,34 @@ DataBlock::~DataBlock()
     delete content;
 }
 
-void DataBlock::setHeader(const DataBlockHeader& dbh)
+void DataBlock::setHeader(const DataBlock::Header& dbh)
 {
   header = dbh;
 }
 
 const Bin<24>& DataBlock::getDataObjectID() const
 {
-  return header.getDataObjectID();
+  return header.dataObjectID;
 }
 
 const Bin<10>& DataBlock::getDataType() const
 {
-  return header.getDataType();
+  return header.dataType;
 }
 
 const HalfWord& DataBlock::getSequenceNumber() const
 {
-  return header.getSequenceNumber();
+  return header.sequenceNumber;
 }
 
 const Bin<6>& DataBlock::getConfig() const
 {
-  return header.getConfig();
+  return header.config;
 }
 
 const HalfWord& DataBlock::getLength() const
 {
-  return header.getLength();
+  return header.length;
 }
 
 const float& DataBlock::getPriority() const
@@ -56,27 +57,32 @@ const float& DataBlock::getPriority() const
 
 void DataBlock::setDataObjectID(const Bin<24>& doid)
 {
-  header.setDataObjectID(doid);
+  header.dataObjectID = doid;
 }
 
 void DataBlock::setDataType(const Bin<10>& dt)
 {
-  header.setDataType(dt);
+  header.dataType = dt;
 }
 
 void DataBlock::setSequenceNumber(const HalfWord& sn)
 {
-  header.setSequenceNumber(sn);
+  header.sequenceNumber = sn;
 }
 
 void DataBlock::setConfig(const Bin<6>& conf)
 {
-  header.setConfig(conf);
+  header.config = conf;
 }
 
 void DataBlock::setPriority(const float& prio)
 {
   priority = prio;
+}
+
+void DataBlock::setLength(const HalfWord& length)
+{
+  header.length = length;
 }
 
 void DataBlock::addContent(ByteArray* data)
@@ -85,6 +91,8 @@ void DataBlock::addContent(ByteArray* data)
     content = data;
   else
     content->append( data->dataPtr(), data->size() );
+
+  header.length += data->size();
 }
 
 ByteArray* DataBlock::getContent()
@@ -97,4 +105,29 @@ void DataBlock::dump(std::ostream& out)
   header.dump(out);
   out << "Content: \n";
   content->dumpHex(out);
+}
+
+
+
+DataBlock::Header::Header()
+: dataType(0)
+, config(0)
+, dataObjectID(0)
+, sequenceNumber(0)
+, length(DB_HEADER_LENGTH_BYTES)
+{
+
+}
+
+DataBlock::Header::~Header()
+{
+
+}
+
+void DataBlock::Header::dump(std::ostream& out)
+{
+  out << "DataType: " << dataType2String(dataType.to_ulong()) << "\n"
+      << "Config: " << std::hex << config.to_ulong() << std::dec << "\n"
+      << "DataObjectID: " << dataObjectID.to_ulong() << "\n"
+      << "SequenceNumber: " << sequenceNumber.to_ulong() << "\n";
 }

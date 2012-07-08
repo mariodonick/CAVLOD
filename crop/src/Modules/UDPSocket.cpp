@@ -59,7 +59,7 @@ void UDPSocket::sendData(const ByteArray& data, const char* s_addr, const unsign
 	//Port des Zielservers
 	server_c.sin_port = htons(s_port);
 
-	length_c=sizeof(struct sockaddr_in);
+	length_c = sizeof(struct sockaddr_in);
 
 	//Nachricht an Server mit angegebener Adresse und angegebenem Port senden
 	n_c=sendto(sock_c, data.dataPtr(), data.size(), 0 ,(sockaddr *)&server_c,length_c);
@@ -92,9 +92,8 @@ void UDPSocket::startServer(const unsigned int& s_port)
 
 	//Port und adresse des Servers werden dem Socket zugewiesen
 	if (bind(sock_s,(struct sockaddr *)&server_s,length_s)<0)
-	  cout << ("binding") << endl;
+	  cout << "binding" << endl;
 
 	fromlen_s = sizeof(struct sockaddr_in);
-	write(1,"Server initiated...\nWaiting for message...\n",43); // todo die ausgabe ist noch an der falschen stelle :D
 }
 

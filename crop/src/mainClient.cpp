@@ -15,9 +15,9 @@ ClientModule* client;
 void signal_handler_SIGINT (int status)
 {
   std::cout << "*************       Received SIGINT signal. ********************\n";
-  std::cout << "CoolRunners: Stopping Client Modul\n";
+  std::cout << "Info: Stopping Client Modul\n";
   delete client; client = nullptr;
-  std::cout << "Log: Stopped  client Module\n";
+  std::cout << "Info: Stopped  client Module\n";
   exit(0);
 }
 

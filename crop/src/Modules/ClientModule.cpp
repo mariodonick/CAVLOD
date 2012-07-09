@@ -5,7 +5,7 @@
 #include "ClientModule.h"
 #include "SplitEncoding.h"
 #include "Priority.h"
-#include "OntologyFacade.h"
+#include "CrodmFacade.h"
 #include "UDPSocket.h"
 #include "MessagePacketizer.h"
 
@@ -15,10 +15,10 @@
 
 ClientModule::ClientModule()
 : dbFifo(new Fifo<DataBlock*>)
-, ontology(new OntologyFacade)
+, crodm(new CrodmFacade)
 , network(new UDPSocket)
-, partitioning( new SplitEncoding(*ontology, *dbFifo) )
-, prioritization(new Priority(*dbFifo, prioQueue, *ontology))
+, partitioning( new SplitEncoding(*crodm, *dbFifo) )
+, prioritization(new Priority(*dbFifo, prioQueue, *crodm))
 , packetizer(new MessagePacketizer(prioQueue))
 , running(false)
 {
@@ -39,7 +39,7 @@ ClientModule::~ClientModule()
   delete prioritization;
   delete partitioning;
   delete network;
-  delete ontology;
+  delete crodm;
   delete dbFifo;
 }
 

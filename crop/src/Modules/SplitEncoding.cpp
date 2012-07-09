@@ -3,7 +3,7 @@
  */
 
 #include "SplitEncoding.h"
-#include "Ontology.h"
+#include "Crodm.h"
 #include "../DataManagement/Content.h"
 #include "../DataManagement/DataTypes.h"
 #include "../DataManagement/DataBlock.h"
@@ -15,8 +15,8 @@
 
 typedef boost::tokenizer<boost::char_separator<char> > Tokenizer;
 
-SplitEncoding::SplitEncoding(const Ontology& theOntology, Queue<DataBlock*>& theDBFifo)
-: ontology(theOntology)
+SplitEncoding::SplitEncoding(const Crodm& theCrodm, Queue<DataBlock*>& theDBFifo)
+: crodm(theCrodm)
 , dbFifo(theDBFifo)
 {
 }
@@ -27,7 +27,7 @@ SplitEncoding::~SplitEncoding()
 
 void SplitEncoding::partText( const Bin<24>& doid, const std::string& content )
 {
-  const std::vector<unsigned short int>& numWords = ontology.getWordLengthVec();
+  const std::vector<unsigned short int>& numWords = crodm.getWordLengthVec();
 
   boost::char_separator<char> sep(" ");
   std::stringstream ss;

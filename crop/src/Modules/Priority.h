@@ -9,7 +9,7 @@
 #include "Prioritization.h"
 
 template<class T> class Queue;
-class Ontology;
+class Crodm;
 template<class T>
 class PrioritizedQueue;
 class DataBlock;
@@ -17,7 +17,7 @@ class DataBlock;
 class Priority : public Prioritization
 {
 public:
-  Priority(Queue<DataBlock*>& theFifo, PrioritizedQueue<DataBlock*>& thePrioQueue, const Ontology& ontology);
+  Priority(Queue<DataBlock*>& theFifo, PrioritizedQueue<DataBlock*>& thePrioQueue, const Crodm& crodm);
   virtual ~Priority();
 
 private:
@@ -26,7 +26,7 @@ private:
 private:
   Queue<DataBlock*>& dbFifo;
   PrioritizedQueue<DataBlock*>& prioQueue;
-  const Ontology& ontology;
+  const Crodm& crodm;
 };
 
 #endif /* PRIORITY_H_ */

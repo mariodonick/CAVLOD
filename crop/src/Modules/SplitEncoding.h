@@ -8,14 +8,14 @@
 
 #include "Partitioning.h"
 
-class Ontology;
+class Crodm;
 template<class T> class Queue;
 class DataBlock;
 
 class SplitEncoding : public Partitioning
 {
 public:
-  SplitEncoding(const Ontology& ontology, Queue<DataBlock*>& queue);
+  SplitEncoding(const Crodm& crodm, Queue<DataBlock*>& queue);
   virtual ~SplitEncoding();
 
 private:
@@ -23,7 +23,7 @@ private:
   void partSensor(const Bin<24>& doid, const float& value);
 
 private:
-  const Ontology& ontology;
+  const Crodm& crodm;
   Queue<DataBlock*>& dbFifo;
 };
 

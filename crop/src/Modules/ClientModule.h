@@ -12,7 +12,7 @@
 #include <thread>
 
 class DataBlock;
-class Ontology;
+class Crodm;
 class Partitioning;
 class Prioritization;
 template<class T> class Queue;
@@ -34,7 +34,7 @@ private:
   Queue<DataBlock*>* dbFifo;
   PrioritizedQueue<DataBlock*> prioQueue;
 
-  Ontology* ontology;
+  Crodm* crodm;
   NetworkIO* network;
   Partitioning* partitioning;
   Prioritization* prioritization;

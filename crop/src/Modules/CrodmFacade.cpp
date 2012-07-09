@@ -1,10 +1,10 @@
 /*
- * @brief OntologyFacade.cpp implementation of member functions
+ * @brief CrodmFacade.cpp implementation of member functions
  */
 
-#include "OntologyFacade.h"
+#include "CrodmFacade.h"
 
-OntologyFacade::OntologyFacade()
+CrodmFacade::CrodmFacade()
 {
   priorities =  {10, 100, 80, 90,  5, 40, 23, 74, 32, 98,
                  62,   8, 30, 19,  7,  1, 99, 50, 58, 36,
@@ -14,18 +14,18 @@ OntologyFacade::OntologyFacade()
                   4,  12,  1,  3, 1, 23,  1,  8,  4,  5 }; // = 150 wörter  // 30 datenblöcke
 }
 
-OntologyFacade::~OntologyFacade()
+CrodmFacade::~CrodmFacade()
 {
 }
 
-const std::vector<float>& OntologyFacade::getPriortyVec() const
+const std::vector<float>& CrodmFacade::getPriortyVec() const
 {
 
   //todo prioritäten noch setzen!!
   return priorities;
 }
 
-const std::vector<unsigned short int>& OntologyFacade::getWordLengthVec() const
+const std::vector<unsigned short int>& CrodmFacade::getWordLengthVec() const
 {
   return wordNumbers;
 }

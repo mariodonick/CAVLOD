@@ -3,7 +3,7 @@
  */
 
 #include "Priority.h"
-#include "Ontology.h"
+#include "Crodm.h"
 #include "../Tools/PrioritizedQueue.h"
 #include "../Tools/Fifo.h"
 #include "../DataManagement/DataBlock.h"
@@ -11,10 +11,10 @@
 #include <cassert>
 #include <vector>
 
-Priority::Priority(Queue<DataBlock*>& theDBFifo, PrioritizedQueue<DataBlock*>& thePrioQueue, const Ontology& theOntology)
+Priority::Priority(Queue<DataBlock*>& theDBFifo, PrioritizedQueue<DataBlock*>& thePrioQueue, const Crodm& theCrodm)
 : dbFifo(theDBFifo)
 , prioQueue(thePrioQueue)
-, ontology(theOntology)
+, crodm(theCrodm)
 {
 }
 
@@ -24,7 +24,7 @@ Priority::~Priority()
 
 void Priority::evaluate()
 {
-  const std::vector<float>* priorities = &ontology.getPriortyVec();
+  const std::vector<float>* priorities = &crodm.getPriortyVec();
 
   assert( priorities->size() >= dbFifo.size() );
 

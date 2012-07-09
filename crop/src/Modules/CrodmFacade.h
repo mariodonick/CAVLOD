@@ -1,18 +1,18 @@
 /*
- * @brief OntologyFacade.h
+ * @brief CrodmFacade.h
  *
  */
 
-#ifndef ONTOLOGYFACADE_H_
-#define ONTOLOGYFACADE_H_
+#ifndef CRODMFACADE_H_
+#define CRODMFACADE_H_
 
-#include "Ontology.h"
+#include "Crodm.h"
 
-class OntologyFacade : public Ontology
+class CrodmFacade : public Crodm
 {
 public:
-  OntologyFacade();
-  virtual ~OntologyFacade();
+  CrodmFacade();
+  virtual ~CrodmFacade();
 
 private:
   const std::vector<float>& getPriortyVec() const;
@@ -23,4 +23,4 @@ private:
   std::vector<unsigned short int> wordNumbers;
 };
 
-#endif /* ONTOLOGYFACADE_H_ */
+#endif /* CRODMFACADE_H_ */

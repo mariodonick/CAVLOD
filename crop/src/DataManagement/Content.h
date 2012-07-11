@@ -73,7 +73,6 @@ public:
     return C_TIMESTAMP_BYTES + C_LINE_BYTES + text.size();
   }
 
-  //todo wohl nimmer so sinnig wenn es metadaten gibt
   friend std::ostream& operator<<(std::ostream& out, const Text& text)
   {
     return out << text.text;

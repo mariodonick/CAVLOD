@@ -50,7 +50,7 @@ void ClientModule::execute()
 
   unsigned int loops = 1;
   std::cout << "How many data you want to send? Number of data:\n";
-  std::cin >> loops; // todo wieder rein
+  std::cin >> loops;
 
   while(doid < loops)
   {
@@ -69,6 +69,7 @@ void ClientModule::execute()
 //  std::cout << "Eingabe text: " << text << "\n";
 
     ++doid;
+    crodm->evaluateText(text);
     partitioning->partText(doid, text);
     prioritization->evaluate();
   }

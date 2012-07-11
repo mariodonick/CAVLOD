@@ -49,9 +49,10 @@ SplitEncoding::~SplitEncoding()
 {
 }
 
+// todo funktion aufräumen viele code passagen sind nicht unique!!!
 void SplitEncoding::partText( const Bin<24>& doid, const std::string& content )
 {
-  const std::vector<RelevanceData>& relevanceData = crodm.getRelevanceVec();
+  const std::vector<RelevanceData>& relevanceData = crodm.getRelevanceData();
 
   assert(relevanceData.size() > 0);
   assert(content.size() > 0);

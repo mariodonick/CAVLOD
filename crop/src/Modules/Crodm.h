@@ -21,7 +21,7 @@ public:
   virtual const std::vector<float>& getPriortyVec() const = 0;
 
   //interface from split and encoder to Crodm
-  virtual const std::vector<RelevanceData>& getRelevanceVec() const = 0;
+  virtual const std::vector<RelevanceData>& getRelevanceData() const = 0;
 
   //interfaces from content phase to Crodm
   virtual void evaluateText(const std::string& text) const = 0;

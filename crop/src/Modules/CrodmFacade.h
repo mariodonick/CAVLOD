@@ -17,7 +17,7 @@ public:
 
 private:
   const std::vector<float>& getPriortyVec() const;
-  const std::vector<RelevanceData>& getRelevanceVec() const;
+  const std::vector<RelevanceData>& getRelevanceData() const;
   void evaluateText(const std::string& text) const;
 
 private:

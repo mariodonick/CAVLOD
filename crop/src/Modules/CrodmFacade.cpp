@@ -27,7 +27,7 @@ const std::vector<float>& CrodmFacade::getPriortyVec() const
   return priorities;
 }
 
-const std::vector<RelevanceData>& CrodmFacade::getRelevanceVec() const
+const std::vector<RelevanceData>& CrodmFacade::getRelevanceData() const
 {
   return relevanceData;
 }

@@ -32,7 +32,7 @@ private:
 
 private:
   Queue<DataBlock*>* dbFifo;
-  PrioritizedQueue<DataBlock*> prioQueue;
+  Queue<DataBlock*>* prioQueue;
 
   Crodm* crodm;
   NetworkIO* network;

@@ -11,7 +11,7 @@
 #include <cassert>
 #include <vector>
 
-Priority::Priority(Queue<DataBlock*>& theDBFifo, PrioritizedQueue<DataBlock*>& thePrioQueue, const Crodm& theCrodm)
+Priority::Priority(Queue<DataBlock*>& theDBFifo, Queue<DataBlock*>& thePrioQueue, const Crodm& theCrodm)
 : dbFifo(theDBFifo)
 , prioQueue(thePrioQueue)
 , crodm(theCrodm)

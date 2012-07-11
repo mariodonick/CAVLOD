@@ -7,6 +7,7 @@
 #define CRODMFACADE_H_
 
 #include "Crodm.h"
+#include "../DataManagement/RelevanceData.h"
 
 class CrodmFacade : public Crodm
 {
@@ -16,11 +17,12 @@ public:
 
 private:
   const std::vector<float>& getPriortyVec() const;
-  const std::vector<unsigned short int>& getWordLengthVec() const;
+  const std::vector<RelevanceData>& getRelevanceVec() const;
+  void evaluateText(const std::string& text) const;
 
 private:
   std::vector<float> priorities;
-  std::vector<unsigned short int> wordNumbers;
+  std::vector<RelevanceData> relevanceData;
 };
 
 #endif /* CRODMFACADE_H_ */

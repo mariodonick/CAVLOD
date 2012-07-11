@@ -6,7 +6,11 @@
 #ifndef CRODM_H_
 #define CRODM_H_
 
+#include "../DataManagement/RelevanceData.h"
+
 #include <vector>
+#include <bits/stringfwd.h>
+
 
 class Crodm
 {
@@ -17,7 +21,10 @@ public:
   virtual const std::vector<float>& getPriortyVec() const = 0;
 
   //interface from split and encoder to Crodm
-  virtual const std::vector<unsigned short int>& getWordLengthVec() const = 0;
+  virtual const std::vector<RelevanceData>& getRelevanceVec() const = 0;
+
+  //interfaces from content phase to Crodm
+  virtual void evaluateText(const std::string& text) const = 0;
 };
 
 #endif /* CRODM_H_ */

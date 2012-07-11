@@ -12,11 +12,11 @@
 #include "../Config.h"
 #include "../Types.h"
 
-template<class T, class Parser, class Decoder, class Visualizer>
-class DataBlockProcessing : protected Parser, protected Decoder, protected Visualizer
+template<class T, class ContentParser, class Decoder, class Visualizer>
+class DataBlockProcessing : protected ContentParser, protected Decoder, protected Visualizer
 {
   using Decoder::decode;
-  using Parser::parseContent;
+  using ContentParser::parseContent;
   using Visualizer::display;
   using Decoder::sortedContent;
 

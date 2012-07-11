@@ -15,11 +15,12 @@
 
 ClientModule::ClientModule()
 : dbFifo(new Fifo<DataBlock*>)
+, prioQueue(new PrioritizedQueue<DataBlock*>)
 , crodm(new CrodmFacade)
 , network(new UDPSocket)
 , partitioning( new SplitEncoding(*crodm, *dbFifo) )
-, prioritization(new Priority(*dbFifo, prioQueue, *crodm))
-, packetizer(new MessagePacketizer(prioQueue))
+, prioritization(new Priority(*dbFifo, *prioQueue, *crodm))
+, packetizer(new MessagePacketizer(*prioQueue))
 , running(false)
 {
   running = true;
@@ -49,17 +50,18 @@ void ClientModule::execute()
 
   unsigned int loops = 1;
   std::cout << "How many data you want to send? Number of data:\n";
-  std::cin >> loops;
+  std::cin >> loops; // todo wieder rein
 
   while(doid < loops)
   {
     std::string text = "Es folgt ein Beispieltext:\n";
     text.append("Hallo ich bin ein Beispieltext und komme vom Mars.\n");
-    text.append("Dabei wurde ich zuerst zerstückelt, dann priorisiert, einzeln versendet und auf der Erde wieder zusammengesetzt.");
+    text.append("Dabei wurde ich zuerst zerstückelt, dann priorisiert, einzeln versendet und auf der Erde wieder zusammengesetzt.\n");
 
+    // with the following lines you can insert spaces
 //  std::cout << "Bitte einen Text eingeben:\n";
 //  std::string text;
-//  // so you can insert spaces
+
 //  std::cin.clear(); //clean cin and wait for input
 //  std::cin.sync();
 //  std::cin.get();
@@ -78,12 +80,12 @@ void ClientModule::packetizerThread()
 {
   while( running )
   {
-    sleep(SLEEP_SECONDS); // todo auf events warten? variable schlafenszeiten? irgend etwas ausdenken
+    usleep(SLEEP_SECONDS*1000*1000); // todo auf events warten? variable schlafenszeiten? irgend etwas ausdenken
 
     const ByteArray& data = packetizer->packetizeMessage();
     if(data.size() != 0)
       network->sendData(data, IP_ADDRESS, PORT);
 
-    std::cout << "Sending... Data available in Prioritized Queue: " << prioQueue.size() << "\n";
+    std::cout << "Sending... Data available in Prioritized Queue: " << prioQueue->size() << "\n";
   }
 }

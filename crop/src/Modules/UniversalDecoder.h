@@ -23,7 +23,7 @@ public:
   UniversalDecoder();
   virtual ~UniversalDecoder();
 
-//protected:
+protected:
   void decode(const Doid& doid, const SequenceNum& seqNum, T* obj);
 
 protected:

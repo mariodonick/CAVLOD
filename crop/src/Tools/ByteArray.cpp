@@ -89,7 +89,8 @@ void ByteArray::append(Text& text)
 {
   uint64_t timestamp = text.getTimestamp();
   append(timestamp, C_TIMESTAMP_BYTES);
-  append(text.lineBreak, C_LINE_BYTES);
+  append(text.column, C_LINE_BYTES);
+  append(text.line, C_LINE_BYTES);
   append(text.text.c_str(), text.text.size());
 }
 

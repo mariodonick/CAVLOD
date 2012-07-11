@@ -17,7 +17,7 @@ class DataBlock;
 class Priority : public Prioritization
 {
 public:
-  Priority(Queue<DataBlock*>& theFifo, PrioritizedQueue<DataBlock*>& thePrioQueue, const Crodm& crodm);
+  Priority(Queue<DataBlock*>& theFifo, Queue<DataBlock*>& thePrioQueue, const Crodm& crodm);
   virtual ~Priority();
 
 private:
@@ -25,7 +25,7 @@ private:
 
 private:
   Queue<DataBlock*>& dbFifo;
-  PrioritizedQueue<DataBlock*>& prioQueue;
+  Queue<DataBlock*>& prioQueue;
   const Crodm& crodm;
 };
 

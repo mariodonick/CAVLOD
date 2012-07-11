@@ -44,6 +44,7 @@ public:
   const Bin<6>& getConfig() const;
   const HalfWord& getLength() const;
   const float& getPriority() const;
+  const float& getRelevance() const;
 
   void setDataObjectID(const Bin<24>& doid);
   void setDataType(const Bin<10>& dt);
@@ -51,6 +52,7 @@ public:
   void setConfig(const Bin<6>& conf);
   void setPriority(const float& prio);
   void setLength(const HalfWord& length);
+  void setRelevance(const float& rel);
 
   void addContent(ByteArray* content);
 
@@ -58,6 +60,7 @@ public:
 
 private:
   float priority;
+  float relevance;
   Header header;
 
   ByteArray* content;

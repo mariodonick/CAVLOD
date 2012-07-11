@@ -29,8 +29,6 @@ public:
 protected:
   void display(const std::vector<Text*>& sortedContent);
 
-private:
-  unsigned int old_line;
 };
 
 

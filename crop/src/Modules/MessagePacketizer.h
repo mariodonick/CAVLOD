@@ -18,20 +18,20 @@
 #include "../DataManagement/DataBlock.h"
 
 template<class T>
-class PrioritizedQueue;
+class Queue;
 class DataBlock;
 
 class MessagePacketizer : public Packetizer
 {
 public:
-  MessagePacketizer(PrioritizedQueue<DataBlock*>& prioQueue);
+  MessagePacketizer(Queue<DataBlock*>& prioQueue);
   virtual ~MessagePacketizer();
 
 private:
   const ByteArray& packetizeMessage();
 
 private:
-  PrioritizedQueue<DataBlock*>& prioQueue;
+  Queue<DataBlock*>& prioQueue;
   ByteArray message;
 };
 

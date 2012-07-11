@@ -55,6 +55,11 @@ const float& DataBlock::getPriority() const
   return priority;
 }
 
+const float& DataBlock::getRelevance() const
+{
+  return relevance;
+}
+
 void DataBlock::setDataObjectID(const Bin<24>& doid)
 {
   header.dataObjectID = doid;
@@ -83,6 +88,11 @@ void DataBlock::setPriority(const float& prio)
 void DataBlock::setLength(const HalfWord& length)
 {
   header.length = length;
+}
+
+void DataBlock::setRelevance(const float& rel)
+{
+  relevance = rel;
 }
 
 void DataBlock::addContent(ByteArray* data)

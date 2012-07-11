@@ -22,18 +22,25 @@ Text* TextParser::parseContent(char* data, const unsigned int& len)
   std::cout << "\n---------------Text---------------------------\n";
 
   unsigned long long int* timestamp = reinterpret_cast<unsigned long long int*>( &data );
-  uint8_t* line = reinterpret_cast<uint8_t*>( &data[C_TIMESTAMP_BYTES] );
+  unsigned int offset = C_TIMESTAMP_BYTES;
 
-  unsigned int pos = C_TIMESTAMP_BYTES + C_LINE_BYTES;
-  unsigned int length = len - pos;
+  uint16_t* line = reinterpret_cast<uint16_t*>( &data[offset] );
+  offset += C_LINE_BYTES;
+
+  uint16_t* column = reinterpret_cast<uint16_t*>( &data[offset] );
+  offset += C_COLUMN_BYTES;
+
+  unsigned int length = len - offset;
 
   Text* text = new Text;
-  text->lineBreak = *line;
-  text->text.insert(0, &data[pos], length);
+  text->column = *column;
+  text->line = *line;
+  text->text.insert(0, &data[offset], length);
   text->setTimestamp(*timestamp);
 
   std::cout << "timestamp: " << *timestamp << "\n";
-  std::cout << "line: " << std::hex << int(text->lineBreak) << std::dec << "\n";
+  std::cout << "line: " << text->line << "\n";
+  std::cout << "column: " << text->column << "\n";
   std::cout << "text: " << text->text << "\n";
 
   return text;

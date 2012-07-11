@@ -8,7 +8,7 @@
 
 #include "Tools/Bin.h"
 
-const unsigned int SLEEP_SECONDS = 5;
+const unsigned int SLEEP_SECONDS = 1;
 const unsigned int PORT = 5657;
 const char* const IP_ADDRESS = "localhost";
 
@@ -31,7 +31,8 @@ const unsigned int DB_LENGTH_BYTES = 2;
 // content
 const unsigned int C_TIMESTAMP_BYTES = 8;
 // content text
-const unsigned int C_LINE_BYTES = 1;
+const unsigned int C_LINE_BYTES = 2;
+const unsigned int C_COLUMN_BYTES = 2;
 //content Sensor
 const unsigned int C_VALUE_BYTES = 4;
 

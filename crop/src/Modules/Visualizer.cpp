@@ -5,7 +5,6 @@
 #include "Visualizer.h"
 
 TextVisualizer::TextVisualizer()
-: old_line(0)
 {
 
 }
@@ -18,13 +17,7 @@ void TextVisualizer::display(const std::vector<Text*>& sortedContent)
 {
   std::vector<Text*>::const_iterator it = sortedContent.begin();
   for(; it != sortedContent.end(); ++it)
-  {
-    std::cout << (*it)->text << " ";
-    if( ((*it)->lineBreak & 0x1) == true)
-    {
-      std::cout << "\n";
-    }
-  }
+    std::cout << (*it)->text;
 }
 
 

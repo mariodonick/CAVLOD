@@ -11,7 +11,7 @@
 #include "../Tools/PrioritizedQueue.h"
 #include "../DataManagement/DataBlock.h"
 
-MessagePacketizer::MessagePacketizer(PrioritizedQueue<DataBlock*>& thePrioQueue)
+MessagePacketizer::MessagePacketizer(Queue<DataBlock*>& thePrioQueue)
 : prioQueue(thePrioQueue)
 {
 
@@ -37,7 +37,7 @@ const ByteArray& MessagePacketizer::packetizeMessage()
     return message;
   }
 
-  //put datablock
+  //get next datablock
   DataBlock* data = prioQueue.pop();
 
   // compute db length

@@ -90,15 +90,16 @@ public:
 //  float r, g, b;
 //};
 
+//todo implementieren
 class Picture : public Content
 {
 public:
-  Picture(){} // todo grösse angeben
+  Picture(){}
   virtual ~Picture(){}
 
   const std::size_t size() const
   {
-    return C_TIMESTAMP_BYTES; // todo länge noch ausrechnen
+    return C_TIMESTAMP_BYTES;
   }
 
   friend std::ostream& operator<<(std::ostream& out, const Picture& pic)
@@ -107,7 +108,7 @@ public:
     return out;
   }
 
-//  std::vector<Color> pic; // todo wie speichern?
+//  std::vector<Color> pic;
 };
 
 

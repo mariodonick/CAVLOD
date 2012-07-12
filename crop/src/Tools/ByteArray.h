@@ -43,6 +43,7 @@ public:
   char* dataPtr();
   const char* dataPtr() const;
   void clear();
+  const bool isEmpty() const;
 
   void dumpHex(std::ostream& out) const;
   void dumpBin(std::ostream& out) const;

@@ -6,8 +6,7 @@
 #ifndef DECODER_H_
 #define DECODER_H_
 
-typedef unsigned int Doid;
-typedef unsigned int SequenceNum;
+#include "../Types.h"
 
 template<class T>
 class Decoder

@@ -9,35 +9,13 @@
 #include "../DataManagement/DataBlock.h"
 #include "../Tools/ByteArray.h"
 #include "../Tools/Queue.h"
+#include "../Tools/Exception.h"
 
-#include <boost/tokenizer.hpp>
 #include <sstream>
 #include <list>
 
-typedef boost::tokenizer<boost::char_separator<char> > Tokenizer;
-struct Fragment
-{
-  uint16_t pos;
-  uint16_t length;
-  float relevance;
-
-  uint16_t line;
-  uint16_t column;
-
-  friend std::ostream& operator<<(std::ostream& out, const Fragment& frag)
-  {
-    out << "pos: " << frag.pos
-        << " length: " << frag.length
-        << " relevance: " << frag.relevance
-        << " line: " << frag.line
-        << " column: " << frag.column;
-    return out;
-  }
-//  bool operator<(const Fragment& rhs)
-//  {
-//    return (pos < rhs.pos);
-//  }
-};
+//#include <boost/tokenizer.hpp>
+//typedef boost::tokenizer<boost::char_separator<char> > Tokenizer;
 
 SplitEncoding::SplitEncoding(const Crodm& theCrodm, Queue<DataBlock*>& theDBFifo)
 : crodm(theCrodm)
@@ -54,8 +32,8 @@ void SplitEncoding::partText( const Bin<24>& doid, const std::string& content )
 {
   const std::vector<RelevanceData>& relevanceData = crodm.getRelevanceData();
 
-  assert(relevanceData.size() > 0);
-  assert(content.size() > 0);
+  cassert(relevanceData.size() > 0);
+  cassert(content.size() > 0);
 
   // find and separate lines
   std::vector<std::size_t> linePos;
@@ -64,6 +42,7 @@ void SplitEncoding::partText( const Bin<24>& doid, const std::string& content )
   std::stringstream ss;
   ss << content;
 
+  // compute the total size length for every line
   unsigned int oldTotalLineSize = 0;
   while( !ss.eof() )
   {
@@ -88,6 +67,8 @@ void SplitEncoding::partText( const Bin<24>& doid, const std::string& content )
   std::list<Fragment> fragments;
   std::vector<RelevanceData>::const_iterator r_cur = relevanceData.begin();
 
+  // transform two dimensional coordinates to 1 dimensional
+  // and create blocks with relevant informations
   while(r_cur != relevanceData.end())
   {
     std::cout << "r_cur->pos_x: " << r_cur->pos_x << "\n";
@@ -126,7 +107,8 @@ void SplitEncoding::partText( const Bin<24>& doid, const std::string& content )
     zero.pos = (curFrag == preFrag) ? 0 : preFrag->pos + preFrag->length;
     zero.length = (curFrag == preFrag) ? curFrag->pos : curFrag->pos - (preFrag->pos + preFrag->length);
     zero.relevance = 0;
-    zero.line = /*(curFrag->line == preFrag->line) ?*/ preFrag->line; // todo else fall ist noch nicht richtig
+    // todo hier könnte noch ein fehler auftreten... im momentanen testfall nicht!
+    zero.line = /*(curFrag->line == preFrag->line) ?*/ preFrag->line;
     zero.column = zero.pos - linePos[zero.line];
 
     if(zero.length != 0)
@@ -210,6 +192,16 @@ void SplitEncoding::partSensor(const Bin<24>& doid, const float& value)
   db->addContent( content );
 
   dbFifo.push(db);
+}
+
+std::ostream& operator<<(std::ostream& out, const SplitEncoding::Fragment& frag)
+{
+  out << "pos: " << frag.pos
+      << " length: " << frag.length
+      << " relevance: " << frag.relevance
+      << " line: " << frag.line
+      << " column: " << frag.column;
+  return out;
 }
 
 // the way of simplicity =)

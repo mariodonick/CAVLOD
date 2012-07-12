@@ -9,6 +9,7 @@
 #include "UDPSocket.h"
 #include "MessagePacketizer.h"
 
+#include "../Types.h"
 #include "../Tools/Fifo.h"
 #include "../Tools/PrioritizedQueue.h"
 #include "../Tools/ByteArray.h"
@@ -46,7 +47,7 @@ ClientModule::~ClientModule()
 
 void ClientModule::execute()
 {
-  unsigned int doid = 0; // todo typedef nutzen!
+  Doid doid = 0;
 
   unsigned int loops = 1;
   std::cout << "How many data you want to send? Number of data:\n";
@@ -84,7 +85,7 @@ void ClientModule::packetizerThread()
     usleep(SLEEP_SECONDS*1000*1000); // todo auf events warten? variable schlafenszeiten? irgend etwas ausdenken
 
     const ByteArray& data = packetizer->packetizeMessage();
-    if(data.size() != 0)
+    if( !data.isEmpty() )
       network->sendData(data, IP_ADDRESS, PORT);
 
     std::cout << "Sending... Data available in Prioritized Queue: " << prioQueue->size() << "\n";

@@ -15,6 +15,18 @@ class DataBlock;
 class SplitEncoding : public Partitioning
 {
 public:
+  struct Fragment
+  {
+    uint16_t pos;
+    uint16_t length;
+    float relevance;
+    uint16_t line;
+    uint16_t column;
+
+    friend std::ostream& operator<<(std::ostream& out, const Fragment& frag);
+  };
+
+public:
   SplitEncoding(const Crodm& crodm, Queue<DataBlock*>& queue);
   virtual ~SplitEncoding();
 

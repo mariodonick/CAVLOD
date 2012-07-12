@@ -21,6 +21,8 @@ MessagePacketizer::~MessagePacketizer()
 {
 }
 
+// if the fifo is empty this function return a empty bytearray
+// otherwise this return the current message
 const ByteArray& MessagePacketizer::packetizeMessage()
 {
 //  for(int i=0; i< prioQueue.size(); ++i)

@@ -51,10 +51,9 @@ PrioritizedQueue<T>::~PrioritizedQueue()
 template<class T>
 T PrioritizedQueue<T>::pop()
 {
-  // todo normal müsste man eine exception schmeissen wenn queue leer ist! -> fangen das im modul(packetizer) ab
+  // todo abfangen in dem leeres element zurück gegeben wird! oder nullptr oder sowas
   std::lock_guard<std::mutex> lock(mutex);
   T tmp = queue.top();
-//  std::cout << "pop priority: " << std::dec << tmp->first << "\n";
   queue.pop();
 
   return tmp;

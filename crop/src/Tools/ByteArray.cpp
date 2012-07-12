@@ -47,27 +47,30 @@ void ByteArray::clear()
   curBytePos = 0;
 }
 
+const bool ByteArray::isEmpty() const
+{
+  return vector.empty();
+}
+
 void ByteArray::insert(char* data, const size_t& length)
 {
   clear();
   append(data, length);
 }
 
-// todo inkonsistent zu append const char auf ein nenner bringen
 void ByteArray::append(char* data, const size_t& length)
 {
   for(unsigned int i = 0; i < length; ++i)
     vector.push_back( data[i] & 0xFF );
 }
 
-// todo inkonsistent zu append char auf ein nenner bringen
 void ByteArray::append(const char* data, const size_t& length)
 {
+  char tmp[length];
   for(unsigned int i = 0; i < length; ++i)
-  {
-    char tmp = data[i];
-    vector.push_back(tmp);
-  }
+    tmp[i] = data[i];
+
+  append(tmp, length);
 }
 
 void ByteArray::insert(Text& text)
@@ -77,7 +80,7 @@ void ByteArray::insert(Text& text)
 
 void ByteArray::insert(Sensor& sensor)
 {
-  //todo ByteArray::insert sensor implementieren
+  append(sensor);
 }
 
 void ByteArray::insert(Picture& pic)
@@ -96,7 +99,9 @@ void ByteArray::append(Text& text)
 
 void ByteArray::append(Sensor& sensor)
 {
-  //todo ByteArray::append sensor implementieren
+  uint64_t timestamp = sensor.getTimestamp();
+  append(timestamp, C_TIMESTAMP_BYTES);
+  append(sensor.value, C_VALUE_BYTES);
 }
 
 void ByteArray::append(Picture& pic)

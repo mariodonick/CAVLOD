@@ -5,10 +5,11 @@
 #include "MessageParser.h"
 #include "../Config.h"
 #include "../Tools/ByteArray.h"
+#include "../Tools/Exception.h"
 #include "../DataManagement/DataTypes.h"
 
 #include <iostream>
-#include <cassert>
+
 
 MessageParser::MessageParser()
 {
@@ -50,8 +51,8 @@ void MessageParser::parse_v1(const ByteArray& data)
   std::cout << "db_start: " << computeFirstDBByte() << "\n";
   std::cout << "crcSize: " << crcSize << "\n";
 
-  assert(msgLength < 0xFFFFFF);
-  assert(msgLength >= computeFirstDBByte());
+  cassert(msgLength < 0xFFFFFF);
+  cassert(msgLength >= computeFirstDBByte());
 
   // parse datablocks
   while(curMsgPos + crcSize < msgLength)
@@ -86,8 +87,8 @@ void MessageParser::parseDB(const ByteArray& data)
   std::cout << "sequNum: 0x" << std::hex << dbSequNum.to_uint() << std::dec << "\n";
   std::cout << "dbLengthBytes: 0x" << std::hex << dbLengthBytes.to_uint() << " = " << std::dec << dbLengthBytes.to_uint() << " Bytes\n";
 
-  assert(dbLengthBytes < 0xFFFF);
-  assert(dbLengthBytes >= DB_HEADER_LENGTH_BYTES);
+  cassert(dbLengthBytes < 0xFFFF);
+  cassert(dbLengthBytes >= DB_HEADER_LENGTH_BYTES);
 
   // fill the received data block header with the parsed data
   DataBlock::Header dbh;

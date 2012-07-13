@@ -3,7 +3,7 @@
  */
 
 #include "ContentParser.h"
-#include "../Config.h"
+#include "../TypesConfig/ProtocolConstants.h"
 
 #include <iostream>
 
@@ -75,25 +75,3 @@ Sensor* SensorParser::parseContent(char* data, const unsigned int& len)
 
   return sensor;
 }
-
-
-
-
-
-PictureParser::PictureParser()
-{
-
-}
-
-PictureParser::~PictureParser()
-{
-}
-
-Picture* PictureParser::parseContent(char* data, const unsigned int& len)
-{
-  std::cout << "\n---------------Picture---------------------------\n";
-  Picture* picture = new Picture;
-  //todo implementieren
-  return picture;
-}
-

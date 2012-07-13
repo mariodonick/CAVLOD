@@ -6,11 +6,10 @@
 #ifndef DATABLOCKPROCESSING_H_
 #define DATABLOCKPROCESSING_H_
 
-#include <iostream>
-
 #include "../DataManagement/DataBlock.h"
-#include "../Config.h"
-#include "../Types.h"
+#include "../TypesConfig/ProtocolConstants.h"
+
+#include <iostream>
 
 template<class T, class ContentParser, class Decoder, class Visualizer>
 class DataBlockProcessing : protected ContentParser, protected Decoder, protected Visualizer
@@ -52,7 +51,7 @@ void DataBlockProcessing<T, Parser, Decoder, Visualizer>::start(const DataBlock:
 
   curContentPos = 0;
   unsigned int totalLength = dbh.length.to_uint() - DB_HEADER_LENGTH_BYTES;
-//  std::cout << "totalLength: " << totalLength << "\n";
+
   std::cout << "dblength: " << dbh.length.to_uint() << "\n";
   while(curContentPos < totalLength)
   {
@@ -64,7 +63,6 @@ void DataBlockProcessing<T, Parser, Decoder, Visualizer>::start(const DataBlock:
     T* obj = parseContent(tmp, totalLength);
     unsigned int len = obj->size();
     curContentPos += len;
-//    std::cout << "curContentPos: " << curContentPos << " Bytes\n";
 
     decode(dbh.dataObjectID.to_uint(), dbh.sequenceNumber.to_uint(), obj);
 

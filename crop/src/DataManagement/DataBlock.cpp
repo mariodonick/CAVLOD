@@ -6,6 +6,7 @@
 
 #include "../Tools/Bin.h"
 #include "../Tools/ByteArray.h"
+#include "../TypesConfig/ProtocolConstants.h"
 #include "DataTypes.h"
 
 DataBlock::DataBlock()
@@ -25,27 +26,27 @@ void DataBlock::setHeader(const DataBlock::Header& dbh)
   header = dbh;
 }
 
-const Bin<24>& DataBlock::getDataObjectID() const
+const DBDataObjectID& DataBlock::getDataObjectID() const
 {
   return header.dataObjectID;
 }
 
-const Bin<10>& DataBlock::getDataType() const
+const DBDatatype& DataBlock::getDataType() const
 {
   return header.dataType;
 }
 
-const HalfWord& DataBlock::getSequenceNumber() const
+const DBSequenceNumber& DataBlock::getSequenceNumber() const
 {
   return header.sequenceNumber;
 }
 
-const Bin<6>& DataBlock::getConfig() const
+const DBConfig& DataBlock::getConfig() const
 {
   return header.config;
 }
 
-const HalfWord& DataBlock::getLength() const
+const DBLength& DataBlock::getLength() const
 {
   return header.length;
 }
@@ -60,22 +61,22 @@ const float& DataBlock::getRelevance() const
   return relevance;
 }
 
-void DataBlock::setDataObjectID(const Bin<24>& doid)
+void DataBlock::setDataObjectID(const DBDataObjectID& doid)
 {
   header.dataObjectID = doid;
 }
 
-void DataBlock::setDataType(const Bin<10>& dt)
+void DataBlock::setDataType(const DBDatatype& dt)
 {
   header.dataType = dt;
 }
 
-void DataBlock::setSequenceNumber(const HalfWord& sn)
+void DataBlock::setSequenceNumber(const DBSequenceNumber& sn)
 {
   header.sequenceNumber = sn;
 }
 
-void DataBlock::setConfig(const Bin<6>& conf)
+void DataBlock::setConfig(const DBConfig& conf)
 {
   header.config = conf;
 }
@@ -85,7 +86,7 @@ void DataBlock::setPriority(const float& prio)
   priority = prio;
 }
 
-void DataBlock::setLength(const HalfWord& length)
+void DataBlock::setLength(const DBLength& length)
 {
   header.length = length;
 }

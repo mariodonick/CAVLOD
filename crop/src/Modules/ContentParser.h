@@ -41,14 +41,4 @@ protected:
 };
 
 
-class PictureParser : public ContentParser<Picture>
-{
-protected:
-  PictureParser();
-  virtual ~PictureParser();
-
-protected:
-  Picture* parseContent(char* data, const unsigned int& len);
-};
-
 #endif /* CONTENTPARSER_H_ */

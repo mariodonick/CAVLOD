@@ -3,6 +3,7 @@
  */
 
 #include "ByteArray.h"
+#include "../TypesConfig/ProtocolConstants.h"
 
 ByteArray::ByteArray()
 : bitCount(0)
@@ -83,11 +84,6 @@ void ByteArray::insert(Sensor& sensor)
   append(sensor);
 }
 
-void ByteArray::insert(Picture& pic)
-{
-  //todo ByteArray::insert pic implementieren
-}
-
 void ByteArray::append(Text& text)
 {
   uint64_t timestamp = text.getTimestamp();
@@ -102,11 +98,6 @@ void ByteArray::append(Sensor& sensor)
   uint64_t timestamp = sensor.getTimestamp();
   append(timestamp, C_TIMESTAMP_BYTES);
   append(sensor.value, C_VALUE_BYTES);
-}
-
-void ByteArray::append(Picture& pic)
-{
-  //todo ByteArray::append pic implementieren
 }
 
 void ByteArray::setBitInChar( char& tmp, const bool& value, const unsigned int& pos)

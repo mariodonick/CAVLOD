@@ -6,6 +6,7 @@
 #ifndef DATABLOCK_H_
 #define DATABLOCK_H_
 
+#include "../TypesConfig/ProtocolTypes.h"
 #include "../Tools/Bin.h"
 
 #include <iosfwd>
@@ -23,11 +24,11 @@ public:
     void dump(std::ostream& out);
 
   public:
-    Bin<10> dataType;
-    Bin<6> config;
-    Bin<24> dataObjectID;
-    HalfWord sequenceNumber;
-    HalfWord length;
+    DBDatatype dataType;
+    DBConfig config;
+    DBDataObjectID dataObjectID;
+    DBSequenceNumber sequenceNumber;
+    DBLength length;
   };
 
 public:
@@ -38,20 +39,20 @@ public:
 
   void setHeader(const DataBlock::Header& dbh);
 
-  const Bin<24>& getDataObjectID() const;
-  const Bin<10>& getDataType() const;
-  const HalfWord& getSequenceNumber() const;
-  const Bin<6>& getConfig() const;
-  const HalfWord& getLength() const;
+  const DBDataObjectID& getDataObjectID() const;
+  const DBDatatype& getDataType() const;
+  const DBSequenceNumber& getSequenceNumber() const;
+  const DBConfig& getConfig() const;
+  const DBLength& getLength() const;
   const float& getPriority() const;
   const float& getRelevance() const;
 
-  void setDataObjectID(const Bin<24>& doid);
-  void setDataType(const Bin<10>& dt);
-  void setSequenceNumber(const HalfWord& sn);
-  void setConfig(const Bin<6>& conf);
+  void setDataObjectID(const DBDataObjectID& doid);
+  void setDataType(const DBDatatype& dt);
+  void setSequenceNumber(const DBSequenceNumber& sn);
+  void setConfig(const DBConfig& conf);
   void setPriority(const float& prio);
-  void setLength(const HalfWord& length);
+  void setLength(const DBLength& length);
   void setRelevance(const float& rel);
 
   void addContent(ByteArray* content);

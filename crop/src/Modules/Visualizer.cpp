@@ -3,6 +3,7 @@
  */
 
 #include "Visualizer.h"
+#include <iostream>
 
 TextVisualizer::TextVisualizer()
 {
@@ -38,21 +39,3 @@ void SensorVisualizer::display(const std::vector<Sensor*>& )
 {
 
 }
-
-
-PictureVisualizer::PictureVisualizer()
-{
-
-}
-
-PictureVisualizer::~PictureVisualizer()
-{
-
-}
-
-void PictureVisualizer::display(const std::vector<Picture*>& )
-{
-
-}
-
-

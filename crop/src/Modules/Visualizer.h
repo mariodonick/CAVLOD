@@ -43,15 +43,4 @@ protected:
 };
 
 
-class PictureVisualizer : public Visualizer<Picture>
-{
-protected:
-  PictureVisualizer();
-  virtual ~PictureVisualizer();
-
-protected:
-  void display(const std::vector<Picture*>& sortedContent);
-};
-
-
 #endif /* VISUALIZER_H_ */

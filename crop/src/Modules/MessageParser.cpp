@@ -3,7 +3,6 @@
  */
 
 #include "MessageParser.h"
-#include "../Config.h"
 #include "../Tools/ByteArray.h"
 #include "../Tools/Exception.h"
 #include "../DataManagement/DataTypes.h"
@@ -28,7 +27,7 @@ void MessageParser::parse(const ByteArray& recv_data)
   std::cout << "version: " << version.to_uint() << "\n";
   std::cout << "config: 0x" << std::hex << msgConfig.to_uint() << std::dec << "\n";
 
-  switch( static_cast<Version>(version.to_uint()) )
+  switch( static_cast<EMsgVersion>(version.to_uint()) )
   {
     case VERSION_1: parse_v1(recv_data); break;
     default: std::cerr << "ERROR received unknown version\n"; break;
@@ -67,20 +66,19 @@ void MessageParser::parseDB(const ByteArray& data)
 {
   std::cout << "\n---------------DBHeader---------------------------\n";
   // parse DB header
-  Bin<10> dbDataType = merge( data.getByte(curMsgPos).separate<0, 8>(), data.getByte(curMsgPos+1).separate<0, 2>() );
-  Bin<6> dbConfig = data.getByte(curMsgPos + 1).separate<2, 8>();
+  DBDatatype dbDataType = merge( data.getByte(curMsgPos).separate<0, 8>(), data.getByte(curMsgPos+1).separate<0, 2>() );
+  DBConfig dbConfig = data.getByte(curMsgPos + 1).separate<2, 8>();
   unsigned int offset = DB_DATA_TYPE_CONFIG_BYTES;
 
-  Bin<DB_DATA_OBJECT_ID_BYTES * BIT_PER_BYTE> dbDoid = uchar2Bin<DB_DATA_OBJECT_ID_BYTES * BIT_PER_BYTE>( &data.dataPtr()[curMsgPos + offset] );
+  DBDataObjectID dbDoid = uchar2Bin<DB_DATA_OBJECT_ID_BYTES * BIT_PER_BYTE>( &data.dataPtr()[curMsgPos + offset] );
   offset += DB_DATA_OBJECT_ID_BYTES;
 
-  Bin<DB_SEQUENCE_NUMBER_BYTES * BIT_PER_BYTE> dbSequNum = uchar2Bin<DB_SEQUENCE_NUMBER_BYTES * BIT_PER_BYTE>( &data.dataPtr()[curMsgPos + offset] );
+  DBSequenceNumber dbSequNum = uchar2Bin<DB_SEQUENCE_NUMBER_BYTES * BIT_PER_BYTE>( &data.dataPtr()[curMsgPos + offset] );
   offset += DB_SEQUENCE_NUMBER_BYTES;
 
-  Bin<DB_LENGTH_BYTES * BIT_PER_BYTE> dbLengthBytes = uchar2Bin<DB_LENGTH_BYTES * BIT_PER_BYTE>( &data.dataPtr()[curMsgPos + offset] );
+  DBLength dbLengthBytes = uchar2Bin<DB_LENGTH_BYTES * BIT_PER_BYTE>( &data.dataPtr()[curMsgPos + offset] );
   offset += DB_LENGTH_BYTES;
 
-//  std::cout << "curMsgPos: " << curMsgPos << " Bytes\n";
   std::cout << "dbDataType: 0x" << std::hex << dbDataType.to_uint() << std::dec << "\n";
   std::cout << "dbConfig: 0x" << std::hex << dbConfig.to_uint() << std::dec << "\n";
   std::cout << "dbDoid: 0x" << std::hex << dbDoid.to_uint() << std::dec << "\n";
@@ -105,7 +103,6 @@ void MessageParser::parseDB(const ByteArray& data)
   {
     case TYPE_TEXT: textProcessing.start(dbh, &data[contentPos]); break;
     case TYPE_SENSOR: sensorProcessing.start(dbh, &data[contentPos]); break;
-    case TYPE_PICTURE: pictureProcessing.start(dbh, &data[contentPos]); break;
   }
 
   curMsgPos += dbLengthBytes.to_uint();
@@ -118,7 +115,7 @@ const std::size_t MessageParser::computeFirstDBByte()
   std::cout << "addrtype: " << addrType.to_uint() << "\n";
 
   unsigned int addrTypeLength = 0;
-  switch( static_cast<AddressType>(addrType.to_uint()) )
+  switch( static_cast<MsgAddressType>(addrType.to_uint()) )
   {
     case IP_V6: addrTypeLength = 2 * MSG_ADDRESS_TYPE_IPV6_BYTES; break;
     default: std::cerr << "ERROR: detected unknown address type\n"; throw;

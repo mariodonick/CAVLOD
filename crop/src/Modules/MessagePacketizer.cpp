@@ -6,10 +6,19 @@
  */
 
 #include "MessagePacketizer.h"
-#include "../Config.h"
-#include "../Types.h"
+#include "../TypesConfig/ProtocolTypes.h"
+#include "../TypesConfig/ProtocolConstants.h"
 #include "../Tools/PrioritizedQueue.h"
 #include "../DataManagement/DataBlock.h"
+
+
+// todo die gehören woanders hin
+// message
+const MsgSrcAddress SRC_ADDRESS = 127001;
+const MsgDstAddress DST_ADDRESS = 19216823;
+const MsgConfig MESSAGE_CONFIG = 0;
+const MsgCrc16 CRC_16 = 1;
+const MsgCrc32 CRC_32 = 1;
 
 MessagePacketizer::MessagePacketizer(Queue<DataBlock*>& thePrioQueue)
 : prioQueue(thePrioQueue)
@@ -46,11 +55,11 @@ const ByteArray& MessagePacketizer::packetizeMessage()
   unsigned int dbLength = data->getLength().to_uint();
 
   // compute message length
-  Bin<24> messageLength = dbLength + MSG_FIXED_HEADER_LENGTH_BYTES + 2*MSG_ADDRESS_TYPE_IPV6_BYTES;
+  MsgLength messageLength = dbLength + MSG_FIXED_HEADER_LENGTH_BYTES + 2*MSG_ADDRESS_TYPE_IPV6_BYTES;
   messageLength += (messageLength >= 0xFFFF) ? 4 : 2;
 
   // append message header
-  message.insert(static_cast<Bin<4> >(VERSION_1) );
+  message.insert(static_cast<MsgVersion>(VERSION_1) );
   message.append(MESSAGE_CONFIG); // todo message config genauer angeben/ iwo auslesen
   message.append(SRC_ADDRESS);
   message.append(DST_ADDRESS);

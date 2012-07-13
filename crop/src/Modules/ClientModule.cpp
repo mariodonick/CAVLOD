@@ -9,7 +9,8 @@
 #include "UDPSocket.h"
 #include "MessagePacketizer.h"
 
-#include "../Types.h"
+#include "../TypesConfig/Config.h"
+#include "../TypesConfig/ProtocolTypes.h"
 #include "../Tools/Fifo.h"
 #include "../Tools/PrioritizedQueue.h"
 #include "../Tools/ByteArray.h"
@@ -47,7 +48,7 @@ ClientModule::~ClientModule()
 
 void ClientModule::execute()
 {
-  Doid doid = 0;
+  DBDataObjectID doid = 0;
 
   unsigned int loops = 1;
   std::cout << "How many data you want to send? Number of data:\n";
@@ -69,7 +70,7 @@ void ClientModule::execute()
 //  std::getline(std::cin, text);
 //  std::cout << "Eingabe text: " << text << "\n";
 
-    ++doid;
+    doid += 1;
     crodm->evaluateText(text);
     partitioning->partText(doid, text);
     prioritization->evaluate();

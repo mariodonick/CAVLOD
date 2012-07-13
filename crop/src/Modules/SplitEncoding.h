@@ -7,6 +7,7 @@
 #define SPLITENCODING_H_
 
 #include "Partitioning.h"
+#include <cstdint>
 
 class Crodm;
 template<class T> class Queue;
@@ -31,8 +32,8 @@ public:
   virtual ~SplitEncoding();
 
 private:
-  void partText(const Bin<24>& doid, const std::string& content);
-  void partSensor(const Bin<24>& doid, const float& value);
+  void partText(const DBDataObjectID& doid, const std::string& content);
+  void partSensor(const DBDataObjectID& doid, const float& value);
 
 private:
   const Crodm& crodm;

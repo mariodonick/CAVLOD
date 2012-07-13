@@ -31,14 +31,13 @@ private:
   const std::size_t computeFirstDBByte();
 
 private:
-  Bin<4> version;
-  Bin<12> msgConfig;
+  MsgVersion version;
+  MsgConfig msgConfig;
 
   unsigned int curMsgPos;
 
   DataBlockProcessing<Text, TextParser, UniversalDecoder<Text>, TextVisualizer > textProcessing;
   DataBlockProcessing<Sensor, SensorParser, UniversalDecoder<Sensor>, SensorVisualizer> sensorProcessing;
-  DataBlockProcessing<Picture, PictureParser, UniversalDecoder<Picture>, PictureVisualizer> pictureProcessing;
 };
 
 #endif /* MESSAGEPARSER_H_ */

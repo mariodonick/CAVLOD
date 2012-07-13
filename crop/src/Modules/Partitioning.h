@@ -6,17 +6,17 @@
 #ifndef PARTITIONING_H_
 #define PARTITIONING_H_
 
-#include "../Tools/Bin.h"
+#include "../TypesConfig/ProtocolTypes.h"
 
-#include <vector>
+#include <string>
 
 class Partitioning
 {
 public:
   virtual ~Partitioning(){}
 
-  virtual void partText(const Bin<24>& doid, const std::string& content) = 0;
-  virtual void partSensor(const Bin<24>& doid, const float& value) = 0;
+  virtual void partText(const DBDataObjectID& doid, const std::string& content) = 0;
+  virtual void partSensor(const DBDataObjectID& doid, const float& value) = 0;
 };
 
 #endif /* PARTITIONING_H_ */

@@ -14,9 +14,6 @@
 #include <sstream>
 #include <list>
 
-//#include <boost/tokenizer.hpp>
-//typedef boost::tokenizer<boost::char_separator<char> > Tokenizer;
-
 SplitEncoding::SplitEncoding(const Crodm& theCrodm, Queue<DataBlock*>& theDBFifo)
 : crodm(theCrodm)
 , dbFifo(theDBFifo)
@@ -28,7 +25,7 @@ SplitEncoding::~SplitEncoding()
 }
 
 // todo funktion aufräumen viele code passagen sind nicht unique!!!
-void SplitEncoding::partText( const Bin<24>& doid, const std::string& content )
+void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& content )
 {
   const std::vector<RelevanceData>& relevanceData = crodm.getRelevanceData();
 
@@ -167,11 +164,9 @@ void SplitEncoding::partText( const Bin<24>& doid, const std::string& content )
 
     dbFifo.push(db);
   }
-
-  std::cout << "-------text wurde partitioniert!-----------\n";
 }
 
-void SplitEncoding::partSensor(const Bin<24>& doid, const float& value)
+void SplitEncoding::partSensor(const DBDataObjectID& doid, const float& value)
 {
   static unsigned int sNr = 0;
 

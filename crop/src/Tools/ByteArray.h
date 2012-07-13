@@ -26,10 +26,8 @@ public:
   void insert(const Bin<BAND_WIDTH>& data);
   void insert(char* data, const size_t& length);
 
-  void insert(Picture& pic);
   void insert(Text& text);
   void insert(Sensor& sensor);
-  void append(Picture& pic);
   void append(Text& text);
   void append(Sensor& sensor);
 
@@ -49,7 +47,6 @@ public:
   void dumpBin(std::ostream& out) const;
 
 private:
-//  void appendHeader(const DataBlockHeader& header);
   template<typename T>
   void append(T& data, const std::size_t& byteLength);
   void append(const char* data, const size_t& length);
@@ -86,9 +83,6 @@ void ByteArray::append(const Bin<BAND_WIDTH>& data)
   if( bitCount != 0)
   {
     tmp = vector[curBytePos];
-//    std::cout << "fertisch: curBytePos: " << curBytePos << "\n";
-//    std::cout << "get old tmp: " << std::hex << int(tmp) << std::dec << "\n";
-//    std::cout << "get old vector1: " << std::hex << int(vector[curBytePos]) << std::dec << "\n";
     loaded = true;
   }
 
@@ -101,13 +95,11 @@ void ByteArray::append(const Bin<BAND_WIDTH>& data)
     {
       if(loaded)
       {
-//        std::cout << "loaded\n";
         vector[curBytePos] = tmp;
         loaded = false;
       }
       else
       {
-//        std::cout << "NOT loaded\n";
         vector.push_back(tmp);
       }
       ++curBytePos;
@@ -116,21 +108,12 @@ void ByteArray::append(const Bin<BAND_WIDTH>& data)
     }
   }
 
-//  std::cout << "fertisch: bitcount: " << bitCount << "\n";
-
   if(bitCount > 0)
   {
-//    std::cout << "last push\n";
     if(loaded)
-    {
-//      std::cout << "loaded\n";
       vector[curBytePos] = tmp;
-    }
     else
-    {
-//      std::cout << "NOT loaded\n";
       vector.push_back(tmp);
-    }
   }
 }
 

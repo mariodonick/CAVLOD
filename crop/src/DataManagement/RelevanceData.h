@@ -8,7 +8,6 @@
 
 #include <cstdint>
 
-//all values starting with zero
 struct RelevanceData
 {
   float relevanceValue;

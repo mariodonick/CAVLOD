@@ -14,7 +14,7 @@
 #include <sstream>
 #include <list>
 
-SplitEncoding::SplitEncoding(const Crodm& theCrodm, Queue<DataBlock*>& theDBFifo)
+SplitEncoding::SplitEncoding(const Crodm_uPtr& theCrodm, DBQueue_uPtr& theDBFifo)
 : crodm(theCrodm)
 , dbFifo(theDBFifo)
 {
@@ -27,7 +27,7 @@ SplitEncoding::~SplitEncoding()
 // todo funktion aufräumen viele code passagen sind nicht unique!!!
 void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& content )
 {
-  const std::vector<RelevanceData>& relevanceData = crodm.getRelevanceData();
+  const std::vector<RelevanceData>& relevanceData = crodm->getRelevanceData();
 
   cassert(relevanceData.size() > 0);
   cassert(content.size() > 0);
@@ -147,7 +147,7 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
     dbh.sequenceNumber = sequNr++;
     dbh.dataType = TYPE_TEXT;
 
-    DataBlock* db = new DataBlock;
+    DataBlock_sPtr db(new DataBlock);
     db->setHeader(dbh);
 
     Text text;
@@ -157,12 +157,12 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
 
     std::cout << "text: " << text.text << "\n";
 
-    ByteArray* content = new ByteArray;
+    ByteArray_sPtr content(new ByteArray);
     content->insert(text);
     db->addContent( content );
     db->setRelevance( it->relevance );
 
-    dbFifo.push(db);
+    dbFifo->push(db);
   }
 }
 
@@ -176,17 +176,17 @@ void SplitEncoding::partSensor(const DBDataObjectID& doid, const float& value)
   dbh.sequenceNumber = ++sNr;
   dbh.dataType = TYPE_SENSOR;
 
-  DataBlock* db = new DataBlock;
+  DataBlock_sPtr db( new DataBlock );
   db->setHeader(dbh);
 
   Sensor sensor;
   sensor.value = value;
 
-  ByteArray* content = new ByteArray;
+  ByteArray_sPtr content(new ByteArray);
   content->insert(sensor);
   db->addContent( content );
 
-  dbFifo.push(db);
+  dbFifo->push(db);
 }
 
 std::ostream& operator<<(std::ostream& out, const SplitEncoding::Fragment& frag)
@@ -269,10 +269,10 @@ std::ostream& operator<<(std::ostream& out, const SplitEncoding::Fragment& frag)
 //    ++sequNr;
 //    tokenPos += *length;
 //
-//    ByteArray* content = new ByteArray;
+//    ByteArray_sPtr content( new ByteArray);
 //    content->insert(text);
 //
-//    DataBlock* db = new DataBlock;
+//    DataBlock_sPtr db( new DataBlock );
 //    db->setHeader( dbh );
 //    db->addContent( content );
 //

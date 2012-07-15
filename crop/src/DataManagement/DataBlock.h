@@ -8,6 +8,7 @@
 
 #include "../TypesConfig/ProtocolTypes.h"
 #include "../Tools/Bin.h"
+#include "../TypesConfig/Pointer.h"
 
 #include <iosfwd>
 
@@ -35,8 +36,6 @@ public:
   DataBlock();
   virtual ~DataBlock();
 
-  ByteArray* getContent();
-
   void setHeader(const DataBlock::Header& dbh);
 
   const DBDataObjectID& getDataObjectID() const;
@@ -55,7 +54,8 @@ public:
   void setLength(const DBLength& length);
   void setRelevance(const float& rel);
 
-  void addContent(ByteArray* content);
+  void addContent(ByteArray_sPtr content);
+  ByteArray_sPtr getContent();
 
   void dump(std::ostream& out);
 
@@ -64,7 +64,7 @@ private:
   float relevance;
   Header header;
 
-  ByteArray* content;
+  ByteArray_sPtr content;
 };
 
 
@@ -77,7 +77,7 @@ public:
   {
     reverse = revparam;
   }
-  bool operator() (const DataBlock* lhs, const DataBlock* rhs) const
+  bool operator() (const DataBlock_sPtr lhs, const DataBlock_sPtr rhs) const
   {
     if (reverse) return (lhs->getPriority() > rhs->getPriority());
     else return (lhs->getPriority() < rhs->getPriority());

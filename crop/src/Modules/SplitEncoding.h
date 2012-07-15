@@ -7,11 +7,13 @@
 #define SPLITENCODING_H_
 
 #include "Partitioning.h"
+#include "../TypesConfig/Pointer.h"
+
 #include <cstdint>
 
-class Crodm;
-template<class T> class Queue;
-class DataBlock;
+//class Crodm;
+//template<class T> class Queue;
+//class DataBlock;
 
 class SplitEncoding : public Partitioning
 {
@@ -28,7 +30,7 @@ public:
   };
 
 public:
-  SplitEncoding(const Crodm& crodm, Queue<DataBlock*>& queue);
+  SplitEncoding(const Crodm_uPtr& crodm, DBQueue_uPtr& queue);
   virtual ~SplitEncoding();
 
 private:
@@ -36,8 +38,8 @@ private:
   void partSensor(const DBDataObjectID& doid, const float& value);
 
 private:
-  const Crodm& crodm;
-  Queue<DataBlock*>& dbFifo;
+  const Crodm_uPtr& crodm;
+  DBQueue_uPtr& dbFifo;
 };
 
 #endif /* SPLITENCODING_H_ */

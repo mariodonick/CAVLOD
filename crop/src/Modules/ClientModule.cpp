@@ -16,13 +16,13 @@
 #include "../Tools/ByteArray.h"
 
 ClientModule::ClientModule()
-: dbFifo(new Fifo<DataBlock*>)
-, prioQueue(new PrioritizedQueue<DataBlock*>)
+: dbFifo(new Fifo<DataBlock_sPtr>)
+, prioQueue(new PrioritizedQueue<DataBlock_sPtr>)
 , crodm(new CrodmFacade)
 , network(new UDPSocket)
-, partitioning( new SplitEncoding(*crodm, *dbFifo) )
-, prioritization(new Priority(*dbFifo, *prioQueue, *crodm))
-, packetizer(new MessagePacketizer(*prioQueue))
+, partitioning( new SplitEncoding(crodm, dbFifo) )
+, prioritization(new Priority(dbFifo, prioQueue, crodm))
+, packetizer(new MessagePacketizer(prioQueue))
 , running(false)
 {
   running = true;
@@ -37,13 +37,6 @@ ClientModule::~ClientModule()
   usleep(200);
 
   sendingThread.join();
-
-  delete packetizer;
-  delete prioritization;
-  delete partitioning;
-  delete network;
-  delete crodm;
-  delete dbFifo;
 }
 
 void ClientModule::execute()

@@ -4,7 +4,6 @@
 
 #include "DataBlock.h"
 
-#include "../Tools/Bin.h"
 #include "../Tools/ByteArray.h"
 #include "../TypesConfig/ProtocolConstants.h"
 #include "DataTypes.h"
@@ -17,8 +16,6 @@ DataBlock::DataBlock()
 
 DataBlock::~DataBlock()
 {
-  if(content != nullptr)
-    delete content;
 }
 
 void DataBlock::setHeader(const DataBlock::Header& dbh)
@@ -96,7 +93,7 @@ void DataBlock::setRelevance(const float& rel)
   relevance = rel;
 }
 
-void DataBlock::addContent(ByteArray* data)
+void DataBlock::addContent(ByteArray_sPtr data)
 {
   if(content == nullptr)
     content = data;
@@ -106,7 +103,7 @@ void DataBlock::addContent(ByteArray* data)
   header.length += data->size();
 }
 
-ByteArray* DataBlock::getContent()
+ByteArray_sPtr DataBlock::getContent()
 {
   return content;
 }

@@ -6,8 +6,7 @@
 #ifndef SERVERMODULE_H_
 #define SERVERMODULE_H_
 
-class Parser;
-class NetworkIO;
+#include "../TypesConfig/Pointer.h"
 
 class ServerModule
 {
@@ -18,8 +17,8 @@ public:
   void execute();
 
 private:
-  NetworkIO* network;
-  Parser* parser;
+  NetworkIO_uPtr network;
+  Parser_uPtr parser;
 
   bool running;
 };

@@ -20,7 +20,7 @@ const MsgConfig MESSAGE_CONFIG = 0;
 const MsgCrc16 CRC_16 = 1;
 const MsgCrc32 CRC_32 = 1;
 
-MessagePacketizer::MessagePacketizer(Queue<DataBlock*>& thePrioQueue)
+MessagePacketizer::MessagePacketizer(DBQueue_uPtr& thePrioQueue)
 : prioQueue(thePrioQueue)
 {
 
@@ -42,14 +42,14 @@ const ByteArray& MessagePacketizer::packetizeMessage()
 
 
   // if queue is empty we return an empty datablock
-  if( prioQueue.isEmpty() )
+  if( prioQueue->isEmpty() )
   {
     message.clear();
     return message;
   }
 
   //get next datablock
-  DataBlock* data = prioQueue.pop();
+  DataBlock_sPtr data = prioQueue->pop();
 
   // compute db length
   unsigned int dbLength = data->getLength().to_uint();
@@ -70,7 +70,7 @@ const ByteArray& MessagePacketizer::packetizeMessage()
   message.append( data->getConfig() );
   message.append( data->getDataObjectID() );
   message.append( data->getSequenceNumber() );
-  message.append( Bin<16>( dbLength ) );
+  message.append( DBLength( dbLength ) );
 
   // append datablock content
   message.append(data->getContent()->dataPtr(), data->getContent()->size());

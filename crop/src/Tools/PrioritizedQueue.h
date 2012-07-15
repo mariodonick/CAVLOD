@@ -6,7 +6,6 @@
 #ifndef PRIORITIZEDQUEUE_H_
 #define PRIORITIZEDQUEUE_H_
 
-#include "ByteArray.h"
 #include "Queue.h"
 
 #include <queue>

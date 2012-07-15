@@ -14,9 +14,9 @@ TextVisualizer::~TextVisualizer()
 
 }
 
-void TextVisualizer::display(const std::vector<Text*>& sortedContent)
+void TextVisualizer::display(const std::vector<Text_sPtr>& sortedContent)
 {
-  std::vector<Text*>::const_iterator it = sortedContent.begin();
+  std::vector<Text_sPtr>::const_iterator it = sortedContent.begin();
   for(; it != sortedContent.end(); ++it)
     std::cout << (*it)->text;
 }
@@ -35,7 +35,7 @@ SensorVisualizer::~SensorVisualizer()
 
 }
 
-void SensorVisualizer::display(const std::vector<Sensor*>& )
+void SensorVisualizer::display(const std::vector<Sensor_sPtr>& )
 {
-
+  // todo implement me
 }

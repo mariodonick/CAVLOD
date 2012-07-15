@@ -7,6 +7,7 @@
 #define VISUALIZER_H_
 
 #include "../DataManagement/Content.h"
+#include "../TypesConfig/Pointer.h"
 
 #include <vector>
 
@@ -16,30 +17,30 @@ class Visualizer
 public:
   virtual ~Visualizer(){}
 
-  virtual void display(const std::vector<T*>& sortedContent) = 0;
+  virtual void display(const std::vector<T>& sortedContent) = 0;
 };
 
 
-class TextVisualizer : public Visualizer<Text>
+class TextVisualizer : public Visualizer<Text_sPtr>
 {
 public:
   TextVisualizer();
   virtual ~TextVisualizer();
 
 protected:
-  void display(const std::vector<Text*>& sortedContent);
+  void display(const std::vector<Text_sPtr>& sortedContent);
 
 };
 
 
-class SensorVisualizer : public Visualizer<Sensor>
+class SensorVisualizer : public Visualizer<Sensor_sPtr>
 {
 protected:
   SensorVisualizer();
   virtual ~SensorVisualizer();
 
 protected:
-  void display(const std::vector<Sensor*>& sortedContent);
+  void display(const std::vector<Sensor_sPtr>& sortedContent);
 };
 
 

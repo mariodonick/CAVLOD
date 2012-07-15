@@ -14,7 +14,7 @@ class Decoder
 protected:
   virtual ~Decoder(){}
 
-  virtual void decode(const DBDataObjectID& doid, const DBSequenceNumber& seqNum, T* obj) = 0;
+  virtual void decode(const DBDataObjectID& doid, const DBSequenceNumber& seqNum, T obj) = 0;
 };
 
 #endif /* DECODER_H_ */

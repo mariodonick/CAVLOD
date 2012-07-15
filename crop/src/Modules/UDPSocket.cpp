@@ -24,9 +24,9 @@ UDPSocket::~UDPSocket()
 	close(sock_s);
 }
 
-const ByteArray* UDPSocket::receiveData()
+const ByteArray_sPtr UDPSocket::receiveData()
 {
-  ByteArray* barr = new ByteArray;
+  ByteArray_sPtr barr( new ByteArray );
 
   n_s = recvfrom(sock_s, &buf_s, NETWORK_BUFFER_SIZE, 0, (sockaddr *)&from_s, &fromlen_s);
 
@@ -91,7 +91,7 @@ void UDPSocket::startServer(const unsigned int& s_port)
 	server_s.sin_port = htons(s_port);
 
 	//Port und adresse des Servers werden dem Socket zugewiesen
-	if (bind(sock_s,(struct sockaddr *)&server_s,length_s)<0)
+	if( ::bind(sock_s, (struct sockaddr *) &server_s, length_s) < 0 )
 	  cout << "binding" << endl;
 
 	fromlen_s = sizeof(struct sockaddr_in);

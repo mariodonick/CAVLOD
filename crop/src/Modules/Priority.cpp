@@ -11,7 +11,7 @@
 
 #include <vector>
 
-Priority::Priority(Queue<DataBlock*>& theDBFifo, Queue<DataBlock*>& thePrioQueue, const Crodm& theCrodm)
+Priority::Priority(DBQueue_uPtr& theDBFifo, DBQueue_uPtr& thePrioQueue, const Crodm_uPtr& theCrodm)
 : dbFifo(theDBFifo)
 , prioQueue(thePrioQueue)
 , crodm(theCrodm)
@@ -24,16 +24,16 @@ Priority::~Priority()
 
 void Priority::evaluate()
 {
-  const std::vector<float>* priorities = &crodm.getPriortyVec();
+  const std::vector<float>* priorities = &crodm->getPriortyVec();
 
-  cassert( priorities->size() >= dbFifo.size() );
+  cassert( priorities->size() >= dbFifo->size() );
 
   unsigned int i = 0;
-  while( !dbFifo.isEmpty() )
+  while( !dbFifo->isEmpty() )
   {
-    DataBlock* data = dbFifo.pop();
+    DataBlock_sPtr data = dbFifo->pop();
     data->setPriority( (*priorities)[i] );
-    prioQueue.push( data );
+    prioQueue->push( data );
     ++i;
   }
 }

@@ -36,8 +36,8 @@ private:
 
   unsigned int curMsgPos;
 
-  DataBlockProcessing<Text, TextParser, UniversalDecoder<Text>, TextVisualizer > textProcessing;
-  DataBlockProcessing<Sensor, SensorParser, UniversalDecoder<Sensor>, SensorVisualizer> sensorProcessing;
+  DataBlockProcessing<Text_sPtr, TextParser, UniversalDecoder<Text_sPtr>, TextVisualizer > textProcessing;
+  DataBlockProcessing<Sensor_sPtr, SensorParser, UniversalDecoder<Sensor_sPtr>, SensorVisualizer> sensorProcessing;
 };
 
 #endif /* MESSAGEPARSER_H_ */

@@ -8,16 +8,9 @@
 
 #include "UDPSocket.h"
 #include "../Tools/PrioritizedQueue.h"
+#include "../TypesConfig/Pointer.h"
 
 #include <thread>
-
-class DataBlock;
-class Crodm;
-class Partitioning;
-class Prioritization;
-template<class T> class Queue;
-class NetworkIO;
-class Packetizer;
 
 class ClientModule
 {
@@ -31,14 +24,14 @@ private:
   void packetizerThread();
 
 private:
-  Queue<DataBlock*>* dbFifo;
-  Queue<DataBlock*>* prioQueue;
+  DBQueue_uPtr dbFifo;
+  DBQueue_uPtr prioQueue;
 
-  Crodm* crodm;
-  NetworkIO* network;
-  Partitioning* partitioning;
-  Prioritization* prioritization;
-  Packetizer* packetizer;
+  Crodm_uPtr crodm;
+  NetworkIO_uPtr network;
+  Partitioning_uPtr partitioning;
+  Prioritization_uPtr prioritization;
+  Packetizer_uPtr packetizer;
 
   bool running;
   std::thread sendingThread;

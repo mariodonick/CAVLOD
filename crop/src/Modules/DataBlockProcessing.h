@@ -60,7 +60,7 @@ void DataBlockProcessing<T, Parser, Decoder, Visualizer>::start(const DataBlock:
     for(unsigned int i = 0; i < totalLength; ++i)
       tmp[i] = data[curContentPos + i];
 
-    T* obj = parseContent(tmp, totalLength);
+    T obj = parseContent(tmp, totalLength);
     unsigned int len = obj->size();
     curContentPos += len;
 

@@ -17,7 +17,7 @@ TextParser::~TextParser()
 
 }
 
-Text* TextParser::parseContent(char* data, const unsigned int& len)
+Text_sPtr TextParser::parseContent(char* data, const unsigned int& len)
 {
   std::cout << "\n---------------Text---------------------------\n";
 
@@ -32,7 +32,7 @@ Text* TextParser::parseContent(char* data, const unsigned int& len)
 
   unsigned int length = len - offset;
 
-  Text* text = new Text;
+  Text_sPtr text( new Text );
   text->column = *column;
   text->line = *line;
   text->text.insert(0, &data[offset], length);
@@ -59,7 +59,7 @@ SensorParser::~SensorParser()
 {
 }
 
-Sensor* SensorParser::parseContent(char* data, const unsigned int& len)
+Sensor_sPtr SensorParser::parseContent(char* data, const unsigned int& len)
 {
   std::cout << "\n---------------Sensor---------------------------\n";
 
@@ -69,7 +69,7 @@ Sensor* SensorParser::parseContent(char* data, const unsigned int& len)
   std::cout << "timestamp: " << *timestamp << "\n";
   std::cout << "value: " << *v << "\n";
 
-  Sensor* sensor = new Sensor;
+  Sensor_sPtr sensor( new Sensor );
   sensor->value = *v;
   sensor->setTimestamp(*timestamp);
 

@@ -18,16 +18,13 @@ ServerModule::ServerModule()
 ServerModule::~ServerModule()
 {
   running = false;
-
-  delete parser;
-  delete network;
 }
 
 void ServerModule::execute()
 {
   while(running)
   {
-    const ByteArray* arr = network->receiveData();
+    const ByteArray_sPtr arr = network->receiveData();
     parser->parse(*arr);
   }
 }

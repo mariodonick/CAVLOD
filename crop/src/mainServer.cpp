@@ -27,7 +27,7 @@ int main()
   signal(SIGINT, signal_handler_SIGINT);
 
   server = new ServerModule;
-  server->execute();
+  server->start();
 
   return 0;
 }

@@ -14,15 +14,21 @@ enum DataTypes
   TYPE_TEXT
 };
 
-inline const std::string dataType2String(const DBDatatype& dt)
+inline const std::string dataType2String(const DataTypes& dt)
 {
-  switch( static_cast<DataTypes>(dt.to_uint()) )
+  switch( dt )
   {
     case TYPE_SENSOR: return "TYPE_SENSOR";
     case TYPE_TEXT: return "TYPE_TEXT";
   }
 
   return "---";
+}
+
+template<unsigned int N>
+inline const std::string dataType2String(const Bin<N>& dataTypes)
+{
+  return dataType2String(static_cast<DataTypes>( dataTypes.to_ulong() ) );
 }
 
 #endif /* DATATYPES_H_ */

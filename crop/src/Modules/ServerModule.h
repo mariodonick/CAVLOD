@@ -14,7 +14,7 @@ public:
   ServerModule();
   virtual ~ServerModule();
 
-  void execute();
+  void start();
 
 private:
   NetworkIO_uPtr network;

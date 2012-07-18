@@ -19,6 +19,7 @@ private:
   const std::vector<float>& getPriortyVec() const;
   const std::vector<RelevanceData>& getRelevanceData() const;
   void evaluateText(const std::string& text) const;
+  void evaluateSensor(const float& value) const;
 
 private:
   std::vector<float> priorities;

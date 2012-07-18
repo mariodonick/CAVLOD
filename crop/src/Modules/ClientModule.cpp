@@ -8,25 +8,33 @@
 #include "CrodmFacade.h"
 #include "UDPSocket.h"
 #include "MessagePacketizer.h"
+#include "TextInput.h"
+#include "SensorInput.h"
 
 #include "../TypesConfig/Config.h"
 #include "../TypesConfig/ProtocolTypes.h"
 #include "../Tools/Fifo.h"
 #include "../Tools/PrioritizedQueue.h"
 #include "../Tools/ByteArray.h"
+#include "../Tools/StopWatch.h"
+
+#include <functional>
 
 ClientModule::ClientModule()
-: dbFifo(new Fifo<DataBlock_sPtr>)
-, prioQueue(new PrioritizedQueue<DataBlock_sPtr>)
-, crodm(new CrodmFacade)
-, network(new UDPSocket)
+: running(false)
+, dbFifo( new Fifo<DataBlock_sPtr> )
+, prioQueue( new PrioritizedQueue<DataBlock_sPtr> )
+, textInput( new TextInput( running, std::bind(&ClientModule::handleTextEvent, this, std::placeholders::_1) ) )
+, sensorInput( new SensorInput( running, std::bind(&ClientModule::handleSensorEvent, this, std::placeholders::_1) ) )
+, crodm( new CrodmFacade )
+, network( new UDPSocket )
 , partitioning( new SplitEncoding(crodm, dbFifo) )
-, prioritization(new Priority(dbFifo, prioQueue, crodm))
-, packetizer(new MessagePacketizer(prioQueue))
-, running(false)
+, prioritization( new Priority(dbFifo, prioQueue, crodm) )
+, packetizer( new MessagePacketizer(prioQueue) )
 {
   running = true;
-  sendingThread = std::thread( &ClientModule::packetizerThread, this );
+  threads.push_back( std::thread( &ClientModule::packetizerThread, this ) );
+
   std::clog << "client is up and running!\n";
 }
 
@@ -34,42 +42,29 @@ ClientModule::~ClientModule()
 {
   running = false;
 
-  usleep(200);
-
-  sendingThread.join();
+  for(std::list<std::thread>::iterator it = threads.begin(); it != threads.end(); ++it)
+  {
+    try
+    {
+      if( it->joinable() )
+        it->join();
+    }
+    catch(std::system_error& e)
+    {
+      std::cerr << "shuting down thread failed with: " << e.what() << std::endl;
+    }
+  }
 }
 
-void ClientModule::execute()
+void ClientModule::start()
 {
-  DBDataObjectID doid = 0;
+  // hier die nebenläufigen gui etc starten, welche die events dann senden
+  threads.push_back( std::thread( &ContentInput<std::string>::run, textInput) );
+  threads.push_back( std::thread( &ContentInput<float>::run, sensorInput) );
+//  textInput->initial();
+//  sensorInput->initial();
 
-  unsigned int loops = 1;
-  std::cout << "How many data you want to send? Number of data:\n";
-  std::cin >> loops;
-
-  while(doid < loops)
-  {
-    std::string text = "Es folgt ein Beispieltext:\n";
-    text.append("Hallo ich bin ein Beispieltext und komme vom Mars.\n");
-    text.append("Dabei wurde ich zuerst zerstückelt, dann priorisiert, einzeln versendet und auf der Erde wieder zusammengesetzt.\n");
-
-    // with the following lines you can insert spaces
-//  std::cout << "Bitte einen Text eingeben:\n";
-//  std::string text;
-
-//  std::cin.clear(); //clean cin and wait for input
-//  std::cin.sync();
-//  std::cin.get();
-//  std::getline(std::cin, text);
-//  std::cout << "Eingabe text: " << text << "\n";
-
-    doid += 1;
-    crodm->evaluateText(text);
-    partitioning->partText(doid, text);
-    prioritization->evaluate();
-  }
-
-  std::clog << "content reading and processing is done\n";
+//  std::clog << "content reading and processing is done\n";
 }
 
 void ClientModule::packetizerThread()
@@ -82,6 +77,38 @@ void ClientModule::packetizerThread()
     if( !data.isEmpty() )
       network->sendData(data, IP_ADDRESS, PORT);
 
-    std::cout << "Sending... Data available in Prioritized Queue: " << prioQueue->size() << "\n";
+    std::cout << "Sending... Data available in Prioritized Queue: " << prioQueue->size() << std::endl;
   }
+  std::cout << "packetizer thread finished\n";
+}
+
+//todo code dopplungen anders gestalten :(  -> templates? das schreit danach^^
+void ClientModule::handleTextEvent(const DBDataObjectID& id)
+{
+  std::cout << "textevent waiting\n";
+  std::unique_lock<std::mutex> lock(eventMutex);
+  std::cout << "textevent start\n";
+
+  StopWatch sw;
+  const std::string& text = textInput->getInput();
+  crodm->evaluateText(text);
+  partitioning->partText(id, text);
+  prioritization->evaluate();
+
+  std::cout << "text STOP sw: " << sw << std::endl;
+}
+
+void ClientModule::handleSensorEvent(const DBDataObjectID& id)
+{
+  std::cout << "sensor event waiting\n";
+  std::unique_lock<std::mutex> lock(eventMutex);
+  std::cout << "sensor event start\n";
+
+  StopWatch sw;
+  const float& value = sensorInput->getInput();
+  crodm->evaluateSensor(value);
+  partitioning->partSensor(id, value);
+  prioritization->evaluate();
+
+  std::cout << "sensor STOP sw: " << sw << std::endl;
 }

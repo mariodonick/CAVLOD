@@ -36,3 +36,8 @@ void CrodmFacade::evaluateText(const std::string&) const
 {
 
 }
+
+void CrodmFacade::evaluateSensor(const float&) const
+{
+
+}

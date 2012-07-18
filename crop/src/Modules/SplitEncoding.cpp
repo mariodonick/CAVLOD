@@ -56,10 +56,10 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
     }
   }
 
-  for(std::vector<std::size_t>::iterator itL = linePos.begin(); itL != linePos.end(); ++itL)
-    std::cout << "size: " << *itL << "\n";
+//  for(std::vector<std::size_t>::iterator itL = linePos.begin(); itL != linePos.end(); ++itL)
+//    std::cout << "size: " << *itL << "\n";
 
-  std::cout << "---line preprocessing end-------\n";
+//  std::cout << "---line preprocessing end-------\n";
 
   std::list<Fragment> fragments;
   std::vector<RelevanceData>::const_iterator r_cur = relevanceData.begin();
@@ -68,13 +68,13 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
   // and create blocks with relevant informations
   while(r_cur != relevanceData.end())
   {
-    std::cout << "r_cur->pos_x: " << r_cur->pos_x << "\n";
-    std::cout << "r_cur->pos_y: " << r_cur->pos_y << "\n";
-    std::cout << "r_cur->len_x: " << r_cur->len_x << "\n";
-    std::cout << "r_cur->len_y: " << r_cur->len_y << "\n";
+//    std::cout << "r_cur->pos_x: " << r_cur->pos_x << "\n";
+//    std::cout << "r_cur->pos_y: " << r_cur->pos_y << "\n";
+//    std::cout << "r_cur->len_x: " << r_cur->len_x << "\n";
+//    std::cout << "r_cur->len_y: " << r_cur->len_y << "\n";
 
     unsigned int lineStartPos = linePos[r_cur->pos_y];
-    std::cout << "lineStartPos: " << lineStartPos << "\n\n";
+//    std::cout << "lineStartPos: " << lineStartPos << "\n\n";
 
     Fragment fragm;
     fragm.pos = lineStartPos + r_cur->pos_x;
@@ -84,22 +84,22 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
     fragm.column = r_cur->pos_x;
 
     fragments.push_back(fragm);
-    std::cout << "fragm: " << fragm << "\n\n--------------------------\n";
+//    std::cout << "fragm: " << fragm << "\n\n--------------------------\n";
     ++r_cur;
   }
 
   // compute blocks without relevance
-  std::cout << "--------insert zero relevance fragments -----------------\n";
+//  std::cout << "--------insert zero relevance fragments -----------------\n";
 
   std::list<Fragment>::iterator curFrag = fragments.begin();
   std::list<Fragment>::iterator preFrag = fragments.begin();
 
   for(; curFrag != fragments.end(); ++curFrag)
   {
-    std::cout << "curFrag: pos " << curFrag->pos << " len: " << curFrag->length << "\n";
-    std::cout << "preFrag: pos " << preFrag->pos << " len: " << preFrag->length << "\n";
-    std::cout << "zeropos: " << ((curFrag == preFrag) ? 0 : preFrag->pos + preFrag->length) << "\n";
-    std::cout << "zerolength: " << ((curFrag == preFrag) ? curFrag->pos : curFrag->pos - (preFrag->pos + preFrag->length)) << "\n";
+//    std::cout << "curFrag: pos " << curFrag->pos << " len: " << curFrag->length << "\n";
+//    std::cout << "preFrag: pos " << preFrag->pos << " len: " << preFrag->length << "\n";
+//    std::cout << "zeropos: " << ((curFrag == preFrag) ? 0 : preFrag->pos + preFrag->length) << "\n";
+//    std::cout << "zerolength: " << ((curFrag == preFrag) ? curFrag->pos : curFrag->pos - (preFrag->pos + preFrag->length)) << "\n";
     Fragment zero;
     zero.pos = (curFrag == preFrag) ? 0 : preFrag->pos + preFrag->length;
     zero.length = (curFrag == preFrag) ? curFrag->pos : curFrag->pos - (preFrag->pos + preFrag->length);
@@ -112,7 +112,7 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
       fragments.insert(curFrag, zero);
 
     preFrag = curFrag;
-    std::cout << "------------fragment end------\n\n";
+//    std::cout << "------------fragment end------\n\n";
   }
 
   std::list<Fragment>::iterator lastFrag = fragments.end();
@@ -122,7 +122,7 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
   uint16_t endPos = lastFrag->pos + lastFrag->length;
   if(lastFrag->pos + lastFrag->length < *(linePos.end()-1))
   {
-    std::cout << "insert last fragment\n";
+//    std::cout << "insert last fragment\n";
     Fragment lastZero;
     lastZero.length = *(linePos.end()-1) - endPos;
     lastZero.pos = endPos;
@@ -131,11 +131,11 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
     lastZero.column = endPos - linePos[lastZero.line];
 
     fragments.push_back(lastZero);
-    std::cout << "lastZero: " << lastZero << "\n";
+//    std::cout << "lastZero: " << lastZero << "\n";
   }
 
-  for(std::list<Fragment>::iterator it = fragments.begin(); it != fragments.end(); ++it)
-    std::cout << "it: " << *it << "\n";
+//  for(std::list<Fragment>::iterator it = fragments.begin(); it != fragments.end(); ++it)
+//    std::cout << "it: " << *it << "\n";
 
   // create datablocks
   unsigned int sequNr = 0;
@@ -155,7 +155,7 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
     text.line = it->line;
     text.column = it->column;
 
-    std::cout << "text: " << text.text << "\n";
+//    std::cout << "text: " << text.text << "\n";
 
     ByteArray_sPtr content(new ByteArray);
     content->insert(text);

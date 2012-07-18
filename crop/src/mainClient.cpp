@@ -26,7 +26,7 @@ int main()
   signal(SIGINT, signal_handler_SIGINT);
 
   client = new ClientModule;
-  client->execute();
+  client->start();
 
   while (true) sleep(300);
   return 0;

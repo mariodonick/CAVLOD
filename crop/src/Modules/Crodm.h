@@ -25,6 +25,7 @@ public:
 
   //interfaces from content phase to Crodm
   virtual void evaluateText(const std::string& text) const = 0;
+  virtual void evaluateSensor(const float& value) const = 0;
 };
 
 #endif /* CRODM_H_ */

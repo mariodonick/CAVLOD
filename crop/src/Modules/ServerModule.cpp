@@ -20,7 +20,7 @@ ServerModule::~ServerModule()
   running = false;
 }
 
-void ServerModule::execute()
+void ServerModule::start()
 {
   while(running)
   {

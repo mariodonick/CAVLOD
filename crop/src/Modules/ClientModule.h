@@ -11,6 +11,8 @@
 #include "../TypesConfig/Pointer.h"
 
 #include <thread>
+#include <list>
+#include <mutex>
 
 class ClientModule
 {
@@ -18,23 +20,31 @@ public:
   ClientModule();
   virtual ~ClientModule();
 
-  void execute();
+  void start();
 
 private:
   void packetizerThread();
 
+  void handleSensorEvent(const DBDataObjectID& id);
+  void handleTextEvent(const DBDataObjectID& id);
+
 private:
+  bool running;
+
   DBQueue_uPtr dbFifo;
   DBQueue_uPtr prioQueue;
 
+  TextInput_sPtr textInput;
+  SensorInput_sPtr sensorInput;
   Crodm_uPtr crodm;
   NetworkIO_uPtr network;
   Partitioning_uPtr partitioning;
   Prioritization_uPtr prioritization;
   Packetizer_uPtr packetizer;
 
-  bool running;
-  std::thread sendingThread;
+  std::list<std::thread> threads;
+
+  std::mutex eventMutex;
 };
 
 #endif /* CLIENTMODULE_H_ */

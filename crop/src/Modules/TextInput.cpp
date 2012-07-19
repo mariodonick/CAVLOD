@@ -19,7 +19,7 @@ void TextInput::run()
 {
   while(running)
   {
-    sleep(1);
+    sleep(5);
 
     text.clear();
     text = "Es folgt ein Beispieltext:\n";

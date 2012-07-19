@@ -9,12 +9,6 @@
 #include "Prioritization.h"
 #include "../TypesConfig/Pointer.h"
 
-//template<class T> class Queue;
-//class Crodm;
-//template<class T>
-//class PrioritizedQueue;
-//class DataBlock;
-
 class Priority : public Prioritization
 {
 public:

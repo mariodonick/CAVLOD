@@ -60,7 +60,7 @@ void ClientModule::start()
 {
   // hier die nebenläufigen gui etc starten, welche die events dann senden
   threads.push_back( std::thread( &ContentInput<std::string>::run, textInput) );
-  threads.push_back( std::thread( &ContentInput<float>::run, sensorInput) );
+//  threads.push_back( std::thread( &ContentInput<float>::run, sensorInput) );
 //  textInput->initial();
 //  sensorInput->initial();
 
@@ -79,15 +79,14 @@ void ClientModule::packetizerThread()
 
     std::cout << "Sending... Data available in Prioritized Queue: " << prioQueue->size() << std::endl;
   }
-  std::cout << "packetizer thread finished\n";
 }
 
-//todo code dopplungen anders gestalten :(  -> templates? das schreit danach^^
+//todo code dopplungen anders gestalten :(  -> templates? das schreit danach ;)
 void ClientModule::handleTextEvent(const DBDataObjectID& id)
 {
-  std::cout << "textevent waiting\n";
+//  std::cout << "textevent waiting\n";
   std::unique_lock<std::mutex> lock(eventMutex);
-  std::cout << "textevent start\n";
+//  std::cout << "textevent start\n";
 
   StopWatch sw;
   const std::string& text = textInput->getInput();

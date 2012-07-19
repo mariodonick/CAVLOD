@@ -18,14 +18,14 @@ public:
   virtual ~Crodm(){}
 
   // interface from prioritizer to Crodm
-  virtual const std::vector<float>& getPriortyVec() const = 0;
+  virtual const float& getPriorty(const RelevanceData& relevance) = 0;
 
   //interface from split and encoder to Crodm
-  virtual const std::vector<RelevanceData>& getRelevanceData() const = 0;
+  virtual const std::vector<RelevanceData>& getRelevanceData() = 0;
 
   //interfaces from content phase to Crodm
-  virtual void evaluateText(const std::string& text) const = 0;
-  virtual void evaluateSensor(const float& value) const = 0;
+  virtual void evaluateText(const std::string& text) = 0;
+  virtual void evaluateSensor(const float& value) = 0;
 };
 
 #endif /* CRODM_H_ */

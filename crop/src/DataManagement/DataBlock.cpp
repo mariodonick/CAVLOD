@@ -53,7 +53,7 @@ const float& DataBlock::getPriority() const
   return priority;
 }
 
-const float& DataBlock::getRelevance() const
+const RelevanceData& DataBlock::getRelevanceData() const
 {
   return relevance;
 }
@@ -88,7 +88,7 @@ void DataBlock::setLength(const DBLength& length)
   header.length = length;
 }
 
-void DataBlock::setRelevance(const float& rel)
+void DataBlock::setRelevanceData(const RelevanceData& rel)
 {
   relevance = rel;
 }

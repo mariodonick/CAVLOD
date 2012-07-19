@@ -8,25 +8,22 @@
 
 #include "Partitioning.h"
 #include "../TypesConfig/Pointer.h"
+#include "../DataManagement/RelevanceData.h"
 
 #include <cstdint>
-
-//class Crodm;
-//template<class T> class Queue;
-//class DataBlock;
+#include <vector>
+#include <list>
 
 class SplitEncoding : public Partitioning
 {
 public:
-  struct Fragment
+  struct GlobalPosition
   {
     uint16_t pos;
     uint16_t length;
     float relevance;
-    uint16_t line;
-    uint16_t column;
 
-    friend std::ostream& operator<<(std::ostream& out, const Fragment& frag);
+    friend std::ostream& operator<<(std::ostream& out, const GlobalPosition& frag);
   };
 
 public:
@@ -36,6 +33,16 @@ public:
 private:
   void partText(const DBDataObjectID& doid, const std::string& content);
   void partSensor(const DBDataObjectID& doid, const float& value);
+
+  const SplitEncoding::GlobalPosition transform2global(
+      const RelevanceData& lp,
+      const std::vector<std::size_t>& len);
+  const RelevanceData transform2localRelData(
+      const SplitEncoding::GlobalPosition& gp,
+      const std::vector<std::size_t>& len);
+  const SplitEncoding::GlobalPosition diffFrom2RelevanceData(
+      const std::list<GlobalPosition>::iterator& pre,
+      const std::list<GlobalPosition>::iterator& cur);
 
 private:
   const Crodm_uPtr& crodm;

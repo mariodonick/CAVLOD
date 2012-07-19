@@ -9,6 +9,7 @@
 #include "../TypesConfig/ProtocolTypes.h"
 #include "../Tools/Bin.h"
 #include "../TypesConfig/Pointer.h"
+#include "../DataManagement/RelevanceData.h"
 
 #include <iosfwd>
 
@@ -44,7 +45,7 @@ public:
   const DBConfig& getConfig() const;
   const DBLength& getLength() const;
   const float& getPriority() const;
-  const float& getRelevance() const;
+  const RelevanceData& getRelevanceData() const;
 
   void setDataObjectID(const DBDataObjectID& doid);
   void setDataType(const DBDatatype& dt);
@@ -52,7 +53,7 @@ public:
   void setConfig(const DBConfig& conf);
   void setPriority(const float& prio);
   void setLength(const DBLength& length);
-  void setRelevance(const float& rel);
+  void setRelevanceData(const RelevanceData& rel);
 
   void addContent(ByteArray_sPtr content);
   ByteArray_sPtr getContent();
@@ -61,7 +62,7 @@ public:
 
 private:
   float priority;
-  float relevance;
+  RelevanceData relevance;
   Header header;
 
   ByteArray_sPtr content;

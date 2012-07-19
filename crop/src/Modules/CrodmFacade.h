@@ -16,14 +16,16 @@ public:
   virtual ~CrodmFacade();
 
 private:
-  const std::vector<float>& getPriortyVec() const;
-  const std::vector<RelevanceData>& getRelevanceData() const;
-  void evaluateText(const std::string& text) const;
-  void evaluateSensor(const float& value) const;
+  const float& getPriorty(const RelevanceData& relevance);
+  const std::vector<RelevanceData>& getRelevanceData();
+  void evaluateText(const std::string& text);
+  void evaluateSensor(const float& value);
 
 private:
   std::vector<float> priorities;
   std::vector<RelevanceData> relevanceData;
+
+  unsigned int index;
 };
 
 #endif /* CRODMFACADE_H_ */

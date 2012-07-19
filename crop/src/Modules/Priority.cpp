@@ -24,15 +24,13 @@ Priority::~Priority()
 
 void Priority::evaluate()
 {
-  const std::vector<float>* priorities = &crodm->getPriortyVec();
-
-  cassert( priorities->size() >= dbFifo->size() );
-
   unsigned int i = 0;
   while( !dbFifo->isEmpty() )
   {
     DataBlock_sPtr data = dbFifo->pop();
-    data->setPriority( (*priorities)[i] );
+
+    const float& prio = crodm->getPriorty( data->getRelevanceData() );
+    data->setPriority( prio );
     prioQueue->push( data );
     ++i;
   }

@@ -10,6 +10,7 @@
 #include "../Tools/ByteArray.h"
 #include "../Tools/Queue.h"
 #include "../Tools/Exception.h"
+#include "../TypesConfig/ProtocolConstants.h"
 
 #include <sstream>
 #include <list>
@@ -166,14 +167,14 @@ void SplitEncoding::partSensor(const DBDataObjectID& doid, const float& value)
   dbh.sequenceNumber = sNr++;
   dbh.dataType = TYPE_SENSOR;
 
-  DataBlock_sPtr db( new DataBlock );
-  db->setHeader(dbh);
-
   Sensor sensor;
   sensor.value = value;
   sensor.stamp();
 
-  std::cout << "timestamp: " << sensor.getTimestamp() << " = 0x" << std::hex << sensor.getTimestamp() << std::dec << "\n";
+  dbh.config[DB_CONFIG_TIMESTAMP] = true; //todo hier wird weitergearbeitet =)
+
+  DataBlock_sPtr db( new DataBlock );
+  db->setHeader(dbh);
 
   ByteArray_sPtr content(new ByteArray);
   content->insert(sensor);
@@ -198,7 +199,6 @@ const RelevanceData SplitEncoding::transform2localRelData(const SplitEncoding::G
   rel.len_x = gp.length;
   rel.pos_x = gp.pos - len[index];
   rel.pos_y = index;
-
   rel.relevanceValue = gp.relevance;
 
   return rel;

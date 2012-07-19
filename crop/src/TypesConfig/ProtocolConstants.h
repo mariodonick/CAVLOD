@@ -22,6 +22,8 @@ const std::size_t DB_DATA_OBJECT_ID_BYTES = 3;
 const std::size_t DB_SEQUENCE_NUMBER_BYTES = 2;
 const std::size_t DB_LENGTH_BYTES = 2;
 
+const unsigned int DB_CONFIG_TIMESTAMP = 3;
+
 // content
 const std::size_t C_TIMESTAMP_BYTES = 8;
 // content text

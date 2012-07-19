@@ -61,10 +61,8 @@ void ClientModule::start()
   // hier die nebenläufigen gui etc starten, welche die events dann senden
   threads.push_back( std::thread( &ContentInput<std::string>::run, textInput) );
   threads.push_back( std::thread( &ContentInput<float>::run, sensorInput) );
-//  textInput->initial();
+//  textInput->initial(); // todo notwendig?
 //  sensorInput->initial();
-
-//  std::clog << "content reading and processing is done\n";
 }
 
 void ClientModule::packetizerThread()

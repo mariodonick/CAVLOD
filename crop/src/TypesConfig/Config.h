@@ -7,7 +7,10 @@
 #define CONFIG_H_
 
 // general
-const unsigned int SLEEP_SECONDS = 1;
+const unsigned int SLEEP_MSECONDS_PACKETIZER = 3000;
+const unsigned int SLEEP_MSECONDS_INPUT_SENSOR = 10;
+const unsigned int SLEEP_MSECONDS_INPUT_TEXT = 1000;
+
 const unsigned int PORT = 5657;
 const char* const IP_ADDRESS = "localhost";
 

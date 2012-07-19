@@ -23,6 +23,8 @@ typedef Bin<16> DBSequenceNumber;
 typedef Bin<24> DBDataObjectID;
 typedef Bin<16> DBLength;
 
+typedef Bin<64> CTimestamp;
+
 enum MsgAddressType
 {
   IP_V6 = 0

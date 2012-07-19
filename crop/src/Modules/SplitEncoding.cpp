@@ -14,6 +14,7 @@
 #include <sstream>
 #include <list>
 
+//todo noch abfangen das message nicht grösser als max_msg_length wird
 SplitEncoding::SplitEncoding(const Crodm_uPtr& theCrodm, DBQueue_uPtr& theDBFifo)
 : crodm(theCrodm)
 , dbFifo(theDBFifo)
@@ -172,21 +173,13 @@ void SplitEncoding::partSensor(const DBDataObjectID& doid, const float& value)
   sensor.value = value;
   sensor.stamp();
 
-  std::cout << "timestamp: " << sensor.getTimestamp() << "\n";
+  std::cout << "timestamp: " << sensor.getTimestamp() << " = 0x" << std::hex << sensor.getTimestamp() << std::dec << "\n";
 
   ByteArray_sPtr content(new ByteArray);
   content->insert(sensor);
   db->addContent( content );
 
   dbFifo->push(db);
-}
-
-std::ostream& operator<<(std::ostream& out, const SplitEncoding::GlobalPosition& gp)
-{
-  out << "pos: " << gp.pos
-      << " length: " << gp.length
-      << " relevance: " << gp.relevance;
-  return out;
 }
 
 const RelevanceData SplitEncoding::transform2localRelData(const SplitEncoding::GlobalPosition& gp, const std::vector<std::size_t>& len)
@@ -232,6 +225,14 @@ const SplitEncoding::GlobalPosition SplitEncoding::diffFrom2RelevanceData(
   gp.relevance = 0;
 
   return gp;
+}
+
+std::ostream& operator<<(std::ostream& out, const SplitEncoding::GlobalPosition& gp)
+{
+  out << "pos: " << gp.pos
+      << " length: " << gp.length
+      << " relevance: " << gp.relevance;
+  return out;
 }
 
 // the way of simplicity =)

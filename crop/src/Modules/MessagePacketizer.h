@@ -27,6 +27,9 @@ public:
 private:
   const ByteArray& packetizeMessage();
 
+  const MsgCrc32 computeCrc32();
+  const MsgCrc16 computeCrc16();
+
 private:
   DBQueue_uPtr& prioQueue;
   ByteArray message;

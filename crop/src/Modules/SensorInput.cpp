@@ -3,6 +3,7 @@
  */
 
 #include "SensorInput.h"
+#include "../TypesConfig/Config.h"
 
 #include <iostream>
 
@@ -20,7 +21,7 @@ void SensorInput::run()
 {
   while(running)
   {
-    sleep(1);
+    usleep(SLEEP_MSECONDS_INPUT_SENSOR * 1000);
 
     nextValue += 1;
     callback(id);

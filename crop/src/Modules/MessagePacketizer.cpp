@@ -17,8 +17,6 @@
 const MsgSrcAddress SRC_ADDRESS = 127001;
 const MsgDstAddress DST_ADDRESS = 19216823;
 const MsgConfig MESSAGE_CONFIG = 0;
-const MsgCrc16 CRC_16 = 1;
-const MsgCrc32 CRC_32 = 1;
 
 MessagePacketizer::MessagePacketizer(DBQueue_uPtr& thePrioQueue)
 : prioQueue(thePrioQueue)
@@ -30,17 +28,10 @@ MessagePacketizer::~MessagePacketizer()
 {
 }
 
-// if the fifo is empty this function return a empty bytearray
+// if the prioritized queue is empty this function return a empty bytearray
 // otherwise this return the current message
 const ByteArray& MessagePacketizer::packetizeMessage()
 {
-//  for(int i=0; i< prioQueue.size(); ++i)
-//  {
-//    ByteArray* db = prioQueue.pop();
-//    message.append(db->dataPtr(), db->size());
-//  }
-
-
   // if queue is empty we return an empty datablock
   if( prioQueue->isEmpty() )
   {
@@ -48,16 +39,47 @@ const ByteArray& MessagePacketizer::packetizeMessage()
     return message;
   }
 
-  //get next datablock
+  //get first datablock
   DataBlock_sPtr data = prioQueue->pop();
+  // compute first db length
+  unsigned int msgLength = data->getLength().to_uint();
 
-  // compute db length
-  unsigned int dbLength = data->getLength().to_uint();
+  // check first db length
+  const std::size_t max_msg_length = (data->getLength().to_uint() > MSG_CRC_LENGTH_BORDER) ? MAX_MSG_LENGTH : MSG_CRC_LENGTH_BORDER;
+
+  ByteArray tmpContent;
+  tmpContent.insert( data->getDataType() );
+  tmpContent.append( data->getConfig() );
+  tmpContent.append( data->getDataObjectID() );
+  tmpContent.append( data->getSequenceNumber() );
+  tmpContent.append( DBLength(msgLength) );
+  tmpContent.append(data->getContent()->dataPtr(), data->getContent()->size());
+
+  // pack more db to the message
+  // cancel if there is no other datablocks or the message is to long
+  while( msgLength < 0xFFF && !prioQueue->isEmpty() ) // todo normally here should stand max_msg_length -> complicate computation (specially msg and db lengths)
+  {
+    // get next datablocks
+    DataBlock_sPtr tmp = prioQueue->pop();
+    unsigned int tmp_length = tmp->getLength().to_uint();
+
+    // insert header and data
+    tmpContent.append( tmp->getDataType() );
+    tmpContent.append( tmp->getConfig() );
+    tmpContent.append( tmp->getDataObjectID() );
+    tmpContent.append( tmp->getSequenceNumber() );
+    tmpContent.append( tmp->getLength() );
+    tmpContent.append( tmp->getContent()->dataPtr(), tmp->getContent()->size());
+
+    msgLength += tmp_length;
+    std::cout << "msgLength " << msgLength << "\n";
+  }
 
   // compute message length
-  MsgLength messageLength = dbLength + MSG_FIXED_HEADER_LENGTH_BYTES + 2*MSG_ADDRESS_TYPE_IPV6_BYTES;
-  messageLength += (messageLength >= 0xFFFF) ? 4 : 2;
+  MsgLength messageLength = msgLength + MSG_FIXED_HEADER_LENGTH_BYTES + 2*MSG_ADDRESS_TYPE_IPV6_BYTES;
+  messageLength += (messageLength >= MSG_CRC_LENGTH_BORDER) ? 4 : 2;
 
+  std::cout << "total MSG LENGTH " << messageLength.to_uint() << "\n";
   // append message header
   message.insert(static_cast<MsgVersion>(VERSION_1) );
   message.append(MESSAGE_CONFIG); // todo message config genauer angeben/ iwo auslesen
@@ -66,24 +88,39 @@ const ByteArray& MessagePacketizer::packetizeMessage()
   message.append(messageLength);
 
   // append datablock header
-  message.append( data->getDataType() );
-  message.append( data->getConfig() );
-  message.append( data->getDataObjectID() );
-  message.append( data->getSequenceNumber() );
-  message.append( DBLength( dbLength ) );
+//  message.append( data->getDataType() );
+//  message.append( data->getConfig() );
+//  message.append( data->getDataObjectID() );
+//  message.append( data->getSequenceNumber() );
+//  message.append( DBLength( dbLength ) );
 
-  // append datablock content
-  message.append(data->getContent()->dataPtr(), data->getContent()->size());
+  // append all datablocks
+  message.append( tmpContent.dataPtr(), tmpContent.size() );
 
   //append crc
-  if(messageLength >= 0xFFFF)
+  if(messageLength >= MSG_CRC_LENGTH_BORDER)
   {
+    const MsgCrc32 CRC_32 = computeCrc32();
     message.append(CRC_32);
   }
   else
   {
+    const MsgCrc16 CRC_16 = computeCrc16();
     message.append(CRC_16);
   }
 
   return message;
 }
+
+const MsgCrc32 MessagePacketizer::computeCrc32()
+{
+  //todo crc computing here!
+  return 32;
+}
+
+const MsgCrc16 MessagePacketizer::computeCrc16()
+{
+  //todo crc computing here!
+  return 16;
+}
+

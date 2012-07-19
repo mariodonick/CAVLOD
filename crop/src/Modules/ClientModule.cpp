@@ -71,9 +71,12 @@ void ClientModule::packetizerThread()
 {
   while( running )
   {
-    usleep(SLEEP_SECONDS*1000*1000); // todo auf events warten? variable schlafenszeiten? irgend etwas ausdenken
+    usleep(SLEEP_MSECONDS_PACKETIZER * 1000); // todo auf events warten? variable schlafenszeiten? irgend etwas ausdenken
+
+    std::cout << "start Sending... Data available in Prioritized Queue: " << prioQueue->size() << std::endl;
 
     const ByteArray& data = packetizer->packetizeMessage();
+
     if( !data.isEmpty() )
       network->sendData(data, IP_ADDRESS, PORT);
 

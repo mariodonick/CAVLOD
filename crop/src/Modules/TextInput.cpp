@@ -3,6 +3,7 @@
  */
 
 #include "TextInput.h"
+#include "../TypesConfig/Config.h"
 
 #include <iostream>
 
@@ -19,7 +20,7 @@ void TextInput::run()
 {
   while(running)
   {
-    sleep(5);
+    usleep(SLEEP_MSECONDS_INPUT_TEXT * 1000);
 
     text.clear();
     text = "Es folgt ein Beispieltext:\n";

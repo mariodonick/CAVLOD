@@ -4,6 +4,8 @@
 
 #include "ContentParser.h"
 #include "../TypesConfig/ProtocolConstants.h"
+#include "../TypesConfig/ProtocolTypes.h"
+#include "../Tools/Bin.h"
 
 #include <iostream>
 
@@ -21,7 +23,7 @@ Text_sPtr TextParser::parseContent(char* data, const unsigned int& len)
 {
   std::cout << "\n---------------Text---------------------------\n";
 
-  unsigned long long int* timestamp = reinterpret_cast<unsigned long long int*>( &data );
+  CTimestamp timestamp = char2Bin<C_TIMESTAMP_BYTES * BIT_PER_BYTE>(data);
   unsigned int offset = C_TIMESTAMP_BYTES;
 
   uint16_t* line = reinterpret_cast<uint16_t*>( &data[offset] );
@@ -36,9 +38,9 @@ Text_sPtr TextParser::parseContent(char* data, const unsigned int& len)
   text->column = *column;
   text->line = *line;
   text->text.insert(0, &data[offset], length);
-  text->setTimestamp(*timestamp);
+  text->setTimestamp( timestamp.to_ulong() );
 
-  std::cout << "timestamp: " << *timestamp << "\n";
+  std::cout << "timestamp: " << timestamp.to_ulong() << "\n";
   std::cout << "line: " << text->line << "\n";
   std::cout << "column: " << text->column << "\n";
   std::cout << "text: " << text->text << "\n";
@@ -63,15 +65,15 @@ Sensor_sPtr SensorParser::parseContent(char* data, const unsigned int& len)
 {
   std::cout << "\n---------------Sensor---------------------------\n";
 
-  unsigned long long int* timestamp = reinterpret_cast<unsigned long long int*>( &data );
+  CTimestamp timestamp = char2Bin<C_TIMESTAMP_BYTES * BIT_PER_BYTE>(data);
   float* v = reinterpret_cast<float*>( &data[C_TIMESTAMP_BYTES] );
 
-  std::cout << "timestamp: " << *timestamp << "\n";
+  std::cout << "timestamp: " << timestamp.to_ulong() << " = 0x" << std::hex << timestamp.to_ulong() << std::dec << "\n";
   std::cout << "value: " << *v << "\n";
 
   Sensor_sPtr sensor( new Sensor );
   sensor->value = *v;
-  sensor->setTimestamp(*timestamp);
+  sensor->setTimestamp( timestamp.to_ulong() );
 
   return sensor;
 }

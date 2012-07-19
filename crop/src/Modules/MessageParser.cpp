@@ -38,10 +38,10 @@ void MessageParser::parse_v1(const ByteArray& data)
 {
   std::cout << "\n---------------message---------------------------\n";
   curMsgPos = computeFirstDBByte();
-  unsigned int msgLength = uchar2uint(&data.dataPtr()[curMsgPos - MSG_LENGTH_BYTES], MSG_LENGTH_BYTES);
+  unsigned int msgLength = char2uint(&data.dataPtr()[curMsgPos - MSG_LENGTH_BYTES], MSG_LENGTH_BYTES);
 
   unsigned int crcSize = 0;
-  if(msgLength < 0xFFFF)
+  if(msgLength < MSG_CRC_LENGTH_BORDER)
     crcSize = MSG_CRC_16_BYTES;
   else
     crcSize = MSG_CRC_32_BYTES;
@@ -50,7 +50,7 @@ void MessageParser::parse_v1(const ByteArray& data)
   std::cout << "db_start: " << computeFirstDBByte() << "\n";
   std::cout << "crcSize: " << crcSize << "\n";
 
-  cassert(msgLength < 0xFFFFFF);
+  cassert(msgLength < MAX_MSG_LENGTH);
   cassert(msgLength >= computeFirstDBByte());
 
   // parse datablocks
@@ -70,22 +70,22 @@ void MessageParser::parseDB(const ByteArray& data)
   DBConfig dbConfig = data.getByte(curMsgPos + 1).separate<2, 8>();
   unsigned int offset = DB_DATA_TYPE_CONFIG_BYTES;
 
-  DBDataObjectID dbDoid = uchar2Bin<DB_DATA_OBJECT_ID_BYTES * BIT_PER_BYTE>( &data.dataPtr()[curMsgPos + offset] );
+  DBDataObjectID dbDoid = char2Bin<DB_DATA_OBJECT_ID_BYTES * BIT_PER_BYTE>( &data.dataPtr()[curMsgPos + offset] );
   offset += DB_DATA_OBJECT_ID_BYTES;
 
-  DBSequenceNumber dbSequNum = uchar2Bin<DB_SEQUENCE_NUMBER_BYTES * BIT_PER_BYTE>( &data.dataPtr()[curMsgPos + offset] );
+  DBSequenceNumber dbSequNum = char2Bin<DB_SEQUENCE_NUMBER_BYTES * BIT_PER_BYTE>( &data.dataPtr()[curMsgPos + offset] );
   offset += DB_SEQUENCE_NUMBER_BYTES;
 
-  DBLength dbLengthBytes = uchar2Bin<DB_LENGTH_BYTES * BIT_PER_BYTE>( &data.dataPtr()[curMsgPos + offset] );
+  DBLength dbLengthBytes = char2Bin<DB_LENGTH_BYTES * BIT_PER_BYTE>( &data.dataPtr()[curMsgPos + offset] );
   offset += DB_LENGTH_BYTES;
 
-  std::cout << "dbDataType: 0x" << std::hex << dbDataType.to_uint() << std::dec << "\n";
+  std::cout << "dbDataType: 0x" << std::hex << dbDataType.to_uint() << std::dec << " = " << dataType2String(dbDataType) << "\n";
   std::cout << "dbConfig: 0x" << std::hex << dbConfig.to_uint() << std::dec << "\n";
   std::cout << "dbDoid: 0x" << std::hex << dbDoid.to_uint() << std::dec << "\n";
   std::cout << "sequNum: 0x" << std::hex << dbSequNum.to_uint() << std::dec << "\n";
   std::cout << "dbLengthBytes: 0x" << std::hex << dbLengthBytes.to_uint() << " = " << std::dec << dbLengthBytes.to_uint() << " Bytes\n";
 
-  cassert(dbLengthBytes < 0xFFFF);
+  cassert(dbLengthBytes < MSG_CRC_LENGTH_BORDER);
   cassert(dbLengthBytes >= DB_HEADER_LENGTH_BYTES);
 
   // fill the received data block header with the parsed data

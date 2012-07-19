@@ -76,11 +76,13 @@ void ByteArray::append(const char* data, const size_t& length)
 
 void ByteArray::insert(Text& text)
 {
+  vector.clear();
   append(text);
 }
 
 void ByteArray::insert(Sensor& sensor)
 {
+  vector.clear();
   append(sensor);
 }
 
@@ -88,7 +90,7 @@ void ByteArray::append(Text& text)
 {
   uint64_t timestamp = text.getTimestamp();
   append(timestamp, C_TIMESTAMP_BYTES);
-  append(text.column, C_LINE_BYTES);
+  append(text.column, C_COLUMN_BYTES);
   append(text.line, C_LINE_BYTES);
   append(text.text.c_str(), text.text.size());
 }

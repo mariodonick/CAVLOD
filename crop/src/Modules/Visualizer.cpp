@@ -16,9 +16,14 @@ TextVisualizer::~TextVisualizer()
 
 void TextVisualizer::display(const std::vector<Text_sPtr>& sortedContent)
 {
+  std::cout << "display Text: \n";
+  std::cout << "-------------------------------------------------------\n";
+
   std::vector<Text_sPtr>::const_iterator it = sortedContent.begin();
   for(; it != sortedContent.end(); ++it)
     std::cout << (*it)->text;
+
+  std::cout << "\n\n";
 }
 
 
@@ -35,7 +40,14 @@ SensorVisualizer::~SensorVisualizer()
 
 }
 
-void SensorVisualizer::display(const std::vector<Sensor_sPtr>& )
+void SensorVisualizer::display(const std::vector<Sensor_sPtr>& sortedContent)
 {
-  // todo implement me
+  std::cout << "display Sensor: \n";
+  std::cout << "-------------------------------------------------------\n";
+
+  std::vector<Sensor_sPtr>::const_iterator it = sortedContent.begin();
+  for(; it != sortedContent.end(); ++it)
+    std::cout << "timestamp: " << (*it)->getTimestamp() << " value: " << (*it)->value << "\n";
+
+  std::cout << "\n";
 }

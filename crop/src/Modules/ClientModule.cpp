@@ -60,7 +60,7 @@ void ClientModule::start()
 {
   // hier die nebenläufigen gui etc starten, welche die events dann senden
   threads.push_back( std::thread( &ContentInput<std::string>::run, textInput) );
-//  threads.push_back( std::thread( &ContentInput<float>::run, sensorInput) );
+  threads.push_back( std::thread( &ContentInput<float>::run, sensorInput) );
 //  textInput->initial();
 //  sensorInput->initial();
 
@@ -99,9 +99,9 @@ void ClientModule::handleTextEvent(const DBDataObjectID& id)
 
 void ClientModule::handleSensorEvent(const DBDataObjectID& id)
 {
-  std::cout << "sensor event waiting\n";
+//  std::cout << "sensor event waiting\n";
   std::unique_lock<std::mutex> lock(eventMutex);
-  std::cout << "sensor event start\n";
+//  std::cout << "sensor event start\n";
 
   StopWatch sw;
   const float& value = sensorInput->getInput();

@@ -65,11 +65,7 @@ void DataBlockProcessing<T, Parser, Decoder, Visualizer>::start(const DataBlock:
     curContentPos += len;
 
     decode(dbh.dataObjectID.to_uint(), dbh.sequenceNumber.to_uint(), obj);
-
-    std::cout << "display Text: \n";
-    std::cout << "-------------------------------------------------------\n";
     display(sortedContent);
-    std::cout << "\n\n";
   }
 }
 

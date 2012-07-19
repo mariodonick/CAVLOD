@@ -170,6 +170,9 @@ void SplitEncoding::partSensor(const DBDataObjectID& doid, const float& value)
 
   Sensor sensor;
   sensor.value = value;
+  sensor.stamp();
+
+  std::cout << "timestamp: " << sensor.getTimestamp() << "\n";
 
   ByteArray_sPtr content(new ByteArray);
   content->insert(sensor);

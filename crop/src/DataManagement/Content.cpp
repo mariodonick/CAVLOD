@@ -17,12 +17,12 @@ Content::~Content()
 
 }
 
-const uint64_t& Content::getTimestamp() const
+const CTimestamp& Content::getTimestamp() const
 {
   return timestamp.getTime();
 }
 
-void Content::setTimestamp(const uint64_t& time)
+void Content::setTimestamp(const CTimestamp& time)
 {
   timestamp.setTimestamp(time);
 }
@@ -71,7 +71,7 @@ Text::~Text()
 
 const std::size_t Text::size() const
 {
-  return C_TIMESTAMP_BYTES + C_LINE_BYTES + text.size();
+  return C_TIMESTAMP_BYTES + C_LINE_BYTES + C_COLUMN_BYTES + text.size();
 }
 
 std::ostream& operator<<(std::ostream& out, const Text& text)

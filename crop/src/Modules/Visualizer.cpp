@@ -47,7 +47,7 @@ void SensorVisualizer::display(const std::vector<Sensor_sPtr>& sortedContent)
 
   std::vector<Sensor_sPtr>::const_iterator it = sortedContent.begin();
   for(; it != sortedContent.end(); ++it)
-    std::cout << "timestamp: " << (*it)->getTimestamp() << " value: " << (*it)->value << "\n";
+    std::cout << "timestamp: " << (*it)->getTimestamp().to_ulong() << " value: " << (*it)->value << "\n";
 
   std::cout << "\n";
 }

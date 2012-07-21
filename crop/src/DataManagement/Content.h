@@ -14,8 +14,8 @@
 class Content
 {
 public:
-  const uint64_t& getTimestamp() const;
-  void setTimestamp(const uint64_t& time);
+  const CTimestamp& getTimestamp() const;
+  void setTimestamp(const CTimestamp& time);
   void stamp();
 
   virtual const std::size_t size() const = 0;
@@ -53,8 +53,8 @@ public:
   friend std::ostream& operator<<(std::ostream& out, const Text& text);
 
 public:
-  uint16_t column;
-  uint16_t line;
+  CColumn column;
+  CLine line;
 
   std::string text;
 };

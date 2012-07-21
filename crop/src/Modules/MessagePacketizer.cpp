@@ -62,8 +62,9 @@ const ByteArray& MessagePacketizer::packetizeMessage()
     // get next datablocks
     DataBlock_sPtr tmp = prioQueue->pop();
     unsigned int tmp_length = tmp->getLength().to_uint();
+    std::cout << "db length: " << tmp_length << std::endl;
 
-    // insert header and data
+    // insert header and content data
     tmpContent.append( tmp->getDataType() );
     tmpContent.append( tmp->getConfig() );
     tmpContent.append( tmp->getDataObjectID() );
@@ -79,20 +80,12 @@ const ByteArray& MessagePacketizer::packetizeMessage()
   MsgLength messageLength = msgLength + MSG_FIXED_HEADER_LENGTH_BYTES + 2*MSG_ADDRESS_TYPE_IPV6_BYTES;
   messageLength += (messageLength >= MSG_CRC_LENGTH_BORDER) ? 4 : 2;
 
-  std::cout << "total MSG LENGTH " << messageLength.to_uint() << "\n";
   // append message header
   message.insert(static_cast<MsgVersion>(VERSION_1) );
   message.append(MESSAGE_CONFIG); // todo message config genauer angeben/ iwo auslesen
   message.append(SRC_ADDRESS);
   message.append(DST_ADDRESS);
   message.append(messageLength);
-
-  // append datablock header
-//  message.append( data->getDataType() );
-//  message.append( data->getConfig() );
-//  message.append( data->getDataObjectID() );
-//  message.append( data->getSequenceNumber() );
-//  message.append( DBLength( dbLength ) );
 
   // append all datablocks
   message.append( tmpContent.dataPtr(), tmpContent.size() );

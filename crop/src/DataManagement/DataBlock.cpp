@@ -100,7 +100,7 @@ void DataBlock::addContent(ByteArray_sPtr data)
   else
     content->append( data->dataPtr(), data->size() );
 
-  header.length += data->size();
+  header.length = data->size() + DB_HEADER_LENGTH_BYTES;
 }
 
 ByteArray_sPtr DataBlock::getContent()

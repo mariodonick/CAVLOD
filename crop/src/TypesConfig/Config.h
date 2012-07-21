@@ -7,8 +7,8 @@
 #define CONFIG_H_
 
 // general
-const unsigned int SLEEP_MSECONDS_PACKETIZER = 3000;
-const unsigned int SLEEP_MSECONDS_INPUT_SENSOR = 10;
+const unsigned int SLEEP_MSECONDS_PACKETIZER = 1000; // allle bei 1000
+const unsigned int SLEEP_MSECONDS_INPUT_SENSOR = 1000;
 const unsigned int SLEEP_MSECONDS_INPUT_TEXT = 1000;
 
 const unsigned int PORT = 5657;

@@ -88,17 +88,17 @@ void ByteArray::insert(Sensor& sensor)
 
 void ByteArray::append(Text& text)
 {
-  uint64_t timestamp = text.getTimestamp();
-  append(timestamp, C_TIMESTAMP_BYTES);
-  append(text.column, C_COLUMN_BYTES);
-  append(text.line, C_LINE_BYTES);
+  CTimestamp timestamp = text.getTimestamp();
+  append(timestamp);
+  append(text.column);
+  append(text.line);
   append(text.text.c_str(), text.text.size());
 }
 
 void ByteArray::append(Sensor& sensor)
 {
-  uint64_t timestamp = sensor.getTimestamp();
-  append(timestamp, C_TIMESTAMP_BYTES);
+  CTimestamp timestamp = sensor.getTimestamp();
+  append(timestamp);
   append(sensor.value, C_VALUE_BYTES);
 }
 

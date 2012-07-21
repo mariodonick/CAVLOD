@@ -13,6 +13,7 @@
 #include <iosfwd>
 #include <iostream>
 #include <iomanip>
+#include <cstring>
 
 class DataBlockHeader;
 
@@ -70,7 +71,9 @@ void ByteArray::insert(const Bin<BAND_WIDTH>& data)
 template<typename T>
 void ByteArray::append(T& data, const std::size_t& byteLength)
 {
-  char* tmp = reinterpret_cast<char*>(&data);
+  char tmp[byteLength];
+  memcpy(&tmp, &data, byteLength);
+
   append(tmp, byteLength);
 }
 

@@ -8,6 +8,7 @@
 #include "../Tools/Bin.h"
 
 #include <iostream>
+#include <cstring>
 
 TextParser::TextParser()
 {
@@ -23,26 +24,29 @@ Text_sPtr TextParser::parseContent(char* data, const unsigned int& len)
 {
   std::cout << "\n---------------Text---------------------------\n";
 
+//  for(unsigned int i = 0; i < len; ++i)
+//    std::cout << "data[" << i << "]= 0x" << std::hex << int(data[i] & 0xFF) << std::dec << "\n";
+
   CTimestamp timestamp = char2Bin<C_TIMESTAMP_BYTES * BIT_PER_BYTE>(data);
   unsigned int offset = C_TIMESTAMP_BYTES;
 
-  uint16_t* line = reinterpret_cast<uint16_t*>( &data[offset] );
+  CLine line = char2Bin<C_LINE_BYTES * BIT_PER_BYTE>( &data[offset] );
   offset += C_LINE_BYTES;
 
-  uint16_t* column = reinterpret_cast<uint16_t*>( &data[offset] );
+  CColumn column = char2Bin<C_COLUMN_BYTES * BIT_PER_BYTE>( &data[offset] );
   offset += C_COLUMN_BYTES;
 
-  unsigned int length = len - offset;
+  unsigned int textLength = len - offset;
 
   Text_sPtr text( new Text );
-  text->column = *column;
-  text->line = *line;
-  text->text.insert(0, &data[offset], length);
-  text->setTimestamp( timestamp.to_ulong() );
+  text->column = column.to_uint();
+  text->line = line.to_uint();
+  text->text.insert(0, &data[offset], textLength);
+  text->setTimestamp( timestamp );
 
-  std::cout << "timestamp: " << timestamp.to_ulong() << "\n";
-  std::cout << "line: " << text->line << "\n";
-  std::cout << "column: " << text->column << "\n";
+  std::cout << "timestamp: " << timestamp.to_ulong() << " = 0x" << std::hex << timestamp.to_ulong() << std::dec << "\n";
+  std::cout << "line: " << text->line.to_uint() << "\n";
+  std::cout << "column: " << text->column.to_uint() << "\n";
   std::cout << "text: " << text->text << "\n";
 
   return text;
@@ -66,14 +70,15 @@ Sensor_sPtr SensorParser::parseContent(char* data, const unsigned int& len)
   std::cout << "\n---------------Sensor---------------------------\n";
 
   CTimestamp timestamp = char2Bin<C_TIMESTAMP_BYTES * BIT_PER_BYTE>(data);
-  float* v = reinterpret_cast<float*>( &data[C_TIMESTAMP_BYTES] );
+  float v = 0;
+  memcpy(&v, &data[C_TIMESTAMP_BYTES], C_VALUE_BYTES);
 
   std::cout << "timestamp: " << timestamp.to_ulong() << " = 0x" << std::hex << timestamp.to_ulong() << std::dec << "\n";
-  std::cout << "value: " << *v << "\n";
+  std::cout << "value: " << v << "\n";
 
   Sensor_sPtr sensor( new Sensor );
-  sensor->value = *v;
-  sensor->setTimestamp( timestamp.to_ulong() );
+  sensor->value = v;
+  sensor->setTimestamp( timestamp );
 
   return sensor;
 }

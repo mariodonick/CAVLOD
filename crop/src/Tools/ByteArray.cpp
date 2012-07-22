@@ -63,6 +63,9 @@ void ByteArray::append(char* data, const size_t& length)
 {
   for(unsigned int i = 0; i < length; ++i)
     vector.push_back( data[i] & 0xFF );
+
+  curBytePos += length;
+  bitCount = 0;
 }
 
 void ByteArray::append(const char* data, const size_t& length)
@@ -88,8 +91,6 @@ void ByteArray::insert(Sensor& sensor)
 
 void ByteArray::append(Text& text)
 {
-  CTimestamp timestamp = text.getTimestamp();
-  append(timestamp);
   append(text.column);
   append(text.line);
   append(text.text.c_str(), text.text.size());
@@ -97,8 +98,6 @@ void ByteArray::append(Text& text)
 
 void ByteArray::append(Sensor& sensor)
 {
-  CTimestamp timestamp = sensor.getTimestamp();
-  append(timestamp);
   append(sensor.value, C_VALUE_BYTES);
 }
 

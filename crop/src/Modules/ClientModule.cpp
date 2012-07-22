@@ -60,7 +60,7 @@ void ClientModule::start()
 {
   // hier die nebenläufigen gui etc starten, welche die events dann senden
   threads.push_back( std::thread( &ContentInput<std::string>::run, textInput) );
-//  threads.push_back( std::thread( &ContentInput<float>::run, sensorInput) );
+  threads.push_back( std::thread( &ContentInput<float>::run, sensorInput) );
 //  textInput->initial(); // todo notwendig?
 //  sensorInput->initial();
 }
@@ -74,6 +74,7 @@ void ClientModule::packetizerThread()
     std::cout << "start Sending... Data available in Prioritized Queue: " << prioQueue->size() << std::endl;
 
     const ByteArray& data = packetizer->packetizeMessage();
+//    data.dumpHex(std::cout);
 
     if( !data.isEmpty() )
       network->sendData(data, IP_ADDRESS, PORT);

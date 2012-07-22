@@ -17,7 +17,7 @@ class Visualizer
 public:
   virtual ~Visualizer(){}
 
-  virtual void display(const std::vector<T>& sortedContent) = 0;
+  virtual void display(const std::vector<T>& sortedContent, const bool& usingTimestamp, const CTimestamp& timestamp) = 0;
 };
 
 
@@ -28,7 +28,7 @@ public:
   virtual ~TextVisualizer();
 
 protected:
-  void display(const std::vector<Text_sPtr>& sortedContent);
+  void display(const std::vector<Text_sPtr>& sortedContent, const bool& usingTimestamp, const CTimestamp& timestamp);
 
 };
 
@@ -40,7 +40,7 @@ protected:
   virtual ~SensorVisualizer();
 
 protected:
-  void display(const std::vector<Sensor_sPtr>& sortedContent);
+  void display(const std::vector<Sensor_sPtr>& sortedContent, const bool& usingTimestamp, const CTimestamp& timestamp);
 };
 
 

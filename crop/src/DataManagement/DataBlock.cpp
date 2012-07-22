@@ -58,6 +58,11 @@ const RelevanceData& DataBlock::getRelevanceData() const
   return relevance;
 }
 
+const CTimestamp& DataBlock::getTimestamp() const
+{
+  return timestamp.getTime();
+}
+
 void DataBlock::setDataObjectID(const DBDataObjectID& doid)
 {
   header.dataObjectID = doid;
@@ -91,6 +96,11 @@ void DataBlock::setLength(const DBLength& length)
 void DataBlock::setRelevanceData(const RelevanceData& rel)
 {
   relevance = rel;
+}
+
+void DataBlock::stamp()
+{
+  timestamp.stamp();
 }
 
 void DataBlock::addContent(ByteArray_sPtr data)

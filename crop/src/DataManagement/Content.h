@@ -6,7 +6,8 @@
 #ifndef CONTENT_H_
 #define CONTENT_H_
 
-#include "../Tools/Timestamp.h"
+#include "../TypesConfig/ProtocolTypes.h"
+#include "../Tools/Bin.h"
 
 #include <string>
 #include <iosfwd>
@@ -14,18 +15,11 @@
 class Content
 {
 public:
-  const CTimestamp& getTimestamp() const;
-  void setTimestamp(const CTimestamp& time);
-  void stamp();
-
   virtual const std::size_t size() const = 0;
 
 protected:
   Content();
   virtual ~Content();
-
-protected:
-  Timestamp timestamp;
 };
 
 

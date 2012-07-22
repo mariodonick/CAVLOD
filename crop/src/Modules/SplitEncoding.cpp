@@ -133,16 +133,20 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
     dbh.dataObjectID = doid;
     dbh.sequenceNumber = sequNr++;
     dbh.dataType = TYPE_TEXT;
+    dbh.config[DB_CONFIG_TIMESTAMP] = true;
 
     DataBlock_sPtr db(new DataBlock);
     db->setHeader(dbh);
+    db->stamp();
 
     Text text;
     text.text = content.substr(it->pos, it->length);
     RelevanceData rel_tmp = transform2localRelData(*it, linePos);
     text.line = rel_tmp.pos_y;
     text.column = rel_tmp.pos_x;
-    text.stamp();
+
+
+    //text.stamp();
 
 //    std::cout << "text: " << text.text << "\n";
 //    std::cout << "line: " << text.line.to_uint() << "\n";
@@ -170,17 +174,16 @@ void SplitEncoding::partSensor(const DBDataObjectID& doid, const float& value)
   dbh.dataObjectID = doid;
   dbh.sequenceNumber = sNr++;
   dbh.dataType = TYPE_SENSOR;
+  dbh.config[DB_CONFIG_TIMESTAMP] = true;
 
   Sensor sensor;
   sensor.value = value;
-  sensor.stamp();
-
-//  std::cout << "timestamp: " << sensor.getTimestamp().to_ulong() << " = 0x" << std::hex << sensor.getTimestamp().to_ulong() << std::dec << "\n";
-
-  dbh.config[DB_CONFIG_TIMESTAMP] = true; //todo hier wird weitergearbeitet =)
 
   DataBlock_sPtr db( new DataBlock );
   db->setHeader(dbh);
+  db->stamp();
+
+//  std::cout << "timestamp: " << db.getTimestamp().to_ulong() << " = 0x" << std::hex << db.getTimestamp().to_ulong() << std::dec << "\n";
 
   ByteArray_sPtr content(new ByteArray);
   content->insert(sensor);

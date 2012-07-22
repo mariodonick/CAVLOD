@@ -11,7 +11,7 @@
 enum DataTypes
 {
   TYPE_SENSOR = 0x0,
-  TYPE_TEXT
+  TYPE_TEXT = 0x1
 };
 
 inline const std::string dataType2String(const DataTypes& dt)

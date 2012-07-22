@@ -10,6 +10,7 @@
 #include "../Tools/Bin.h"
 #include "../TypesConfig/Pointer.h"
 #include "../DataManagement/RelevanceData.h"
+#include "../Tools/Timestamp.h"
 
 #include <iosfwd>
 
@@ -46,6 +47,7 @@ public:
   const DBLength& getLength() const;
   const float& getPriority() const;
   const RelevanceData& getRelevanceData() const;
+  const CTimestamp& getTimestamp() const;
 
   void setDataObjectID(const DBDataObjectID& doid);
   void setDataType(const DBDatatype& dt);
@@ -55,6 +57,7 @@ public:
   void setLength(const DBLength& length);
   void setRelevanceData(const RelevanceData& rel);
 
+  void stamp();
   void addContent(ByteArray_sPtr content);
   ByteArray_sPtr getContent();
 
@@ -66,6 +69,7 @@ private:
   Header header;
 
   ByteArray_sPtr content;
+  Timestamp timestamp;
 };
 
 

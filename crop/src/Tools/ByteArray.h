@@ -83,8 +83,10 @@ void ByteArray::append(const Bin<BAND_WIDTH>& data)
   char tmp = 0;
   bool loaded = false;
 
+  // current byte is not empty
   if( bitCount != 0)
   {
+    // load the last byte
     tmp = vector[curBytePos];
     loaded = true;
   }

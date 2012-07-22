@@ -17,21 +17,6 @@ Content::~Content()
 
 }
 
-const CTimestamp& Content::getTimestamp() const
-{
-  return timestamp.getTime();
-}
-
-void Content::setTimestamp(const CTimestamp& time)
-{
-  timestamp.setTimestamp(time);
-}
-
-void Content::stamp()
-{
-  timestamp.stamp();
-}
-
 
 
 
@@ -47,7 +32,7 @@ Sensor::~Sensor()
 
 const std::size_t Sensor::size() const
 {
-  return C_TIMESTAMP_BYTES + C_VALUE_BYTES;
+  return C_VALUE_BYTES;
 }
 
 std::ostream& operator<<(std::ostream& out, const Sensor& sensor)
@@ -71,7 +56,7 @@ Text::~Text()
 
 const std::size_t Text::size() const
 {
-  return C_TIMESTAMP_BYTES + C_LINE_BYTES + C_COLUMN_BYTES + text.size();
+  return C_LINE_BYTES + C_COLUMN_BYTES + text.size();
 }
 
 std::ostream& operator<<(std::ostream& out, const Text& text)

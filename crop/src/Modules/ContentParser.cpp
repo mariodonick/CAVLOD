@@ -27,11 +27,8 @@ Text_sPtr TextParser::parseContent(char* data, const unsigned int& len)
 //  for(unsigned int i = 0; i < len; ++i)
 //    std::cout << "data[" << i << "]= 0x" << std::hex << int(data[i] & 0xFF) << std::dec << "\n";
 
-  CTimestamp timestamp = char2Bin<C_TIMESTAMP_BYTES * BIT_PER_BYTE>(data);
-  unsigned int offset = C_TIMESTAMP_BYTES;
-
-  CLine line = char2Bin<C_LINE_BYTES * BIT_PER_BYTE>( &data[offset] );
-  offset += C_LINE_BYTES;
+  CLine line = char2Bin<C_LINE_BYTES * BIT_PER_BYTE>( data );
+  unsigned int offset = C_LINE_BYTES;
 
   CColumn column = char2Bin<C_COLUMN_BYTES * BIT_PER_BYTE>( &data[offset] );
   offset += C_COLUMN_BYTES;
@@ -42,9 +39,7 @@ Text_sPtr TextParser::parseContent(char* data, const unsigned int& len)
   text->column = column.to_uint();
   text->line = line.to_uint();
   text->text.insert(0, &data[offset], textLength);
-  text->setTimestamp( timestamp );
 
-  std::cout << "timestamp: " << timestamp.to_ulong() << " = 0x" << std::hex << timestamp.to_ulong() << std::dec << "\n";
   std::cout << "line: " << text->line.to_uint() << "\n";
   std::cout << "column: " << text->column.to_uint() << "\n";
   std::cout << "text: " << text->text << "\n";
@@ -68,17 +63,18 @@ SensorParser::~SensorParser()
 Sensor_sPtr SensorParser::parseContent(char* data, const unsigned int& len)
 {
   std::cout << "\n---------------Sensor---------------------------\n";
+  std::cout << "len: " << len << "\n";
 
-  CTimestamp timestamp = char2Bin<C_TIMESTAMP_BYTES * BIT_PER_BYTE>(data);
+  for(unsigned int i = 0; i < len; ++i)
+    std::cout << "data[" << i << "]= 0x" << std::hex << int(data[i] & 0xFF) << std::dec << "\n";
+
   float v = 0;
-  memcpy(&v, &data[C_TIMESTAMP_BYTES], C_VALUE_BYTES);
+  memcpy(&v, &data[0], C_VALUE_BYTES);
 
-  std::cout << "timestamp: " << timestamp.to_ulong() << " = 0x" << std::hex << timestamp.to_ulong() << std::dec << "\n";
   std::cout << "value: " << v << "\n";
 
   Sensor_sPtr sensor( new Sensor );
   sensor->value = v;
-  sensor->setTimestamp( timestamp );
 
   return sensor;
 }

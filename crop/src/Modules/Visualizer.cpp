@@ -14,7 +14,7 @@ TextVisualizer::~TextVisualizer()
 
 }
 
-void TextVisualizer::display(const std::vector<Text_sPtr>& sortedContent)
+void TextVisualizer::display(const std::vector<Text_sPtr>& sortedContent, const bool&, const CTimestamp&)
 {
   std::cout << "display Text: \n";
   std::cout << "-------------------------------------------------------\n";
@@ -40,14 +40,19 @@ SensorVisualizer::~SensorVisualizer()
 
 }
 
-void SensorVisualizer::display(const std::vector<Sensor_sPtr>& sortedContent)
+void SensorVisualizer::display(const std::vector<Sensor_sPtr>& sortedContent, const bool& usingTimestamp, const CTimestamp& timestamp)
 {
   std::cout << "display Sensor: \n";
   std::cout << "-------------------------------------------------------\n";
 
   std::vector<Sensor_sPtr>::const_iterator it = sortedContent.begin();
   for(; it != sortedContent.end(); ++it)
-    std::cout << "timestamp: " << (*it)->getTimestamp().to_ulong() << " value: " << (*it)->value << "\n";
+  {
+    if(usingTimestamp)
+      std::cout << "timestamp: " << timestamp.to_ulong() << " value: " << (*it)->value << "\n";
+    else
+      std::cout << "value: " << (*it)->value << "\n";
+  }
 
   std::cout << "\n";
 }

@@ -31,8 +31,8 @@ public:
   virtual ~SplitEncoding();
 
 private:
-  void partText(const DBDataObjectID& doid, const std::string& content);
-  void partSensor(const DBDataObjectID& doid, const float& value);
+  void partText(const DBDataObjectID& doid, const std::string& content, const bool& usingTimestamp);
+  void partSensor(const DBDataObjectID& doid, const float& value, const bool& usingTimestamp);
 
   const SplitEncoding::GlobalPosition transform2global(
       const RelevanceData& lp,

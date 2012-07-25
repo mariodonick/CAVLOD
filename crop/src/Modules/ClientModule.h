@@ -25,8 +25,8 @@ public:
 private:
   void packetizerThread();
 
-  void handleSensorEvent(const DBDataObjectID& id);
-  void handleTextEvent(const DBDataObjectID& id);
+  void handleSensorEvent(const DBDataObjectID& id, const bool& usingTimestamp);
+  void handleTextEvent(const DBDataObjectID& id, const bool& usingTimestamp);
 
 private:
   bool running;

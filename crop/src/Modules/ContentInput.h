@@ -10,7 +10,7 @@
 #include "../TypesConfig/ProtocolTypes.h"
 #include "../Tools/Bin.h"
 
-typedef std::function<void(const DBDataObjectID&)> ReadyCallback;
+typedef std::function<void(const DBDataObjectID&, const bool&)> ReadyCallback;
 
 template<class T>
 class ContentInput

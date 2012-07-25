@@ -27,7 +27,8 @@ void TextInput::run()
     text.append("Hallo ich bin ein Beispieltext und komme vom Mars.\n");
     text.append("Dabei wurde ich zuerst zerstückelt, dann priorisiert, einzeln versendet und auf der Erde wieder zusammengesetzt.\n");
 
-    callback(id);
+    bool usingTimestamp = true;
+    callback(id, usingTimestamp);
     id += 1;
   }
   std::cout << "text input thread finished" << std::endl;

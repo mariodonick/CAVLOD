@@ -24,8 +24,8 @@ ClientModule::ClientModule()
 : running(false)
 , dbFifo( new Fifo<DataBlock_sPtr> )
 , prioQueue( new PrioritizedQueue<DataBlock_sPtr> )
-, textInput( new TextInput( running, std::bind(&ClientModule::handleTextEvent, this, std::placeholders::_1) ) )
-, sensorInput( new SensorInput( running, std::bind(&ClientModule::handleSensorEvent, this, std::placeholders::_1) ) )
+, textInput( new TextInput( running, std::bind(&ClientModule::handleTextEvent, this, std::placeholders::_1, std::placeholders::_2) ) )
+, sensorInput( new SensorInput( running, std::bind(&ClientModule::handleSensorEvent, this, std::placeholders::_1, std::placeholders::_2) ) )
 , crodm( new CrodmFacade )
 , network( new UDPSocket )
 , partitioning( new SplitEncoding(crodm, dbFifo) )
@@ -84,27 +84,27 @@ void ClientModule::packetizerThread()
 }
 
 //todo code dopplungen anders gestalten :(  -> templates? das schreit danach ;)
-void ClientModule::handleTextEvent(const DBDataObjectID& id)
+void ClientModule::handleTextEvent(const DBDataObjectID& id, const bool& usingTimestamp)
 {
   std::unique_lock<std::mutex> lock(eventMutex);
 
   StopWatch sw;
   const std::string& text = textInput->getInput();
   crodm->evaluateText(text);
-  partitioning->partText(id, text);
+  partitioning->partText(id, text, usingTimestamp);
   prioritization->evaluate();
 
   std::cout << "text STOP sw: " << sw << std::endl;
 }
 
-void ClientModule::handleSensorEvent(const DBDataObjectID& id)
+void ClientModule::handleSensorEvent(const DBDataObjectID& id, const bool& usingTimestamp)
 {
   std::unique_lock<std::mutex> lock(eventMutex);
 
   StopWatch sw;
   const float& value = sensorInput->getInput();
   crodm->evaluateSensor(value);
-  partitioning->partSensor(id, value);
+  partitioning->partSensor(id, value, usingTimestamp);
   prioritization->evaluate();
 
   std::cout << "sensor STOP sw: " << sw << std::endl;

@@ -28,7 +28,7 @@ SplitEncoding::~SplitEncoding()
 
 // todo funktion aufräumen viele code passagen sind nicht unique!!!
 // todo relevance data durchschleifen ist noch suboptimal
-void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& content )
+void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& content, const bool& usingTimestamp )
 {
   const std::vector<RelevanceData>& relevanceData = crodm->getRelevanceData();
 
@@ -133,7 +133,7 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
     dbh.dataObjectID = doid;
     dbh.sequenceNumber = sequNr++;
     dbh.dataType = TYPE_TEXT;
-    dbh.config[DB_CONFIG_TIMESTAMP] = true;
+    dbh.config[DB_CONFIG_TIMESTAMP] = usingTimestamp;
 
     DataBlock_sPtr db(new DataBlock);
     db->setHeader(dbh);
@@ -162,7 +162,7 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
   }
 }
 
-void SplitEncoding::partSensor(const DBDataObjectID& doid, const float& value)
+void SplitEncoding::partSensor(const DBDataObjectID& doid, const float& value, const bool& usingTimestamp)
 {
   static unsigned int sNr = 0;
 
@@ -174,7 +174,7 @@ void SplitEncoding::partSensor(const DBDataObjectID& doid, const float& value)
   dbh.dataObjectID = doid;
   dbh.sequenceNumber = sNr++;
   dbh.dataType = TYPE_SENSOR;
-  dbh.config[DB_CONFIG_TIMESTAMP] = true;
+  dbh.config[DB_CONFIG_TIMESTAMP] = usingTimestamp;
 
   Sensor sensor;
   sensor.value = value;

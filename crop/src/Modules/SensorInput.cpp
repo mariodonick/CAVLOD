@@ -24,7 +24,7 @@ void SensorInput::run()
     usleep(SLEEP_MSECONDS_INPUT_SENSOR * 1000);
 
     nextValue += 1;
-    callback(id);
+    callback(id, true);
     id += 1;
   }
   std::cout << "sensor input thread finished" << std::endl;

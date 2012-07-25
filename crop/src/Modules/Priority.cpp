@@ -29,7 +29,7 @@ void Priority::evaluate()
   {
     DataBlock_sPtr data = dbFifo->pop();
 
-    const float& prio = crodm->getPriorty( data->getRelevanceData() );
+    const float& prio = crodm->getPriorty( data->getRelevanceData(), static_cast<DataTypes>(data->getDataType().to_uint() ) );
     data->setPriority( prio );
     prioQueue->push( data );
     ++i;

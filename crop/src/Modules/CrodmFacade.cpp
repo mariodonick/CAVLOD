@@ -24,11 +24,13 @@ CrodmFacade::~CrodmFacade()
 {
 }
 
-const float& CrodmFacade::getPriorty(const RelevanceData& relevance)
+const float& CrodmFacade::getPriorty(const RelevanceData& relevance, const DataTypes& dt)
 {
   if(index >= priorities.size())
     index = 0;
-  // do some stuff to compute the priority
+
+  // do some freaky stuff to compute the priority
+
   return priorities[index++];
 }
 

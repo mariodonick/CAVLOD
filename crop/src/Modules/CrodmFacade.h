@@ -16,7 +16,7 @@ public:
   virtual ~CrodmFacade();
 
 private:
-  const float& getPriorty(const RelevanceData& relevance);
+  const float& getPriorty(const RelevanceData& relevance, const DataTypes& dt);
   const std::vector<RelevanceData>& getRelevanceData();
   void evaluateText(const std::string& text);
   void evaluateSensor(const float& value);

@@ -68,7 +68,7 @@ const ByteArray& MessagePacketizer::packetizeMessage()
 
   // pack more db to the message
   // cancel if there is no other datablocks or the message is to long
-  while( msgLength < 0xFFF && !prioQueue->isEmpty() ) // todo here should stand max_msg_length -> complicate computation (specially msg and db lengths)
+  while( msgLength < 0xFF && !prioQueue->isEmpty() ) // todo here should stand max_msg_length -> complicate computation (specially msg and db lengths)
   {
     // get next datablocks
     DataBlock_sPtr tmp = prioQueue->pop();

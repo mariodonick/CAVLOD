@@ -24,7 +24,7 @@ CrodmFacade::~CrodmFacade()
 {
 }
 
-const float& CrodmFacade::getPriorty(const RelevanceData& relevance, const DataTypes& dt)
+const float& CrodmFacade::getPriority(const RelevanceData& relevance, const DBDataObjectID&)
 {
   if(index >= priorities.size())
     index = 0;

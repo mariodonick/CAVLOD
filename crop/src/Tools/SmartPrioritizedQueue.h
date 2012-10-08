@@ -25,6 +25,9 @@ public:
   const std::size_t size();
 
 private:
+  void sort();
+
+private:
   std::list<DataBlock_sPtr> queue;
 
   std::mutex mutex;
@@ -69,7 +72,7 @@ DataBlock_sPtr SmartPrioritizedQueue::pop(const std::size_t& size)
     queue.pop_front();
   }
 
-  queue.sort( CompareDB() );
+  sort();
 
   return tmp;
 }
@@ -79,7 +82,7 @@ void SmartPrioritizedQueue::push(const DataBlock_sPtr& data)
   std::lock_guard<std::mutex> lock(mutex);
 
   queue.push_back( data );
-  queue.sort( CompareDB() );
+  sort();
 }
 
 const bool SmartPrioritizedQueue::isEmpty()
@@ -90,6 +93,19 @@ const bool SmartPrioritizedQueue::isEmpty()
 const std::size_t SmartPrioritizedQueue::size()
 {
   return queue.size();
+}
+
+// have to sort backwards otherwise we send lower priority first
+void SmartPrioritizedQueue::sort()
+{
+  queue.sort( CompareDB(true) );
+
+  std::cout << "-----------------------------------------------------\n";
+  for(std::list<DataBlock_sPtr>::iterator it = queue.begin(); it != queue.end(); ++it)
+  {
+    std::cout << "listelement prio: " << (*it)->getPriority() << "\n";
+  }
+  std::cout << "front: " << queue.front()->getPriority() << "\n";
 }
 
 #endif /* SMARTPRIORITIZEDQUEUE_H_ */

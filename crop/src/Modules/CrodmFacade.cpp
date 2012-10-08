@@ -9,7 +9,7 @@
 CrodmFacade::CrodmFacade()
 : index(0)
 {
-  priorities =  {0, 100, 85, 0, 64, 0, 39, 0, 71, 0};
+  priorities =  {0, 100, 85, 5, 64, 5, 39, 1, 71, 0};
 
   // no need for len_y in this case (text, sensor)
   //rel posx posy lenx leny

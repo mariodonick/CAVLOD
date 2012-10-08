@@ -21,7 +21,7 @@ public:
   PrioritizedQueue();
   virtual ~PrioritizedQueue();
 
-  T pop();
+  T pop(const std::size_t& size = 0);
   void push(const T& data);
   const bool isEmpty();
   const std::size_t size();
@@ -47,8 +47,9 @@ PrioritizedQueue<T>::~PrioritizedQueue()
 
 }
 
+// ignores input parameter
 template<class T>
-T PrioritizedQueue<T>::pop()
+T PrioritizedQueue<T>::pop(const std::size_t&)
 {
   // todo abfangen in dem leeres element zurück gegeben wird! oder nullptr oder sowas
   std::lock_guard<std::mutex> lock(mutex);

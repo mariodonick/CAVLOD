@@ -18,7 +18,7 @@ public:
   virtual ~Fifo();
 
 private:
-  T pop();
+  T pop(const std::size_t& size = 0);
   void push(const T& data);
   const bool isEmpty();
   void dump(std::ostream& out);
@@ -40,8 +40,9 @@ Fifo<T>::~Fifo()
 
 }
 
+// ignores input parameter
 template<class T>
-T Fifo<T>::pop()
+T Fifo<T>::pop(const std::size_t&)
 {
   T value = queue.front();
   queue.pop();

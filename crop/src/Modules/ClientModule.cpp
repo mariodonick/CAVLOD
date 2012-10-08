@@ -14,7 +14,7 @@
 #include "../TypesConfig/Config.h"
 #include "../TypesConfig/ProtocolTypes.h"
 #include "../Tools/Fifo.h"
-#include "../Tools/PrioritizedQueue.h"
+#include "../Tools/SmartPrioritizedQueue.h"
 #include "../Tools/ByteArray.h"
 #include "../Tools/StopWatch.h"
 
@@ -23,7 +23,7 @@
 ClientModule::ClientModule()
 : running(false)
 , dbFifo( new Fifo<DataBlock_sPtr> )
-, prioQueue( new PrioritizedQueue<DataBlock_sPtr> )
+, prioQueue( new SmartPrioritizedQueue )
 , textInput( new TextInput( running, std::bind(&ClientModule::handleTextEvent, this, std::placeholders::_1, std::placeholders::_2) ) )
 , sensorInput( new SensorInput( running, std::bind(&ClientModule::handleSensorEvent, this, std::placeholders::_1, std::placeholders::_2) ) )
 , crodm( new CrodmFacade )

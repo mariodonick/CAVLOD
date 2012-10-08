@@ -14,7 +14,7 @@ class Queue
 public:
   virtual ~Queue(){}
 
-  virtual T pop() = 0;
+  virtual T pop(const std::size_t& size = 0) = 0;
   virtual void push(const T& data) = 0;
   virtual const bool isEmpty() = 0;
   virtual const std::size_t size() = 0;

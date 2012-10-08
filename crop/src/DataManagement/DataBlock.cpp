@@ -106,11 +106,15 @@ void DataBlock::stamp()
 void DataBlock::addContent(ByteArray_sPtr data)
 {
   if(content == nullptr)
+  {
     content = data;
+    header.length = data->size() + DB_HEADER_LENGTH_BYTES;
+  }
   else
+  {
     content->append( data->dataPtr(), data->size() );
-
-  header.length = data->size() + DB_HEADER_LENGTH_BYTES;
+    header.length += data->size() + DB_HEADER_LENGTH_BYTES;
+  }
 }
 
 ByteArray_sPtr DataBlock::getContent()

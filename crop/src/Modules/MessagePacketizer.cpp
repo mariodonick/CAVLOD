@@ -40,56 +40,56 @@ const ByteArray& MessagePacketizer::packetizeMessage()
   }
 
   //get first datablock
-  DataBlock_sPtr data = prioQueue->pop();
+  DataBlock_sPtr first_db = prioQueue->pop();
   // compute first db length
-  unsigned int msgLength = data->getLength().to_uint();
+  unsigned int msgLength = first_db->getLength().to_uint();
 //  std::cout << "first db length: " << msgLength << std::endl;
 
   // check first db length
-  const std::size_t max_msg_length = (data->getLength().to_uint() > MSG_CRC_LENGTH_BORDER) ? MAX_MSG_LENGTH : MSG_CRC_LENGTH_BORDER;
+  const std::size_t max_msg_length = (first_db->getLength().to_uint() > MSG_CRC_LENGTH_BORDER) ? MAX_MSG_LENGTH : MSG_CRC_LENGTH_BORDER;
 
   ByteArray tmpContent;
-  tmpContent.insert( data->getDataType() );
-  tmpContent.append( data->getConfig() );
-  tmpContent.append( data->getDataObjectID() );
-  tmpContent.append( data->getSequenceNumber() );
+  tmpContent.insert( first_db->getDataType() );
+  tmpContent.append( first_db->getConfig() );
+  tmpContent.append( first_db->getDataObjectID() );
+  tmpContent.append( first_db->getSequenceNumber() );
 
-  unsigned int offset = (data->getConfig()[DB_CONFIG_TIMESTAMP] == true) ? C_TIMESTAMP_BYTES : 0;
-  tmpContent.append( data->getLength() + offset );
+  unsigned int offset = (first_db->getConfig()[DB_CONFIG_TIMESTAMP] == true) ? C_TIMESTAMP_BYTES : 0;
+  tmpContent.append( first_db->getLength() + offset );
 
-  if(data->getConfig()[DB_CONFIG_TIMESTAMP] == true)
+  if(first_db->getConfig()[DB_CONFIG_TIMESTAMP] == true)
   {
 //    std::cout << "insert timestamp!" << std::endl;
-    tmpContent.append( data->getTimestamp() );
+    tmpContent.append( first_db->getTimestamp() );
     msgLength += C_TIMESTAMP_BYTES;
   }
 
-  tmpContent.append(data->getContent()->dataPtr(), data->getContent()->size());
+  tmpContent.append(first_db->getContent()->dataPtr(), first_db->getContent()->size());
 
   // pack more db to the message
   // cancel if there is no other datablocks or the message is to long
   while( msgLength < 0xFF && !prioQueue->isEmpty() ) // todo here should stand max_msg_length -> complicate computation (specially msg and db lengths)
   {
     // get next datablocks
-    DataBlock_sPtr tmp = prioQueue->pop();
-    unsigned int tmp_length = tmp->getLength().to_uint();
+    DataBlock_sPtr next_db = prioQueue->pop();
+    unsigned int tmp_length = next_db->getLength().to_uint();
 
     // insert header and content data
-    tmpContent.append( tmp->getDataType() );
-    tmpContent.append( tmp->getConfig() );
-    tmpContent.append( tmp->getDataObjectID() );
-    tmpContent.append( tmp->getSequenceNumber() );
+    tmpContent.append( next_db->getDataType() );
+    tmpContent.append( next_db->getConfig() );
+    tmpContent.append( next_db->getDataObjectID() );
+    tmpContent.append( next_db->getSequenceNumber() );
 
-    unsigned int offset = (data->getConfig()[DB_CONFIG_TIMESTAMP] == true) ? C_TIMESTAMP_BYTES : 0;
-    tmpContent.append( tmp->getLength() + offset );
+    unsigned int offset = (first_db->getConfig()[DB_CONFIG_TIMESTAMP] == true) ? C_TIMESTAMP_BYTES : 0;
+    tmpContent.append( next_db->getLength() + offset );
 
-    if(data->getConfig()[DB_CONFIG_TIMESTAMP] == true)
+    if(first_db->getConfig()[DB_CONFIG_TIMESTAMP] == true)
     {
-      tmpContent.append( data->getTimestamp() );
+      tmpContent.append( first_db->getTimestamp() );
 //      std::cout << "insert timestamp!" << std::endl;
       msgLength += C_TIMESTAMP_BYTES;
     }
-    tmpContent.append( tmp->getContent()->dataPtr(), tmp->getContent()->size());
+    tmpContent.append( next_db->getContent()->dataPtr(), next_db->getContent()->size());
 
     msgLength += tmp_length;
 //    std::cout << "msgLength " << msgLength << "\n";

@@ -4,30 +4,47 @@
 
 #include "CrodmFacade.h"
 
+#include <string>
+
 CrodmFacade::CrodmFacade()
+: index(0)
 {
-  priorities =  {10, 100, 80, 90,  5, 40, 23, 74, 32, 98,
-                 62,   8, 30, 19,  7,  1, 99, 50, 58, 36,
-                 27,  22, 88, 77, 33, 83, 92, 49, 76, 75};
-  wordNumbers = { 3,   1,  3,  2, 3,  4,  2,  6,  1,  2,
-                  9,   1,  1,  5, 8,  9,  3,  2,  4,  7,
-                  4,  12,  1,  3, 1, 23,  1,  8,  4,  5 }; // = 150 wörter  // 30 datenblöcke
+  priorities =  {0, 100, 85, 5, 64, 5, 39, 1, 71, 0};
+
+  // no need for len_y in this case (text, sensor)
+  //rel posx posy lenx leny
+  relevanceData.push_back(RelevanceData({100.f, 13, 0, 14})); // = Beispieltext:\n
+  relevanceData.push_back(RelevanceData({ 80.f,  0, 1,  9})); // = Hallo ich
+  relevanceData.push_back(RelevanceData({ 60.f, 35, 1, 22})); // = komme vom Mars.\nDabei
+  relevanceData.push_back(RelevanceData({ 30.f, 37, 2, 18})); // = dann priorisiert,
+  relevanceData.push_back(RelevanceData({ 70.f, 73, 2,  4})); // = Erde
 }
 
 CrodmFacade::~CrodmFacade()
 {
 }
 
-const std::vector<float>& CrodmFacade::getPriortyVec() const
+const float& CrodmFacade::getPriority(const RelevanceData& relevance, const DBDataObjectID&)
 {
+  if(index >= priorities.size())
+    index = 0;
 
-  //todo prioritäten noch setzen!!
-  return priorities;
+  // do some freaky stuff to compute the priority
+
+  return priorities[index++];
 }
 
-const std::vector<unsigned short int>& CrodmFacade::getWordLengthVec() const
+const std::vector<RelevanceData>& CrodmFacade::getRelevanceData()
 {
-  return wordNumbers;
+  return relevanceData;
 }
 
+void CrodmFacade::evaluateText(const std::string& , const DBDataObjectID&)
+{
 
+}
+
+void CrodmFacade::evaluateSensor(const float& , const DBDataObjectID&)
+{
+
+}

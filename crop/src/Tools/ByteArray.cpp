@@ -3,6 +3,7 @@
  */
 
 #include "ByteArray.h"
+#include "../TypesConfig/ProtocolConstants.h"
 
 ByteArray::ByteArray()
 : bitCount(0)
@@ -47,60 +48,57 @@ void ByteArray::clear()
   curBytePos = 0;
 }
 
+const bool ByteArray::isEmpty() const
+{
+  return vector.empty();
+}
+
 void ByteArray::insert(char* data, const size_t& length)
 {
   clear();
   append(data, length);
 }
 
-// todo inkonsistent zu append const char auf ein nenner bringen
 void ByteArray::append(char* data, const size_t& length)
 {
   for(unsigned int i = 0; i < length; ++i)
     vector.push_back( data[i] & 0xFF );
+
+  curBytePos += length;
+  bitCount = 0;
 }
 
-// todo inkonsistent zu append char auf ein nenner bringen
 void ByteArray::append(const char* data, const size_t& length)
 {
+  char tmp[length];
   for(unsigned int i = 0; i < length; ++i)
-  {
-    char tmp = data[i];
-    vector.push_back(tmp);
-  }
+    tmp[i] = data[i];
+
+  append(tmp, length);
 }
 
 void ByteArray::insert(Text& text)
 {
+  vector.clear();
   append(text);
 }
 
 void ByteArray::insert(Sensor& sensor)
 {
-  //todo ByteArray::insert sensor implementieren
-}
-
-void ByteArray::insert(Picture& pic)
-{
-  //todo ByteArray::insert pic implementieren
+  vector.clear();
+  append(sensor);
 }
 
 void ByteArray::append(Text& text)
 {
-  uint64_t timestamp = text.getTimestamp();
-  append(timestamp, C_TIMESTAMP_BYTES);
-  append(text.lineBreak, C_LINE_BYTES);
+  append(text.column);
+  append(text.line);
   append(text.text.c_str(), text.text.size());
 }
 
 void ByteArray::append(Sensor& sensor)
 {
-  //todo ByteArray::append sensor implementieren
-}
-
-void ByteArray::append(Picture& pic)
-{
-  //todo ByteArray::append pic implementieren
+  append(sensor.value, C_VALUE_BYTES);
 }
 
 void ByteArray::setBitInChar( char& tmp, const bool& value, const unsigned int& pos)

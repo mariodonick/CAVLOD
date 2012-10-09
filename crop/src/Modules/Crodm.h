@@ -6,7 +6,12 @@
 #ifndef CRODM_H_
 #define CRODM_H_
 
+#include "../DataManagement/RelevanceData.h"
+#include "../TypesConfig/ProtocolTypes.h"
+
 #include <vector>
+#include <bits/stringfwd.h>
+
 
 class Crodm
 {
@@ -14,10 +19,14 @@ public:
   virtual ~Crodm(){}
 
   // interface from prioritizer to Crodm
-  virtual const std::vector<float>& getPriortyVec() const = 0;
+  virtual const float& getPriority(const RelevanceData& relevance, const DBDataObjectID& doid) = 0;
 
   //interface from split and encoder to Crodm
-  virtual const std::vector<unsigned short int>& getWordLengthVec() const = 0;
+  virtual const std::vector<RelevanceData>& getRelevanceData() = 0;
+
+  //interfaces from content phase to Crodm
+  virtual void evaluateText(const std::string& text, const DBDataObjectID& doid) = 0;
+  virtual void evaluateSensor(const float& value, const DBDataObjectID& doid) = 0;
 };
 
 #endif /* CRODM_H_ */

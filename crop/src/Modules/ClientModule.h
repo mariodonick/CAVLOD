@@ -8,16 +8,11 @@
 
 #include "UDPSocket.h"
 #include "../Tools/PrioritizedQueue.h"
+#include "../TypesConfig/Pointer.h"
 
 #include <thread>
-
-class DataBlock;
-class Crodm;
-class Partitioning;
-class Prioritization;
-template<class T> class Queue;
-class NetworkIO;
-class Packetizer;
+#include <list>
+#include <mutex>
 
 class ClientModule
 {
@@ -25,23 +20,31 @@ public:
   ClientModule();
   virtual ~ClientModule();
 
-  void execute();
+  void start();
 
 private:
   void packetizerThread();
 
+  void handleSensorEvent(const DBDataObjectID& id, const bool& usingTimestamp);
+  void handleTextEvent(const DBDataObjectID& id, const bool& usingTimestamp);
+
 private:
-  Queue<DataBlock*>* dbFifo;
-  PrioritizedQueue<DataBlock*> prioQueue;
-
-  Crodm* crodm;
-  NetworkIO* network;
-  Partitioning* partitioning;
-  Prioritization* prioritization;
-  Packetizer* packetizer;
-
   bool running;
-  std::thread sendingThread;
+
+  DBQueue_uPtr dbFifo;
+  DBQueue_uPtr prioQueue;
+
+  TextInput_sPtr textInput;
+  SensorInput_sPtr sensorInput;
+  Crodm_uPtr crodm;
+  NetworkIO_uPtr network;
+  Partitioning_uPtr partitioning;
+  Prioritization_uPtr prioritization;
+  Packetizer_uPtr packetizer;
+
+  std::list<std::thread> threads;
+
+  std::mutex eventMutex;
 };
 
 #endif /* CLIENTMODULE_H_ */

@@ -6,23 +6,29 @@
 #ifndef DATATYPES_H_
 #define DATATYPES_H_
 
+#include "../Tools/Bin.h"
+
 enum DataTypes
 {
   TYPE_SENSOR = 0x0,
-  TYPE_TEXT,
-  TYPE_PICTURE
+  TYPE_TEXT = 0x1
 };
 
-inline const std::string dataType2String(const Bin<10>& dt)
+inline const std::string dataType2String(const DataTypes& dt)
 {
-  switch( static_cast<DataTypes>(dt.to_uint()) )
+  switch( dt )
   {
     case TYPE_SENSOR: return "TYPE_SENSOR";
     case TYPE_TEXT: return "TYPE_TEXT";
-    case TYPE_PICTURE: return "TYPE_PICTURE";
   }
 
   return "---";
+}
+
+template<unsigned int N>
+inline const std::string dataType2String(const Bin<N>& dataTypes)
+{
+  return dataType2String(static_cast<DataTypes>( dataTypes.to_ulong() ) );
 }
 
 #endif /* DATATYPES_H_ */

@@ -16,22 +16,22 @@
 #include "../Tools/ByteArray.h"
 #include "../Tools/Bin.h"
 #include "../DataManagement/DataBlock.h"
-
-template<class T>
-class PrioritizedQueue;
-class DataBlock;
+#include "../TypesConfig/Pointer.h"
 
 class MessagePacketizer : public Packetizer
 {
 public:
-  MessagePacketizer(PrioritizedQueue<DataBlock*>& prioQueue);
+  MessagePacketizer(DBQueue_uPtr& prioQueue);
   virtual ~MessagePacketizer();
 
 private:
   const ByteArray& packetizeMessage();
 
+  const MsgCrc32 computeCrc32();
+  const MsgCrc16 computeCrc16();
+
 private:
-  PrioritizedQueue<DataBlock*>& prioQueue;
+  DBQueue_uPtr& prioQueue;
   ByteArray message;
 };
 

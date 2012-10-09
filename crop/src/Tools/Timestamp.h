@@ -9,6 +9,9 @@
 #include <sys/time.h>
 #include <cstdint>
 
+#include "../TypesConfig/ProtocolTypes.h"
+#include "../Tools/Bin.h"
+
 class Timestamp
 {
 public:
@@ -26,18 +29,18 @@ public:
     curTime = t.tv_sec;
   }
 
-  void setTimestamp(const uint64_t& t)
+  void setTimestamp(const CTimestamp& t)
   {
     curTime = t;
   }
 
-  const uint64_t& getTime() const
+  const CTimestamp& getTime() const
   {
     return curTime;
   }
 
 private:
-  uint64_t curTime;
+  CTimestamp curTime;
 };
 
 #endif /* TIMESTAMP_H_ */

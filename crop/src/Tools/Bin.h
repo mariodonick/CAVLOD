@@ -381,7 +381,7 @@ inline Bin<L+H> merge(const Bin<L>& lsb, const Bin<H>& msb)
 }
 
 template<unsigned int BIT_LENGTH>
-inline Bin<BIT_LENGTH> uchar2Bin(const char* data)
+inline Bin<BIT_LENGTH> char2Bin(const char* data)
 {
   Bin<BIT_LENGTH> tmp;
   for(unsigned int i = 0; i < (BIT_LENGTH >> RSHIFT_TO_BYTE); ++i)
@@ -391,15 +391,14 @@ inline Bin<BIT_LENGTH> uchar2Bin(const char* data)
   return tmp;
 }
 
-//todo eventl noch allgemeiner bauen -> extra datei und include iostream
-inline unsigned int uchar2uint(const char* data, const std::size_t& num_bytes)
+inline unsigned int char2uint(const char* data, const std::size_t& num_bytes)
 {
-  if(num_bytes > 4){ /*std::cerr << "ERROR: array is to big for one unsigned char\n";*/ throw; }
+  if(num_bytes > 4){ /*std::cerr << "ERROR: array is to big for one unsigned char\n";*/ throw; } // todo richtige exception
   unsigned int tmp = 0;
   for(unsigned int i = 0; i < num_bytes; ++i)
   {
     unsigned int shift = (i==0)?0:8;
-    tmp = (tmp << shift) | data[num_bytes-1-i];
+    tmp = (tmp << shift) | (data[num_bytes-1-i]  & 0xFF);
   }
   return tmp;
 }

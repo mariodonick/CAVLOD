@@ -4,8 +4,8 @@
 
 #include "DataBlock.h"
 
-#include "../Tools/Bin.h"
 #include "../Tools/ByteArray.h"
+#include "../TypesConfig/ProtocolConstants.h"
 #include "DataTypes.h"
 
 DataBlock::DataBlock()
@@ -16,8 +16,6 @@ DataBlock::DataBlock()
 
 DataBlock::~DataBlock()
 {
-  if(content != nullptr)
-    delete content;
 }
 
 void DataBlock::setHeader(const DataBlock::Header& dbh)
@@ -25,27 +23,27 @@ void DataBlock::setHeader(const DataBlock::Header& dbh)
   header = dbh;
 }
 
-const Bin<24>& DataBlock::getDataObjectID() const
+const DBDataObjectID& DataBlock::getDataObjectID() const
 {
   return header.dataObjectID;
 }
 
-const Bin<10>& DataBlock::getDataType() const
+const DBDatatype& DataBlock::getDataType() const
 {
   return header.dataType;
 }
 
-const HalfWord& DataBlock::getSequenceNumber() const
+const DBSequenceNumber& DataBlock::getSequenceNumber() const
 {
   return header.sequenceNumber;
 }
 
-const Bin<6>& DataBlock::getConfig() const
+const DBConfig& DataBlock::getConfig() const
 {
   return header.config;
 }
 
-const HalfWord& DataBlock::getLength() const
+const DBLength& DataBlock::getLength() const
 {
   return header.length;
 }
@@ -55,22 +53,32 @@ const float& DataBlock::getPriority() const
   return priority;
 }
 
-void DataBlock::setDataObjectID(const Bin<24>& doid)
+const RelevanceData& DataBlock::getRelevanceData() const
+{
+  return relevance;
+}
+
+const CTimestamp& DataBlock::getTimestamp() const
+{
+  return timestamp.getTime();
+}
+
+void DataBlock::setDataObjectID(const DBDataObjectID& doid)
 {
   header.dataObjectID = doid;
 }
 
-void DataBlock::setDataType(const Bin<10>& dt)
+void DataBlock::setDataType(const DBDatatype& dt)
 {
   header.dataType = dt;
 }
 
-void DataBlock::setSequenceNumber(const HalfWord& sn)
+void DataBlock::setSequenceNumber(const DBSequenceNumber& sn)
 {
   header.sequenceNumber = sn;
 }
 
-void DataBlock::setConfig(const Bin<6>& conf)
+void DataBlock::setConfig(const DBConfig& conf)
 {
   header.config = conf;
 }
@@ -80,22 +88,36 @@ void DataBlock::setPriority(const float& prio)
   priority = prio;
 }
 
-void DataBlock::setLength(const HalfWord& length)
+void DataBlock::setLength(const DBLength& length)
 {
   header.length = length;
 }
 
-void DataBlock::addContent(ByteArray* data)
+void DataBlock::setRelevanceData(const RelevanceData& rel)
 {
-  if(content == nullptr)
-    content = data;
-  else
-    content->append( data->dataPtr(), data->size() );
-
-  header.length += data->size();
+  relevance = rel;
 }
 
-ByteArray* DataBlock::getContent()
+void DataBlock::stamp()
+{
+  timestamp.stamp();
+}
+
+void DataBlock::addContent(ByteArray_sPtr data)
+{
+  if(content == nullptr)
+  {
+    content = data;
+    header.length = data->size() + DB_HEADER_LENGTH_BYTES;
+  }
+  else
+  {
+    content->append( data->dataPtr(), data->size() );
+    header.length += data->size() + DB_HEADER_LENGTH_BYTES;
+  }
+}
+
+ByteArray_sPtr DataBlock::getContent()
 {
   return content;
 }
@@ -126,7 +148,7 @@ DataBlock::Header::~Header()
 
 void DataBlock::Header::dump(std::ostream& out)
 {
-  out << "DataType: " << dataType2String(dataType.to_ulong()) << "\n"
+  out << "DataType: " << dataType2String(dataType) << "\n"
       << "Config: " << std::hex << config.to_ulong() << std::dec << "\n"
       << "DataObjectID: " << dataObjectID.to_ulong() << "\n"
       << "SequenceNumber: " << sequenceNumber.to_ulong() << "\n";

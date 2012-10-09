@@ -14,7 +14,7 @@
 #include <netdb.h>
 
 #include "NetworkIO.h"
-#include "../Config.h"
+#include "../TypesConfig/Config.h"
 
 class UDPSocket : public NetworkIO
 {
@@ -23,7 +23,7 @@ public:
   virtual ~UDPSocket();
 
 private:
-  const ByteArray* receiveData();
+  const ByteArray_sPtr receiveData();
   void sendData(const ByteArray& data, const char* s_addr, const unsigned int& s_port);
   void startServer(const unsigned int& s_port);
 

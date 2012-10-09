@@ -3,9 +3,9 @@
  */
 
 #include "Visualizer.h"
+#include <iostream>
 
 TextVisualizer::TextVisualizer()
-: old_line(0)
 {
 
 }
@@ -14,17 +14,16 @@ TextVisualizer::~TextVisualizer()
 
 }
 
-void TextVisualizer::display(const std::vector<Text*>& sortedContent)
+void TextVisualizer::display(const std::vector<Text_sPtr>& sortedContent, const bool&, const CTimestamp&)
 {
-  std::vector<Text*>::const_iterator it = sortedContent.begin();
+  std::cout << "display Text: \n";
+  std::cout << "-------------------------------------------------------\n";
+
+  std::vector<Text_sPtr>::const_iterator it = sortedContent.begin();
   for(; it != sortedContent.end(); ++it)
-  {
-    std::cout << (*it)->text << " ";
-    if( ((*it)->lineBreak & 0x1) == true)
-    {
-      std::cout << "\n";
-    }
-  }
+    std::cout << (*it)->text;
+
+  std::cout << "\n\n";
 }
 
 
@@ -41,25 +40,19 @@ SensorVisualizer::~SensorVisualizer()
 
 }
 
-void SensorVisualizer::display(const std::vector<Sensor*>& )
+void SensorVisualizer::display(const std::vector<Sensor_sPtr>& sortedContent, const bool& usingTimestamp, const CTimestamp& timestamp)
 {
+  std::cout << "display Sensor: \n";
+  std::cout << "-------------------------------------------------------\n";
 
+  std::vector<Sensor_sPtr>::const_iterator it = sortedContent.begin();
+  for(; it != sortedContent.end(); ++it)
+  {
+    if(usingTimestamp)
+      std::cout << "timestamp: " << timestamp.to_ulong() << " value: " << (*it)->value << "\n";
+    else
+      std::cout << "value: " << (*it)->value << "\n";
+  }
+
+  std::cout << "\n";
 }
-
-
-PictureVisualizer::PictureVisualizer()
-{
-
-}
-
-PictureVisualizer::~PictureVisualizer()
-{
-
-}
-
-void PictureVisualizer::display(const std::vector<Picture*>& )
-{
-
-}
-
-

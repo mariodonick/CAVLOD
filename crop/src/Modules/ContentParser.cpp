@@ -3,9 +3,12 @@
  */
 
 #include "ContentParser.h"
-#include "../Config.h"
+#include "../TypesConfig/ProtocolConstants.h"
+#include "../TypesConfig/ProtocolTypes.h"
+#include "../Tools/Bin.h"
 
 #include <iostream>
+#include <cstring>
 
 TextParser::TextParser()
 {
@@ -17,23 +20,28 @@ TextParser::~TextParser()
 
 }
 
-Text* TextParser::parseContent(char* data, const unsigned int& len)
+Text_sPtr TextParser::parseContent(char* data, const unsigned int& len)
 {
   std::cout << "\n---------------Text---------------------------\n";
 
-  unsigned long long int* timestamp = reinterpret_cast<unsigned long long int*>( &data );
-  uint8_t* line = reinterpret_cast<uint8_t*>( &data[C_TIMESTAMP_BYTES] );
+//  for(unsigned int i = 0; i < len; ++i)
+//    std::cout << "data[" << i << "]= 0x" << std::hex << int(data[i] & 0xFF) << std::dec << "\n";
 
-  unsigned int pos = C_TIMESTAMP_BYTES + C_LINE_BYTES;
-  unsigned int length = len - pos;
+  CLine line = char2Bin<C_LINE_BYTES * BIT_PER_BYTE>( data );
+  unsigned int offset = C_LINE_BYTES;
 
-  Text* text = new Text;
-  text->lineBreak = *line;
-  text->text.insert(0, &data[pos], length);
-  text->setTimestamp(*timestamp);
+  CColumn column = char2Bin<C_COLUMN_BYTES * BIT_PER_BYTE>( &data[offset] );
+  offset += C_COLUMN_BYTES;
 
-  std::cout << "timestamp: " << *timestamp << "\n";
-  std::cout << "line: " << std::hex << int(text->lineBreak) << std::dec << "\n";
+  unsigned int textLength = len - offset;
+
+  Text_sPtr text( new Text );
+  text->column = column.to_uint();
+  text->line = line.to_uint();
+  text->text.insert(0, &data[offset], textLength);
+
+  std::cout << "line: " << text->line.to_uint() << "\n";
+  std::cout << "column: " << text->column.to_uint() << "\n";
   std::cout << "text: " << text->text << "\n";
 
   return text;
@@ -52,41 +60,21 @@ SensorParser::~SensorParser()
 {
 }
 
-Sensor* SensorParser::parseContent(char* data, const unsigned int& len)
+Sensor_sPtr SensorParser::parseContent(char* data, const unsigned int& len)
 {
   std::cout << "\n---------------Sensor---------------------------\n";
+  std::cout << "len: " << len << "\n";
 
-  unsigned long long int* timestamp = reinterpret_cast<unsigned long long int*>( &data );
-  float* v = reinterpret_cast<float*>( &data[C_TIMESTAMP_BYTES] );
+  for(unsigned int i = 0; i < len; ++i)
+    std::cout << "data[" << i << "]= 0x" << std::hex << int(data[i] & 0xFF) << std::dec << "\n";
 
-  std::cout << "timestamp: " << *timestamp << "\n";
-  std::cout << "value: " << *v << "\n";
+  float v = 0;
+  memcpy(&v, &data[0], C_VALUE_BYTES);
 
-  Sensor* sensor = new Sensor;
-  sensor->value = *v;
-  sensor->setTimestamp(*timestamp);
+  std::cout << "value: " << v << "\n";
+
+  Sensor_sPtr sensor( new Sensor );
+  sensor->value = v;
 
   return sensor;
 }
-
-
-
-
-
-PictureParser::PictureParser()
-{
-
-}
-
-PictureParser::~PictureParser()
-{
-}
-
-Picture* PictureParser::parseContent(char* data, const unsigned int& len)
-{
-  std::cout << "\n---------------Picture---------------------------\n";
-  Picture* picture = new Picture;
-  //todo implementieren
-  return picture;
-}
-

@@ -6,17 +6,16 @@
 #ifndef DATABLOCKPROCESSING_H_
 #define DATABLOCKPROCESSING_H_
 
+#include "../DataManagement/DataBlock.h"
+#include "../TypesConfig/ProtocolConstants.h"
+
 #include <iostream>
 
-#include "../DataManagement/DataBlock.h"
-#include "../Config.h"
-#include "../Types.h"
-
-template<class T, class Parser, class Decoder, class Visualizer>
-class DataBlockProcessing : protected Parser, protected Decoder, protected Visualizer
+template<class T, class ContentParser, class Decoder, class Visualizer>
+class DataBlockProcessing : protected ContentParser, protected Decoder, protected Visualizer
 {
   using Decoder::decode;
-  using Parser::parseContent;
+  using ContentParser::parseContent;
   using Visualizer::display;
   using Decoder::sortedContent;
 
@@ -52,26 +51,40 @@ void DataBlockProcessing<T, Parser, Decoder, Visualizer>::start(const DataBlock:
 
   curContentPos = 0;
   unsigned int totalLength = dbh.length.to_uint() - DB_HEADER_LENGTH_BYTES;
-//  std::cout << "totalLength: " << totalLength << "\n";
+
   std::cout << "dblength: " << dbh.length.to_uint() << "\n";
+  std::cout << "totalLength: " << totalLength << "\n";
+
+  // todo only to use reinterpret cast inside the parser
+  char tmp[totalLength];
+  for(unsigned int i = 0; i < totalLength; ++i)
+  {
+//    std::cout << "data[" << i << "]= 0x" << std::hex << int(data[curContentPos + i] & 0xFF) << std::dec << "\n";
+    tmp[i] = data[curContentPos + i];
+  }
+
   while(curContentPos < totalLength)
   {
-    //only to use reinterpret cast inside the parser
-    char tmp[totalLength];
-    for(unsigned int i = 0; i < totalLength; ++i)
-      tmp[i] = data[curContentPos + i];
+    bool usingTimestamp = dbh.config[DB_CONFIG_TIMESTAMP] == true;
+    unsigned int offset = (usingTimestamp) ? C_TIMESTAMP_BYTES : 0;
+    CTimestamp timestamp;
 
-    T* obj = parseContent(tmp, totalLength);
-    unsigned int len = obj->size();
-    curContentPos += len;
-//    std::cout << "curContentPos: " << curContentPos << " Bytes\n";
+    if(usingTimestamp)
+    {
+      timestamp = char2Bin<C_TIMESTAMP_BYTES * BIT_PER_BYTE>(&tmp[curContentPos]);
+      std::cout << "timestamp: " << timestamp.to_ulong() << " = 0x" << std::hex << timestamp.to_ulong() << std::dec << "\n";
+    }
+
+    curContentPos += offset;
+
+//    std::cout << "offset: " << offset << "\n";
+//    std::cout << "curContentPos: " << curContentPos << "\n";
+
+    T obj = parseContent(&tmp[curContentPos], totalLength - offset);
+    curContentPos += obj->size();
 
     decode(dbh.dataObjectID.to_uint(), dbh.sequenceNumber.to_uint(), obj);
-
-    std::cout << "display Text: \n";
-    std::cout << "-------------------------------------------------------\n";
-    display(sortedContent);
-    std::cout << "\n\n";
+    display(sortedContent, usingTimestamp, timestamp);
   }
 }
 

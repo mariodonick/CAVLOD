@@ -8,13 +8,9 @@
 #ifndef PACKETIZER_H_
 #define PACKETIZER_H_
 
-#include "../Tools/ByteArray.h"
 #include "../DataManagement/DataBlock.h"
 
-#include <string>
-#include <sstream>
-
-template<unsigned int> class Bin;
+class ByteArray;
 
 class Packetizer
 {

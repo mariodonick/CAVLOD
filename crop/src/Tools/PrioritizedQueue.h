@@ -6,7 +6,6 @@
 #ifndef PRIORITIZEDQUEUE_H_
 #define PRIORITIZEDQUEUE_H_
 
-#include "ByteArray.h"
 #include "Queue.h"
 
 #include <queue>
@@ -22,7 +21,7 @@ public:
   PrioritizedQueue();
   virtual ~PrioritizedQueue();
 
-  T pop();
+  T pop(const std::size_t& size = 0);
   void push(const T& data);
   const bool isEmpty();
   const std::size_t size();
@@ -48,13 +47,13 @@ PrioritizedQueue<T>::~PrioritizedQueue()
 
 }
 
+// ignores input parameter
 template<class T>
-T PrioritizedQueue<T>::pop()
+T PrioritizedQueue<T>::pop(const std::size_t&)
 {
-  // todo normal müsste man eine exception schmeissen wenn queue leer ist! -> fangen das im modul(packetizer) ab
+  // todo abfangen in dem leeres element zurück gegeben wird! oder nullptr oder sowas
   std::lock_guard<std::mutex> lock(mutex);
   T tmp = queue.top();
-//  std::cout << "pop priority: " << std::dec << tmp->first << "\n";
   queue.pop();
 
   return tmp;

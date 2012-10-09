@@ -6,12 +6,12 @@
 #include "Crodm.h"
 #include "../Tools/PrioritizedQueue.h"
 #include "../Tools/Fifo.h"
+#include "../Tools/Exception.h"
 #include "../DataManagement/DataBlock.h"
 
-#include <cassert>
 #include <vector>
 
-Priority::Priority(Queue<DataBlock*>& theDBFifo, PrioritizedQueue<DataBlock*>& thePrioQueue, const Crodm& theCrodm)
+Priority::Priority(DBQueue_uPtr& theDBFifo, DBQueue_uPtr& thePrioQueue, const Crodm_uPtr& theCrodm)
 : dbFifo(theDBFifo)
 , prioQueue(thePrioQueue)
 , crodm(theCrodm)
@@ -24,16 +24,14 @@ Priority::~Priority()
 
 void Priority::evaluate()
 {
-  const std::vector<float>* priorities = &crodm.getPriortyVec();
-
-  assert( priorities->size() >= dbFifo.size() );
-
   unsigned int i = 0;
-  while( !dbFifo.isEmpty() )
+  while( !dbFifo->isEmpty() )
   {
-    DataBlock* data = dbFifo.pop();
-    data->setPriority( (*priorities)[i] );
-    prioQueue.push( data );
+    DataBlock_sPtr data = dbFifo->pop();
+
+    const float& prio = crodm->getPriority( data->getRelevanceData(), static_cast<DBDataObjectID>(data->getDataObjectID().to_uint() ) );
+    data->setPriority( prio );
+    prioQueue->push( data );
     ++i;
   }
 }

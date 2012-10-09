@@ -39,12 +39,12 @@ const std::vector<RelevanceData>& CrodmFacade::getRelevanceData()
   return relevanceData;
 }
 
-void CrodmFacade::evaluateText(const std::string&)
+void CrodmFacade::evaluateText(const std::string& , const DBDataObjectID&)
 {
 
 }
 
-void CrodmFacade::evaluateSensor(const float&)
+void CrodmFacade::evaluateSensor(const float& , const DBDataObjectID&)
 {
 
 }

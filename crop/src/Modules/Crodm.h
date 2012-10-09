@@ -25,8 +25,8 @@ public:
   virtual const std::vector<RelevanceData>& getRelevanceData() = 0;
 
   //interfaces from content phase to Crodm
-  virtual void evaluateText(const std::string& text) = 0;
-  virtual void evaluateSensor(const float& value) = 0;
+  virtual void evaluateText(const std::string& text, const DBDataObjectID& doid) = 0;
+  virtual void evaluateSensor(const float& value, const DBDataObjectID& doid) = 0;
 };
 
 #endif /* CRODM_H_ */

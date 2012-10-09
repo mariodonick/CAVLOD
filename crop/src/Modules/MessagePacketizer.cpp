@@ -2,7 +2,7 @@
  * packatizer.cpp
  *
  *  Created on: 04.06.2012
- *      Author: gigi
+ *      Author: Florian Ludwig
  */
 
 #include "MessagePacketizer.h"
@@ -43,10 +43,6 @@ const ByteArray& MessagePacketizer::packetizeMessage()
   DataBlock_sPtr first_db = prioQueue->pop();
   // compute first db length
   unsigned int msgLength = first_db->getLength().to_uint();
-//  std::cout << "first db length: " << msgLength << std::endl;
-
-  // check first db length
-  const std::size_t max_msg_length = (first_db->getLength().to_uint() > MSG_CRC_LENGTH_BORDER) ? MAX_MSG_LENGTH : MSG_CRC_LENGTH_BORDER;
 
   ByteArray tmpContent;
   tmpContent.insert( first_db->getDataType() );
@@ -59,19 +55,29 @@ const ByteArray& MessagePacketizer::packetizeMessage()
 
   if(first_db->getConfig()[DB_CONFIG_TIMESTAMP] == true)
   {
-//    std::cout << "insert timestamp!" << std::endl;
     tmpContent.append( first_db->getTimestamp() );
     msgLength += C_TIMESTAMP_BYTES;
   }
 
   tmpContent.append(first_db->getContent()->dataPtr(), first_db->getContent()->size());
 
+  //calculate message lengths to add maximal number of datablocks
+  const std::size_t max_msg_length = (first_db->getLength().to_uint() > MSG_CRC_LENGTH_BORDER) ? MAX_MSG_LENGTH : MSG_CRC_LENGTH_BORDER;
+  const std::size_t crc_length = (max_msg_length == MAX_MSG_LENGTH) ? MSG_CRC_32_BYTES : MSG_CRC_16_BYTES;
+  const std::size_t message_header_length = MSG_FIXED_HEADER_LENGTH_BYTES + 2*MSG_ADDRESS_TYPE_IPV6_BYTES + crc_length;
+
   // pack more db to the message
   // cancel if there is no other datablocks or the message is to long
-  while( msgLength < 0xFF && !prioQueue->isEmpty() ) // todo here should stand max_msg_length -> complicate computation (specially msg and db lengths)
+  while( !prioQueue->isEmpty() )
   {
-    // get next datablocks
-    DataBlock_sPtr next_db = prioQueue->pop();
+    // 1 to avoid overflow
+    const std::size_t free_space = (max_msg_length <= msgLength + message_header_length ) ? 1 : max_msg_length - msgLength - message_header_length;
+
+    // get next datablock
+    DataBlock_sPtr next_db = prioQueue->pop(free_space);
+    if(next_db == nullptr) // no new db found
+      break;
+
     unsigned int tmp_length = next_db->getLength().to_uint();
 
     // insert header and content data
@@ -86,20 +92,15 @@ const ByteArray& MessagePacketizer::packetizeMessage()
     if(first_db->getConfig()[DB_CONFIG_TIMESTAMP] == true)
     {
       tmpContent.append( first_db->getTimestamp() );
-//      std::cout << "insert timestamp!" << std::endl;
       msgLength += C_TIMESTAMP_BYTES;
     }
     tmpContent.append( next_db->getContent()->dataPtr(), next_db->getContent()->size());
 
     msgLength += tmp_length;
-//    std::cout << "msgLength " << msgLength << "\n";
   }
 
   // compute message length
-  MsgLength messageLength = msgLength + MSG_FIXED_HEADER_LENGTH_BYTES + 2*MSG_ADDRESS_TYPE_IPV6_BYTES;
-  messageLength += (messageLength >= MSG_CRC_LENGTH_BORDER) ? 4 : 2;
-
-//  std::cout << "messageLength: " << messageLength.to_uint() << std::endl;
+  MsgLength messageLength = msgLength + message_header_length;
 
   // append message header
   message.insert(static_cast<MsgVersion>(VERSION_1) );

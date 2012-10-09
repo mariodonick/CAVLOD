@@ -74,7 +74,6 @@ void ClientModule::packetizerThread()
     std::cout << "start Sending... Data available in Prioritized Queue: " << prioQueue->size() << std::endl;
 
     const ByteArray& data = packetizer->packetizeMessage();
-//    data.dumpHex(std::cout);
 
     if( !data.isEmpty() )
       network->sendData(data, IP_ADDRESS, PORT);
@@ -90,7 +89,7 @@ void ClientModule::handleTextEvent(const DBDataObjectID& id, const bool& usingTi
 
   StopWatch sw;
   const std::string& text = textInput->getInput();
-  crodm->evaluateText(text);
+  crodm->evaluateText(text, id);
   partitioning->partText(id, text, usingTimestamp);
   prioritization->evaluate();
 
@@ -103,7 +102,7 @@ void ClientModule::handleSensorEvent(const DBDataObjectID& id, const bool& using
 
   StopWatch sw;
   const float& value = sensorInput->getInput();
-  crodm->evaluateSensor(value);
+  crodm->evaluateSensor(value, id);
   partitioning->partSensor(id, value, usingTimestamp);
   prioritization->evaluate();
 

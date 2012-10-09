@@ -18,8 +18,8 @@ public:
 private:
   const float& getPriority(const RelevanceData& relevance, const DBDataObjectID& doid);
   const std::vector<RelevanceData>& getRelevanceData();
-  void evaluateText(const std::string& text);
-  void evaluateSensor(const float& value);
+  void evaluateText(const std::string& text, const DBDataObjectID& doid);
+  void evaluateSensor(const float& value, const DBDataObjectID& doid);
 
 private:
   std::vector<float> priorities;

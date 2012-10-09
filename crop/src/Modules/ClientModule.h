@@ -20,7 +20,8 @@ public:
   ClientModule();
   virtual ~ClientModule();
 
-  void start();
+  void run();
+  void initialize();
 
 private:
   void packetizerThread();

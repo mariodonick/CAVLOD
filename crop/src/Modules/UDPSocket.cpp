@@ -7,6 +7,7 @@
 
 #include "UDPSocket.h"
 #include "../Tools/ByteArray.h"
+#include "../TypesConfig/Config.h"
 
 #include <string.h>
 #include <iostream>
@@ -15,7 +16,8 @@ using namespace std;
 
 UDPSocket::UDPSocket()
 {
-  startServer(PORT);
+  Config* config = Config::instance();
+  startServer(config->port);
 }
 
 UDPSocket::~UDPSocket()

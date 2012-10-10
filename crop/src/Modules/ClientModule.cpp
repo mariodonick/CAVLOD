@@ -17,6 +17,7 @@
 #include "../Tools/SmartPrioritizedQueue.h"
 #include "../Tools/ByteArray.h"
 #include "../Tools/StopWatch.h"
+#include "../TypesConfig/Config.h"
 
 #include <functional>
 
@@ -54,10 +55,14 @@ ClientModule::~ClientModule()
       std::cerr << "shuting down thread failed with: " << e.what() << std::endl;
     }
   }
+
+  Config::release();
 }
 
 void ClientModule::initialize()
 {
+  config = Config::instance();
+
   //todo do some stuff eg: load dbs
   //  textInput->initial(); // todo notwendig?
   //  sensorInput->initial();
@@ -74,14 +79,14 @@ void ClientModule::packetizerThread()
 {
   while( running )
   {
-    usleep(SLEEP_MSECONDS_PACKETIZER * 1000); // todo auf events warten? variable schlafenszeiten? irgend etwas ausdenken
+    usleep(config->sendDelayMS * 1000); // todo auf events warten? variable schlafenszeiten? irgend etwas ausdenken
 
     std::cout << "start Sending... Data available in Prioritized Queue: " << prioQueue->size() << std::endl;
 
     const ByteArray& data = packetizer->packetizeMessage();
 
     if( !data.isEmpty() )
-      network->sendData(data, IP_ADDRESS, PORT);
+      network->sendData(data, config->ipAddress.c_str(), config->port);
 
     std::cout << "Sending... Data available in Prioritized Queue: " << prioQueue->size() << std::endl;
   }

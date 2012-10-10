@@ -14,6 +14,8 @@
 #include <list>
 #include <mutex>
 
+class Config;
+
 class ClientModule
 {
 public:
@@ -31,6 +33,7 @@ private:
 
 private:
   bool running;
+  Config* config;
 
   DBQueue_uPtr dbFifo;
   DBQueue_uPtr prioQueue;

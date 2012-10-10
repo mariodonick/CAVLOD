@@ -1,21 +1,40 @@
 /*
- * @brief Config.h
+ * @brief Config.h - Singleton class to load configuration values
  *
  */
 
 #ifndef CONFIG_H_
 #define CONFIG_H_
 
-// general
-const unsigned int SLEEP_MSECONDS_PACKETIZER = 10000;
-const unsigned int SLEEP_MSECONDS_INPUT_SENSOR = 1000;
-const unsigned int SLEEP_MSECONDS_INPUT_TEXT = 1000;
+#include <boost/program_options.hpp>
+#include <boost/filesystem.hpp>
+#include <string>
+#include <fstream>
 
-const unsigned int PORT = 5657;
-const char* const IP_ADDRESS = "localhost";
+class Config
+{
+public:
+  static Config* instance();
+  static void release();
 
+private:
+  Config();
+  virtual ~Config();
+  Config(const Config&);
+  Config& operator= (const Config&);
 
-// network
-const size_t NETWORK_BUFFER_SIZE = 2*1024*1024;
+public:
+  std::string homePath;
+  boost::filesystem::path backupPath;
+
+  unsigned int port;
+  std::string ipAddress;
+
+  unsigned int sendDelayMS;
+  unsigned int sensorInputDelayMS;
+
+private:
+  static Config* pInstance;
+};
 
 #endif /* CONFIG_H_ */

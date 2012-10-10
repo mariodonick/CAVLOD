@@ -4,6 +4,11 @@
 
 #include "Config.h"
 
+#include <fstream>
+#include <boost/program_options.hpp>
+
+#include "../Tools/FileSystem.h"
+
 Config* Config::pInstance = nullptr;
 
 Config::Config()
@@ -11,14 +16,14 @@ Config::Config()
 {
   try
   {
-    boost::filesystem::path config_filename = homePath + "/CAVLOD/options.conf";
-    boost::filesystem::path stdBackupPath = homePath + "/CAVLOD";
+    std::string config_filename = homePath + "/CAVLOD/options.conf";
+    std::string stdBackupPath = homePath + "/CAVLOD";
   //  boost::program_options::value<unsigned int>();//->default_value(0);
 
     boost::program_options::options_description my_options("options");
 
     my_options.add_options()
-      ("General.backupPath", boost::program_options::value<boost::filesystem::path>()->default_value(stdBackupPath), "path to store datablocks")
+      ("General.backupPath", boost::program_options::value<std::string>()->default_value(stdBackupPath), "path to store datablocks")
       ("General.port", boost::program_options::value<unsigned int>()->default_value(5657), "port number")
       ("General.ipAddress", boost::program_options::value<std::string>()->default_value("localhost"), "IP Address for the receiver which get the message")
       ("General.sendDelayMS", boost::program_options::value<unsigned int>()->default_value(10000), "delay in ms to send a new message")
@@ -32,14 +37,20 @@ Config::Config()
     boost::program_options::notify(vm);
     // value is now accessible by vm["SectionName.my_opt"].as<int>()
 
-    backupPath = vm["General.backupPath"].as<boost::filesystem::path>(); //todo pfad noch anlegen wenn er nicht existiert
+    backupPath = vm["General.backupPath"].as<std::string>(); //todo pfad noch anlegen wenn er nicht existiert
     port = vm["General.port"].as<unsigned int>();
     ipAddress =  vm["General.ipAddress"].as<std::string>();
     sendDelayMS =  vm["General.sendDelayMS"].as<unsigned int>();
     sensorInputDelayMS =  vm["General.sensorInputDelayMS"].as<unsigned int>();
 
     if( !config_stream.is_open() )
-      std::cout << "No \"options.conf\" file found, we will use the default options\n";
+      std::cout << "file: \"options.conf\" not found, we will use the default options\n";
+
+    if( !existFolder(backupPath) )
+    {
+      createFolder(backupPath);
+      std::cout << "Backup path does not exist - it will be created\n";
+    }
   }
   catch (std::exception& e)
   {

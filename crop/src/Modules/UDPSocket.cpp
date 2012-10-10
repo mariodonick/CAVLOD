@@ -46,7 +46,7 @@ const ByteArray_sPtr UDPSocket::receiveData()
 void UDPSocket::sendData(const ByteArray& data, const char* s_addr, const unsigned int& s_port)
 {
 	//Socket oeffnen (SOCK_DGRAM = UDP Socket)
-	sock_c= socket(AF_INET, SOCK_DGRAM, 0);
+	sock_c = socket(AF_INET, SOCK_DGRAM, 0);
 	if (sock_c < 0) cout << "socket" << endl;
 
 	server_c.sin_family = AF_INET;

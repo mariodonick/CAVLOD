@@ -6,10 +6,7 @@
 #ifndef CONFIG_H_
 #define CONFIG_H_
 
-#include <boost/program_options.hpp>
-#include <boost/filesystem.hpp>
 #include <string>
-#include <fstream>
 
 class Config
 {
@@ -25,7 +22,7 @@ private:
 
 public:
   std::string homePath;
-  boost::filesystem::path backupPath;
+  std::string backupPath;
 
   unsigned int port;
   std::string ipAddress;

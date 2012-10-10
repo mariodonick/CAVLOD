@@ -23,6 +23,7 @@
 
 ClientModule::ClientModule()
 : running(false)
+, config( *Config::instance() )
 , dbFifo( new Fifo<DataBlock_sPtr> )
 , prioQueue( new SmartPrioritizedQueue )
 , textInput( new TextInput( running, std::bind(&ClientModule::handleTextEvent, this, std::placeholders::_1, std::placeholders::_2) ) )
@@ -61,7 +62,7 @@ ClientModule::~ClientModule()
 
 void ClientModule::initialize()
 {
-  config = Config::instance();
+
 
   //todo do some stuff eg: load dbs
   //  textInput->initial(); // todo notwendig?
@@ -79,14 +80,14 @@ void ClientModule::packetizerThread()
 {
   while( running )
   {
-    usleep(config->sendDelayMS * 1000); // todo auf events warten? variable schlafenszeiten? irgend etwas ausdenken
+    usleep(config.sendDelayMS * 1000); // todo auf events warten? variable schlafenszeiten? irgend etwas ausdenken
 
     std::cout << "start Sending... Data available in Prioritized Queue: " << prioQueue->size() << std::endl;
 
     const ByteArray& data = packetizer->packetizeMessage();
 
     if( !data.isEmpty() )
-      network->sendData(data, config->ipAddress.c_str(), config->port);
+      network->sendData(data, config.ipAddress.c_str(), config.port);
 
     std::cout << "Sending... Data available in Prioritized Queue: " << prioQueue->size() << std::endl;
   }

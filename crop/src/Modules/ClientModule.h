@@ -33,7 +33,7 @@ private:
 
 private:
   bool running;
-  Config* config;
+  Config& config;
 
   DBQueue_uPtr dbFifo;
   DBQueue_uPtr prioQueue;

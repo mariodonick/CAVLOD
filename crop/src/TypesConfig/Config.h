@@ -25,6 +25,7 @@ private:
 
 public:
   std::string homePath;
+  std::string currentIp;
   //general
   std::string backupPath;
   unsigned int port;

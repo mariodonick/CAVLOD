@@ -6,7 +6,6 @@
 
 #include <sys/signal.h>
 #include <iostream>
-//#include <vector>
 
 ClientModule* client;
 
@@ -21,15 +20,6 @@ void signal_handler_SIGINT (int status)
   std::cout << "Info: Stopped  client Module\n";
   exit(0);
 }
-
-
-#include <fstream>
-#include <iostream>
-
-#include <boost/filesystem.hpp>
-#include "Tools/FileSystem.h"
-
-#include "TypesConfig/Config.h"
 
 int main()
 {

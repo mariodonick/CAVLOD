@@ -3,7 +3,7 @@
  */
 
 #include "Content.h"
-#include "../TypesConfig/ProtocolConstants.h"
+#include "../TypesConfig/Constants.h"
 
 #include <iostream>
 

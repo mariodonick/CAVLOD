@@ -5,7 +5,7 @@
 #include "DataBlock.h"
 
 #include "../Tools/ByteArray.h"
-#include "../TypesConfig/ProtocolConstants.h"
+#include "../TypesConfig/Constants.h"
 #include "DataTypes.h"
 
 DataBlock::DataBlock()

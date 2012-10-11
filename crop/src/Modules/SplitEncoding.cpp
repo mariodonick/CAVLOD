@@ -10,7 +10,7 @@
 #include "../Tools/ByteArray.h"
 #include "../Tools/Queue.h"
 #include "../Tools/Exception.h"
-#include "../TypesConfig/ProtocolConstants.h"
+#include "../TypesConfig/Constants.h"
 
 #include <sstream>
 #include <list>
@@ -104,7 +104,7 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
   std::list<GlobalPosition>::iterator lastFrag = globalPositions.end();
   --lastFrag;
 
-  // if the last block reach not the end of the content this will compute the last block
+  // if the last block do not reach the end of the content, this will compute the last block
   if(lastFrag->pos + lastFrag->length < *(linePos.end()-1))
   {
     uint16_t endPos = lastFrag->pos + lastFrag->length;
@@ -160,6 +160,8 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
 
     dbFifo->push(db);
   }
+
+
 }
 
 void SplitEncoding::partSensor(const DBDataObjectID& doid, const float& value, const bool& usingTimestamp)

@@ -28,6 +28,9 @@ Config::Config()
       ("General.ipAddress", boost::program_options::value<std::string>()->default_value("localhost"), "IP Address for the receiver which get the message")
       ("General.sendDelayMS", boost::program_options::value<unsigned int>()->default_value(10000), "delay in ms to send a new message")
       ("General.sensorInputDelayMS", boost::program_options::value<unsigned int>()->default_value(1000), "delay in ms to create a new sensor value")
+
+      ("Message.messageCrcBorder", boost::program_options::value<std::size_t>()->default_value(0xFFFF), "max size of the message for crc 16bit")
+      ("Message.messageConfig", boost::program_options::value<unsigned int>()->default_value(0), "configuration bits for the message header")
     ;
 
     std::ifstream config_stream(config_filename.c_str());
@@ -39,9 +42,11 @@ Config::Config()
 
     backupPath = vm["General.backupPath"].as<std::string>(); //todo pfad noch anlegen wenn er nicht existiert
     port = vm["General.port"].as<unsigned int>();
-    ipAddress =  vm["General.ipAddress"].as<std::string>();
-    sendDelayMS =  vm["General.sendDelayMS"].as<unsigned int>();
-    sensorInputDelayMS =  vm["General.sensorInputDelayMS"].as<unsigned int>();
+    ipAddress = vm["General.ipAddress"].as<std::string>();
+    sendDelayMS = vm["General.sendDelayMS"].as<unsigned int>();
+    sensorInputDelayMS = vm["General.sensorInputDelayMS"].as<unsigned int>();
+    messageCrcBorder = vm["Message.messageCrcBorder"].as<std::size_t>();
+    messageConfig = vm["Message.messageConfig"].as<unsigned int>();
 
     if( !config_stream.is_open() )
       std::cout << "file: \"options.conf\" not found, we will use the default options\n";

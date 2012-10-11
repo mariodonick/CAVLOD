@@ -3,7 +3,7 @@
  */
 
 #include "ContentParser.h"
-#include "../TypesConfig/ProtocolConstants.h"
+#include "../TypesConfig/Constants.h"
 #include "../TypesConfig/ProtocolTypes.h"
 #include "../Tools/Bin.h"
 
@@ -63,11 +63,6 @@ SensorParser::~SensorParser()
 Sensor_sPtr SensorParser::parseContent(char* data, const unsigned int& len)
 {
   std::cout << "\n---------------Sensor---------------------------\n";
-  std::cout << "len: " << len << "\n";
-
-  for(unsigned int i = 0; i < len; ++i)
-    std::cout << "data[" << i << "]= 0x" << std::hex << int(data[i] & 0xFF) << std::dec << "\n";
-
   float v = 0;
   memcpy(&v, &data[0], C_VALUE_BYTES);
 

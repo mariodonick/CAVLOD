@@ -7,7 +7,7 @@
 #define DATABLOCKPROCESSING_H_
 
 #include "../DataManagement/DataBlock.h"
-#include "../TypesConfig/ProtocolConstants.h"
+#include "../TypesConfig/Constants.h"
 
 #include <iostream>
 

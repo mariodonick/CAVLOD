@@ -6,11 +6,13 @@
 #include "../Tools/ByteArray.h"
 #include "../Tools/Exception.h"
 #include "../DataManagement/DataTypes.h"
+#include "../TypesConfig/Config.h"
 
 #include <iostream>
 
 
 MessageParser::MessageParser()
+: config( *Config::instance() )
 {
 }
 
@@ -41,7 +43,7 @@ void MessageParser::parse_v1(const ByteArray& data)
   unsigned int msgLength = char2uint(&data.dataPtr()[curMsgPos - MSG_LENGTH_BYTES], MSG_LENGTH_BYTES);
 
   unsigned int crcSize = 0;
-  if(msgLength < MSG_CRC_LENGTH_BORDER)
+  if(msgLength < config.messageCrcBorder)
     crcSize = MSG_CRC_16_BYTES;
   else
     crcSize = MSG_CRC_32_BYTES;
@@ -85,7 +87,7 @@ void MessageParser::parseDB(const ByteArray& data)
   std::cout << "sequNum: 0x" << std::hex << dbSequNum.to_uint() << std::dec << "\n";
   std::cout << "dbLengthBytes: 0x" << std::hex << dbLengthBytes.to_uint() << " = " << std::dec << dbLengthBytes.to_uint() << " Bytes\n";
 
-  cassert(dbLengthBytes < MSG_CRC_LENGTH_BORDER);
+  cassert(dbLengthBytes < config.messageCrcBorder);
   cassert(dbLengthBytes >= DB_HEADER_LENGTH_BYTES);
 
   // fill the received data block header with the parsed data

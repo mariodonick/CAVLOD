@@ -6,6 +6,9 @@
 #ifndef PROTOCOLCONSTANTS_H_
 #define PROTOCOLCONSTANTS_H_
 
+//network
+const std::size_t NETWORK_BUFFER_SIZE = 2*1024*1024;
+
 //length
 // message bytes
 const std::size_t MSG_VER_CONFIG_LENGTH_BYTES = 2;

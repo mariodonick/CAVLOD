@@ -22,12 +22,22 @@ void signal_handler_SIGINT (int status)
   exit(0);
 }
 
+
+#include <fstream>
+#include <iostream>
+
+#include <boost/filesystem.hpp>
+#include "Tools/FileSystem.h"
+
+#include "TypesConfig/Config.h"
+
 int main()
 {
   signal(SIGINT, signal_handler_SIGINT);
 
   client = new ClientModule;
-  client->start();
+  client->initialize();
+  client->run();
 
   while (true) sleep(300);
   return 0;

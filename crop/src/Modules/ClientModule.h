@@ -14,13 +14,16 @@
 #include <list>
 #include <mutex>
 
+class Config;
+
 class ClientModule
 {
 public:
   ClientModule();
   virtual ~ClientModule();
 
-  void start();
+  void run();
+  void initialize();
 
 private:
   void packetizerThread();
@@ -30,6 +33,7 @@ private:
 
 private:
   bool running;
+  Config& config;
 
   DBQueue_uPtr dbFifo;
   DBQueue_uPtr prioQueue;

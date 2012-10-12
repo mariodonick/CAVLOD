@@ -19,9 +19,11 @@ SensorInput::~SensorInput()
 
 void SensorInput::run()
 {
+  Config* config = Config::instance();
+
   while(running)
   {
-    usleep(SLEEP_MSECONDS_INPUT_SENSOR * 1000);
+    usleep(config->sensorInputDelayMS * 1000);
 
     nextValue += 1;
     callback(id, true);

@@ -6,7 +6,6 @@
 #include "Crodm.h"
 #include "../Tools/PrioritizedQueue.h"
 #include "../Tools/Fifo.h"
-#include "../Tools/Exception.h"
 #include "../DataManagement/DataBlock.h"
 
 #include <vector>

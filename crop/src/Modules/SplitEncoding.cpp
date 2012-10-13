@@ -9,11 +9,11 @@
 #include "../DataManagement/DataBlock.h"
 #include "../Tools/ByteArray.h"
 #include "../Tools/Queue.h"
-#include "../Tools/Exception.h"
 #include "../TypesConfig/Constants.h"
 
 #include <sstream>
 #include <list>
+#include <cassert>
 
 //todo noch abfangen das message nicht grösser als max_msg_length wird
 SplitEncoding::SplitEncoding(const Crodm_uPtr& theCrodm, DBQueue_uPtr& theDBFifo)
@@ -32,8 +32,8 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
 {
   const std::vector<RelevanceData>& relevanceData = crodm->getRelevanceData();
 
-  cassert(relevanceData.size() > 0);
-  cassert(content.size() > 0);
+  assert(relevanceData.size() > 0);
+  assert(content.size() > 0);
 
   // find and separate lines
   std::vector<std::size_t> linePos;

@@ -12,12 +12,8 @@
 #include <iostream>
 
 #include "StoreManager.h"
-#include "../rapidXML/rapidxml.hpp"
-#include "../rapidXML/rapidxml_print.hpp"
 #include "../DataManagement/DataBlock.h"
 
-
-using namespace rapidxml;
 
 class LocalStoreManager : public StoreManager
 {
@@ -29,12 +25,7 @@ private:
   const std::vector<DataBlock_sPtr>& load();
   void store(DataBlock_sPtr& db);
 
-//  inline const char* stralloc(const std::string& str);
-//  inline xml_node<>* node(const std::string& name, const std::string& content = "");
-
-//  xml_document<> doc;
-  ByteArray_sPtr DBcontent;
-  Timestamp timestamp;
+  std::vector<DataBlock_sPtr> dbVec;
 };
 
 #endif /* LOCALSTOREMANAGER_H_ */

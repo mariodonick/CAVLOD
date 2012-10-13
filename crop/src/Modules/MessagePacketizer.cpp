@@ -48,10 +48,10 @@ const ByteArray& MessagePacketizer::packetizeMessage()
   tmpContent.append( first_db->getSequenceNumber() );
 
   // length must for timestamp so we compute and add the bytes from the timestamp now
-  unsigned int offset = (first_db->getConfig()[DB_CONFIG_TIMESTAMP] == true) ? C_TIMESTAMP_BYTES : 0;
+  unsigned int offset = (first_db->getConfig()[DB_CONFIG_TIMESTAMP_INDEX] == true) ? C_TIMESTAMP_BYTES : 0;
   tmpContent.append( first_db->getLength() + offset );
 
-  if(first_db->getConfig()[DB_CONFIG_TIMESTAMP] == true)
+  if(first_db->getConfig()[DB_CONFIG_TIMESTAMP_INDEX] == true)
   {
     tmpContent.append( first_db->getTimestamp() );
     msgLength += C_TIMESTAMP_BYTES;
@@ -85,10 +85,10 @@ const ByteArray& MessagePacketizer::packetizeMessage()
     tmpContent.append( next_db->getDataObjectID() );
     tmpContent.append( next_db->getSequenceNumber() );
 
-    unsigned int offset = (first_db->getConfig()[DB_CONFIG_TIMESTAMP] == true) ? C_TIMESTAMP_BYTES : 0;
+    unsigned int offset = (first_db->getConfig()[DB_CONFIG_TIMESTAMP_INDEX] == true) ? C_TIMESTAMP_BYTES : 0;
     tmpContent.append( next_db->getLength() + offset );
 
-    if(first_db->getConfig()[DB_CONFIG_TIMESTAMP] == true)
+    if(first_db->getConfig()[DB_CONFIG_TIMESTAMP_INDEX] == true)
     {
       tmpContent.append( first_db->getTimestamp() );
       msgLength += C_TIMESTAMP_BYTES;

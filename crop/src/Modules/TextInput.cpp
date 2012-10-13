@@ -20,7 +20,7 @@ void TextInput::run()
 {
   while(running)
   {
-    usleep(10000 * 1000);
+    usleep(5000 * 1000);
 
     text.clear();
     text = "Es folgt ein Beispieltext:\n";
@@ -36,7 +36,7 @@ void TextInput::run()
 
 const std::string& TextInput::getInput()
 {
-// with the following lines you can insert spaces
+//  //you can insert spaces with the following lines
 //  std::cout << "Bitte einen Text eingeben:\n";
 //  std::string text;
 

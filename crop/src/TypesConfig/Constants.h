@@ -25,7 +25,7 @@ const std::size_t DB_DATA_OBJECT_ID_BYTES = 3;
 const std::size_t DB_SEQUENCE_NUMBER_BYTES = 2;
 const std::size_t DB_LENGTH_BYTES = 2;
 
-const unsigned int DB_CONFIG_TIMESTAMP = 3;
+const std::size_t DB_CONFIG_TIMESTAMP_INDEX = 3;
 
 // content
 const std::size_t C_TIMESTAMP_BYTES = 8;
@@ -41,5 +41,7 @@ const std::size_t DB_HEADER_LENGTH_BYTES = DB_DATA_TYPE_CONFIG_BYTES + DB_DATA_O
 
 const std::size_t MAX_MSG_LENGTH = 0xFFFFFF;
 const std::size_t MAX_DB_LENGTH = 0xFFFF;
+// if you want to test the protocol with small datablock size choose something like that
+// "21+20;" 21 ist constant in jedem text db 20 ist textgrösse
 
 #endif /* CONSTANTS_H_ */

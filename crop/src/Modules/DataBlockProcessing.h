@@ -65,7 +65,7 @@ void DataBlockProcessing<T, Parser, Decoder, Visualizer>::start(const DataBlock:
 
   while(curContentPos < totalLength)
   {
-    bool usingTimestamp = dbh.config[DB_CONFIG_TIMESTAMP] == true;
+    bool usingTimestamp = dbh.config[DB_CONFIG_TIMESTAMP_INDEX] == true;
     unsigned int offset = (usingTimestamp) ? C_TIMESTAMP_BYTES : 0;
     CTimestamp timestamp;
 

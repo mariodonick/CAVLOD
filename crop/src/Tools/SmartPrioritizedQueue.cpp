@@ -30,7 +30,7 @@ DataBlock_sPtr SmartPrioritizedQueue::pop(const std::size_t& size)
     while( it != queue.end() )
     {
       // do we need timestamp bytes
-      bool timestamp = (*it)->getConfig()[DB_CONFIG_TIMESTAMP];
+      bool timestamp = (*it)->getConfig()[DB_CONFIG_TIMESTAMP_INDEX];
       std::size_t timeBytes = timestamp ? C_TIMESTAMP_BYTES : 0;
 
       if( (*it)->getLength() + timeBytes < size)

@@ -44,7 +44,6 @@ const float& CrodmFacade::getPriority(const RelevanceData& relevance, const DBDa
     }
   }
 
-
   return priority;
 }
 

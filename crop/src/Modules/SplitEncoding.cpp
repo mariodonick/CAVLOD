@@ -15,7 +15,6 @@
 #include <list>
 #include <cassert>
 
-//todo noch abfangen das message nicht grösser als max_msg_length wird
 SplitEncoding::SplitEncoding(const Crodm_uPtr& theCrodm, DBQueue_uPtr& theDBFifo)
 : crodm(theCrodm)
 , dbFifo(theDBFifo)
@@ -27,10 +26,15 @@ SplitEncoding::~SplitEncoding()
 }
 
 // todo funktion aufräumen viele code passagen sind nicht unique!!!
-// todo relevance data durchschleifen ist noch suboptimal
 void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& content, const bool& usingTimestamp )
 {
   const std::vector<RelevanceData>& relevanceData = crodm->getRelevanceData(doid, TYPE_TEXT);
+
+  if(content.size() == 0)
+  {
+    std::cout << "you bastard give me an empty content!!!\n";
+    return;
+  }
 
   assert(relevanceData.size() > 0);
   assert(content.size() > 0);
@@ -124,16 +128,68 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
 //
 //  std::cout << "\n";
 
+  // check if all datablocks have the correct size... otherwise we split this
+  for(std::list<GlobalPosition>::iterator it = globalPositions.begin(); it != globalPositions.end(); ++it)
+  {
+//    std::cout << "------------ new iteration ---------------\n";
+    const std::size_t dbConstSize = C_LINE_BYTES + C_COLUMN_BYTES + DB_HEADER_LENGTH_BYTES + (usingTimestamp ? C_TIMESTAMP_BYTES : 0);
+    const std::size_t maxTextSize = MAX_DB_LENGTH - dbConstSize;
+
+//    std::cout << "dbconstsize: " << dbConstSize << "\n";
+//    std::cout << "maxSize: " << maxTextSize << "\n";
+//    std::cout << "it: " << (*it) << "\n";
+
+    if( it->length > maxTextSize )
+    {
+//      std::cout << "\n--------------------------------- if ----------------------------\n";
+
+      const std::size_t numParts = it->length/maxTextSize;
+      const std::size_t lastPart = it->length % maxTextSize;
+
+//      std::cout << "numParts: " << numParts << "\n";
+//      std::cout << "lastPart: " << lastPart << "\n";
+
+      for(unsigned int i = 0; i < numParts; ++i)
+      {
+        GlobalPosition tmp;
+        tmp.relevance = it->relevance;
+        tmp.length = maxTextSize;
+        tmp.pos = it->pos + maxTextSize*i;
+
+//        std::cout << "tmp: " << tmp << "\n";
+        globalPositions.insert(it, tmp);
+      }
+
+      if(lastPart != 0)
+      {
+        GlobalPosition tmp;
+        tmp.relevance = it->relevance;
+        tmp.length = lastPart;
+        tmp.pos = it->pos + maxTextSize*numParts;
+
+//        std::cout << "last part tmp: " << tmp << "\n";
+
+        globalPositions.insert(it, tmp);
+      }
+      std::list<GlobalPosition>::iterator tmp_it = it;
+      ++it;
+      globalPositions.erase(tmp_it);
+
+//      std::cout << "\n------------------------------- end if --------------------------\n";
+    }
+  }
+
   // create datablocks
   unsigned int sequNr = 0;
   for(std::list<GlobalPosition>::iterator it = globalPositions.begin(); it != globalPositions.end(); ++it)
   {
+//    std::cout << "\n-------------------------------------\n";
     DataBlock::Header dbh;
     dbh.config = 0;
     dbh.dataObjectID = doid;
     dbh.sequenceNumber = sequNr++;
     dbh.dataType = TYPE_TEXT;
-    dbh.config[DB_CONFIG_TIMESTAMP] = usingTimestamp;
+    dbh.config[DB_CONFIG_TIMESTAMP_INDEX] = usingTimestamp;
 
     DataBlock_sPtr db(new DataBlock);
     db->setHeader(dbh);
@@ -145,18 +201,17 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
     text.line = rel_tmp.pos_y;
     text.column = rel_tmp.pos_x;
 
-
-    //text.stamp();
-
+//    std::cout << "text size: " << text.text.size() << " + 4 fuer line und column\n";
 //    std::cout << "text: " << text.text << "\n";
 //    std::cout << "line: " << text.line.to_uint() << "\n";
 //    std::cout << "column: " << text.column.to_uint() << "\n";
-//    std::cout << "timestamp: " << text.getTimestamp().to_ulong() << " = 0x" << std::hex << text.getTimestamp().to_ulong() << std::dec << "\n";
 
     ByteArray_sPtr content(new ByteArray);
     content->insert(text);
     db->addContent( content );
     db->setRelevanceData( rel_tmp );
+
+//    std::cout << "db length: " << db->getLength().to_uint() << "\n";
 
     dbFifo->push(db);
   }
@@ -174,7 +229,7 @@ void SplitEncoding::partSensor(const DBDataObjectID& doid, const float& value, c
   dbh.dataObjectID = doid;
   dbh.sequenceNumber = sNr++;
   dbh.dataType = TYPE_SENSOR;
-  dbh.config[DB_CONFIG_TIMESTAMP] = usingTimestamp;
+  dbh.config[DB_CONFIG_TIMESTAMP_INDEX] = usingTimestamp;
 
   Sensor sensor;
   sensor.value = value;

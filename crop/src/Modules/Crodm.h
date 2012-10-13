@@ -19,10 +19,10 @@ public:
   virtual ~Crodm(){}
 
   // interface from prioritizer to Crodm
-  virtual const float& getPriority(const RelevanceData& relevance, const DBDataObjectID& doid) = 0;
+  virtual const float& getPriority(const RelevanceData& relevance, const DBDataObjectID& doid, const DBDatatype& dt) = 0;
 
   //interface from split and encoder to Crodm
-  virtual const std::vector<RelevanceData>& getRelevanceData() = 0;
+  virtual const std::vector<RelevanceData>& getRelevanceData(const DBDataObjectID& doid, const DBDatatype& dt) = 0;
 
   //interfaces from content phase to Crodm
   virtual void evaluateText(const std::string& text, const DBDataObjectID& doid) = 0;

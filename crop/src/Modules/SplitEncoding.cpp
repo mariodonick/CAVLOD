@@ -30,7 +30,7 @@ SplitEncoding::~SplitEncoding()
 // todo relevance data durchschleifen ist noch suboptimal
 void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& content, const bool& usingTimestamp )
 {
-  const std::vector<RelevanceData>& relevanceData = crodm->getRelevanceData();
+  const std::vector<RelevanceData>& relevanceData = crodm->getRelevanceData(doid, TYPE_TEXT);
 
   assert(relevanceData.size() > 0);
   assert(content.size() > 0);
@@ -167,7 +167,7 @@ void SplitEncoding::partSensor(const DBDataObjectID& doid, const float& value, c
   static unsigned int sNr = 0;
 
   // todo was soll man hier damit machen??? O.o
-//  const std::vector<RelevanceData>& relevanceData = crodm->getRelevanceData();
+//  const std::vector<RelevanceData>& relevanceData = crodm->getRelevanceData(doid, TYPE_SENSOR);
 
   DataBlock::Header dbh;
   dbh.config = 0;

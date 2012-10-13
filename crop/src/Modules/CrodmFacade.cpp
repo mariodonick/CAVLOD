@@ -24,7 +24,7 @@ CrodmFacade::~CrodmFacade()
 {
 }
 
-const float& CrodmFacade::getPriority(const RelevanceData& relevance, const DBDataObjectID&)
+const float& CrodmFacade::getPriority(const RelevanceData& relevance, const DBDataObjectID& , const DBDatatype& dt)
 {
   if(index >= priorities.size())
     index = 0;
@@ -34,7 +34,7 @@ const float& CrodmFacade::getPriority(const RelevanceData& relevance, const DBDa
   return priorities[index++];
 }
 
-const std::vector<RelevanceData>& CrodmFacade::getRelevanceData()
+const std::vector<RelevanceData>& CrodmFacade::getRelevanceData(const DBDataObjectID& doid, const DBDatatype& dt)
 {
   return relevanceData;
 }

@@ -73,7 +73,7 @@ void ClientModule::run()
 {
   // hier die nebenläufigen gui etc starten, welche die events dann senden
   threads.push_back( std::thread( &ContentInput<std::string>::run, textInput) );
-  threads.push_back( std::thread( &ContentInput<float>::run, sensorInput) );
+//  threads.push_back( std::thread( &ContentInput<float>::run, sensorInput) );
 }
 
 void ClientModule::packetizerThread()

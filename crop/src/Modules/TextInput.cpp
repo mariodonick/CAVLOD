@@ -20,7 +20,7 @@ void TextInput::run()
 {
   while(running)
   {
-    usleep(1000 * 1000);
+    usleep(10000 * 1000);
 
     text.clear();
     text = "Es folgt ein Beispieltext:\n";

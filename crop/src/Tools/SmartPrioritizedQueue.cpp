@@ -3,7 +3,7 @@
  */
 
 #include "SmartPrioritizedQueue.h"
-
+#include "../TypesConfig/Constants.h"
 
 SmartPrioritizedQueue::SmartPrioritizedQueue()
 {
@@ -26,15 +26,22 @@ DataBlock_sPtr SmartPrioritizedQueue::pop(const std::size_t& size)
 
   if(size != 0)
   {
+    unsigned int i = 0;
     while( it != queue.end() )
     {
-      if( (*it)->getLength() < size)
+      // do we need timestamp bytes
+      bool timestamp = (*it)->getConfig()[DB_CONFIG_TIMESTAMP];
+      std::size_t timeBytes = timestamp ? C_TIMESTAMP_BYTES : 0;
+
+      if( (*it)->getLength() + timeBytes < size)
       {
+        // found next element
         tmp = *it;
         queue.erase(it);
         break;
       }
       ++it;
+      ++i;
     }
   }
   else
@@ -44,7 +51,6 @@ DataBlock_sPtr SmartPrioritizedQueue::pop(const std::size_t& size)
   }
 
   sort();
-
   return tmp;
 }
 

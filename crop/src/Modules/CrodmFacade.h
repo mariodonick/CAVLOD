@@ -26,6 +26,7 @@ private:
   std::vector<RelevanceData> relevanceData;
 
   unsigned int index;
+  float priority;
 };
 
 #endif /* CRODMFACADE_H_ */

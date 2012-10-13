@@ -92,7 +92,6 @@ const ByteArray& MessagePacketizer::packetizeMessage()
       msgLength += C_TIMESTAMP_BYTES;
     }
     tmpContent.append( next_db->getContent()->dataPtr(), next_db->getContent()->size());
-
     msgLength += tmp_length;
   }
 
@@ -101,11 +100,8 @@ const ByteArray& MessagePacketizer::packetizeMessage()
 
   // append message header
   const MsgConfig msgConfig = config->messageConfig;
-  const MsgSrcAddress srcAddr = ipv6StringToInt(config->currentIp); // TODO wir geben noch v4 addressen rein :D
-  const MsgDstAddress dstAddr = ipv6StringToInt(config->ipAddress); // TODO wir geben noch v4 addressen rein :D
-
-  std::string m = ipv6IntToString(dstAddr);
-  std::cout << "m: " << m << "\n";
+  const MsgSrcAddress srcAddr = ipv6StringToBin(config->currentIp); // TODO wir geben noch v4 addressen rein :D
+  const MsgDstAddress dstAddr = ipv6StringToBin(config->ipAddress); // TODO wir geben noch v4 addressen rein :D
 
   message.insert(static_cast<MsgVersion>(VERSION_1) );
   message.append(msgConfig);

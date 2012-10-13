@@ -15,6 +15,9 @@
 
 #include "ByteArray.h"
 
+typedef Bin<32> IPv4;
+typedef Bin<128> IPv6;
+
 inline bool readCurrentIP(std::string& ownIP, const char* interface)
 {
   std::cout << "start finding the current IP...\n";
@@ -55,14 +58,14 @@ inline const std::string ownIP()
   return ip;
 }
 
-inline Bin<32> ipv4StringToInt(const std::string& addr)
+inline IPv4 ipv4StringToBin(const std::string& addr)
 {
   uint32_t tmp;
   inet_pton(AF_INET, addr.c_str(), &tmp);
-  return Bin<32>(tmp);
+  return IPv4(tmp);
 }
 
-inline const std::string ipv4IntToString(const Bin<32>& addr)
+inline const std::string ipv4BinToString(const IPv4& addr)
 {
   uint32_t tmp = addr.to_ulong();
   char str[INET_ADDRSTRLEN];
@@ -70,7 +73,7 @@ inline const std::string ipv4IntToString(const Bin<32>& addr)
   return std::string(str);
 }
 
-inline Bin<128> ipv6StringToInt(const std::string& addr)
+inline IPv6 ipv6StringToBin(const std::string& addr)
 {
   struct sockaddr_in6 sa;
   inet_pton(AF_INET6, addr.c_str(), &sa.sin6_addr);
@@ -84,7 +87,7 @@ inline Bin<128> ipv6StringToInt(const std::string& addr)
   return mergeFour(tmp0, tmp1, tmp2, tmp3);
 }
 
-inline const std::string ipv6IntToString(const Bin<128>& addr)
+inline const std::string ipv6BinToString(const IPv6& addr)
 {
   ByteArray ba;
   ba.insert(addr);

@@ -20,8 +20,6 @@ typedef Bin<128> IPv6;
 
 inline bool readCurrentIP(std::string& ownIP, const char* interface)
 {
-  std::cout << "start finding the current IP...\n";
-
   int sock_fd = socket( AF_INET , SOCK_DGRAM , 0 );
   if( sock_fd == -1 )
   {
@@ -40,7 +38,7 @@ inline bool readCurrentIP(std::string& ownIP, const char* interface)
   }
 
   char* addr = inet_ntoa( ((struct sockaddr_in *) (&ifr.ifr_addr))->sin_addr );
-  std::cout << "Netzwerk "<< interface << ": " << addr << "\n";
+  std::cout << "found IP - "<< interface << ": " << addr << "\n";
 
   close( sock_fd );
   ownIP = addr;
@@ -49,6 +47,8 @@ inline bool readCurrentIP(std::string& ownIP, const char* interface)
 
 inline const std::string ownIP()
 {
+  std::cout << "searching the current IP...\n";
+
   std::string ip;
   if( !readCurrentIP(ip, "eth0") )
     if( !readCurrentIP(ip, "wlan0") )

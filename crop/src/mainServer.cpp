@@ -22,7 +22,6 @@ void signal_handler_SIGINT (int status)
   exit(0);
 }
 
-
 int main()
 {
   signal(SIGINT, signal_handler_SIGINT);

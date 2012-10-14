@@ -29,7 +29,6 @@ void SensorInput::run()
     callback(id, true);
     id += 1;
   }
-  std::cout << "sensor input thread finished" << std::endl;
 }
 
 const float& SensorInput::getInput()

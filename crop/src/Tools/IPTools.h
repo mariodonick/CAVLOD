@@ -12,6 +12,7 @@
 #include <netinet/in.h>
 #include <net/if.h>
 #include <arpa/inet.h>
+#include <iostream>
 
 #include "ByteArray.h"
 
@@ -24,7 +25,7 @@ inline bool readCurrentIP(std::string& ownIP, const char* interface)
   if( sock_fd == -1 )
   {
     perror("socket");
-    std::cout << "Error: creating socket.\n";
+    std::cerr << "Error: creating socket." << "\n";
     return false;
   }
 
@@ -33,12 +34,12 @@ inline bool readCurrentIP(std::string& ownIP, const char* interface)
   if( ioctl( sock_fd , SIOCGIFADDR , &ifr ) == -1 )
   {
     perror ("ioctl");
-    std::cout << "problems with ioctl.\n";
+    std::cerr << "problems with ioctl."<< "\n";
     return false;
   }
 
   char* addr = inet_ntoa( ((struct sockaddr_in *) (&ifr.ifr_addr))->sin_addr );
-  std::cout << "found IP - "<< interface << ": " << addr << "\n";
+  std::cout << "found your current ip - "<< interface << ": " << addr << "\n";
 
   close( sock_fd );
   ownIP = addr;
@@ -47,7 +48,7 @@ inline bool readCurrentIP(std::string& ownIP, const char* interface)
 
 inline const std::string ownIP()
 {
-  std::cout << "searching the current IP...\n";
+  std::cout << "searching your own ip..."<< "\n";
 
   std::string ip;
   if( !readCurrentIP(ip, "eth0") )

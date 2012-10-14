@@ -31,20 +31,9 @@ void TextInput::run()
     callback(id, usingTimestamp);
     id += 1;
   }
-  std::cout << "text input thread finished" << std::endl;
 }
 
 const std::string& TextInput::getInput()
 {
-//  //you can insert spaces with the following lines
-//  std::cout << "Bitte einen Text eingeben:\n";
-//  std::string text;
-
-//  std::cin.clear(); //clean cin and wait for input
-//  std::cin.sync();
-//  std::cin.get();
-//  std::getline(std::cin, text);
-//  std::cout << "Eingabe text: " << text << "\n";
-
   return text;
 }

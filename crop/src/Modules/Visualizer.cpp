@@ -3,7 +3,7 @@
  */
 
 #include "Visualizer.h"
-#include <iostream>
+#include "../Tools/Log.h"
 
 TextVisualizer::TextVisualizer()
 {
@@ -16,14 +16,14 @@ TextVisualizer::~TextVisualizer()
 
 void TextVisualizer::display(const std::vector<Text_sPtr>& sortedContent, const bool&, const CTimestamp&)
 {
-  std::cout << "display Text: \n";
-  std::cout << "-------------------------------------------------------\n";
+  INFO() << "display Text: \n";
+  INFO() << "-------------------------------------------------------\n";
 
   std::vector<Text_sPtr>::const_iterator it = sortedContent.begin();
   for(; it != sortedContent.end(); ++it)
-    std::cout << (*it)->text;
+    INFO() << (*it)->text;
 
-  std::cout << "\n\n";
+  INFO() << "\n\n";
 }
 
 
@@ -42,17 +42,17 @@ SensorVisualizer::~SensorVisualizer()
 
 void SensorVisualizer::display(const std::vector<Sensor_sPtr>& sortedContent, const bool& usingTimestamp, const CTimestamp& timestamp)
 {
-  std::cout << "display Sensor: \n";
-  std::cout << "-------------------------------------------------------\n";
+  INFO() << "display Sensor: \n";
+  INFO() << "-------------------------------------------------------\n";
 
   std::vector<Sensor_sPtr>::const_iterator it = sortedContent.begin();
   for(; it != sortedContent.end(); ++it)
   {
     if(usingTimestamp)
-      std::cout << "timestamp: " << timestamp.to_ulong() << " value: " << (*it)->value << "\n";
+      INFO() << "timestamp: " << timestamp.to_ulong() << " value: " << (*it)->value << "\n";
     else
-      std::cout << "value: " << (*it)->value << "\n";
+      INFO() << "value: " << (*it)->value << "\n";
   }
 
-  std::cout << "\n";
+  INFO() << "\n";
 }

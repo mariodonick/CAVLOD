@@ -3,7 +3,7 @@
  */
 
 #include "Modules/ServerModule.h"
-#include "Tools/Log.h"
+#include "TypesConfig/Config.h"
 
 #include <sys/signal.h>
 #include <iostream>
@@ -26,8 +26,6 @@ void signal_handler_SIGINT (int status)
 
 int main()
 {
-  dbg::initializeLog();
-
   signal(SIGINT, signal_handler_SIGINT);
 
   server = new ServerModule;

@@ -9,6 +9,7 @@
 #include "../DataManagement/DataBlock.h"
 #include "../Tools/ByteArray.h"
 #include "../Tools/Queue.h"
+#include "../Tools/Log.h"
 #include "../TypesConfig/Constants.h"
 
 #include <sstream>
@@ -32,7 +33,7 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
 
   if(content.size() == 0)
   {
-    std::cout << "you bastard give me an empty content!!!\n";
+    WARNING() << "you bastard give me an empty content!!!\n";
     return;
   }
 

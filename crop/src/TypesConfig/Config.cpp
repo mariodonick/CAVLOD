@@ -19,14 +19,12 @@ Config::Config()
   try
   {
     std::string config_filename = homePath + "/CAVLOD/options.conf";
-    std::string stdBackupPath = homePath + "/CAVLOD/";
+    std::string stdBackupPath = homePath + "/CAVLOD/Backup/";
     std::string stdLogPath = homePath + "/CAVLOD/output.log";
 
     boost::program_options::options_description my_options("options");
 
     my_options.add_options()
-      ("General.verbosity", boost::program_options::value<unsigned int>()->default_value(0), "level to configure outputs")
-      ("General.logPath", boost::program_options::value<std::string>()->default_value(stdLogPath), "path to store the logging file")
       ("General.backupPath", boost::program_options::value<std::string>()->default_value(stdBackupPath), "path to store datablocks")
       ("General.port", boost::program_options::value<unsigned int>()->default_value(5657), "port number")
       ("General.ipAddress", boost::program_options::value<std::string>()->default_value("127.0.0.1"), "IP Address for the receiver which get the message")
@@ -43,8 +41,6 @@ Config::Config()
     boost::program_options::store(boost::program_options::parse_config_file(config_stream, my_options), vm);
     boost::program_options::notify(vm);
 
-    verbosity = vm["General.verbosity"].as<unsigned int>();
-    logPath = vm["General.logPath"].as<std::string>();
     backupPath = vm["General.backupPath"].as<std::string>();
     port = vm["General.port"].as<unsigned int>();
     ipAddress = vm["General.ipAddress"].as<std::string>();
@@ -59,13 +55,13 @@ Config::Config()
 
     // check if an optionsfile exists
     if( !config_stream.is_open() )
-      std::cout << "file: \"options.conf\" not found, we will use the default options\n";
+      std::cout << "ERROR: file: \"options.conf\" not found, we will use the default options\n";
 
     // check if the backup path was created
     if( !existFolder(backupPath) )
     {
       createFolder(backupPath);
-      std::cout << "Backup path does not exist - it will be created\n";
+      std::cout << "ERROR: Backup path does not exist - it will be created\n";
     }
   }
   catch (std::exception& e)

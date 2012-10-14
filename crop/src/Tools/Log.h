@@ -7,12 +7,11 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <mutex>
 
 #include "../TypesConfig/Config.h"
 
 // todo performance optimieren: std::cout + std::endl ist doppelt so fix
-// todo datei öffnen, boolean out setzen und config laden ist suboptimal gelöst
-// (liegt daran dass config erst nach konstruktoren geladen wird)
 
 /*
  * Example Usage
@@ -40,7 +39,7 @@ enum Verbosity
   LOW = 1, // error
   MEDIUM = 2, // error, warning
   HIGH = 3, // error, warning, info
-  VERY_HIGH = 4 // error warning, info, log
+  VERY_HIGH = 4 // error warning, info, debug
 };
 
 class Log
@@ -48,7 +47,7 @@ class Log
   class Stream
   {
   public:
-    Stream(const std::string& path);
+    Stream();
     virtual ~Stream();
 
     void endl();
@@ -58,9 +57,10 @@ class Log
     template<typename T>
     void input(T in, bool color = false)
     {
+      std::unique_lock<std::mutex> lock(logMutex);
+      os << in;
       if(file.is_open())
       {
-        os << in;
         if(!color)
           file << in;
       }
@@ -71,10 +71,11 @@ class Log
     std::ofstream file;
     std::ostream& os;
 
+    static std::mutex logMutex;
   }*stream;
 
 public:
-  Log(const Verbosity& level, const std::string& path);
+  Log(const Verbosity& level);//, const std::string& path);
   virtual ~Log();
 
   typedef Log& (*StreamManipulator)(Log&); // function that takes a custom stream, and returns it
@@ -122,11 +123,7 @@ public:
   inline void cyan() { color = "\033[36m"; }
   inline void normal() { color = "\033[m"  ; }
 
-  void openLogFile(const std::string& path);
-  void computeVerbosity();
-
-public:
-  static const std::string standardOutputPath;
+  void openLogFile();
 
 private:
   const bool checkOutput();
@@ -134,7 +131,9 @@ private:
   bool checkVerbosity();
 
 private:
-  static const Verbosity global; // the verbosity for all classes
+  std::string standardOutputPath; // path to logging file
+  Verbosity verbosity; // the verbosity for all classes
+
   Verbosity local;        // the verbosity of this class
   std::string verboseColor; // hold the color of the actual verbosity
   std::string color;        // current color
@@ -152,24 +151,10 @@ inline Log& cyan(Log& d) { d.cyan(); return d; }
 inline Log& normal(Log& d) { d.normal(); return d; }
 
 // default classes
-static Log DBG( VERY_HIGH, Log::standardOutputPath );
-static Log INFO( HIGH, Log::standardOutputPath );
-static Log WARNING( MEDIUM, Log::standardOutputPath );
-static Log ERROR( LOW, Log::standardOutputPath );
-
-// if there a better solution? inside the stream construktor it will give a segmentation fault
-inline void initializeLog()
-{
-  dbg::DBG.openLogFile(dbg::Log::standardOutputPath);
-  dbg::INFO.openLogFile(dbg::Log::standardOutputPath);
-  dbg::ERROR.openLogFile(dbg::Log::standardOutputPath);
-  dbg::WARNING.openLogFile(dbg::Log::standardOutputPath);
-
-  dbg::DBG.computeVerbosity();
-  dbg::INFO.computeVerbosity();
-  dbg::ERROR.computeVerbosity();
-  dbg::WARNING.computeVerbosity();
-}
+static Log DBG( VERY_HIGH);//, Log::standardOutputPath );
+static Log INFO( HIGH);//, Log::standardOutputPath );
+static Log WARNING( MEDIUM);//, Log::standardOutputPath );
+static Log ERROR( LOW);//, Log::standardOutputPath );
 
 }; // namespace dbg
 

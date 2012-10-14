@@ -19,14 +19,13 @@ void signal_handler_SIGINT (int status)
   std::cout << "Info: Stopping Client Modul\n";
   delete client; client = nullptr;
   std::cout << "Info: Stopped  client Module\n";
+  Config::release();
   exit(0);
 }
 
 
 int main()
 {
-  dbg::initializeLog();
-
   signal(SIGINT, signal_handler_SIGINT);
 
   client = new ClientModule;

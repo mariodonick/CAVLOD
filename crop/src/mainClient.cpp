@@ -3,6 +3,7 @@
  */
 
 #include "Modules/ClientModule.h"
+#include "Tools/Log.h"
 
 #include <sys/signal.h>
 #include <iostream>
@@ -21,8 +22,11 @@ void signal_handler_SIGINT (int status)
   exit(0);
 }
 
+
 int main()
 {
+  dbg::initializeLog();
+
   signal(SIGINT, signal_handler_SIGINT);
 
   client = new ClientModule;

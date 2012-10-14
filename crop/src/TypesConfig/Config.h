@@ -27,6 +27,8 @@ public:
   std::string homePath;
   std::string currentIp;
   //general
+  unsigned int verbosity;
+  std::string logPath;
   std::string backupPath;
   unsigned int port;
   std::string ipAddress;

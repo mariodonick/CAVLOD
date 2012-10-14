@@ -47,13 +47,13 @@ public:
   const double stopMsec()
   {
     clock_gettime(CLOCK_MONOTONIC, &ts_end);
-    return (ts_end.tv_sec - ts_start.tv_sec) * 1e9 + (ts_end.tv_nsec - ts_start.tv_nsec) * 1e3;
+    return (ts_end.tv_sec - ts_start.tv_sec) * 1e3 + (ts_end.tv_nsec - ts_start.tv_nsec) * 1e-6;
   }
 
   const double stopUsec()
   {
     clock_gettime(CLOCK_MONOTONIC, &ts_end);
-    return (ts_end.tv_sec - ts_start.tv_sec) * 1e9 + (ts_end.tv_nsec - ts_start.tv_nsec) * 1e6;
+    return (ts_end.tv_sec - ts_start.tv_sec) * 1e6 + (ts_end.tv_nsec - ts_start.tv_nsec) * 1e-3;
   }
 
   const double stopNsec()
@@ -72,27 +72,5 @@ private:
   timespec ts_start, ts_end;
   double diff;
 };
-
-//  float a = 23.2;
-//  float b = 2.23423;
-//  struct timespec ts_res, ts_start, ts_end;
-//  clock_getres(CLOCK_MONOTONIC, &ts_res);
-//
-//  std::cout << "Resolution: " << ts_res.tv_sec << " and " << ts_res.tv_nsec << std::endl;
-//
-//  int i = 0;
-//  clock_gettime(CLOCK_MONOTONIC, &ts_start);
-//  //do something: ....
-//  while(i < 1000)
-//  {
-//    if(a < b)
-//      a=2;
-//    i++;
-//  }
-//  clock_gettime(CLOCK_MONOTONIC, &ts_end);
-//  std::cout << "i: " << i << std::endl;
-//  std::cout << "Elapsed time:"  << ((ts_end.tv_sec - ts_start.tv_sec) * 1000000000 + ts_end.tv_nsec - ts_start.tv_nsec) << "ns"<< std::endl;
-
-
 
 #endif /* STOPWATCH_H_ */

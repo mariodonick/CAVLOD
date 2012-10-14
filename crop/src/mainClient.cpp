@@ -18,7 +18,7 @@ void signal_handler_SIGINT (int status)
   std::cout << "*************       Received SIGINT signal. ********************\n";
   std::cout << "Info: Stopping Client Modul\n";
   delete client; client = nullptr;
-  std::cout << "Info: Stopped  client Module\n";
+  INFO() << dbg::white << "Stopped  Server Module" << dbg::white << ENDL;
   Config::release();
   exit(0);
 }

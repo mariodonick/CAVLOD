@@ -4,6 +4,7 @@
 
 #include "Modules/ServerModule.h"
 #include "TypesConfig/Config.h"
+#include "Tools/Log.h"
 
 #include <sys/signal.h>
 #include <iostream>
@@ -19,7 +20,7 @@ void signal_handler_SIGINT (int status)
   std::cout << "*************       Received SIGINT signal. ********************\n";
   std::cout << "Info: Stopping Server Modul\n";
   delete server; server = nullptr;
-  std::cout << "Info: Stopped  Server Module\n";
+  INFO() << dbg::white << "Stopped  Server Module" << dbg::white << ENDL;
   exit(0);
 }
 

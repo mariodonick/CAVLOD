@@ -19,8 +19,8 @@ Config::Config()
   try
   {
     std::string config_filename = homePath + "/CAVLOD/options.conf";
-    std::string stdBackupPath = homePath + "/CAVLOD/Backup/";
-    std::string stdLogPath = homePath + "/CAVLOD/output.log";
+    std::string stdPath = homePath + "/CAVLOD/";
+    std::string stdBackupPath = stdPath + "backup/";
 
     boost::program_options::options_description my_options("options");
 
@@ -53,16 +53,31 @@ Config::Config()
     if( backupPath.compare(backupPath.size()-1, 1, "/") != 0 ) // return 0 if '/' exists
       backupPath = backupPath +"/";
 
-    // check if an optionsfile exists
+    // check if an options file exists
     if( !config_stream.is_open() )
       std::cout << "ERROR: file: \"options.conf\" not found, we will use the default options\n";
 
-    // check if the backup path was created
+    // check if the backup path exists
     if( !existFolder(backupPath) )
     {
-      createFolder(backupPath);
-      std::cout << "ERROR: Backup path does not exist - it will be created\n";
+      if( backupPath.compare(stdBackupPath) == 0)
+      {
+        std::cout << "ERROR: Backup path does not exist - it will be created\n";
+        createFolder(stdPath);
+        createFolder(backupPath);
+      }
+      else
+      {
+        std::cout << "ERROR: Backup path does not exist, create it!\n";
+        exit(1);
+      }
     }
+    else
+    {
+      std::cout << "ERROR: Backup path does not exist, create it!\n";
+      exit(1);
+    }
+
   }
   catch (std::exception& e)
   {

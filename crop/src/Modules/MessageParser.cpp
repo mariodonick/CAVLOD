@@ -32,7 +32,7 @@ void MessageParser::parse(const ByteArray& recv_data)
   switch( static_cast<EMsgVersion>(version.to_uint()) )
   {
     case VERSION_1: parse_v1(recv_data); break;
-    default: std::cerr << "ERROR received unknown version\n"; break;
+    default: ERROR() << "received unknown version\n"; break;
   }
 }
 

@@ -19,6 +19,7 @@ Log::Stream::Stream()
 Log::Stream::~Stream()
 {
   file.close();
+  std::cout << "\033[m";
 }
 
 void Log::Stream::endl()

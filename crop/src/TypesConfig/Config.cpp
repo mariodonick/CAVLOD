@@ -62,7 +62,7 @@ Config::Config()
     {
       if( backupPath.compare(stdBackupPath) == 0)
       {
-        std::cout << "ERROR: Backup path does not exist - it will be created\n";
+        std::cout << "ERROR: standard backup path does not exist - it will be created\n";
         createFolder(stdPath);
         createFolder(backupPath);
       }
@@ -72,12 +72,6 @@ Config::Config()
         exit(1);
       }
     }
-    else
-    {
-      std::cout << "ERROR: Backup path does not exist, create it!\n";
-      exit(1);
-    }
-
   }
   catch (std::exception& e)
   {

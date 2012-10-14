@@ -2,36 +2,35 @@
  * @brief mainClient.cpp implementation of member functions
  */
 
-#include "Modules/ClientModule.h"
-#include "Tools/Log.h"
+#include "Modules/CrodtModule.h"
+//#include "Tools/Log.h"
+//
+//#include <sys/signal.h>
+//#include <iostream>
 
-#include <sys/signal.h>
-#include <iostream>
 
-ClientModule* client;
 
 /**
  * Signal Handler for strg+c Interrupt Signal. Will safely call the shutdown function.
  */
-void signal_handler_SIGINT (int status)
-{
-  std::cout << "*************       Received SIGINT signal. ********************\n";
-  std::cout << "Info: Stopping Client Modul\n";
-  delete client; client = nullptr;
-  INFO() << dbg::white << "Stopped  Server Module" << dbg::white << ENDL;
-  Config::release();
-  exit(0);
-}
+//void signal_handler_SIGINT (int status)
+//{
+//  std::cout << "*************       Received SIGINT signal. ********************\n";
+//  std::cout << "Info: Stopping Client Modul\n";
+//  delete crodt; crodt = nullptr;
+//  INFO() << dbg::white << "Stopped  Server Module" << dbg::white << ENDL;
+//  Config::release();
+//  exit(0);
+//}
 
 
 int main()
 {
-  signal(SIGINT, signal_handler_SIGINT);
+  CrodtModuleIF* crodt = new CrodtModule;
 
-  client = new ClientModule;
-  client->initialize();
-  client->run();
+  crodt->initialize();
+  crodt->sendText("hallo welt", true);
 
-  while (true) sleep(300);
+  delete crodt;
   return 0;
 }

@@ -14,7 +14,7 @@
 #include <netdb.h>
 
 #include "NetworkIO.h"
-#include "../TypesConfig/ProtocolConstants.h"
+#include "../TypesConfig/Constants.h"
 
 class UDPSocket : public NetworkIO
 {

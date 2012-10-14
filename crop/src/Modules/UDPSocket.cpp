@@ -7,10 +7,10 @@
 
 #include "UDPSocket.h"
 #include "../Tools/ByteArray.h"
+#include "../Tools/Log.h"
 #include "../TypesConfig/Config.h"
 
 #include <string.h>
-#include <iostream>
 
 using namespace std;
 
@@ -32,10 +32,10 @@ const ByteArray_sPtr UDPSocket::receiveData()
 
   n_s = recvfrom(sock_s, &buf_s, NETWORK_BUFFER_SIZE, 0, (sockaddr *)&from_s, &fromlen_s);
 
-  std::cout << "received length: " << n_s << "\n";
+  DBG() << "received length: " << n_s << "\n";
   if(n_s < 0)
   {
-    std::cout << "fehler beim empfangen\n";
+    WARNING() << "error at receiving\n";
     return barr;
   }
   barr->insert(buf_s, n_s);
@@ -45,40 +45,49 @@ const ByteArray_sPtr UDPSocket::receiveData()
 
 void UDPSocket::sendData(const ByteArray& data, const char* s_addr, const unsigned int& s_port)
 {
-	//Socket oeffnen (SOCK_DGRAM = UDP Socket)
+	//open socket (SOCK_DGRAM = UDP Socket)
 	sock_c = socket(AF_INET, SOCK_DGRAM, 0);
-	if (sock_c < 0) cout << "socket" << endl;
+	if (sock_c < 0)
+  {
+	  perror("socket");
+	  ERROR() << "socket" << ENDL;
+	  return;
+  }
 
 	server_c.sin_family = AF_INET;
-	//Hostname bzw. Adresse des Zielservers
+	//hostname and address of the target server
 	hp_c = gethostbyname(s_addr);
-	if (hp_c==0) cout << "Unknown host" << endl;
+	if (hp_c==0)
+	{
+	  ERROR() << "Unknown host" << ENDL;
+	  return;
+	}
 
 	bcopy((char *)hp_c->h_addr,
 		(char *)&server_c.sin_addr,
 		 hp_c->h_length);
 
-	//Port des Zielservers
+	//port of the target server
 	server_c.sin_port = htons(s_port);
 
 	length_c = sizeof(struct sockaddr_in);
 
-	//Nachricht an Server mit angegebener Adresse und angegebenem Port senden
-	n_c=sendto(sock_c, data.dataPtr(), data.size(), 0 ,(sockaddr *)&server_c,length_c);
+	//send message to the server with the choosen address and port
+	n_c = sendto(sock_c, data.dataPtr(), data.size(), 0 ,(sockaddr *)&server_c,length_c);
 
 	if (n_c < 0)
-	  std::cout << "fehler beim senden\n";
+	{
+	  ERROR() << "error by sending\n";
+	  return;
+	}
 
-	//	n = recvfrom(sock_c,&buf_c,buflen,0,(struct sockaddr *)&from_c, &length_c);
-	//	write(1,&buf_c,n_c);
-	//close(sock_c);
 	close(sock_c);
 }
 
 void UDPSocket::startServer(const unsigned int& s_port)
 {
 	//Inet Socket, SOCK_DGRAM = UDP Socket
-	sock_s=socket(AF_INET, SOCK_DGRAM, 0);
+	sock_s = socket(AF_INET, SOCK_DGRAM, 0);
 
 	if (sock_s < 0) cout << ("Opening socket") << endl;
 
@@ -86,16 +95,15 @@ void UDPSocket::startServer(const unsigned int& s_port)
 	bzero(&server_s,length_s);
 	server_s.sin_family=AF_INET;
 
-	//Adresse des Servers
+	//address of the server
 	server_s.sin_addr.s_addr = INADDR_ANY;
 
-	//Port des Servers
+	//port from the server
 	server_s.sin_port = htons(s_port);
 
-	//Port und adresse des Servers werden dem Socket zugewiesen
+	//assign port and address to server
 	if( ::bind(sock_s, (struct sockaddr *) &server_s, length_s) < 0 )
-	  cout << "binding" << endl;
+	  DBG() << "binding port and address to server" << ENDL;
 
 	fromlen_s = sizeof(struct sockaddr_in);
 }
-

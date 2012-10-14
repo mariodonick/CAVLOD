@@ -48,20 +48,17 @@ UniversalDecoder<T>::~UniversalDecoder()
 {
   sortedContent.clear();
 
-//  std::cout << "erase twodim map!\n";
   typename TwoDimMap::iterator outerMap_it = decodedData.begin();
-//  std::cout << "delete doid key: " << outerMap_it->first << "\n";
+
   for( ; outerMap_it != decodedData.end(); ++outerMap_it )
   {
     typename std::map<DBSequenceNumber, T>::iterator innerMap_it = outerMap_it->second.begin();
     for(; innerMap_it != outerMap_it->second.end(); ++innerMap_it )
     {
       const T tmp = innerMap_it->second;
-//      std::cout << "delete sequenceNr key: " << innerMap_it->first << "\n";
       outerMap_it->second.erase(innerMap_it);
     }
   }
-//  std::cout << "destructor UniversalDecoder end\n";
 }
 
 template<class T>
@@ -81,10 +78,7 @@ void UniversalDecoder<T>::decode(const DBDataObjectID&doid, const DBSequenceNumb
   {
     typename std::map<DBSequenceNumber, T>::iterator innerMap_it = outerMap_it->second.begin();
     for(; innerMap_it != outerMap_it->second.end(); ++innerMap_it )
-    {
-      std::cout << "DOID_KEY: " << outerMap_it->first.to_uint() << " SEQ_KEY: " << innerMap_it->first.to_uint() << " VALUE: " << *innerMap_it->second << "\n";
       sortedContent.push_back(innerMap_it->second);
-    }
   }
 }
 

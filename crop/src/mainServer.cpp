@@ -3,6 +3,7 @@
  */
 
 #include "Modules/ServerModule.h"
+#include "TypesConfig/Config.h"
 
 #include <sys/signal.h>
 #include <iostream>
@@ -29,5 +30,6 @@ int main()
   server = new ServerModule;
   server->start();
 
+  Config::release();
   return 0;
 }

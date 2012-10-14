@@ -4,13 +4,15 @@
 
 #include "MessageParser.h"
 #include "../Tools/ByteArray.h"
-#include "../Tools/Exception.h"
 #include "../DataManagement/DataTypes.h"
+#include "../TypesConfig/Config.h"
 
 #include <iostream>
+#include <cassert>
 
 
 MessageParser::MessageParser()
+: config( *Config::instance() )
 {
 }
 
@@ -20,38 +22,38 @@ MessageParser::~MessageParser()
 
 void MessageParser::parse(const ByteArray& recv_data)
 {
-  std::cout << "\n---------------parser start---------------------------\n";
+  INFO() << "\n---------------parser start---------------------------\n";
   version = recv_data.getByte(0).separate<0,4>();
   msgConfig = merge( recv_data.getByte(0).separate<4,8>(), recv_data.getByte(1) );
 
-  std::cout << "version: " << version.to_uint() << "\n";
-  std::cout << "config: 0x" << std::hex << msgConfig.to_uint() << std::dec << "\n";
+  INFO() << "version: " << version.to_uint() << "\n";
+  INFO() << "config: 0x" << std::hex << msgConfig.to_uint() << std::dec << "\n";
 
   switch( static_cast<EMsgVersion>(version.to_uint()) )
   {
     case VERSION_1: parse_v1(recv_data); break;
-    default: std::cerr << "ERROR received unknown version\n"; break;
+    default: ERROR() << "received unknown version\n"; break;
   }
 }
 
 void MessageParser::parse_v1(const ByteArray& data)
 {
-  std::cout << "\n---------------message---------------------------\n";
+  INFO() << "\n---------------message---------------------------\n";
   curMsgPos = computeFirstDBByte();
   unsigned int msgLength = char2uint(&data.dataPtr()[curMsgPos - MSG_LENGTH_BYTES], MSG_LENGTH_BYTES);
 
   unsigned int crcSize = 0;
-  if(msgLength < MSG_CRC_LENGTH_BORDER)
+  if(msgLength < config.messageCrcBorder)
     crcSize = MSG_CRC_16_BYTES;
   else
     crcSize = MSG_CRC_32_BYTES;
 
-  std::cout << "msgLength: 0x" << std::hex << msgLength << std::dec << " = " << msgLength << "Bytes " << "\n";
-  std::cout << "db_start: " << computeFirstDBByte() << "\n";
-  std::cout << "crcSize: " << crcSize << "\n";
+  INFO() << "Message Length: 0x" << std::hex << msgLength << std::dec << " = " << msgLength << "Bytes " << "\n";
+  DBG() << "db_start: " << computeFirstDBByte() << "\n";
+  DBG() << "crcSize: " << crcSize << "\n";
 
-  cassert(msgLength < MAX_MSG_LENGTH);
-  cassert(msgLength >= computeFirstDBByte());
+  assert(msgLength < MAX_MSG_LENGTH);
+  assert(msgLength >= computeFirstDBByte());
 
   // parse datablocks
   while(curMsgPos + crcSize < msgLength)
@@ -59,12 +61,12 @@ void MessageParser::parse_v1(const ByteArray& data)
     parseDB(data);
   }
 
-  std::cout << "---------------parser end---------------------------\n\n";
+  INFO() << "---------------parser end---------------------------\n\n";
 }
 
 void MessageParser::parseDB(const ByteArray& data)
 {
-  std::cout << "\n---------------DBHeader---------------------------\n";
+  INFO() << "\n---------------DBHeader---------------------------\n";
   // parse DB header
   DBDatatype dbDataType = merge( data.getByte(curMsgPos).separate<0, 8>(), data.getByte(curMsgPos+1).separate<0, 2>() );
   DBConfig dbConfig = data.getByte(curMsgPos + 1).separate<2, 8>();
@@ -79,14 +81,14 @@ void MessageParser::parseDB(const ByteArray& data)
   DBLength dbLengthBytes = char2Bin<DB_LENGTH_BYTES * BIT_PER_BYTE>( &data.dataPtr()[curMsgPos + offset] );
   offset += DB_LENGTH_BYTES;
 
-  std::cout << "dbDataType: 0x" << std::hex << dbDataType.to_uint() << std::dec << " = " << dataType2String(dbDataType) << "\n";
-  std::cout << "dbConfig: 0x" << std::hex << dbConfig.to_uint() << std::dec << "\n";
-  std::cout << "dbDoid: 0x" << std::hex << dbDoid.to_uint() << std::dec << "\n";
-  std::cout << "sequNum: 0x" << std::hex << dbSequNum.to_uint() << std::dec << "\n";
-  std::cout << "dbLengthBytes: 0x" << std::hex << dbLengthBytes.to_uint() << " = " << std::dec << dbLengthBytes.to_uint() << " Bytes\n";
+  INFO() << "DB - DataType: 0x" << std::hex << dbDataType.to_uint() << std::dec << " = " << dataType2String(dbDataType) << "\n";
+  INFO() << "DB - Config: 0x" << std::hex << dbConfig.to_uint() << std::dec << "\n";
+  INFO() << "DB - Doid: 0x" << std::hex << dbDoid.to_uint() << std::dec << "\n";
+  INFO() << "DB - Sequence Number: 0x" << std::hex << dbSequNum.to_uint() << std::dec << "\n";
+  INFO() << "DB - Length: 0x" << std::hex << dbLengthBytes.to_uint() << " = " << std::dec << dbLengthBytes.to_uint() << " Bytes\n";
 
-  cassert(dbLengthBytes < MSG_CRC_LENGTH_BORDER);
-  cassert(dbLengthBytes >= DB_HEADER_LENGTH_BYTES);
+  assert(dbLengthBytes < config.messageCrcBorder);
+  assert(dbLengthBytes >= DB_HEADER_LENGTH_BYTES);
 
   // fill the received data block header with the parsed data
   DataBlock::Header dbh;
@@ -97,7 +99,6 @@ void MessageParser::parseDB(const ByteArray& data)
   dbh.length = dbLengthBytes;
 
   unsigned int contentPos = curMsgPos + offset;
-//  std::cout << "contentPos: " << contentPos << " Bytes\n";
 
   switch( static_cast<DataTypes>(dbDataType.to_uint()) )
   {
@@ -112,13 +113,13 @@ const std::size_t MessageParser::computeFirstDBByte()
 {
   // parse address type
   Bin<3> addrType = msgConfig.separate<0,3>();
-  std::cout << "addrtype: " << addrType.to_uint() << "\n";
+  INFO() << "AddressType: " << addrType.to_uint() << "\n";
 
   unsigned int addrTypeLength = 0;
   switch( static_cast<MsgAddressType>(addrType.to_uint()) )
   {
     case IP_V6: addrTypeLength = 2 * MSG_ADDRESS_TYPE_IPV6_BYTES; break;
-    default: std::cerr << "ERROR: detected unknown address type\n"; throw;
+    default: ERROR() << "ERROR: detected unknown address type\n"; throw;
   }
 
   return MSG_FIXED_HEADER_LENGTH_BYTES + addrTypeLength;

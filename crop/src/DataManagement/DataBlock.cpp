@@ -5,7 +5,7 @@
 #include "DataBlock.h"
 
 #include "../Tools/ByteArray.h"
-#include "../TypesConfig/ProtocolConstants.h"
+#include "../TypesConfig/Constants.h"
 #include "DataTypes.h"
 
 DataBlock::DataBlock()
@@ -88,11 +88,6 @@ void DataBlock::setPriority(const float& prio)
   priority = prio;
 }
 
-void DataBlock::setLength(const DBLength& length)
-{
-  header.length = length;
-}
-
 void DataBlock::setRelevanceData(const RelevanceData& rel)
 {
   relevance = rel;
@@ -113,7 +108,7 @@ void DataBlock::addContent(ByteArray_sPtr data)
   else
   {
     content->append( data->dataPtr(), data->size() );
-    header.length += data->size() + DB_HEADER_LENGTH_BYTES;
+    header.length += data->size();
   }
 }
 
@@ -136,7 +131,7 @@ DataBlock::Header::Header()
 , config(0)
 , dataObjectID(0)
 , sequenceNumber(0)
-, length(DB_HEADER_LENGTH_BYTES)
+, length(0)
 {
 
 }

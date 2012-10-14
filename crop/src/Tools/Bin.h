@@ -6,6 +6,7 @@
 #define BIN_H_
 
 #include <bitset>
+#include <iostream> // todo unschön wegen 1 cerr :(
 
 const unsigned int BIT_PER_BYTE = 8;
 const unsigned int RSHIFT_TO_BYTE = 3;
@@ -190,6 +191,11 @@ public:
 
   unsigned long to_ulong() const
   {
+    if(size() > 64)
+    {
+      std::cerr << "Tthe binary is bigger than 64Bit we return 0\n";
+      return 0;
+    }
     return number.to_ulong();
   }
 
@@ -378,6 +384,17 @@ inline Bin<L+H> merge(const Bin<L>& lsb, const Bin<H>& msb)
   for(unsigned int i = 0; i < H; ++i)
     tmp[L+i] = msb[i];
   return tmp;
+}
+
+template<unsigned int FIRST, unsigned int SECOND, unsigned int THIRD, unsigned int FOURTH>
+inline Bin<FIRST+SECOND+THIRD+FOURTH> mergeFour(const Bin<FIRST>& bits0, const Bin<SECOND>& bits1,
+                                                const Bin<THIRD>& bits2, const Bin<FOURTH>& bits3)
+{
+  Bin<FIRST+SECOND> tmp0 = merge(bits0, bits1);
+  Bin<THIRD+FOURTH> tmp1 = merge(bits2, bits3);
+  Bin<FIRST+SECOND+THIRD+FOURTH> result = merge(tmp0, tmp1);
+
+  return result;
 }
 
 template<unsigned int BIT_LENGTH>

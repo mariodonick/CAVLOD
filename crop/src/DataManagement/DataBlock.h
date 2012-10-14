@@ -54,7 +54,6 @@ public:
   void setSequenceNumber(const DBSequenceNumber& sn);
   void setConfig(const DBConfig& conf);
   void setPriority(const float& prio);
-  void setLength(const DBLength& length);
   void setRelevanceData(const RelevanceData& rel);
 
   void stamp();

@@ -8,6 +8,9 @@
 
 #include <string>
 
+#include "../Tools/Bin.h"
+#include "../TypesConfig/ProtocolTypes.h"
+
 class Config
 {
 public:
@@ -22,13 +25,16 @@ private:
 
 public:
   std::string homePath;
+  std::string currentIp;
+  //general
   std::string backupPath;
-
   unsigned int port;
   std::string ipAddress;
-
   unsigned int sendDelayMS;
   unsigned int sensorInputDelayMS;
+  //message
+  std::size_t messageCrcBorder;
+  MsgConfig messageConfig;
 
 private:
   static Config* pInstance;

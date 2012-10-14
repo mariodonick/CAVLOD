@@ -14,6 +14,7 @@
 #include "../Tools/Bin.h"
 
 class ByteArray;
+class Config;
 
 class MessageParser : public Parser
 {
@@ -31,6 +32,7 @@ private:
   const std::size_t computeFirstDBByte();
 
 private:
+  Config& config;
   MsgVersion version;
   MsgConfig msgConfig;
 

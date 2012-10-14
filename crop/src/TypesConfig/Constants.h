@@ -1,10 +1,10 @@
 /*
- * @brief ProtocolConstants.h
+ * @brief Constants.h
  *
  */
 
-#ifndef PROTOCOLCONSTANTS_H_
-#define PROTOCOLCONSTANTS_H_
+#ifndef CONSTANTS_H_
+#define CONSTANTS_H_
 
 //network
 const std::size_t NETWORK_BUFFER_SIZE = 2*1024*1024;
@@ -25,7 +25,7 @@ const std::size_t DB_DATA_OBJECT_ID_BYTES = 3;
 const std::size_t DB_SEQUENCE_NUMBER_BYTES = 2;
 const std::size_t DB_LENGTH_BYTES = 2;
 
-const unsigned int DB_CONFIG_TIMESTAMP = 3;
+const std::size_t DB_CONFIG_TIMESTAMP_INDEX = 3;
 
 // content
 const std::size_t C_TIMESTAMP_BYTES = 8;
@@ -39,8 +39,9 @@ const std::size_t C_VALUE_BYTES = 4;
 const std::size_t MSG_FIXED_HEADER_LENGTH_BYTES = MSG_VER_CONFIG_LENGTH_BYTES + MSG_LENGTH_BYTES;
 const std::size_t DB_HEADER_LENGTH_BYTES = DB_DATA_TYPE_CONFIG_BYTES + DB_DATA_OBJECT_ID_BYTES + DB_SEQUENCE_NUMBER_BYTES + DB_LENGTH_BYTES;
 
-const std::size_t MSG_CRC_LENGTH_BORDER = 0xFF;//todo 0xFFFF; // we use 16bit crc up to 0xFFFF and 32bit crc up to 0xFFFFFF
 const std::size_t MAX_MSG_LENGTH = 0xFFFFFF;
 const std::size_t MAX_DB_LENGTH = 0xFFFF;
+// if you want to test the protocol with small datablock size choose something like that
+// "21+20;" 21 ist constant in jedem text db 20 ist textgrösse
 
-#endif /* PROTOCOLCONSTANTS_H_ */
+#endif /* CONSTANTS_H_ */

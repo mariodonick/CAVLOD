@@ -33,6 +33,7 @@ typedef std::shared_ptr<ContentInput<std::string> > TextInput_sPtr;
 
 typedef std::unique_ptr<Queue<DataBlock_sPtr> > DBQueue_uPtr;
 typedef std::unique_ptr<Crodm> Crodm_uPtr;
+
 typedef std::unique_ptr<NetworkIO> NetworkIO_uPtr;
 typedef std::unique_ptr<Partitioning> Partitioning_uPtr;
 typedef std::unique_ptr<Prioritization> Prioritization_uPtr;

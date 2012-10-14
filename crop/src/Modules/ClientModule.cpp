@@ -17,6 +17,7 @@
 #include "../Tools/SmartPrioritizedQueue.h"
 #include "../Tools/ByteArray.h"
 #include "../Tools/StopWatch.h"
+#include "../Tools/Log.h"
 #include "../TypesConfig/Config.h"
 
 #include <functional>
@@ -37,7 +38,7 @@ ClientModule::ClientModule()
   running = true;
   threads.push_back( std::thread( &ClientModule::packetizerThread, this ) );
 
-  std::clog << "client is up and running!\n";
+  INFO() << "client is up and running!\n";
 }
 
 ClientModule::~ClientModule()
@@ -53,7 +54,7 @@ ClientModule::~ClientModule()
     }
     catch(std::system_error& e)
     {
-      std::cerr << "shuting down thread failed with: " << e.what() << std::endl;
+      ERROR() << "shuting down thread failed with: " << e.what() << ENDL;
     }
   }
 
@@ -62,11 +63,7 @@ ClientModule::~ClientModule()
 
 void ClientModule::initialize()
 {
-
-
   //todo do some stuff eg: load dbs
-  //  textInput->initial(); // todo notwendig?
-  //  sensorInput->initial();
 }
 
 void ClientModule::run()
@@ -82,14 +79,14 @@ void ClientModule::packetizerThread()
   {
     usleep(config.sendDelayMS * 1000); // todo auf events warten? variable schlafenszeiten? irgend etwas ausdenken
 
-    std::cout << "start Sending... Data available in Prioritized Queue: " << prioQueue->size() << std::endl;
+    INFO() << "start Sending... Data available in Prioritized Queue: " << prioQueue->size() << ENDL;
 
     const ByteArray& data = packetizer->packetizeMessage();
 
     if( !data.isEmpty() )
       network->sendData(data, config.ipAddress.c_str(), config.port);
 
-    std::cout << "Sending... Data available in Prioritized Queue: " << prioQueue->size() << std::endl;
+    INFO() << "Sending... Data available in Prioritized Queue: " << prioQueue->size() << ENDL;
   }
 }
 
@@ -104,7 +101,7 @@ void ClientModule::handleTextEvent(const DBDataObjectID& id, const bool& usingTi
   partitioning->partText(id, text, usingTimestamp);
   prioritization->evaluate();
 
-  std::cout << "text STOP sw: " << sw << std::endl;
+  DBG() << "text STOP sw: " << sw << ENDL;
 }
 
 void ClientModule::handleSensorEvent(const DBDataObjectID& id, const bool& usingTimestamp)
@@ -117,5 +114,5 @@ void ClientModule::handleSensorEvent(const DBDataObjectID& id, const bool& using
   partitioning->partSensor(id, value, usingTimestamp);
   prioritization->evaluate();
 
-  std::cout << "sensor STOP sw: " << sw << std::endl;
+  DBG() << "sensor STOP sw: " << sw << ENDL;
 }

@@ -3,7 +3,7 @@
  */
 
 #include "ByteArray.h"
-#include "../TypesConfig/ProtocolConstants.h"
+#include "../TypesConfig/Constants.h"
 
 ByteArray::ByteArray()
 : bitCount(0)

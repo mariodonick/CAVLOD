@@ -150,7 +150,7 @@ DataBlock::Header::~Header()
 
 void DataBlock::Header::dump(std::ostream& out)
 {
-  out << "DataType: " << dataType2String(dataType) << "\n"
+  out << "DataType: " << dataType2String( static_cast<DataTypes>(dataType.to_ulong()) ) << "\n"
       << "Config: " << std::hex << config.to_ulong() << std::dec << "\n"
       << "DataObjectID: " << dataObjectID.to_ulong() << "\n"
       << "SequenceNumber: " << sequenceNumber.to_ulong() << "\n";

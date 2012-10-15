@@ -58,7 +58,7 @@ UniversalDecoder<T>::~UniversalDecoder()
     typename std::map<DBSequenceNumber, T>::iterator innerMap_it = outerMap_it->second.begin();
     for(; innerMap_it != outerMap_it->second.end(); ++innerMap_it )
     {
-      const T tmp = innerMap_it->second;
+//      const T tmp = innerMap_it->second;
       outerMap_it->second.erase(innerMap_it);
     }
   }

@@ -6,7 +6,7 @@
 #ifndef DATATYPES_H_
 #define DATATYPES_H_
 
-#include "../Tools/Bin.h"
+#include <string>
 
 namespace crodt
 {
@@ -29,9 +29,9 @@ inline const std::string dataType2String(const DataTypes& dt)
 }
 
 template<unsigned int N>
-inline const std::string dataType2String(const Bin<N>& dataTypes)
+inline const std::string dataType2String(const unsigned long long int& dataTypes)
 {
-  return dataType2String(static_cast<DataTypes>( dataTypes.to_ulong() ) );
+  return dataType2String(static_cast<DataTypes>( dataTypes ) );
 }
 
 } // namespace crodt

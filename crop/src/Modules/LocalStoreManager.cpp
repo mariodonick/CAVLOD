@@ -23,6 +23,8 @@ LocalStoreManager::~LocalStoreManager(){}
 
 const std::vector<DataBlock_sPtr>& LocalStoreManager::load()
 {
+  dbVec.clear();
+
   Config* config = Config::instance();
   std::string doidFolder = config->backupPath;
 

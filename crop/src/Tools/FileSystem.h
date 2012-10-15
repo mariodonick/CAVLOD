@@ -8,11 +8,36 @@
 
 #include <boost/filesystem.hpp>
 #include <iostream>
+#include <sstream>
 
 // return true if creation was successful otherwise false
 inline const bool createFolder(const std::string& path)
 {
-  try
+  std::string currentPath;
+  std::istringstream ss(path);
+  std::vector<std::string> field;
+  std::vector<std::string>::iterator it;
+
+  while(!ss.eof())
+  {
+    std::string subString;
+    getline(ss, subString, '/');
+    field.push_back(subString);
+  }
+
+  for(it=field.begin()+1; it < field.end(); it++)
+  {
+    currentPath += "/" + *it;
+    std::cout << "currentPath: " << currentPath << std::endl;
+    boost::filesystem::file_status s = boost::filesystem::status(currentPath);
+    if(!boost::filesystem::is_directory(s))
+    {
+      boost::filesystem::create_directory(currentPath);
+    }
+  }
+
+
+/*  try
   {
     if (boost::filesystem::create_directory(path))
     {
@@ -23,7 +48,7 @@ inline const bool createFolder(const std::string& path)
   {
     std::cerr << e.what() << std::endl;
     return false;
-  }
+  }*/
   return false;
 }
 

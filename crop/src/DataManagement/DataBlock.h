@@ -55,6 +55,7 @@ public:
   void setConfig(const DBConfig& conf);
   void setPriority(const float& prio);
   void setRelevanceData(const RelevanceData& rel);
+  void setTimetamp(const CTimestamp& ts);
 
   void stamp();
   void addContent(ByteArray_sPtr content);

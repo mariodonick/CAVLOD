@@ -32,7 +32,6 @@ void callbackFuntion(const CrodtOutput<std::string>& co)
   for(; it != co.sortedContent.end(); ++it)
     DBG() << it->content;
 }
-
 int main()
 {
   signal(SIGINT, signal_handler_SIGINT);

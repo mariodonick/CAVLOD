@@ -40,11 +40,13 @@ private:
   DBQueue_uPtr dbFifo;
   DBQueue_uPtr prioQueue;
 
+  StoreManager_uPtr dbStorage;
   Crodm_uPtr crodm;
   NetworkIO_uPtr network;
   Partitioning_uPtr partitioning;
   Prioritization_uPtr prioritization;
   Packetizer_uPtr packetizer;
+
 
   std::mutex eventMutex;
   std::thread packerThread;

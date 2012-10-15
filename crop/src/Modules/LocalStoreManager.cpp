@@ -49,19 +49,24 @@ const std::vector<DataBlock_sPtr>& LocalStoreManager::load()
       int file_size = bin.tellg(); // position auslesen => groesse der datei
       bin.seekg(0,std::ios::beg); // wieder an anfang der datei springen
 
-      uint dataBlockEntries[file_size];
+      char dataBlockEntries[file_size];
       bin.read(reinterpret_cast <char*> (&dataBlockEntries), file_size); // auslesen der daten in ausgabe array
 
-      dbh.dataType = (DBDatatype) dataBlockEntries[0];
-      dbh.config = (DBConfig) dataBlockEntries[1];
-      dbh.dataObjectID = (DBDataObjectID) dataBlockEntries[2];
-      dbh.sequenceNumber = (DBSequenceNumber) dataBlockEntries[3];
-      dbh.length = (DBLength) dataBlockEntries[4];
+      dbh.dataType = char2uint( &dataBlockEntries[0], 4 );
+      dbh.config = char2uint( &dataBlockEntries[4], 4 );
+      dbh.dataObjectID = char2uint( &dataBlockEntries[8], 4 );
+      dbh.sequenceNumber = char2uint( &dataBlockEntries[12], 4 );
+      dbh.length = char2uint( &dataBlockEntries[16], 4 );
 
       db->setHeader(dbh);
 
-      db->setTimetamp((CTimestamp) dataBlockEntries[5]);
-     // db.addContent((ByteArray_sPtr) dataBlockEntries[6]);
+      Bin<32> time1 = char2uint( &dataBlockEntries[20], 4 );
+      Bin<32> time2 = char2uint( &dataBlockEntries[24], 4 );
+      db->setTimetamp(merge(time1, time2));
+
+      ByteArray_sPtr ba(new ByteArray);
+      ba->insert(&dataBlockEntries[28], file_size-28);
+      db->addContent( ba );
 
       dbVec.push_back(db);
     }

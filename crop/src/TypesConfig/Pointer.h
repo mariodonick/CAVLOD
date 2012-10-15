@@ -19,6 +19,7 @@ class Prioritization;
 class Packetizer;
 class MessageParser;
 template<class T> class ContentProcess;
+class StoreManager;
 
 class ByteArray;
 
@@ -40,6 +41,7 @@ typedef std::unique_ptr<Partitioning> Partitioning_uPtr;
 typedef std::unique_ptr<Prioritization> Prioritization_uPtr;
 typedef std::unique_ptr<Packetizer> Packetizer_uPtr;
 typedef std::unique_ptr<MessageParser> Parser_uPtr;
+typedef std::unique_ptr<StoreManager> StoreManager_uPtr;
 
 
 #endif /* POINTER_H_ */

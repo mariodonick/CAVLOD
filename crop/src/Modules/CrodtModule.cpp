@@ -8,6 +8,7 @@
 #include "CrodmFacade.h"
 #include "UDPSocket.h"
 #include "MessagePacketizer.h"
+#include "LocalStoreManager.h"
 
 #include "../TypesConfig/Config.h"
 #include "../TypesConfig/ProtocolTypes.h"
@@ -25,10 +26,11 @@ CrodtModule::CrodtModule()
 , config( *Config::instance() )
 , dbFifo( new Fifo<DataBlock_sPtr> )
 , prioQueue( new SmartPrioritizedQueue )
+, dbStorage(new LocalStoreManager)
 , crodm( new CrodmFacade )
 , network( new UDPSocket )
 , partitioning( new SplitEncoding(crodm, dbFifo) )
-, prioritization( new Priority(dbFifo, prioQueue, crodm) )
+, prioritization( new Priority(dbFifo, prioQueue, crodm, dbStorage) )
 , packetizer( new MessagePacketizer(prioQueue) )
 , sensorId(0)
 , textId(0)
@@ -51,7 +53,10 @@ CrodtModule::~CrodtModule()
 
 void CrodtModule::initialize()
 {
-  //todo do some stuff eg: load dbs
+  const std::vector<DataBlock_sPtr>& dbVec = dbStorage->load();
+
+  for(std::vector<DataBlock_sPtr>::const_iterator it = dbVec.begin(); it != dbVec.end(); ++it)
+    prioQueue->push(*it);
 }
 
 void CrodtModule::packetizerThread()

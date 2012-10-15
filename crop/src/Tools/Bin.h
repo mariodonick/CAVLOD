@@ -408,9 +408,9 @@ inline Bin<BIT_LENGTH> char2Bin(const char* data)
   return tmp;
 }
 
-inline unsigned int char2uint(const char* data, const std::size_t& num_bytes)
+inline unsigned int char2uint(char* data, const std::size_t& num_bytes)
 {
-  if(num_bytes > 4){ /*std::cerr << "ERROR: array is to big for one unsigned char\n";*/ throw; } // todo richtige exception
+  if(num_bytes > 4){ /*std::cerr << "ERROR: array is to big for one unsigned char\n";*/ throw; }
   unsigned int tmp = 0;
   for(unsigned int i = 0; i < num_bytes; ++i)
   {
@@ -418,6 +418,14 @@ inline unsigned int char2uint(const char* data, const std::size_t& num_bytes)
     tmp = (tmp << shift) | (data[num_bytes-1-i]  & 0xFF);
   }
   return tmp;
+}
+
+inline unsigned int constChar2uint(const char* data, const std::size_t& num_bytes)
+{
+  char tmp[num_bytes];
+  for(unsigned int i = 0; i < num_bytes; ++i)
+    tmp[i] = data[i];
+  return char2uint(tmp, num_bytes);
 }
 
 #endif /* BIN_H_ */

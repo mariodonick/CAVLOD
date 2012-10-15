@@ -4,16 +4,22 @@
 
 #include "Priority.h"
 #include "Crodm.h"
+#include "LocalStoreManager.h"
 #include "../Tools/PrioritizedQueue.h"
 #include "../Tools/Fifo.h"
 #include "../DataManagement/DataBlock.h"
 
 #include <vector>
 
-Priority::Priority(DBQueue_uPtr& theDBFifo, DBQueue_uPtr& thePrioQueue, const Crodm_uPtr& theCrodm)
+Priority::Priority(
+    DBQueue_uPtr& theDBFifo,
+    DBQueue_uPtr& thePrioQueue,
+    const Crodm_uPtr& theCrodm,
+    StoreManager_uPtr& storage)
 : dbFifo(theDBFifo)
 , prioQueue(thePrioQueue)
 , crodm(theCrodm)
+, dbStorage(storage)
 {
 }
 
@@ -33,6 +39,8 @@ void Priority::evaluate()
                                             data->getDataType() );
     data->setPriority( prio );
     prioQueue->push( data );
+    dbStorage->store(data);
+//    dbStorage->remove( data->getDataObjectID(), data->getSequenceNumber() );
     ++i;
   }
 }

@@ -39,7 +39,7 @@ void MessageParser::parse_v1(const ByteArray& data)
 {
   INFO() << "\n---------------message---------------------------\n";
   curMsgPos = computeFirstDBByte();
-  unsigned int msgLength = char2uint(&data.dataPtr()[curMsgPos - MSG_LENGTH_BYTES], MSG_LENGTH_BYTES);
+  unsigned int msgLength = constChar2uint(&data.dataPtr()[curMsgPos - MSG_LENGTH_BYTES], MSG_LENGTH_BYTES);
 
   unsigned int crcSize = 0;
   if(msgLength < config.messageCrcBorder)

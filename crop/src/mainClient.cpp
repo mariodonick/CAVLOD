@@ -55,10 +55,9 @@ int main()
   ci.relevanceVector.push_back(rd3);
   ci.relevanceVector.push_back(rd4);
 
-
   crodt->sendText(ci);
 
-  sleep(1); // give the packetizer some time to send all items
+  sleep(5);
   }
   delete crodt;
   return 0;

@@ -10,6 +10,7 @@
 #include "../TypesConfig/ProtocolTypes.h"
 #include "../TypesConfig/Config.h"
 #include "../Tools/FileSystem.h"
+#include "../Tools/Log.h"
 #include "../DataManagement/DataBlock.h"
 
 #include <string>
@@ -22,7 +23,11 @@
 
 using namespace crodt;
 
-LocalStoreManager::LocalStoreManager(){}
+LocalStoreManager::LocalStoreManager()
+: config( *Config::instance() )
+{
+
+}
 
 LocalStoreManager::~LocalStoreManager(){}
 
@@ -30,8 +35,7 @@ const std::vector<DataBlock_sPtr>& LocalStoreManager::load()
 {
   dbVec.clear();
 
-  Config* config = Config::instance();
-  boost::filesystem::path backup_path( config->backupPath );
+  boost::filesystem::path backup_path( config.backupPath );
   std::string filename;
 
   if ( !boost::filesystem::exists( backup_path ) )
@@ -51,7 +55,7 @@ const std::vector<DataBlock_sPtr>& LocalStoreManager::load()
     {
       if(boost::filesystem::is_directory( backup_path ))
       {
-        std::string temp = config->backupPath + dir_itr->path().filename().c_str();
+        std::string temp = config.backupPath + dir_itr->path().filename().c_str();
         boost::filesystem::path file_path( temp );
         boost::filesystem::directory_iterator subDir_itr_end;
 
@@ -130,9 +134,8 @@ const std::vector<DataBlock_sPtr>& LocalStoreManager::load()
   return dbVec;
 }
 
-void LocalStoreManager::store(DataBlock_sPtr& db)
+void LocalStoreManager::store(const DataBlock_sPtr& db)
 {
-  Config* config = Config::instance();
   ByteArray_sPtr dbContent = db->getContent();
 
   uint dataType_uint = db->getDataType().to_uint();
@@ -152,7 +155,7 @@ void LocalStoreManager::store(DataBlock_sPtr& db)
   std::stringstream ssSequenzNumber;
   ssSequenzNumber << sequenzNumber_uint;
 
-  std::string path = config->backupPath + ssDataType.str() + "_" + ssDOID.str() + "/";
+  std::string path = config.backupPath + ssDataType.str() + "_" + ssDOID.str() + "/";
   createFolder(path);
 
   std::string filePath = path + ssSequenzNumber.str() + ".bin";
@@ -167,4 +170,32 @@ void LocalStoreManager::store(DataBlock_sPtr& db)
   outbin.write( dbContent->dataPtr(), dbContent->size() );
 
   outbin.close();
+}
+
+void LocalStoreManager::remove(const DataBlock::Header& dbh)
+{
+  std::stringstream dt;
+  dt << dbh.dataType.to_uint();
+  std::stringstream doid;
+  doid << dbh.dataObjectID.to_uint();
+  std::stringstream sq;
+  sq<< dbh.sequenceNumber.to_uint();
+
+  std::string folder = config.backupPath + dt.str() + "_" + doid.str() + "/";
+  if( existFolder(folder) )
+  {
+    std::string file = folder + sq.str() + ".bin";
+
+    if( ::remove(file.c_str()) != 0 )
+    {
+      perror( "Error deleting file: " );
+      ERROR() << "error removing successfully" << ENDL;
+    }
+    else
+    {
+      boost::filesystem::path f = folder;
+      if(boost::filesystem::is_empty(f))
+        removeFolder(folder);
+    }
+  }
 }

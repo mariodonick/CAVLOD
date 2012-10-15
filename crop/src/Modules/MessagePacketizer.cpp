@@ -7,6 +7,7 @@
 
 #include "MessagePacketizer.h"
 #include "SmartPrioritizedQueue.h"
+#include "LocalStoreManager.h"
 #include "../TypesConfig/ProtocolTypes.h"
 #include "../TypesConfig/Constants.h"
 #include "../TypesConfig/Config.h"
@@ -15,8 +16,9 @@
 
 using namespace crodt;
 
-MessagePacketizer::MessagePacketizer(DBQueue_uPtr& thePrioQueue)
+MessagePacketizer::MessagePacketizer(DBQueue_uPtr& thePrioQueue, StoreManager_uPtr& storage)
 : prioQueue(thePrioQueue)
+, dbStorage(storage)
 {
 
 }
@@ -24,7 +26,7 @@ MessagePacketizer::MessagePacketizer(DBQueue_uPtr& thePrioQueue)
 MessagePacketizer::~MessagePacketizer()
 {
 }
-
+unsigned int ii = 0;
 // if the prioritized queue is empty this function return an empty bytearray
 // otherwise this return the current message
 const ByteArray& MessagePacketizer::packetizeMessage()
@@ -40,6 +42,8 @@ const ByteArray& MessagePacketizer::packetizeMessage()
 
   //get first datablock
   DataBlock_sPtr first_db = prioQueue->pop();
+  dbStorage->remove( first_db->getHeader() );
+
   // compute first db length
   unsigned int msgLength = first_db->getLength().to_uint();
 
@@ -78,6 +82,8 @@ const ByteArray& MessagePacketizer::packetizeMessage()
     DataBlock_sPtr next_db = prioQueue->pop(free_space);
     if(next_db == nullptr) // no new db found
       break;
+
+    dbStorage->remove( next_db->getHeader() );
 
     unsigned int tmp_length = next_db->getLength().to_uint();
 

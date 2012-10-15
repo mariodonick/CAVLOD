@@ -28,7 +28,6 @@ void signal_handler_SIGINT (int status)
 
 void callbackFuntion(const crodt::CrodtOutput<std::string>& co)
 {
-  DBG() << "CAAAAAAAAAAAALLLLLLLLLLLLBBBBBBBBBBBBAAAAAAAACCCCCCCKKKKKKKKKKKKKK" << ENDL;
   std::vector<crodt::COItem<std::string> >::const_iterator it = co.sortedContent.begin();
   for(; it != co.sortedContent.end(); ++it)
     DBG() << it->content;

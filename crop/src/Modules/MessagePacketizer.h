@@ -24,7 +24,7 @@ namespace crodt
 class MessagePacketizer : public Packetizer
 {
 public:
-  MessagePacketizer(DBQueue_uPtr& prioQueue);
+  MessagePacketizer(DBQueue_uPtr& prioQueue, StoreManager_uPtr& storage);
   virtual ~MessagePacketizer();
 
 private:
@@ -35,6 +35,7 @@ private:
 
 private:
   DBQueue_uPtr& prioQueue;
+  StoreManager_uPtr& dbStorage;
   ByteArray message;
 };
 

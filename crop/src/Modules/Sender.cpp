@@ -32,7 +32,7 @@ Sender::Sender()
 , network( new UDPSocket )
 , partitioning( new SplitEncoding(crodm, dbFifo) )
 , prioritization( new Priority(dbFifo, prioQueue, crodm, dbStorage) )
-, packetizer( new MessagePacketizer(prioQueue) )
+, packetizer( new MessagePacketizer(prioQueue, dbStorage) )
 , sensorId(0)
 , textId(0)
 {
@@ -54,15 +54,10 @@ Sender::~Sender()
 
 void Sender::initialize()
 {
-  // todo nervt mit der zeit ;) solang wir nicht löschen können
-//  const std::vector<DataBlock_sPtr>& dbVec = dbStorage->load();
-//
-////  DBG() << dbVec.size() << ENDL;
-//  for(std::vector<DataBlock_sPtr>::const_iterator it = dbVec.begin(); it != dbVec.end(); ++it)
-//  {
-////    DBG() << (*it)->getLength() << ENDL;
-//    prioQueue->push(*it);
-//  }
+  const std::vector<DataBlock_sPtr>& dbVec = dbStorage->load();
+
+  for(std::vector<DataBlock_sPtr>::const_iterator it = dbVec.begin(); it != dbVec.end(); ++it)
+    prioQueue->push(*it);
 }
 
 void Sender::packetizerThread()

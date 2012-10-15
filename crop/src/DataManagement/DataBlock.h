@@ -41,8 +41,7 @@ public:
   DataBlock();
   virtual ~DataBlock();
 
-  void setHeader(const DataBlock::Header& dbh);
-
+  const DataBlock::Header& getHeader() const;
   const DBDataObjectID& getDataObjectID() const;
   const DBDatatype& getDataType() const;
   const DBSequenceNumber& getSequenceNumber() const;
@@ -59,6 +58,7 @@ public:
   void setPriority(const float& prio);
   void setRelevanceData(const RelevanceData& rel);
   void setTimetamp(const CTimestamp& ts);
+  void setHeader(const DataBlock::Header& dbh);
 
   void stamp();
   void addContent(ByteArray_sPtr content);

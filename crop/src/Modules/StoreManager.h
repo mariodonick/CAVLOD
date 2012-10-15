@@ -20,7 +20,8 @@ public:
   virtual ~StoreManager(){};
 
   virtual const std::vector<DataBlock_sPtr>& load() = 0;
-  virtual void store(DataBlock_sPtr& db) = 0;
+  virtual void store(const DataBlock_sPtr& db) = 0;
+  virtual void remove(const DataBlock::Header& dbh) = 0;
 };
 
 } // namespace crodt

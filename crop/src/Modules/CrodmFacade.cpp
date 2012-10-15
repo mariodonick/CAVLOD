@@ -35,8 +35,6 @@ const float& CrodmFacade::getPriority(const RelevanceData& relevance, const DBDa
     case TYPE_TEXT:
     {
       priority = relevance.relevanceValue;
-      std::cout << "priority: " << priority << "\n";
-      std::cout << "relevance crodm: " << relevance << "\n";
       break;
     }
   }

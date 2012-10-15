@@ -10,6 +10,21 @@
 #include <iostream>
 #include <sstream>
 
+// return true if the folder exists otherwise false
+inline const bool existFolder(const std::string& path)
+{
+  try
+  {
+    boost::filesystem::file_status s = boost::filesystem::status(path);
+    return boost::filesystem::is_directory(s);
+  }
+  catch (boost::filesystem::filesystem_error &e)
+  {
+    std::cerr << e.what() << std::endl;
+    return false;
+  }
+}
+
 // return true if creation was successful otherwise false
 inline const bool createFolder(const std::string& path)
 {
@@ -29,8 +44,7 @@ inline const bool createFolder(const std::string& path)
   {
     currentPath += "/" + *it;
     std::cout << "currentPath: " << currentPath << std::endl;
-    boost::filesystem::file_status s = boost::filesystem::status(currentPath);
-    if(!boost::filesystem::is_directory(s))
+    if(!existFolder(currentPath))
     {
       boost::filesystem::create_directory(currentPath);
     }
@@ -86,21 +100,6 @@ inline void removeFolder(const std::string& path)
   catch (boost::filesystem::filesystem_error &e)
   {
     std::cerr << e.what() << std::endl;
-  }
-}
-
-// return true if the folder exists otherwise false
-inline const bool existFolder(const std::string& path)
-{
-  try
-  {
-    boost::filesystem::file_status s = boost::filesystem::status(path);
-    return boost::filesystem::is_directory(s);
-  }
-  catch (boost::filesystem::filesystem_error &e)
-  {
-    std::cerr << e.what() << std::endl;
-    return false;
   }
 }
 

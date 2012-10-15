@@ -35,20 +35,14 @@ const std::vector<DataBlock_sPtr>& LocalStoreManager::load()
   DIR *sequenzNumber_dir;
 
   doidPath_dir = opendir((const char*) &doidFolder);
-  std::cout << "oberster ordner geladen" << std::endl;
-  std::cout << "openDIR: " << doidPath_dir << std::endl;
   if(doidPath_dir == NULL)
   {
-    perror("opentdir() error");
+    perror("opendir() error");
     return dbVec;
   }
 
-  //todo das mit dem entry = dirbasepath ist sehr unschön.. desewegen auch die compilermeldung
-  // lös das bitte anders... bin gerade nicht sicher was er da genau macht
-  std::cout << "readdir: " << readdir(doidPath_dir) << std::endl;
   while(entry = readdir(doidPath_dir))
   {
-    std::cout << "und auf diese unterordner zugegriffen" << std::endl;
     sequenzNumber_dir = opendir(entry->d_name);
     while(entry = readdir(sequenzNumber_dir))
     {

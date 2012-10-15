@@ -13,6 +13,9 @@
 #include <vector>
 #include <iostream>
 
+namespace crodt
+{
+
 template<class T>
 class UniversalDecoder : public Decoder<T>
 {
@@ -83,5 +86,7 @@ void UniversalDecoder<T>::decode(const DBDataObjectID&doid,
       sortedContent.push_back(innerMap_it->second);
   }
 }
+
+} // namespace crodt
 
 #endif /* UNIVERSALDECODER_H_ */

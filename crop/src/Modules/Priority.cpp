@@ -5,11 +5,14 @@
 #include "Priority.h"
 #include "Crodm.h"
 #include "LocalStoreManager.h"
-#include "../Tools/PrioritizedQueue.h"
+#include "SmartPrioritizedQueue.h"
 #include "../Tools/Fifo.h"
 #include "../DataManagement/DataBlock.h"
 
 #include <vector>
+
+
+using namespace crodt;
 
 Priority::Priority(
     DBQueue_uPtr& theDBFifo,

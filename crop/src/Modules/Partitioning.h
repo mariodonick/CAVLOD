@@ -10,6 +10,9 @@
 
 #include <string>
 
+namespace crodt
+{
+
 class Partitioning
 {
 public:
@@ -18,5 +21,7 @@ public:
   virtual void partText(const DBDataObjectID& doid, const std::string& content, const bool& usingTimestamp) = 0;
   virtual void partSensor(const DBDataObjectID& doid, const float& value, const bool& usingTimestamp) = 0;
 };
+
+} // namespace crodt
 
 #endif /* PARTITIONING_H_ */

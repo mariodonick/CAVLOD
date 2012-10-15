@@ -6,6 +6,9 @@
 #ifndef PRIORITIZATION_H_
 #define PRIORITIZATION_H_
 
+namespace crodt
+{
+
 class Prioritization
 {
 public:
@@ -13,5 +16,7 @@ public:
 
   virtual void evaluate() = 0;
 };
+
+} // namespace crodt
 
 #endif /* PRIORITIZATION_H_ */

@@ -7,6 +7,8 @@
 
 #include <iostream>
 
+using namespace crodt;
+
 SensorInput::SensorInput(const bool& running, const ReadyCallback& function)
 : ContentThreadModule(running, function)
 , nextValue(0.f)

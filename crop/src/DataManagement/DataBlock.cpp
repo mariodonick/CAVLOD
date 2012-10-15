@@ -8,6 +8,8 @@
 #include "../TypesConfig/Constants.h"
 #include "DataTypes.h"
 
+using namespace crodt;
+
 DataBlock::DataBlock()
 : priority(0.f)
 , content(nullptr)

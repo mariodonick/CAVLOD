@@ -11,6 +11,9 @@
 #include <vector>
 #include "../DataManagement/DataBlock.h"
 
+namespace crodt
+{
+
 class StoreManager
 {
 public:
@@ -19,5 +22,7 @@ public:
   virtual const std::vector<DataBlock_sPtr>& load() = 0;
   virtual void store(DataBlock_sPtr& db) = 0;
 };
+
+} // namespace crodt
 
 #endif /* STOREMANAGER_H_ */

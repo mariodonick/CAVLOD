@@ -8,6 +8,9 @@
 
 #include "../TypesConfig/Pointer.h"
 
+namespace crodt
+{
+
 class NetworkIO
 {
 public:
@@ -16,5 +19,7 @@ public:
   virtual const ByteArray_sPtr receiveData() = 0;
   virtual void sendData(const ByteArray& data, const char* s_addr, const unsigned int& s_port) = 0;
 };
+
+} // namespace crodt
 
 #endif /* NETWORKIO_H_ */

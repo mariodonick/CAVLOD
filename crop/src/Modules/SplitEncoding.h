@@ -14,6 +14,9 @@
 #include <vector>
 #include <list>
 
+namespace crodt
+{
+
 class SplitEncoding : public Partitioning
 {
 public:
@@ -48,5 +51,7 @@ private:
   const Crodm_uPtr& crodm;
   DBQueue_uPtr& dbFifo;
 };
+
+} // namespace crodt
 
 #endif /* SPLITENCODING_H_ */

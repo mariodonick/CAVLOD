@@ -5,6 +5,8 @@
 #include "SmartPrioritizedQueue.h"
 #include "../TypesConfig/Constants.h"
 
+using namespace crodt;
+
 SmartPrioritizedQueue::SmartPrioritizedQueue()
 {
 

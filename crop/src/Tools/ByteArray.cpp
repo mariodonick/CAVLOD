@@ -77,28 +77,28 @@ void ByteArray::append(const char* data, const size_t& length)
   append(tmp, length);
 }
 
-void ByteArray::insert(Text& text)
+void ByteArray::insert(crodt::Text& text)
 {
   vector.clear();
   append(text);
 }
 
-void ByteArray::insert(Sensor& sensor)
+void ByteArray::insert(crodt::Sensor& sensor)
 {
   vector.clear();
   append(sensor);
 }
 
-void ByteArray::append(Text& text)
+void ByteArray::append(crodt::Text& text)
 {
   append(text.column);
   append(text.line);
   append(text.text.c_str(), text.text.size());
 }
 
-void ByteArray::append(Sensor& sensor)
+void ByteArray::append(crodt::Sensor& sensor)
 {
-  append(sensor.value, C_VALUE_BYTES);
+  append(sensor.value, crodt::C_VALUE_BYTES);
 }
 
 void ByteArray::setBitInChar( char& tmp, const bool& value, const unsigned int& pos)

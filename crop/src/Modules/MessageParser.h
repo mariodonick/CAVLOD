@@ -15,6 +15,10 @@
 #include <string>
 
 class ByteArray;
+
+namespace crodt
+{
+
 class Config;
 
 class MessageParser
@@ -54,5 +58,7 @@ void MessageParser::registerCallback(const std::function<void(const CrodtOutput<
     case TYPE_TEXT: textProcessing.registerCallback(cb); break;
   }
 }
+
+} // namespace crodt
 
 #endif /* MESSAGEPARSER_H_ */

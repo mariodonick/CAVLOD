@@ -10,6 +10,9 @@
 #include "../TypesConfig/ProtocolTypes.h"
 #include "../Tools/Bin.h"
 
+namespace crodt
+{
+
 typedef std::function<void(const DBDataObjectID&, const bool&)> ReadyCallback;
 
 template<class T>
@@ -44,5 +47,6 @@ protected:
   DBDataObjectID id;
 };
 
+} // namespace crodt
 
 #endif /* CONTENTINPUT_H_ */

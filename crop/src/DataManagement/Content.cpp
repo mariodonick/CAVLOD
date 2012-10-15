@@ -7,6 +7,8 @@
 
 #include <iostream>
 
+using namespace crodt;
+
 Content::Content()
 {
 

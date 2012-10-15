@@ -9,6 +9,9 @@
 #include <iostream>
 #include <vector>
 
+namespace crodt
+{
+
 typedef unsigned long long int uint64;
 typedef unsigned short uint16;
 
@@ -55,5 +58,7 @@ struct CrodtOutput
 {
   std::vector<COItem<T> > sortedContent;
 };
+
+} // namespace crodt
 
 #endif /* CRODTIO_H_ */

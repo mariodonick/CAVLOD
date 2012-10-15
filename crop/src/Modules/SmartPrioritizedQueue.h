@@ -6,12 +6,14 @@
 #ifndef SMARTPRIORITIZEDQUEUE_H_
 #define SMARTPRIORITIZEDQUEUE_H_
 
-#include "Queue.h"
-
 #include <list>
 #include <mutex>
 
+#include "../Tools/Queue.h"
 #include "../DataManagement/DataBlock.h"
+
+namespace crodt
+{
 
 class SmartPrioritizedQueue : public Queue<DataBlock_sPtr>
 {
@@ -32,5 +34,7 @@ private:
 
   std::mutex mutex;
 };
+
+} // namespace crodt
 
 #endif /* SMARTPRIORITIZEDQUEUE_H_ */

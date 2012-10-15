@@ -16,6 +16,9 @@
 
 class ByteArray;
 
+namespace crodt
+{
+
 class DataBlock
 {
 public:
@@ -89,5 +92,6 @@ public:
   }
 };
 
+} // namespace crodt
 
 #endif /* DATABLOCK_H_ */

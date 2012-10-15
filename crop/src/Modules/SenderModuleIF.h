@@ -1,19 +1,22 @@
 /*
- * @brief CrodtModuleIF.h
+ * @brief SenderModuleIF.h
  *
  */
 
-#ifndef CRODTMODULEIF_H_
-#define CRODTMODULEIF_H_
+#ifndef SENDERMODULEIF_H_
+#define SENDERMODULEIF_H_
 
 #include <string>
 
+namespace crodt
+{
+
 struct CrodtInput;
 
-class CrodtModuleIF
+class SenderModuleIF
 {
 public:
-  virtual ~CrodtModuleIF(){}
+  virtual ~SenderModuleIF(){}
 
   /*
    * initialize the cordt module, call this first
@@ -41,4 +44,6 @@ public:
   virtual void sendText(const CrodtInput& ci) = 0;
 };
 
-#endif /* CRODTMODULEIF_H_ */
+} // namespace crodt
+
+#endif /* SENDERMODULEIF_H_ */

@@ -1,28 +1,30 @@
 /*
- * @brief CrodtModule.h
+ * @brief SenderModule.h
  *
  */
 
-#ifndef CLIENTMODULE_H_
-#define CLIENTMODULE_H_
+#ifndef SENDERMODULE_H_
+#define SENDERMODULE_H_
 
 #include "../Tools/Bin.h"
 #include "../TypesConfig/Pointer.h"
 #include "../TypesConfig/ProtocolTypes.h"
-#include "CrodtModuleIF.h"
-
+#include "SenderModuleIF.h"
 
 #include <mutex>
 #include <thread>
 
+namespace crodt
+{
+
 class Config;
 struct CrodtInput;
 
-class CrodtModule : public CrodtModuleIF
+class SenderModule : public SenderModuleIF
 {
 public:
-  CrodtModule();
-  virtual ~CrodtModule();
+  SenderModule();
+  virtual ~SenderModule();
 
 private:
   void initialize();
@@ -47,7 +49,6 @@ private:
   Prioritization_uPtr prioritization;
   Packetizer_uPtr packetizer;
 
-
   std::mutex eventMutex;
   std::thread packerThread;
 
@@ -55,4 +56,6 @@ private:
   DBDataObjectID textId;
 };
 
-#endif /* CLIENTMODULE_H_ */
+} // namespace crodt
+
+#endif /* SENDERMODULE_H_ */

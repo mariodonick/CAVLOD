@@ -9,6 +9,9 @@
 #include "Prioritization.h"
 #include "../TypesConfig/Pointer.h"
 
+namespace crodt
+{
+
 class Priority : public Prioritization
 {
 public:
@@ -24,5 +27,7 @@ private:
   const Crodm_uPtr& crodm;
   StoreManager_uPtr& dbStorage;
 };
+
+} // namespace crodt
 
 #endif /* PRIORITY_H_ */

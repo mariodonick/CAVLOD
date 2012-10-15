@@ -11,6 +11,9 @@
 #include "../Tools/Bin.h"
 #include "../TypesConfig/ProtocolTypes.h"
 
+namespace crodt
+{
+
 class Config
 {
 public:
@@ -39,5 +42,7 @@ public:
 private:
   static Config* pInstance;
 };
+
+} // namespace crodt
 
 #endif /* CONFIG_H_ */

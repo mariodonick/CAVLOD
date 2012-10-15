@@ -10,6 +10,8 @@
 #include "../Tools/FileSystem.h"
 #include "../Tools/IPTools.h"
 
+using namespace crodt;
+
 Config* Config::pInstance = nullptr;
 
 Config::Config()

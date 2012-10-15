@@ -14,6 +14,8 @@
 #include "StoreManager.h"
 #include "../DataManagement/DataBlock.h"
 
+namespace crodt
+{
 
 class LocalStoreManager : public StoreManager
 {
@@ -27,5 +29,7 @@ private:
 
   std::vector<DataBlock_sPtr> dbVec;
 };
+
+} // namespace crodt
 
 #endif /* LOCALSTOREMANAGER_H_ */

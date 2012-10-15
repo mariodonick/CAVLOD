@@ -1,27 +1,28 @@
 /*
- * @brief CrodtModule.cpp implementation of member functions
+ * @brief SenderModule.cpp implementation of member functions
  */
 
-#include "CrodtModule.h"
+#include "SenderModule.h"
 #include "SplitEncoding.h"
 #include "Priority.h"
 #include "CrodmFacade.h"
 #include "UDPSocket.h"
 #include "MessagePacketizer.h"
 #include "LocalStoreManager.h"
+#include "SmartPrioritizedQueue.h"
 
 #include "../TypesConfig/Config.h"
 #include "../TypesConfig/ProtocolTypes.h"
 #include "../Tools/Fifo.h"
-#include "../Tools/SmartPrioritizedQueue.h"
 #include "../Tools/ByteArray.h"
 #include "../Tools/StopWatch.h"
 #include "../Tools/Log.h"
-#include "../Tools/PrioritizedQueue.h"
 #include "../TypesConfig/Config.h"
 #include "../DataManagement/CrodtIO.h"
 
-CrodtModule::CrodtModule()
+using namespace crodt;
+
+SenderModule::SenderModule()
 : running(false)
 , config( *Config::instance() )
 , dbFifo( new Fifo<DataBlock_sPtr> )
@@ -36,12 +37,12 @@ CrodtModule::CrodtModule()
 , textId(0)
 {
   running = true;
-  packerThread = std::thread( &CrodtModule::packetizerThread, this );
+  packerThread = std::thread( &SenderModule::packetizerThread, this );
 
   INFO() << "client is up and running!\n";
 }
 
-CrodtModule::~CrodtModule()
+SenderModule::~SenderModule()
 {
   running = false;
 
@@ -51,16 +52,15 @@ CrodtModule::~CrodtModule()
   Config::release();
 }
 
-void CrodtModule::initialize()
+void SenderModule::initialize()
 {
-  std::cout << "drodtMpdule versucht zu loaden" << std::endl;
   const std::vector<DataBlock_sPtr>& dbVec = dbStorage->load();
 
   for(std::vector<DataBlock_sPtr>::const_iterator it = dbVec.begin(); it != dbVec.end(); ++it)
     prioQueue->push(*it);
 }
 
-void CrodtModule::packetizerThread()
+void SenderModule::packetizerThread()
 {
   while( running )
   {
@@ -77,7 +77,7 @@ void CrodtModule::packetizerThread()
   }
 }
 
-void CrodtModule::sendText(const std::string& text, const bool& usingTimestamp)
+void SenderModule::sendText(const std::string& text, const bool& usingTimestamp)
 {
   std::unique_lock<std::mutex> lock(eventMutex);
 
@@ -90,7 +90,7 @@ void CrodtModule::sendText(const std::string& text, const bool& usingTimestamp)
   DBG() << "text STOP time: " << sw << ENDL;
 }
 
-void CrodtModule::sendText(const CrodtInput& ci)
+void SenderModule::sendText(const CrodtInput& ci)
 {
   std::unique_lock<std::mutex> lock(eventMutex);
 
@@ -103,7 +103,7 @@ void CrodtModule::sendText(const CrodtInput& ci)
   DBG() << "text STOP time: " << sw << ENDL;
 }
 
-void CrodtModule::sendSensor(const float& value, const bool& usingTimestamp)
+void SenderModule::sendSensor(const float& value, const bool& usingTimestamp)
 {
   std::unique_lock<std::mutex> lock(eventMutex);
 
@@ -115,5 +115,4 @@ void CrodtModule::sendSensor(const float& value, const bool& usingTimestamp)
   sensorId += 1;
   DBG() << "sensor STOP time: " << sw << ENDL;
 }
-
 

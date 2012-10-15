@@ -38,7 +38,7 @@ const std::vector<DataBlock_sPtr>& LocalStoreManager::load()
     sequenzNumber_dir = opendir(entry->d_name);
     while(entry = readdir(sequenzNumber_dir))
     {
-      DataBlock_sPtr db;
+      DataBlock_sPtr db(new DataBlock);
       DataBlock::Header dbh;
       std::string filename = entry->d_name;
       std::ifstream bin(filename.c_str(),std::ios::binary);

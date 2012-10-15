@@ -40,12 +40,9 @@ const std::vector<DataBlock_sPtr>& LocalStoreManager::load()
     return dbVec;
   }
 
-  std::cout << "cooler pfad: " << backup_path << std::endl;
-
   boost::filesystem::directory_iterator end_itr;
   for( boost::filesystem::directory_iterator dir_itr( backup_path ); dir_itr != end_itr; ++dir_itr )
   {
-    std::cout << "alten geh da rein!" << std::endl;
     std::cout << dir_itr->path().filename() << std::endl;
     try
     {
@@ -61,9 +58,6 @@ const std::vector<DataBlock_sPtr>& LocalStoreManager::load()
         {
           try
           {
-            std::cout << "mal schauen ob er die files auch sieht" << std::endl;
-            std::cout << "und auch als solche erkennt ;)" << std::endl;
-
             DataBlock_sPtr db(new DataBlock);
             DataBlock::Header dbh;
             std::ifstream bin(temp,std::ios::binary);
@@ -80,39 +74,29 @@ const std::vector<DataBlock_sPtr>& LocalStoreManager::load()
 
             std::cout << "filesize: " << file_size << std::endl;
             char dataBlockEntries[file_size];
-            std::cout << "gerate ins blaue dass es hier noch geht ... " << std::endl;
             bin.read(reinterpret_cast <char*> (&dataBlockEntries), file_size); // auslesen der daten in ausgabe array
-            std::cout << "... und hier net mehr!" << std::endl;
+            char* test = (reinterpret_cast <char*> (&dataBlockEntries));
+            std::cout << "dataBlockEntries: " << std::hex << test << std::endl;
 
             dbh.dataType = char2uint( &dataBlockEntries[0], 4 );
-            std::cout << "und hier?" << std::endl;
             dbh.config = char2uint( &dataBlockEntries[4], 4 );
-            std::cout << "kanns denn hier sein?!" << std::endl;
             dbh.dataObjectID = char2uint( &dataBlockEntries[8], 4 );
-            std::cout << "doch net etwa hier oder?" << std::endl;
             dbh.sequenceNumber = char2uint( &dataBlockEntries[12], 4 );
-            std::cout << "nee nich an meiner lieblingsstell :(" << std::endl;
             dbh.length = char2uint( &dataBlockEntries[16], 4 );
-            std::cout << "wenn nich hier wo denn dann bitte" << std::endl;
 
             db->setHeader(dbh);
 
             Bin<32> time1 = char2uint( &dataBlockEntries[20], 4 );
-            std::cout << "echt doch so weit unten?!" << std::endl;
             Bin<32> time2 = char2uint( &dataBlockEntries[24], 4 );
-            std::cout << "hmmmm" << std::endl;
             db->setTimetamp(merge(time1, time2));
 
             db->setPriority( char2uint( &dataBlockEntries[28], 4) );
-            std::cout << "ich ahne schon wieder wo das hinführt" << std::endl;
 
             ByteArray_sPtr ba(new ByteArray);
             ba->insert(&dataBlockEntries[32], file_size-32);
-            std::cout << "moeglich aber denke der pushed wieder net" << std::endl;
             db->addContent( ba );
 
             dbVec.push_back(db);
-            std::cout << "wenn sie das lesen hab ich mich geirrt" << std::endl;
             bin.close();
           }
           catch( const std::exception & ex )
@@ -155,7 +139,7 @@ void LocalStoreManager::store(DataBlock_sPtr& db)
   std::string path = config->backupPath + ssDataType.str() + "_" + ssDOID.str() + "/";
   createFolder(path);
 
-  std::string filePath = path + ssSequenzNumber.str() + ".bin";
+  std::string filePath = path + ssSequenzNumber.str() + ".text";
   std::ofstream outbin(filePath,std::ios::binary);
   outbin.write( reinterpret_cast <const char*> (&dataType_uint), sizeof(uint) );
   outbin.write( reinterpret_cast <const char*> (&config_uint), sizeof(uint) );

@@ -41,6 +41,6 @@ int main()
   std::function<void(const crodt::CrodtOutput<std::string>&)> func = callbackFuntion;
   server->registerCallback(func, crodt::TYPE_TEXT);
 
-  sleep(30);
+  sleep(300);
   return 0;
 }

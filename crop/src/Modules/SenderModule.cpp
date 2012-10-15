@@ -56,8 +56,12 @@ void SenderModule::initialize()
 {
   const std::vector<DataBlock_sPtr>& dbVec = dbStorage->load();
 
+  DBG() << dbVec.size() << ENDL;
   for(std::vector<DataBlock_sPtr>::const_iterator it = dbVec.begin(); it != dbVec.end(); ++it)
+  {
+    DBG() << (*it)->getLength() << ENDL;
     prioQueue->push(*it);
+  }
 }
 
 void SenderModule::packetizerThread()

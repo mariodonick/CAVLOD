@@ -15,8 +15,6 @@
 #include <iomanip>
 #include <cstring>
 
-class DataBlockHeader;
-
 class ByteArray
 {
 public:

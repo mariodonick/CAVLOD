@@ -17,6 +17,8 @@
 namespace crodt
 {
 
+class Config;
+
 class LocalStoreManager : public StoreManager
 {
 public:
@@ -25,9 +27,12 @@ public:
 
 private:
   const std::vector<DataBlock_sPtr>& load();
-  void store(DataBlock_sPtr& db);
+  void store(const DataBlock_sPtr& db);
+  void remove(const DataBlock::Header& dbh);
 
+private:
   std::vector<DataBlock_sPtr> dbVec;
+  Config& config;
 };
 
 } // namespace crodt

@@ -25,6 +25,11 @@ void DataBlock::setHeader(const DataBlock::Header& dbh)
   header = dbh;
 }
 
+const DataBlock::Header& DataBlock::getHeader() const
+{
+  return header;
+}
+
 const DBDataObjectID& DataBlock::getDataObjectID() const
 {
   return header.dataObjectID;

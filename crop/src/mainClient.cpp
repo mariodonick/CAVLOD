@@ -7,7 +7,11 @@
 
 int main()
 {
+  crodt::SenderModuleIF* crodt = new crodt::SenderModule;
+  crodt->initialize();
 
+  while(true)
+  {
   std::string text = "Es folgt ein Beispieltext:\n";
   text.append("Hallo ich bin ein Beispieltext und komme vom Mars.\n");
   text.append("Dabei wurde ich zuerst zerstückelt, dann priorisiert, einzeln versendet und auf der Erde wieder zusammengesetzt.\n");
@@ -51,12 +55,10 @@ int main()
   ci.relevanceVector.push_back(rd3);
   ci.relevanceVector.push_back(rd4);
 
-  crodt::SenderModuleIF* crodt = new crodt::SenderModule;
-  crodt->initialize();
   crodt->sendText(ci);
 
-  sleep(5); // give the packetizer some time to send all items
-
+  sleep(5);
+  }
   delete crodt;
   return 0;
 }

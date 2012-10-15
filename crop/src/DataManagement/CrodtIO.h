@@ -6,15 +6,17 @@
 #ifndef CRODTIO_H_
 #define CRODTIO_H_
 
-#include <cstdint>
 #include <iostream>
 #include <vector>
 
+typedef unsigned long long int uint64;
+typedef unsigned short uint16;
+
 struct Position
 {
-  uint16_t x;
-  uint16_t y;
-  uint16_t len_x;
+  uint16 x;
+  uint16 y;
+  uint16 len_x;
 };
 
 struct RelevanceData
@@ -45,7 +47,7 @@ struct COItem
   Position pos;
   T content;
   bool usingTimestamp;
-  uint64_t timestamp;
+  uint64 timestamp;
 };
 
 template<class T>

@@ -35,10 +35,20 @@ const std::vector<DataBlock_sPtr>& LocalStoreManager::load()
   DIR *sequenzNumber_dir;
 
   doidPath_dir = opendir((const char*) &doidFolder);
+  std::cout << "oberster ordner geladen" << std::endl;
+  std::cout << "openDIR: " << doidPath_dir << std::endl;
+  if(doidPath_dir == NULL)
+  {
+    perror("opentdir() error");
+    return dbVec;
+  }
+
   //todo das mit dem entry = dirbasepath ist sehr unschön.. desewegen auch die compilermeldung
   // lös das bitte anders... bin gerade nicht sicher was er da genau macht
+  std::cout << "readdir: " << readdir(doidPath_dir) << std::endl;
   while(entry = readdir(doidPath_dir))
   {
+    std::cout << "und auf diese unterordner zugegriffen" << std::endl;
     sequenzNumber_dir = opendir(entry->d_name);
     while(entry = readdir(sequenzNumber_dir))
     {
@@ -66,8 +76,10 @@ const std::vector<DataBlock_sPtr>& LocalStoreManager::load()
       Bin<32> time2 = char2uint( &dataBlockEntries[24], 4 );
       db->setTimetamp(merge(time1, time2));
 
+      db->setPriority( char2uint( &dataBlockEntries[28], 4) );
+
       ByteArray_sPtr ba(new ByteArray);
-      ba->insert(&dataBlockEntries[28], file_size-28);
+      ba->insert(&dataBlockEntries[32], file_size-32);
       db->addContent( ba );
 
       dbVec.push_back(db);
@@ -90,6 +102,7 @@ void LocalStoreManager::store(DataBlock_sPtr& db)
   uint sequenzNumber_uint = db->getSequenceNumber().to_uint();
   uint length_uint = db->getLength().to_uint();
   uint64_t timeStamp_uint = db->getTimestamp().to_ulong();
+  uint priority_uint = db->getPriority();
 
   std::stringstream ssDataType;
   ssDataType << dataType_uint;
@@ -100,16 +113,19 @@ void LocalStoreManager::store(DataBlock_sPtr& db)
   std::stringstream ssSequenzNumber;
   ssSequenzNumber << sequenzNumber_uint;
 
-  std::string path = config->backupPath + ssDataType.str() + "_" + ssDOID.str() + "/" + ssSequenzNumber.str() + ".bin";
+  std::string path = config->backupPath + ssDataType.str() + "_" + ssDOID.str() + "/";
   createFolder(path);
 
-  std::ofstream outbin(path,std::ios::binary);
+  std::string filePath = path + ssSequenzNumber.str() + ".bin";
+  std::ofstream outbin(filePath,std::ios::binary);
   outbin.write( reinterpret_cast <const char*> (&dataType_uint), sizeof(uint) );
   outbin.write( reinterpret_cast <const char*> (&config_uint), sizeof(uint) );
   outbin.write( reinterpret_cast <const char*> (&dataObjectID_uint), sizeof(uint) );
   outbin.write( reinterpret_cast <const char*> (&sequenzNumber_uint), sizeof(uint) );
   outbin.write( reinterpret_cast <const char*> (&length_uint), sizeof(uint) );
   outbin.write( reinterpret_cast <const char*> (&timeStamp_uint), sizeof(uint64_t) );
+  outbin.write( reinterpret_cast <const char*> (&priority_uint), sizeof(uint) );
   outbin.write( dbContent->dataPtr(), dbContent->size() );
+
   outbin.close();
 }

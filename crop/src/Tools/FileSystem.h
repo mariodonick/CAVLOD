@@ -48,6 +48,7 @@ inline const bool createFolder(const std::string& path)
     {
       boost::filesystem::create_directory(currentPath);
     }
+    std::cout << "currentPath: " << currentPath << "bin am ende" << std::endl;
   }
 
 

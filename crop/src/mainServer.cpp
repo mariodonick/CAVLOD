@@ -2,7 +2,7 @@
  * @brief mainServer.cpp implementation of member functions
  */
 
-#include "Modules/SenderModule.h"
+#include "Modules/ReceiverModule.h"
 #include "Tools/Log.h"
 
 #include <sys/signal.h>

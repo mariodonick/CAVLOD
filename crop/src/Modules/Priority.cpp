@@ -42,9 +42,9 @@ void Priority::evaluate()
                                             data->getDataType() );
     data->setPriority( prio );
     prioQueue->push( data );
-    std::cout << "bekomm ich hier nen SV?" << std::endl;
+//    std::cout << "bekomm ich hier nen SV?" << std::endl;
     dbStorage->store( data );
-    std::cout << "... oder wo" << std::endl;
+//    std::cout << "... oder wo" << std::endl;
 //    dbStorage->remove( data->getDataObjectID(), data->getSequenceNumber() );
     ++i;
   }

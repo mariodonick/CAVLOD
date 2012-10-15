@@ -40,12 +40,12 @@ const std::vector<DataBlock_sPtr>& LocalStoreManager::load()
     return dbVec;
   }
 
-  std::cout << "cooler pfad: " << backup_path << std::endl;
+//  std::cout << "cooler pfad: " << backup_path << std::endl;
 
   boost::filesystem::directory_iterator end_itr;
   for( boost::filesystem::directory_iterator dir_itr( backup_path ); dir_itr != end_itr; ++dir_itr )
   {
-    std::cout << "alten geh da rein!" << std::endl;
+//    std::cout << "alten geh da rein!" << std::endl;
     std::cout << dir_itr->path().filename() << std::endl;
     try
     {
@@ -55,14 +55,14 @@ const std::vector<DataBlock_sPtr>& LocalStoreManager::load()
         boost::filesystem::path file_path( temp );
         boost::filesystem::directory_iterator subDir_itr_end;
 
-        std::cout << "subDirectory: " << file_path << "\n";
+//        std::cout << "subDirectory: " << file_path << "\n";
 
         for( boost::filesystem::directory_iterator subDir_itr_begin( file_path ); subDir_itr_begin != subDir_itr_end; ++subDir_itr_begin)
         {
           try
           {
-            std::cout << "mal schauen ob er die files auch sieht" << std::endl;
-            std::cout << "und auch als solche erkennt ;)" << std::endl;
+//            std::cout << "mal schauen ob er die files auch sieht" << std::endl;
+//            std::cout << "und auch als solche erkennt ;)" << std::endl;
 
             DataBlock_sPtr db(new DataBlock);
             DataBlock::Header dbh;
@@ -78,41 +78,41 @@ const std::vector<DataBlock_sPtr>& LocalStoreManager::load()
             int file_size = bin.tellg(); // position auslesen => groesse der datei
             bin.seekg(0,std::ios::beg); // wieder an anfang der datei springen
 
-            std::cout << "filesize: " << file_size << std::endl;
+//            std::cout << "filesize: " << file_size << std::endl;
             char dataBlockEntries[file_size];
-            std::cout << "gerate ins blaue dass es hier noch geht ... " << std::endl;
+//            std::cout << "gerate ins blaue dass es hier noch geht ... " << std::endl;
             bin.read(reinterpret_cast <char*> (&dataBlockEntries), file_size); // auslesen der daten in ausgabe array
-            std::cout << "... und hier net mehr!" << std::endl;
+//            std::cout << "... und hier net mehr!" << std::endl;
 
             dbh.dataType = char2uint( &dataBlockEntries[0], 4 );
-            std::cout << "und hier?" << std::endl;
+//            std::cout << "und hier?" << std::endl;
             dbh.config = char2uint( &dataBlockEntries[4], 4 );
-            std::cout << "kanns denn hier sein?!" << std::endl;
+//            std::cout << "kanns denn hier sein?!" << std::endl;
             dbh.dataObjectID = char2uint( &dataBlockEntries[8], 4 );
-            std::cout << "doch net etwa hier oder?" << std::endl;
+//            std::cout << "doch net etwa hier oder?" << std::endl;
             dbh.sequenceNumber = char2uint( &dataBlockEntries[12], 4 );
-            std::cout << "nee nich an meiner lieblingsstell :(" << std::endl;
+//            std::cout << "nee nich an meiner lieblingsstell :(" << std::endl;
             dbh.length = char2uint( &dataBlockEntries[16], 4 );
-            std::cout << "wenn nich hier wo denn dann bitte" << std::endl;
+//            std::cout << "wenn nich hier wo denn dann bitte" << std::endl;
 
             db->setHeader(dbh);
 
             Bin<32> time1 = char2uint( &dataBlockEntries[20], 4 );
-            std::cout << "echt doch so weit unten?!" << std::endl;
+//            std::cout << "echt doch so weit unten?!" << std::endl;
             Bin<32> time2 = char2uint( &dataBlockEntries[24], 4 );
-            std::cout << "hmmmm" << std::endl;
+//            std::cout << "hmmmm" << std::endl;
             db->setTimetamp(merge(time1, time2));
 
             db->setPriority( char2uint( &dataBlockEntries[28], 4) );
-            std::cout << "ich ahne schon wieder wo das hinführt" << std::endl;
+//            std::cout << "ich ahne schon wieder wo das hinführt" << std::endl;
 
             ByteArray_sPtr ba(new ByteArray);
             ba->insert(&dataBlockEntries[32], file_size-32);
-            std::cout << "moeglich aber denke der pushed wieder net" << std::endl;
+//            std::cout << "moeglich aber denke der pushed wieder net" << std::endl;
             db->addContent( ba );
 
             dbVec.push_back(db);
-            std::cout << "wenn sie das lesen hab ich mich geirrt" << std::endl;
+//            std::cout << "wenn sie das lesen hab ich mich geirrt" << std::endl;
             bin.close();
           }
           catch( const std::exception & ex )

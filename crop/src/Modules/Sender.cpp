@@ -54,14 +54,15 @@ Sender::~Sender()
 
 void Sender::initialize()
 {
-  const std::vector<DataBlock_sPtr>& dbVec = dbStorage->load();
-
-  DBG() << dbVec.size() << ENDL;
-  for(std::vector<DataBlock_sPtr>::const_iterator it = dbVec.begin(); it != dbVec.end(); ++it)
-  {
-    DBG() << (*it)->getLength() << ENDL;
-    prioQueue->push(*it);
-  }
+  // todo nervt mit der zeit ;) solang wir nicht löschen können
+//  const std::vector<DataBlock_sPtr>& dbVec = dbStorage->load();
+//
+////  DBG() << dbVec.size() << ENDL;
+//  for(std::vector<DataBlock_sPtr>::const_iterator it = dbVec.begin(); it != dbVec.end(); ++it)
+//  {
+////    DBG() << (*it)->getLength() << ENDL;
+//    prioQueue->push(*it);
+//  }
 }
 
 void Sender::packetizerThread()

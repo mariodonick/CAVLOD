@@ -43,12 +43,12 @@ inline const bool createFolder(const std::string& path)
   for(it=field.begin()+1; it < field.end(); it++)
   {
     currentPath += "/" + *it;
-    std::cout << "currentPath: " << currentPath << std::endl;
+//    std::cout << "currentPath: " << currentPath << std::endl;
     if(!existFolder(currentPath))
     {
       boost::filesystem::create_directory(currentPath);
     }
-    std::cout << "currentPath: " << currentPath << "bin am ende" << std::endl;
+//    std::cout << "currentPath: " << currentPath << "bin am ende" << std::endl;
   }
 
 

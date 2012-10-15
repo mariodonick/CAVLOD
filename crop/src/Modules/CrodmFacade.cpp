@@ -34,7 +34,9 @@ const float& CrodmFacade::getPriority(const RelevanceData& relevance, const DBDa
     case TYPE_SENSOR: break;
     case TYPE_TEXT:
     {
-      priority = priorities[index++];
+      priority = relevance.relevanceValue;
+      std::cout << "priority: " << priority << "\n";
+      std::cout << "relevance crodm: " << relevance << "\n";
       break;
     }
   }
@@ -58,9 +60,7 @@ void CrodmFacade::evaluateText(const CrodtInput& ci, const DBDataObjectID& doid)
 
   priorities.clear();
   for(std::vector<RelevanceData>::iterator it = relevanceData.begin(); it != relevanceData.end(); ++it)
-  {
     priorities.push_back( it->relevanceValue );
-  }
 }
 
 void CrodmFacade::evaluateSensor(const float& , const DBDataObjectID&)

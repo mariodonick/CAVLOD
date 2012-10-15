@@ -26,7 +26,7 @@ MessagePacketizer::MessagePacketizer(DBQueue_uPtr& thePrioQueue, StoreManager_uP
 MessagePacketizer::~MessagePacketizer()
 {
 }
-unsigned int ii = 0;
+
 // if the prioritized queue is empty this function return an empty bytearray
 // otherwise this return the current message
 const ByteArray& MessagePacketizer::packetizeMessage()

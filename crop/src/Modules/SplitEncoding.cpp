@@ -15,6 +15,7 @@
 #include <sstream>
 #include <list>
 #include <cassert>
+#include <algorithm>
 
 using namespace crodt;
 

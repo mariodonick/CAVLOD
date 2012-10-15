@@ -27,7 +27,7 @@ public:
 
 private:
   const ByteArray_sPtr receiveData();
-  void sendData(const ByteArray& data, const char* s_addr, const unsigned int& s_port);
+  const bool sendData(const ByteArray& data, const char* s_addr, const unsigned int& s_port);
   void startServer(const unsigned int& s_port);
 
 private:

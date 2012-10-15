@@ -17,7 +17,7 @@ public:
   virtual ~NetworkIO(){}
 
   virtual const ByteArray_sPtr receiveData() = 0;
-  virtual void sendData(const ByteArray& data, const char* s_addr, const unsigned int& s_port) = 0;
+  virtual const bool sendData(const ByteArray& data, const char* s_addr, const unsigned int& s_port) = 0;
 };
 
 } // namespace crodt

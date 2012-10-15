@@ -19,6 +19,7 @@ private:
   const float& getPriority(const RelevanceData& relevance, const DBDataObjectID& doid, const DBDatatype& dt);
   const std::vector<RelevanceData>& getRelevanceData(const DBDataObjectID& doid, const DBDatatype& dt);
   void evaluateText(const std::string& text, const DBDataObjectID& doid);
+  void evaluateText(const CrodtInput& ci, const DBDataObjectID& doid);
   void evaluateSensor(const float& value, const DBDataObjectID& doid);
 
 private:

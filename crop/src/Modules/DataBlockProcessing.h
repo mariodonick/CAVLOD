@@ -13,14 +13,14 @@
 
 #include <functional>
 
-template<class T, class ContentParser, class Decoder>
-class DataBlockProcessing : protected ContentParser, protected Decoder
+template<class T, class Parser, class Decoder, class C>
+class DataBlockProcessing : protected Parser, protected Decoder
 {
   using Decoder::decode;
   using Decoder::sortedContent;
-  using ContentParser::parseContent;
+  using Parser::parseContent;
 
-  typedef std::function<void(const CrodtOutput<T>&)> Callback;
+  typedef std::function<void(const CrodtOutput<C>&)> Callback;
 
 public:
   DataBlockProcessing();
@@ -31,27 +31,26 @@ public:
 
 private:
   unsigned int curContentPos;
-  CrodtOutput<T> output;
+  CrodtOutput<C> output;
   Callback callback;
 };
 
 
-
-template<class T, class Parser, class Decoder>
-DataBlockProcessing<T, Parser, Decoder>::DataBlockProcessing()
+template<class T, class Parser, class Decoder, class C>
+DataBlockProcessing<T, Parser, Decoder, C>::DataBlockProcessing()
 : curContentPos(0)
 {
 
 }
 
-template<class T, class Parser, class Decoder>
-DataBlockProcessing<T, Parser, Decoder>::~DataBlockProcessing()
+template<class T, class Parser, class Decoder, class C>
+DataBlockProcessing<T, Parser, Decoder, C>::~DataBlockProcessing()
 {
 
 }
 
-template<class T, class Parser, class Decoder>
-void DataBlockProcessing<T, Parser, Decoder>::start(const DataBlock::Header& dbh, const char* data)
+template<class T, class Parser, class Decoder, class C>
+void DataBlockProcessing<T, Parser, Decoder, C>::start(const DataBlock::Header& dbh, const char* data)
 {
   DBG() << "\n---------------DBProcessing---------------------------\n";
 
@@ -78,17 +77,21 @@ void DataBlockProcessing<T, Parser, Decoder>::start(const DataBlock::Header& dbh
     T obj = parseContent(&data[curContentPos], totalLength - offset);
     curContentPos += obj->size;
 
-    decode(dbh.dataObjectID.to_uint(), dbh.sequenceNumber.to_uint(), obj);
+    COItem<C> coi;
+    coi.content = obj->content;
+    coi.pos = obj->pos;
+    coi.timestamp = timestamp.to_ulong();
+    coi.usingTimestamp = usingTimestamp;
+    decode(dbh.dataObjectID.to_uint(), dbh.sequenceNumber.to_uint(), coi);
 
-    output.usingTimestamp = usingTimestamp;
-    output.timestamp = timestamp.to_ulong();
-    output.sortedContent = sortedContent;
-    callback(output);
+    INFO() << "\n--------------- DB END ---------------------------\n";
   }
+  output.sortedContent = sortedContent;
+  callback(output);
 }
 
-template<class T, class Parser, class Decoder>
-void DataBlockProcessing<T, Parser, Decoder>::registerCallback(const Callback& cb)
+template<class T, class Parser, class Decoder, class C>
+void DataBlockProcessing<T, Parser, Decoder, C>::registerCallback(const Callback& cb)
 {
   callback = cb;
 }

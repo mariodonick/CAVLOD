@@ -9,7 +9,6 @@
 #include "ContentParser.h"
 #include "UniversalDecoder.h"
 #include "DataBlockProcessing.h"
-#include "Visualizer.h"
 #include "../DataManagement/DataTypes.h"
 #include "../Tools/Bin.h"
 
@@ -42,7 +41,7 @@ private:
 
   unsigned int curMsgPos;
 
-  DataBlockProcessing<Text_sPtr, TextParser, UniversalDecoder<Text_sPtr> > textProcessing;
+  DataBlockProcessing<Text_sPtr, TextParser, UniversalDecoder<COItem<std::string> >, std::string > textProcessing;
 //  DataBlockProcessing<float, SensorParser<float, UniversalDecoder<Content_sPtr<float> > > sensorProcessing;
 };
 

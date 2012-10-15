@@ -16,6 +16,7 @@
 #include <thread>
 
 class Config;
+struct CrodtInput;
 
 class CrodtModule : public CrodtModuleIF
 {
@@ -28,6 +29,7 @@ private:
 
   void sendSensor(const float& value, const bool& usingTimestamp);
   void sendText(const std::string& text, const bool& usingTimestamp);
+  void sendText(const CrodtInput& ci);
 
   void packetizerThread();
 

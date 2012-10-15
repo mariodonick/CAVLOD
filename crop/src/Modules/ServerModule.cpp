@@ -4,6 +4,7 @@
 
 #include "ServerModule.h"
 #include "UDPSocket.h"
+#include "../TypesConfig/Config.h"
 
 ServerModule::ServerModule()
 : network(new UDPSocket)
@@ -16,6 +17,7 @@ ServerModule::ServerModule()
 ServerModule::~ServerModule()
 {
   running = false;
+  Config::release();
 }
 
 void ServerModule::start()

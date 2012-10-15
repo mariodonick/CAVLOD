@@ -18,6 +18,7 @@
 #include "../Tools/Log.h"
 #include "../Tools/PrioritizedQueue.h"
 #include "../TypesConfig/Config.h"
+#include "../DataManagement/CrodtIO.h"
 
 CrodtModule::CrodtModule()
 : running(false)
@@ -83,6 +84,19 @@ void CrodtModule::sendText(const std::string& text, const bool& usingTimestamp)
   DBG() << "text STOP time: " << sw << ENDL;
 }
 
+void CrodtModule::sendText(const CrodtInput& ci)
+{
+  std::unique_lock<std::mutex> lock(eventMutex);
+
+  StopWatch sw;
+  crodm->evaluateText(ci, textId);
+  partitioning->partText(textId, ci.content, ci.is_timestamp);
+  prioritization->evaluate();
+
+  textId += 1;
+  DBG() << "text STOP time: " << sw << ENDL;
+}
+
 void CrodtModule::sendSensor(const float& value, const bool& usingTimestamp)
 {
   std::unique_lock<std::mutex> lock(eventMutex);
@@ -95,4 +109,5 @@ void CrodtModule::sendSensor(const float& value, const bool& usingTimestamp)
   sensorId += 1;
   DBG() << "sensor STOP time: " << sw << ENDL;
 }
+
 

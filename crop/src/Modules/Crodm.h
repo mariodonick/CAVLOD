@@ -26,6 +26,7 @@ public:
 
   //interfaces from content phase to Crodm
   virtual void evaluateText(const std::string& text, const DBDataObjectID& doid) = 0;
+  virtual void evaluateText(const CrodtInput& ci, const DBDataObjectID& doid) = 0;
   virtual void evaluateSensor(const float& value, const DBDataObjectID& doid) = 0;
 };
 

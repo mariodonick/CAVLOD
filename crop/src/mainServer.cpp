@@ -21,13 +21,16 @@ void signal_handler_SIGINT (int status)
   std::cout << "Info: Stopping Server Module\n";
   delete server; server = nullptr;
   INFO() << dbg::white << "Stopped  Server Module" << dbg::white << ENDL;
-  Config::release();
+
   exit(0);
 }
 
-void callbackFuntion()
+void callbackFuntion(const CrodtOutput<std::string>& co)
 {
-
+  DBG() << "CAAAAAAAAAAAALLLLLLLLLLLLBBBBBBBBBBBBAAAAAAAACCCCCCCKKKKKKKKKKKKKK" << ENDL;
+  std::vector<COItem<std::string> >::const_iterator it = co.sortedContent.begin();
+  for(; it != co.sortedContent.end(); ++it)
+    DBG() << it->content;
 }
 
 int main()
@@ -36,7 +39,9 @@ int main()
 
   server = new ServerModule;
   server->start();
+  std::function<void(const CrodtOutput<std::string>&)> func = callbackFuntion;
+  server->registerCallback(func, TYPE_TEXT);
 
-
+  sleep(30);
   return 0;
 }

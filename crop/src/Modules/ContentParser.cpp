@@ -41,8 +41,8 @@ Text_sPtr TextParser::parseContent(const char* data, const unsigned int& len)
   text->pos.len_x = text->content.size();
   text->size = C_LINE_BYTES + C_COLUMN_BYTES + text->pos.len_x;
 
-  DBG() << "line: " << text->pos.y << "\n";
-  DBG() << "column: " << text->pos.x << "\n";
+  INFO() << "line: " << text->pos.y << "\n";
+  INFO() << "column: " << text->pos.x << "\n";
   INFO() << "text: " << text->content << "\n";
 
   return text;
@@ -63,11 +63,11 @@ SensorParser::~SensorParser()
 
 Sensor_sPtr SensorParser::parseContent(const char* data, const unsigned int& len)
 {
-  DBG() << "\n---------------Sensor---------------------------\n";
+  INFO() << "\n---------------Sensor---------------------------\n";
   float v = 0;
   memcpy(&v, &data[0], C_VALUE_BYTES);
 
-  DBG() << "value: " << v << "\n";
+  INFO() << "value: " << v << "\n";
 
   Sensor_sPtr sensor( new ContentProcess<float> );
 

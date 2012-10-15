@@ -40,12 +40,18 @@ struct CrodtInput
 };
 
 template<class T>
-struct CrodtOutput
+struct COItem
 {
-  std::vector<T> sortedContent;
   Position pos;
+  T content;
   bool usingTimestamp;
   uint64_t timestamp;
+};
+
+template<class T>
+struct CrodtOutput
+{
+  std::vector<COItem<T> > sortedContent;
 };
 
 #endif /* CRODTIO_H_ */

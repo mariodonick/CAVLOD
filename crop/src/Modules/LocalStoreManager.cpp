@@ -16,6 +16,9 @@
 #include <sstream>
 #include <stdio.h>
 #include <dirent.h>
+#include "boost/filesystem/operations.hpp"
+#include "boost/filesystem/path.hpp"
+#include "boost/progress.hpp"
 
 using namespace crodt;
 
@@ -28,60 +31,102 @@ const std::vector<DataBlock_sPtr>& LocalStoreManager::load()
   dbVec.clear();
 
   Config* config = Config::instance();
-  std::string doidFolder = config->backupPath;
+  boost::filesystem::path backup_path( config->backupPath );
+  std::string filename;
 
-  struct dirent *entry;
-  DIR *doidPath_dir;
-  DIR *sequenzNumber_dir;
-
-  doidPath_dir = opendir((const char*) &doidFolder);
-  if(doidPath_dir == NULL)
+  if ( !boost::filesystem::exists( backup_path ) )
   {
-    perror("opendir() error");
+    std::cout << "\nNot found: " << backup_path.c_str() << std::endl;
     return dbVec;
   }
 
-  while(entry = readdir(doidPath_dir))
+  std::cout << "cooler pfad: " << backup_path << std::endl;
+
+  boost::filesystem::directory_iterator end_itr;
+  for( boost::filesystem::directory_iterator dir_itr( backup_path ); dir_itr != end_itr; ++dir_itr )
   {
-    sequenzNumber_dir = opendir(entry->d_name);
-    while(entry = readdir(sequenzNumber_dir))
+    std::cout << "alten geh da rein!" << std::endl;
+    std::cout << dir_itr->path().filename() << std::endl;
+    try
     {
-      DataBlock_sPtr db(new DataBlock);
-      DataBlock::Header dbh;
-      std::string filename = entry->d_name;
-      std::ifstream bin(filename.c_str(),std::ios::binary);
+      if(boost::filesystem::is_directory( backup_path ))
+      {
+        std::string temp = config->backupPath + dir_itr->path().filename().c_str();
+        boost::filesystem::path file_path( temp );
+        boost::filesystem::directory_iterator subDir_itr_end;
 
-      bin.seekg(0,std::ios::end);  //an letzte position der datei springen
-      int file_size = bin.tellg(); // position auslesen => groesse der datei
-      bin.seekg(0,std::ios::beg); // wieder an anfang der datei springen
+        std::cout << "subDirectory: " << file_path << "\n";
 
-      char dataBlockEntries[file_size];
-      bin.read(reinterpret_cast <char*> (&dataBlockEntries), file_size); // auslesen der daten in ausgabe array
+        for( boost::filesystem::directory_iterator subDir_itr_begin( file_path ); subDir_itr_begin != subDir_itr_end; ++subDir_itr_begin)
+        {
+          try
+          {
+            std::cout << "mal schauen ob er die files auch sieht" << std::endl;
+            std::cout << "und auch als solche erkennt ;)" << std::endl;
 
-      dbh.dataType = char2uint( &dataBlockEntries[0], 4 );
-      dbh.config = char2uint( &dataBlockEntries[4], 4 );
-      dbh.dataObjectID = char2uint( &dataBlockEntries[8], 4 );
-      dbh.sequenceNumber = char2uint( &dataBlockEntries[12], 4 );
-      dbh.length = char2uint( &dataBlockEntries[16], 4 );
+            DataBlock_sPtr db(new DataBlock);
+            DataBlock::Header dbh;
+            std::ifstream bin(temp,std::ios::binary);
 
-      db->setHeader(dbh);
+            if(!bin.is_open())
+            {
+              std::cout << "cant open: " << temp << std::endl;
+              continue;
+            }
 
-      Bin<32> time1 = char2uint( &dataBlockEntries[20], 4 );
-      Bin<32> time2 = char2uint( &dataBlockEntries[24], 4 );
-      db->setTimetamp(merge(time1, time2));
+            bin.seekg(0,std::ios::end);  //an letzte position der datei springen
+            int file_size = bin.tellg(); // position auslesen => groesse der datei
+            bin.seekg(0,std::ios::beg); // wieder an anfang der datei springen
 
-      db->setPriority( char2uint( &dataBlockEntries[28], 4) );
+            std::cout << "filesize: " << file_size << std::endl;
+            char dataBlockEntries[file_size];
+            std::cout << "gerate ins blaue dass es hier noch geht ... " << std::endl;
+            bin.read(reinterpret_cast <char*> (&dataBlockEntries), file_size); // auslesen der daten in ausgabe array
+            std::cout << "... und hier net mehr!" << std::endl;
 
-      ByteArray_sPtr ba(new ByteArray);
-      ba->insert(&dataBlockEntries[32], file_size-32);
-      db->addContent( ba );
+            dbh.dataType = char2uint( &dataBlockEntries[0], 4 );
+            std::cout << "und hier?" << std::endl;
+            dbh.config = char2uint( &dataBlockEntries[4], 4 );
+            std::cout << "kanns denn hier sein?!" << std::endl;
+            dbh.dataObjectID = char2uint( &dataBlockEntries[8], 4 );
+            std::cout << "doch net etwa hier oder?" << std::endl;
+            dbh.sequenceNumber = char2uint( &dataBlockEntries[12], 4 );
+            std::cout << "nee nich an meiner lieblingsstell :(" << std::endl;
+            dbh.length = char2uint( &dataBlockEntries[16], 4 );
+            std::cout << "wenn nich hier wo denn dann bitte" << std::endl;
 
-      dbVec.push_back(db);
+            db->setHeader(dbh);
+
+            Bin<32> time1 = char2uint( &dataBlockEntries[20], 4 );
+            std::cout << "echt doch so weit unten?!" << std::endl;
+            Bin<32> time2 = char2uint( &dataBlockEntries[24], 4 );
+            std::cout << "hmmmm" << std::endl;
+            db->setTimetamp(merge(time1, time2));
+
+            db->setPriority( char2uint( &dataBlockEntries[28], 4) );
+            std::cout << "ich ahne schon wieder wo das hinführt" << std::endl;
+
+            ByteArray_sPtr ba(new ByteArray);
+            ba->insert(&dataBlockEntries[32], file_size-32);
+            std::cout << "moeglich aber denke der pushed wieder net" << std::endl;
+            db->addContent( ba );
+
+            dbVec.push_back(db);
+            std::cout << "wenn sie das lesen hab ich mich geirrt" << std::endl;
+            bin.close();
+          }
+          catch( const std::exception & ex )
+          {
+            std::cout << subDir_itr_begin->path().filename() << " " << ex.what() << std::endl;
+          }
+        }
+      }
     }
-    closedir(sequenzNumber_dir);
+    catch( const std::exception & ex )
+    {
+      std::cout << dir_itr->path().filename() << " " << ex.what() << std::endl;
+    }
   }
-  closedir(doidPath_dir);
-
   return dbVec;
 }
 

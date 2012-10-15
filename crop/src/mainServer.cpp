@@ -9,6 +9,20 @@
 #include <iostream>
 #include <unistd.h>
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <dirent.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <string.h>
+#include "boost/filesystem/operations.hpp"
+#include "boost/filesystem/path.hpp"
+#include "boost/progress.hpp"
+
+namespace fs = boost::filesystem;
+
+
 crodt::ReceiverModule* server;
 
 /**
@@ -42,5 +56,6 @@ int main()
   server->registerCallback(func, crodt::TYPE_TEXT);
 
   sleep(300);
+
   return 0;
 }

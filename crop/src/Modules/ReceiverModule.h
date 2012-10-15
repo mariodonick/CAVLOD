@@ -6,46 +6,29 @@
 #ifndef RECEIVERMODULE_H_
 #define RECEIVERMODULE_H_
 
-#include "../TypesConfig/Pointer.h"
 #include "../DataManagement/DataTypes.h"
-#include "MessageParser.h"
-
-#include <thread>
+#include "ReceiverModuleIF.h"
 
 namespace crodt
 {
 
 template<class T> class CrodtOutput;
+class Receiver;
 
-class ReceiverModule
+class ReceiverModule : public ReceiverModuleIF
 {
 public:
   ReceiverModule();
   virtual ~ReceiverModule();
 
   void start();
-
-  template<class T>
-  void registerCallback(const std::function<void(const CrodtOutput<T>&)>& cb, const DataTypes& dt);
-
-private:
-  void receivingLoop();
+  void registerCallback(const TextCallback& cb);
+  void registerCallback(const SensorCallback& cb);
 
 private:
-  NetworkIO_uPtr network;
-  Parser_uPtr parser;
-
-  bool running;
-  std::thread receiverThread;
+  Receiver* receiver;
 };
 
-
-template<class T>
-void ReceiverModule::registerCallback(const std::function<void(const CrodtOutput<T>&)>& cb, const DataTypes& dt)
-{
-  parser->registerCallback(cb, dt);
 }
-
-} // namespace crodt
 
 #endif /* RECEIVERMODULE_H_ */

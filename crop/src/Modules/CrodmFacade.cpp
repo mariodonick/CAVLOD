@@ -4,6 +4,7 @@
 
 #include "CrodmFacade.h"
 #include "../DataManagement/DataTypes.h"
+#include "../Tools/Bin.h"
 
 #include <string>
 

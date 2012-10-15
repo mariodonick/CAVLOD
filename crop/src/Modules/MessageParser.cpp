@@ -82,7 +82,8 @@ void MessageParser::parseDB(const ByteArray& data)
   DBLength dbLengthBytes = char2Bin<DB_LENGTH_BYTES * BIT_PER_BYTE>( &data.dataPtr()[curMsgPos + offset] );
   offset += DB_LENGTH_BYTES;
 
-  INFO() << "DB - DataType: 0x" << std::hex << dbDataType.to_uint() << std::dec << " = " << dataType2String(dbDataType) << "\n";
+  INFO() << "DB - DataType: 0x" << std::hex << dbDataType.to_uint() << std::dec << " = "
+      << dataType2String( static_cast<DataTypes>(dbDataType.to_ulong()) ) << "\n";
   INFO() << "DB - Config: 0x" << std::hex << dbConfig.to_uint() << std::dec << "\n";
   INFO() << "DB - Doid: 0x" << std::hex << dbDoid.to_uint() << std::dec << "\n";
   INFO() << "DB - Sequence Number: 0x" << std::hex << dbSequNum.to_uint() << std::dec << "\n";
@@ -124,4 +125,14 @@ const std::size_t MessageParser::computeFirstDBByte()
   }
 
   return MSG_FIXED_HEADER_LENGTH_BYTES + addrTypeLength;
+}
+
+void MessageParser::registerCallback(const TextCallback& cb)
+{
+  textProcessing.registerCallback(cb);
+}
+
+void MessageParser::registerCallback(const SensorCallback& cb)
+{
+  sensorProcessing.registerCallback(cb);
 }

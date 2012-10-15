@@ -3,36 +3,33 @@
  */
 
 #include "ReceiverModule.h"
-#include "UDPSocket.h"
-#include "../TypesConfig/Config.h"
+#include "Receiver.h"
 
 using namespace crodt;
 
+
 ReceiverModule::ReceiverModule()
-: network(new UDPSocket)
-, parser(new MessageParser)
-, running(true)
+: receiver(new Receiver)
 {
 
 }
 
 ReceiverModule::~ReceiverModule()
 {
-  running = false;
-  Config::release();
+  delete receiver;
 }
 
 void ReceiverModule::start()
 {
-  receiverThread = std::thread(&ReceiverModule::receivingLoop, this);
-  INFO() << "Server initiated...\nWaiting for message..." << ENDL;
+  receiver->start();
 }
 
-void ReceiverModule::receivingLoop()
+void ReceiverModule::registerCallback(const std::function<void(const CrodtOutput<std::string>&)>& cb)
 {
-  while(running)
-  {
-    const ByteArray_sPtr arr = network->receiveData();
-    parser->parse(*arr);
-  }
+  receiver->registerCallback(cb);
+}
+
+void ReceiverModule::registerCallback(const std::function<void(const CrodtOutput<float>&)>& cb)
+{
+  receiver->registerCallback(cb);
 }

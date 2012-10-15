@@ -11,6 +11,7 @@
 #include "DataBlockProcessing.h"
 #include "../DataManagement/DataTypes.h"
 #include "../Tools/Bin.h"
+#include "ReceiverModuleIF.h"
 
 #include <string>
 
@@ -27,8 +28,8 @@ public:
   MessageParser();
   virtual ~MessageParser();
 
-  template<class T>
-  void registerCallback(const std::function<void(const CrodtOutput<T>&)>& cb, const DataTypes& dt);
+  void registerCallback(const TextCallback& cb);
+  void registerCallback(const SensorCallback& cb);
 
   void parse(const ByteArray& data);
 
@@ -46,18 +47,8 @@ private:
   unsigned int curMsgPos;
 
   DataBlockProcessing<Text_sPtr, TextParser, UniversalDecoder<COItem<std::string> >, std::string > textProcessing;
-//  DataBlockProcessing<float, SensorParser<float, UniversalDecoder<Content_sPtr<float> > > sensorProcessing;
+  DataBlockProcessing<Sensor_sPtr, SensorParser, UniversalDecoder<COItem<float> >, float> sensorProcessing;
 };
-
-template<class T>
-void MessageParser::registerCallback(const std::function<void(const CrodtOutput<T>&)>& cb, const DataTypes& dt)
-{
-  switch(dt)
-  {
-    case TYPE_SENSOR: break;
-    case TYPE_TEXT: textProcessing.registerCallback(cb); break;
-  }
-}
 
 } // namespace crodt
 

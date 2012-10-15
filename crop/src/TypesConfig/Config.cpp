@@ -68,7 +68,7 @@ Config::Config()
       }
       else
       {
-        std::cout << "ERROR: Backup path does not exist, create it!\n";
+        std::cout << "ERROR: Backup path: " << backupPath << " does not exist, create it!\n";
         exit(1);
       }
     }

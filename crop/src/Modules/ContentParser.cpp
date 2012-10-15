@@ -24,7 +24,7 @@ TextParser::~TextParser()
 
 Text_sPtr TextParser::parseContent(const char* data, const unsigned int& len)
 {
-  INFO() << "\n---------------Text---------------------------\n";
+  DBG() << "\n---------------Text---------------------------\n";
 
   CLine line = char2Bin<C_LINE_BYTES * BIT_PER_BYTE>( data );
   unsigned int offset = C_LINE_BYTES;

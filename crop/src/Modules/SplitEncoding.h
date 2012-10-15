@@ -8,7 +8,7 @@
 
 #include "Partitioning.h"
 #include "../TypesConfig/Pointer.h"
-#include "../DataManagement/RelevanceData.h"
+#include "../DataManagement/CrodtIO.h"
 
 #include <cstdint>
 #include <vector>
@@ -19,7 +19,7 @@ class SplitEncoding : public Partitioning
 public:
   struct GlobalPosition
   {
-    uint16_t pos;
+    uint16_t begin;
     uint16_t length;
     float relevance;
 

@@ -6,7 +6,7 @@
 #ifndef CRODM_H_
 #define CRODM_H_
 
-#include "../DataManagement/RelevanceData.h"
+#include "../DataManagement/CrodtIO.h"
 #include "../TypesConfig/ProtocolTypes.h"
 
 #include <vector>
@@ -26,6 +26,7 @@ public:
 
   //interfaces from content phase to Crodm
   virtual void evaluateText(const std::string& text, const DBDataObjectID& doid) = 0;
+  virtual void evaluateText(const CrodtInput& ci, const DBDataObjectID& doid) = 0;
   virtual void evaluateSensor(const float& value, const DBDataObjectID& doid) = 0;
 };
 

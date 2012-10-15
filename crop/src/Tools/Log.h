@@ -148,6 +148,7 @@ inline Log& yellow(Log& d) { d.yellow(); return d; }
 inline Log& blue(Log& d) { d.blue();  return d; }
 inline Log& purple(Log& d) { d.purple(); return d; }
 inline Log& cyan(Log& d) { d.cyan(); return d; }
+inline Log& white(Log& d) { d.normal(); return d; }
 inline Log& normal(Log& d) { d.normal(); return d; }
 
 // default classes

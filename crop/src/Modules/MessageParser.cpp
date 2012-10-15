@@ -4,7 +4,6 @@
 
 #include "MessageParser.h"
 #include "../Tools/ByteArray.h"
-#include "../DataManagement/DataTypes.h"
 #include "../TypesConfig/Config.h"
 
 #include <iostream>
@@ -103,7 +102,7 @@ void MessageParser::parseDB(const ByteArray& data)
   switch( static_cast<DataTypes>(dbDataType.to_uint()) )
   {
     case TYPE_TEXT: textProcessing.start(dbh, &data[contentPos]); break;
-    case TYPE_SENSOR: sensorProcessing.start(dbh, &data[contentPos]); break;
+    case TYPE_SENSOR: /*sensorProcessing.start(dbh, &data[contentPos]);*/ break; //todo wieder einkommentieren wenn fertig
   }
 
   curMsgPos += dbLengthBytes.to_uint();

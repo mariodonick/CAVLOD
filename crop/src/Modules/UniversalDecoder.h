@@ -62,7 +62,9 @@ UniversalDecoder<T>::~UniversalDecoder()
 }
 
 template<class T>
-void UniversalDecoder<T>::decode(const DBDataObjectID&doid, const DBSequenceNumber& seqNr, T obj)
+void UniversalDecoder<T>::decode(const DBDataObjectID&doid,
+                                 const DBSequenceNumber& seqNr,
+                                 T obj)
 {
   typename TwoDimMap::iterator tmp_it = decodedData.find(doid);
 

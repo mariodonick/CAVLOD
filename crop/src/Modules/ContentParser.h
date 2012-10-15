@@ -6,8 +6,9 @@
 #ifndef CONTENTPARSER_H_
 #define CONTENTPARSER_H_
 
-#include "../DataManagement/Content.h"
+#include "../DataManagement/ContentProcess.h"
 #include "../TypesConfig/Pointer.h"
+
 
 template<class T>
 class ContentParser
@@ -16,8 +17,10 @@ protected:
   virtual ~ContentParser(){}
 
 public:
-  virtual T parseContent(char* data, const unsigned int& len) = 0;
+  virtual T parseContent(const char* data, const unsigned int& len) = 0;
 };
+
+
 
 
 class TextParser : public ContentParser<Text_sPtr>
@@ -27,8 +30,14 @@ protected:
   virtual ~TextParser();
 
 protected:
-  Text_sPtr parseContent(char* data, const unsigned int& len);
+  Text_sPtr parseContent(const char* data, const unsigned int& len);
 };
+
+
+
+
+
+
 
 
 class SensorParser : public ContentParser<Sensor_sPtr>
@@ -38,8 +47,7 @@ protected:
   virtual ~SensorParser();
 
 protected:
-  Sensor_sPtr parseContent(char* data, const unsigned int& len);
+  Sensor_sPtr parseContent(const char* data, const unsigned int& len);
 };
-
 
 #endif /* CONTENTPARSER_H_ */

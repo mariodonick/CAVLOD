@@ -7,44 +7,50 @@
 #define DATABLOCKPROCESSING_H_
 
 #include "../DataManagement/DataBlock.h"
+#include "../DataManagement/CrodtIO.h"
 #include "../TypesConfig/Constants.h"
 #include "../Tools/Log.h"
 
-template<class T, class ContentParser, class Decoder, class Visualizer>
-class DataBlockProcessing : protected ContentParser, protected Decoder, protected Visualizer
+#include <functional>
+
+template<class T, class Parser, class Decoder, class C>
+class DataBlockProcessing : protected Parser, protected Decoder
 {
   using Decoder::decode;
-  using ContentParser::parseContent;
-  using Visualizer::display;
   using Decoder::sortedContent;
+  using Parser::parseContent;
+
+  typedef std::function<void(const CrodtOutput<C>&)> Callback;
 
 public:
   DataBlockProcessing();
   virtual ~DataBlockProcessing();
 
   void start(const DataBlock::Header& dbh, const char* data);
+  void registerCallback(const Callback& cb);
 
 private:
   unsigned int curContentPos;
+  CrodtOutput<C> output;
+  Callback callback;
 };
 
 
-
-template<class T, class Parser, class Decoder, class Visualizer>
-DataBlockProcessing<T, Parser, Decoder, Visualizer>::DataBlockProcessing()
+template<class T, class Parser, class Decoder, class C>
+DataBlockProcessing<T, Parser, Decoder, C>::DataBlockProcessing()
 : curContentPos(0)
 {
 
 }
 
-template<class T, class Parser, class Decoder, class Visualizer>
-DataBlockProcessing<T, Parser, Decoder, Visualizer>::~DataBlockProcessing()
+template<class T, class Parser, class Decoder, class C>
+DataBlockProcessing<T, Parser, Decoder, C>::~DataBlockProcessing()
 {
 
 }
 
-template<class T, class Parser, class Decoder, class Visualizer>
-void DataBlockProcessing<T, Parser, Decoder, Visualizer>::start(const DataBlock::Header& dbh, const char* data)
+template<class T, class Parser, class Decoder, class C>
+void DataBlockProcessing<T, Parser, Decoder, C>::start(const DataBlock::Header& dbh, const char* data)
 {
   DBG() << "\n---------------DBProcessing---------------------------\n";
 
@@ -54,11 +60,6 @@ void DataBlockProcessing<T, Parser, Decoder, Visualizer>::start(const DataBlock:
   DBG() << "dblength: " << dbh.length.to_uint() << "\n";
   DBG() << "totalLength: " << totalLength << "\n";
 
-  // todo only to use reinterpret cast inside the parser
-  char tmp[totalLength];
-  for(unsigned int i = 0; i < totalLength; ++i)
-    tmp[i] = data[curContentPos + i];
-
   while(curContentPos < totalLength)
   {
     bool usingTimestamp = dbh.config[DB_CONFIG_TIMESTAMP_INDEX] == true;
@@ -67,18 +68,32 @@ void DataBlockProcessing<T, Parser, Decoder, Visualizer>::start(const DataBlock:
 
     if(usingTimestamp)
     {
-      timestamp = char2Bin<C_TIMESTAMP_BYTES * BIT_PER_BYTE>(&tmp[curContentPos]);
+      timestamp = char2Bin<C_TIMESTAMP_BYTES * BIT_PER_BYTE>(&data[curContentPos]);
       DBG() << "timestamp: " << timestamp.to_ulong() << " = 0x" << std::hex << timestamp.to_ulong() << std::dec << "\n";
     }
 
     curContentPos += offset;
 
-    T obj = parseContent(&tmp[curContentPos], totalLength - offset);
-    curContentPos += obj->size();
+    T obj = parseContent(&data[curContentPos], totalLength - offset);
+    curContentPos += obj->size;
 
-    decode(dbh.dataObjectID.to_uint(), dbh.sequenceNumber.to_uint(), obj);
-    display(sortedContent, usingTimestamp, timestamp);
+    COItem<C> coi;
+    coi.content = obj->content;
+    coi.pos = obj->pos;
+    coi.timestamp = timestamp.to_ulong();
+    coi.usingTimestamp = usingTimestamp;
+    decode(dbh.dataObjectID.to_uint(), dbh.sequenceNumber.to_uint(), coi);
+
+    INFO() << "\n--------------- DB END ---------------------------\n";
   }
+  output.sortedContent = sortedContent;
+  callback(output);
+}
+
+template<class T, class Parser, class Decoder, class C>
+void DataBlockProcessing<T, Parser, Decoder, C>::registerCallback(const Callback& cb)
+{
+  callback = cb;
 }
 
 #endif /* DATABLOCKPROCESSING_H_ */

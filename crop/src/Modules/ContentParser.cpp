@@ -10,6 +10,7 @@
 
 #include <cstring>
 
+
 TextParser::TextParser()
 {
 
@@ -20,7 +21,8 @@ TextParser::~TextParser()
 
 }
 
-Text_sPtr TextParser::parseContent(char* data, const unsigned int& len)
+
+Text_sPtr TextParser::parseContent(const char* data, const unsigned int& len)
 {
   INFO() << "\n---------------Text---------------------------\n";
 
@@ -32,14 +34,16 @@ Text_sPtr TextParser::parseContent(char* data, const unsigned int& len)
 
   unsigned int textLength = len - offset;
 
-  Text_sPtr text( new Text );
-  text->column = column.to_uint();
-  text->line = line.to_uint();
-  text->text.insert(0, &data[offset], textLength);
+  Text_sPtr text( new ContentProcess<std::string> );
+  text->pos.x = column.to_uint();
+  text->pos.y = line.to_uint();
+  text->content.insert(0, &data[offset], textLength);
+  text->pos.len_x = text->content.size();
+  text->size = C_LINE_BYTES + C_COLUMN_BYTES + text->pos.len_x;
 
-  DBG() << "line: " << text->line.to_uint() << "\n";
-  DBG() << "column: " << text->column.to_uint() << "\n";
-  INFO() << "text: " << text->text << "\n";
+  DBG() << "line: " << text->pos.y << "\n";
+  DBG() << "column: " << text->pos.x << "\n";
+  INFO() << "text: " << text->content << "\n";
 
   return text;
 }
@@ -57,7 +61,7 @@ SensorParser::~SensorParser()
 {
 }
 
-Sensor_sPtr SensorParser::parseContent(char* data, const unsigned int& len)
+Sensor_sPtr SensorParser::parseContent(const char* data, const unsigned int& len)
 {
   DBG() << "\n---------------Sensor---------------------------\n";
   float v = 0;
@@ -65,8 +69,13 @@ Sensor_sPtr SensorParser::parseContent(char* data, const unsigned int& len)
 
   DBG() << "value: " << v << "\n";
 
-  Sensor_sPtr sensor( new Sensor );
-  sensor->value = v;
+  Sensor_sPtr sensor( new ContentProcess<float> );
+
+  sensor->pos.len_x = 0;
+  sensor->pos.x = 0;
+  sensor->pos.y = 0;
+  sensor->content = v;
+  sensor->size = C_VALUE_BYTES;
 
   return sensor;
 }

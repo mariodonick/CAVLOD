@@ -6,7 +6,7 @@
 #ifndef CRODM_H_
 #define CRODM_H_
 
-#include "../DataManagement/RelevanceData.h"
+#include "../DataManagement/CrodtIO.h"
 #include "../TypesConfig/ProtocolTypes.h"
 
 #include <vector>

@@ -26,7 +26,6 @@ SplitEncoding::~SplitEncoding()
 {
 }
 
-// todo funktion aufräumen viele code passagen sind nicht unique!!!
 void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& content, const bool& usingTimestamp )
 {
   const std::vector<RelevanceData>& relevanceData = crodm->getRelevanceData(doid, TYPE_TEXT);
@@ -110,13 +109,13 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
   --lastFrag;
 
   // if the last block do not reach the end of the content, this will compute the last block
-  if(lastFrag->pos + lastFrag->length < *(linePos.end()-1))
+  if(lastFrag->begin + lastFrag->length < *(linePos.end()-1))
   {
-    uint16_t endPos = lastFrag->pos + lastFrag->length;
+    uint16_t endPos = lastFrag->begin + lastFrag->length;
 
     GlobalPosition lastZero;
     lastZero.length = *(linePos.end()-1) - endPos;
-    lastZero.pos = endPos;
+    lastZero.begin = endPos;
     lastZero.relevance = 0;
 
     globalPositions.push_back(lastZero);
@@ -155,7 +154,7 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
         GlobalPosition tmp;
         tmp.relevance = it->relevance;
         tmp.length = maxTextSize;
-        tmp.pos = it->pos + maxTextSize*i;
+        tmp.begin = it->begin + maxTextSize*i;
 
 //        std::cout << "tmp: " << tmp << "\n";
         globalPositions.insert(it, tmp);
@@ -166,7 +165,7 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
         GlobalPosition tmp;
         tmp.relevance = it->relevance;
         tmp.length = lastPart;
-        tmp.pos = it->pos + maxTextSize*numParts;
+        tmp.begin = it->begin + maxTextSize*numParts;
 
 //        std::cout << "last part tmp: " << tmp << "\n";
 
@@ -197,10 +196,10 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
     db->stamp();
 
     Text text;
-    text.text = content.substr(it->pos, it->length);
+    text.text = content.substr(it->begin, it->length);
     RelevanceData rel_tmp = transform2localRelData(*it, linePos);
-    text.line = rel_tmp.pos_y;
-    text.column = rel_tmp.pos_x;
+    text.line = rel_tmp.pos.y;
+    text.column = rel_tmp.pos.x;
 
 //    std::cout << "text size: " << text.text.size() << " + 4 fuer line und column\n";
 //    std::cout << "text: " << text.text << "\n";
@@ -253,7 +252,7 @@ const RelevanceData SplitEncoding::transform2localRelData(const SplitEncoding::G
   unsigned int index = 0;
   for(unsigned int i = 0; i < len.size(); ++i)
   {
-    if( int(gp.pos - len[i]) < 0 )
+    if( int(gp.begin - len[i]) < 0 )
     {
       index = i-1;
       break;
@@ -261,9 +260,9 @@ const RelevanceData SplitEncoding::transform2localRelData(const SplitEncoding::G
   }
 
   RelevanceData rel;
-  rel.len_x = gp.length;
-  rel.pos_x = gp.pos - len[index];
-  rel.pos_y = index;
+  rel.pos.len_x = gp.length;
+  rel.pos.x = gp.begin - len[index];
+  rel.pos.y = index;
   rel.relevanceValue = gp.relevance;
 
   return rel;
@@ -272,8 +271,8 @@ const RelevanceData SplitEncoding::transform2localRelData(const SplitEncoding::G
 const SplitEncoding::GlobalPosition SplitEncoding::transform2global(const RelevanceData& r, const std::vector<std::size_t>& len)
 {
   GlobalPosition gp;
-  gp.length = r.len_x;
-  gp.pos = r.pos_x + len[r.pos_y];
+  gp.length = r.pos.len_x;
+  gp.begin = r.pos.x + len[r.pos.y];
   gp.relevance = r.relevanceValue;
 
   return gp;
@@ -285,8 +284,8 @@ const SplitEncoding::GlobalPosition SplitEncoding::diffFrom2RelevanceData(
     const std::list<GlobalPosition>::iterator& cur)
 {
   GlobalPosition gp;
-  gp.pos = (cur == pre) ? 0 : pre->pos + pre->length;
-  gp.length = (cur == pre) ? cur->pos : cur->pos - (pre->pos + pre->length);
+  gp.begin = (cur == pre) ? 0 : pre->begin + pre->length;
+  gp.length = (cur == pre) ? cur->begin : cur->begin - (pre->begin + pre->length);
   gp.relevance = 0;
 
   return gp;
@@ -294,7 +293,7 @@ const SplitEncoding::GlobalPosition SplitEncoding::diffFrom2RelevanceData(
 
 std::ostream& operator<<(std::ostream& out, const SplitEncoding::GlobalPosition& gp)
 {
-  out << "pos: " << gp.pos
+  out << "pos: " << gp.begin
       << " length: " << gp.length
       << " relevance: " << gp.relevance;
   return out;

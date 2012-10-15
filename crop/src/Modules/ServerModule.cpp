@@ -3,16 +3,14 @@
  */
 
 #include "ServerModule.h"
-#include "MessageParser.h"
 #include "UDPSocket.h"
 
 ServerModule::ServerModule()
 : network(new UDPSocket)
 , parser(new MessageParser)
-, running(false)
+, running(true)
 {
-  running = true;
-  std::clog << "Server initiated...\nWaiting for message...\n";
+
 }
 
 ServerModule::~ServerModule()
@@ -21,6 +19,12 @@ ServerModule::~ServerModule()
 }
 
 void ServerModule::start()
+{
+  receiverThread = std::thread(&ServerModule::receivingLoop, this);
+  INFO() << "Server initiated...\nWaiting for message..." << ENDL;
+}
+
+void ServerModule::receivingLoop()
 {
   while(running)
   {

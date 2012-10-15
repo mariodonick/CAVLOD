@@ -18,12 +18,17 @@ ServerModule* server;
 void signal_handler_SIGINT (int status)
 {
   std::cout << "*************       Received SIGINT signal. ********************\n";
-  std::cout << "Info: Stopping Server Modul\n";
+  std::cout << "Info: Stopping Server Module\n";
   delete server; server = nullptr;
   INFO() << dbg::white << "Stopped  Server Module" << dbg::white << ENDL;
+  Config::release();
   exit(0);
 }
 
+void callbackFuntion()
+{
+
+}
 
 int main()
 {
@@ -32,6 +37,6 @@ int main()
   server = new ServerModule;
   server->start();
 
-  Config::release();
+
   return 0;
 }

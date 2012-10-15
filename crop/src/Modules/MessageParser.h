@@ -6,23 +6,27 @@
 #ifndef MESSAGEPARSER_H_
 #define MESSAGEPARSER_H_
 
-#include "Parser.h"
 #include "ContentParser.h"
 #include "UniversalDecoder.h"
 #include "DataBlockProcessing.h"
 #include "Visualizer.h"
+#include "../DataManagement/DataTypes.h"
 #include "../Tools/Bin.h"
+
+#include <string>
 
 class ByteArray;
 class Config;
 
-class MessageParser : public Parser
+class MessageParser
 {
 public:
   MessageParser();
   virtual ~MessageParser();
 
-private:
+  template<class T>
+  void registerCallback(const std::function<void(const CrodtOutput<T>&)>& cb, const DataTypes& dt);
+
   void parse(const ByteArray& data);
 
 private:
@@ -38,8 +42,18 @@ private:
 
   unsigned int curMsgPos;
 
-  DataBlockProcessing<Text_sPtr, TextParser, UniversalDecoder<Text_sPtr>, TextVisualizer > textProcessing;
-  DataBlockProcessing<Sensor_sPtr, SensorParser, UniversalDecoder<Sensor_sPtr>, SensorVisualizer> sensorProcessing;
+  DataBlockProcessing<Text_sPtr, TextParser, UniversalDecoder<Text_sPtr> > textProcessing;
+//  DataBlockProcessing<float, SensorParser<float, UniversalDecoder<Content_sPtr<float> > > sensorProcessing;
 };
+
+template<class T>
+void MessageParser::registerCallback(const std::function<void(const CrodtOutput<T>&)>& cb, const DataTypes& dt)
+{
+  switch(dt)
+  {
+    case TYPE_SENSOR: break;
+    case TYPE_TEXT: textProcessing.registerCallback(cb); break;
+  }
+}
 
 #endif /* MESSAGEPARSER_H_ */

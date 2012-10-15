@@ -9,6 +9,15 @@
 #include <iostream>
 #include <unistd.h>
 
+#include <dirent.h>
+#include <sys/stat.h>
+#include <boost/regex.hpp>
+#include <boost/algorithm/string/regex.hpp>
+#include <string>
+#include <vector>
+#include <sstream>
+
+
 ServerModule* server;
 
 /**
@@ -31,5 +40,7 @@ int main()
   server->start();
 
   Config::release();
+
+
   return 0;
 }

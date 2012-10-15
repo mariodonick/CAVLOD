@@ -7,6 +7,8 @@
 
 #include <string>
 
+using namespace crodt;
+
 CrodmFacade::CrodmFacade()
 : index(0)
 , priority(0.f)

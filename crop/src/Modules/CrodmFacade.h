@@ -9,6 +9,9 @@
 #include "Crodm.h"
 #include "../DataManagement/CrodtIO.h"
 
+namespace crodt
+{
+
 class CrodmFacade : public Crodm
 {
 public:
@@ -29,5 +32,7 @@ private:
   unsigned int index;
   float priority;
 };
+
+} // namespace crodt
 
 #endif /* CRODMFACADE_H_ */

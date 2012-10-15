@@ -10,6 +10,7 @@
 
 #include <cstring>
 
+using namespace crodt;
 
 TextParser::TextParser()
 {

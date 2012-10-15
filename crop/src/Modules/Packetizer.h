@@ -12,6 +12,9 @@
 
 class ByteArray;
 
+namespace crodt
+{
+
 class Packetizer
 {
 public:
@@ -19,5 +22,7 @@ public:
 
   virtual const ByteArray& packetizeMessage() = 0;
 };
+
+} // namespace crodt
 
 #endif /* PACKETIZER_H_ */

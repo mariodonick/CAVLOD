@@ -16,6 +16,8 @@
 #include <list>
 #include <cassert>
 
+using namespace crodt;
+
 SplitEncoding::SplitEncoding(const Crodm_uPtr& theCrodm, DBQueue_uPtr& theDBFifo)
 : crodm(theCrodm)
 , dbFifo(theDBFifo)

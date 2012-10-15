@@ -13,6 +13,9 @@
 #include <bits/stringfwd.h>
 
 
+namespace crodt
+{
+
 class Crodm
 {
 public:
@@ -29,5 +32,7 @@ public:
   virtual void evaluateText(const CrodtInput& ci, const DBDataObjectID& doid) = 0;
   virtual void evaluateSensor(const float& value, const DBDataObjectID& doid) = 0;
 };
+
+} // namespace crodt
 
 #endif /* CRODM_H_ */

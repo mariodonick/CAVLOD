@@ -9,6 +9,9 @@
 template<unsigned int N>
 class Bin;
 
+namespace crodt
+{
+
 typedef Bin<4> MsgVersion;
 typedef Bin<128> MsgSrcAddress;
 typedef Bin<128> MsgDstAddress;
@@ -38,5 +41,7 @@ enum EMsgVersion
 //  VERSIONT_2,
 
 };
+
+} // namespace crodt
 
 #endif /* PROTOCOLTYPES_H_ */

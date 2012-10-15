@@ -6,12 +6,14 @@
  */
 
 #include "MessagePacketizer.h"
+#include "SmartPrioritizedQueue.h"
 #include "../TypesConfig/ProtocolTypes.h"
 #include "../TypesConfig/Constants.h"
 #include "../TypesConfig/Config.h"
-#include "../Tools/PrioritizedQueue.h"
 #include "../Tools/IPTools.h"
 #include "../DataManagement/DataBlock.h"
+
+using namespace crodt;
 
 MessagePacketizer::MessagePacketizer(DBQueue_uPtr& thePrioQueue)
 : prioQueue(thePrioQueue)

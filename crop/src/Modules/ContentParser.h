@@ -9,6 +9,8 @@
 #include "../DataManagement/ContentProcess.h"
 #include "../TypesConfig/Pointer.h"
 
+namespace crodt
+{
 
 template<class T>
 class ContentParser
@@ -49,5 +51,7 @@ protected:
 protected:
   Sensor_sPtr parseContent(const char* data, const unsigned int& len);
 };
+
+} // namespace crodt
 
 #endif /* CONTENTPARSER_H_ */

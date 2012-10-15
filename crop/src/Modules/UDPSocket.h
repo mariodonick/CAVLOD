@@ -16,6 +16,9 @@
 #include "NetworkIO.h"
 #include "../TypesConfig/Constants.h"
 
+namespace crodt
+{
+
 class UDPSocket : public NetworkIO
 {
 public:
@@ -42,8 +45,9 @@ private:
   sockaddr_in server_s;
   sockaddr_in from_s;
 
-//  char buf_c;
   char buf_s[NETWORK_BUFFER_SIZE];
 };
+
+} // namespace crodt
 
 #endif /* UDPSOCKET_H_ */

@@ -29,18 +29,18 @@ public:
     curTime = t.tv_sec;
   }
 
-  void setTimestamp(const CTimestamp& t)
+  void setTimestamp(const crodt::CTimestamp& t)
   {
     curTime = t;
   }
 
-  const CTimestamp& getTime() const
+  const crodt::CTimestamp& getTime() const
   {
     return curTime;
   }
 
 private:
-  CTimestamp curTime;
+  crodt::CTimestamp curTime;
 };
 
 #endif /* TIMESTAMP_H_ */

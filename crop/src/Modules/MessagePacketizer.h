@@ -18,6 +18,9 @@
 #include "../DataManagement/DataBlock.h"
 #include "../TypesConfig/Pointer.h"
 
+namespace crodt
+{
+
 class MessagePacketizer : public Packetizer
 {
 public:
@@ -34,5 +37,7 @@ private:
   DBQueue_uPtr& prioQueue;
   ByteArray message;
 };
+
+} // namespace crodt
 
 #endif /* MESSAGEPACKETIZER_H_ */

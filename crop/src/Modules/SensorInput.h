@@ -8,6 +8,9 @@
 
 #include "ContentInput.h"
 
+namespace crodt
+{
+
 class SensorInput : public ContentInput<float>, public ContentThreadModule
 {
 public:
@@ -21,5 +24,7 @@ private:
 private:
   float nextValue;
 };
+
+} // namespace crodt
 
 #endif /* SENSORINPUT_H_ */

@@ -17,6 +17,8 @@
 #include <stdio.h>
 #include <dirent.h>
 
+using namespace crodt;
+
 LocalStoreManager::LocalStoreManager(){}
 
 LocalStoreManager::~LocalStoreManager(){}

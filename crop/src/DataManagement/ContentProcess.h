@@ -8,6 +8,9 @@
 
 #include "CrodtIO.h"
 
+namespace crodt
+{
+
 template<class T>
 struct ContentProcess
 {
@@ -15,5 +18,7 @@ struct ContentProcess
   Position pos;
   std::size_t size;
 };
+
+} // namespace crodt
 
 #endif /* CONTENTPROCESS_H_ */

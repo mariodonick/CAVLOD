@@ -8,6 +8,9 @@
 
 #include "../Tools/Bin.h"
 
+namespace crodt
+{
+
 enum DataTypes
 {
   TYPE_SENSOR = 0x0,
@@ -30,5 +33,7 @@ inline const std::string dataType2String(const Bin<N>& dataTypes)
 {
   return dataType2String(static_cast<DataTypes>( dataTypes.to_ulong() ) );
 }
+
+} // namespace crodt
 
 #endif /* DATATYPES_H_ */

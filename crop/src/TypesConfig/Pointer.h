@@ -9,8 +9,15 @@
 #include <memory>
 #include <string>
 
-class DataBlock;
+class ByteArray;
+typedef std::shared_ptr<ByteArray> ByteArray_sPtr;
 template<class T> class Queue;
+
+namespace crodt
+{
+
+class DataBlock;
+
 template<class T> class ContentInput;
 class Crodm;
 class NetworkIO;
@@ -21,11 +28,7 @@ class MessageParser;
 template<class T> class ContentProcess;
 class StoreManager;
 
-class ByteArray;
-
-
 typedef std::shared_ptr<DataBlock> DataBlock_sPtr;
-typedef std::shared_ptr<ByteArray> ByteArray_sPtr;
 
 typedef std::shared_ptr<ContentProcess<std::string> > Text_sPtr;
 typedef std::shared_ptr<ContentProcess<float> > Sensor_sPtr;
@@ -43,5 +46,6 @@ typedef std::unique_ptr<Packetizer> Packetizer_uPtr;
 typedef std::unique_ptr<MessageParser> Parser_uPtr;
 typedef std::unique_ptr<StoreManager> StoreManager_uPtr;
 
+} // namespace crodt
 
 #endif /* POINTER_H_ */

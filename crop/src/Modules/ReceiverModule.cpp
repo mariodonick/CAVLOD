@@ -1,12 +1,14 @@
 /*
- * @brief ServerModule.cpp implementation of member functions
+ * @brief ReceiverModule.cpp implementation of member functions
  */
 
-#include "ServerModule.h"
+#include "ReceiverModule.h"
 #include "UDPSocket.h"
 #include "../TypesConfig/Config.h"
 
-ServerModule::ServerModule()
+using namespace crodt;
+
+ReceiverModule::ReceiverModule()
 : network(new UDPSocket)
 , parser(new MessageParser)
 , running(true)
@@ -14,19 +16,19 @@ ServerModule::ServerModule()
 
 }
 
-ServerModule::~ServerModule()
+ReceiverModule::~ReceiverModule()
 {
   running = false;
   Config::release();
 }
 
-void ServerModule::start()
+void ReceiverModule::start()
 {
-  receiverThread = std::thread(&ServerModule::receivingLoop, this);
+  receiverThread = std::thread(&ReceiverModule::receivingLoop, this);
   INFO() << "Server initiated...\nWaiting for message..." << ENDL;
 }
 
-void ServerModule::receivingLoop()
+void ReceiverModule::receivingLoop()
 {
   while(running)
   {

@@ -27,10 +27,10 @@ public:
   void insert(const Bin<BAND_WIDTH>& data);
   void insert(char* data, const size_t& length);
 
-  void insert(Text& text);
-  void insert(Sensor& sensor);
-  void append(Text& text);
-  void append(Sensor& sensor);
+  void insert(crodt::Text& text);
+  void insert(crodt::Sensor& sensor);
+  void append(crodt::Text& text);
+  void append(crodt::Sensor& sensor);
 
   template<unsigned int BAND_WIDTH>
   void append(const Bin<BAND_WIDTH>& data);

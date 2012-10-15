@@ -12,7 +12,8 @@
 
 #include <string.h>
 
-using namespace std;
+using namespace crodt;
+
 
 UDPSocket::UDPSocket()
 {
@@ -89,7 +90,7 @@ void UDPSocket::startServer(const unsigned int& s_port)
 	//Inet Socket, SOCK_DGRAM = UDP Socket
 	sock_s = socket(AF_INET, SOCK_DGRAM, 0);
 
-	if (sock_s < 0) cout << ("Opening socket") << endl;
+	if (sock_s < 0) INFO() << ("Opening socket") << ENDL;
 
 	length_s = sizeof(server_s);
 	bzero(&server_s,length_s);

@@ -13,6 +13,9 @@
 
 #include <functional>
 
+namespace crodt
+{
+
 template<class T, class Parser, class Decoder, class C>
 class DataBlockProcessing : protected Parser, protected Decoder
 {
@@ -95,5 +98,7 @@ void DataBlockProcessing<T, Parser, Decoder, C>::registerCallback(const Callback
 {
   callback = cb;
 }
+
+} // namespace crodt
 
 #endif /* DATABLOCKPROCESSING_H_ */

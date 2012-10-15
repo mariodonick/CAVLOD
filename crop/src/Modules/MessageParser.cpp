@@ -10,6 +10,8 @@
 #include <cassert>
 
 
+using namespace crodt;
+
 MessageParser::MessageParser()
 : config( *Config::instance() )
 {

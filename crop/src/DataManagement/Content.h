@@ -12,6 +12,9 @@
 #include <string>
 #include <iosfwd>
 
+namespace crodt
+{
+
 class Content
 {
 public:
@@ -53,5 +56,6 @@ public:
   std::string text;
 };
 
+} // namespace crodt
 
 #endif /* CONTENT_H_ */

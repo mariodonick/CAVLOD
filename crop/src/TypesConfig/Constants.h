@@ -6,6 +6,9 @@
 #ifndef CONSTANTS_H_
 #define CONSTANTS_H_
 
+namespace crodt
+{
+
 //network
 const std::size_t NETWORK_BUFFER_SIZE = 2*1024*1024;
 
@@ -43,5 +46,7 @@ const std::size_t MAX_MSG_LENGTH = 0xFFFFFF;
 const std::size_t MAX_DB_LENGTH = 0xFFFF;
 // if you want to test the protocol with small datablock size choose something like that
 // "21+20;" 21 ist constant in jedem text db 20 ist textgrösse
+
+} // namespace crodt
 
 #endif /* CONSTANTS_H_ */

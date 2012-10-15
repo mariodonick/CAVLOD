@@ -1,10 +1,10 @@
 /*
- * @brief ServerModule.h
+ * @brief ReceiverModule.h
  *
  */
 
-#ifndef SERVERMODULE_H_
-#define SERVERMODULE_H_
+#ifndef RECEIVERMODULE_H_
+#define RECEIVERMODULE_H_
 
 #include "../TypesConfig/Pointer.h"
 #include "../DataManagement/DataTypes.h"
@@ -12,13 +12,16 @@
 
 #include <thread>
 
+namespace crodt
+{
+
 template<class T> class CrodtOutput;
 
-class ServerModule
+class ReceiverModule
 {
 public:
-  ServerModule();
-  virtual ~ServerModule();
+  ReceiverModule();
+  virtual ~ReceiverModule();
 
   void start();
 
@@ -38,9 +41,11 @@ private:
 
 
 template<class T>
-void ServerModule::registerCallback(const std::function<void(const CrodtOutput<T>&)>& cb, const DataTypes& dt)
+void ReceiverModule::registerCallback(const std::function<void(const CrodtOutput<T>&)>& cb, const DataTypes& dt)
 {
   parser->registerCallback(cb, dt);
 }
 
-#endif /* SERVERMODULE_H_ */
+} // namespace crodt
+
+#endif /* RECEIVERMODULE_H_ */

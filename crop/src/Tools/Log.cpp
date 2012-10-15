@@ -55,8 +55,8 @@ Log::Log(const Verbosity& level)//, const std::string& path)
 
   try
    {
-     std::string stdLogPath = Config::instance()->homePath + "/CAVLOD/output.log";
-     std::string log_filename = Config::instance()->homePath + "/CAVLOD/log.conf";
+     std::string stdLogPath = crodt::Config::instance()->homePath + "/CAVLOD/output.log";
+     std::string log_filename = crodt::Config::instance()->homePath + "/CAVLOD/log.conf";
      boost::program_options::options_description my_options("log");
 
      my_options.add_options()

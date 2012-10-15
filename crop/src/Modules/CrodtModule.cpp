@@ -53,6 +53,7 @@ CrodtModule::~CrodtModule()
 
 void CrodtModule::initialize()
 {
+  std::cout << "drodtMpdule versucht zu loaden" << std::endl;
   const std::vector<DataBlock_sPtr>& dbVec = dbStorage->load();
 
   for(std::vector<DataBlock_sPtr>::const_iterator it = dbVec.begin(); it != dbVec.end(); ++it)

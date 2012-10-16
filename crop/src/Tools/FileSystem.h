@@ -49,19 +49,6 @@ inline const bool createFolder(const std::string& path)
     }
   }
 
-
-/*  try
-  {
-    if (boost::filesystem::create_directory(path))
-    {
-      return true;
-    }
-  }
-  catch (boost::filesystem::filesystem_error &e)
-  {
-    std::cerr << e.what() << std::endl;
-    return false;
-  }*/
   return false;
 }
 

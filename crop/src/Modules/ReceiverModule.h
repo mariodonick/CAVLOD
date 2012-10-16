@@ -1,5 +1,5 @@
 /*
- * @brief ReceiverModule.h
+ * @brief ReceiverModule.h wrapper around receiver
  *
  */
 

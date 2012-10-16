@@ -24,12 +24,12 @@ void ReceiverModule::start()
   receiver->start();
 }
 
-void ReceiverModule::registerCallback(const std::function<void(const CrodtOutput<std::string>&)>& cb)
+void ReceiverModule::registerCallback(const std::function<void(const CrodtOutput<std::string>)>& cb)
 {
   receiver->registerCallback(cb);
 }
 
-void ReceiverModule::registerCallback(const std::function<void(const CrodtOutput<float>&)>& cb)
+void ReceiverModule::registerCallback(const std::function<void(const CrodtOutput<float>)>& cb)
 {
   receiver->registerCallback(cb);
 }

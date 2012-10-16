@@ -40,8 +40,6 @@ protected:
 
 
 
-
-
 class SensorParser : public ContentParser<Sensor_sPtr>
 {
 protected:

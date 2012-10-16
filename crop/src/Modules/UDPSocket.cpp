@@ -33,7 +33,6 @@ const ByteArray_sPtr UDPSocket::receiveData()
 
   n_s = recvfrom(sock_s, &buf_s, NETWORK_BUFFER_SIZE, 0, (sockaddr *)&from_s, &fromlen_s);
 
-  DBG() << "received length: " << n_s << "\n";
   if(n_s < 0)
   {
     WARNING() << "error at receiving\n";
@@ -75,11 +74,9 @@ const bool UDPSocket::sendData(const ByteArray& data, const char* s_addr, const 
 
 	length_c = sizeof(struct sockaddr_in);
 
-	std::cout << "before sendto\n";
 	//send message to the server with the chosen address and port
 	n_c = sendto(sock_c, data.dataPtr(), data.size(), 0 ,(sockaddr *)&server_c,length_c);
 
-	std::cout << "num bytes send1: " << n_c << "\n";
 	if (n_c < 0)
 	{
 	  ERROR() << "error by sending\n";

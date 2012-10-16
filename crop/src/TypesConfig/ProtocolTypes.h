@@ -38,7 +38,7 @@ enum MsgAddressType
 enum EMsgVersion
 {
   VERSION_1 = 1,
-//  VERSIONT_2,
+//  VERSION_2,
 
 };
 

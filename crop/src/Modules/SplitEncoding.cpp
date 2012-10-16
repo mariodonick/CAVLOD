@@ -33,6 +33,36 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
 {
   const std::vector<RelevanceData>& relevanceData = crodm->getRelevanceData(doid, TYPE_TEXT);
 
+  // sort the input vector to avoid problems
+  std::vector<RelevanceData> vec = relevanceData;
+
+  RelevanceDataXCmp comX;
+  RelevanceDataYCmp comY;
+  std::sort(vec.begin(), vec.end(), comY);
+
+  std::vector<RelevanceData>::iterator first = vec.begin();
+  std::vector<RelevanceData>::iterator cur = vec.begin();
+  std::vector<RelevanceData>::iterator last = vec.begin();
+
+  if (vec.begin() != vec.end())
+  {
+    std::vector<RelevanceData>::iterator next = vec.begin()+1;
+    while (next < vec.end())
+    {
+      if (cur->pos.y != next->pos.y)
+      {
+        last = cur+1;
+        std::sort(first, last, comX);
+        first = next;
+      }
+      ++cur;
+      ++next;
+      if (next == vec.end())
+        std::sort(first, vec.end(), comX);
+    }
+  }
+
+  // small check
   if(content.size() == 0)
   {
     WARNING() << "The content ist empty!!!\n";

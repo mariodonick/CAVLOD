@@ -99,7 +99,7 @@ const std::vector<DataBlock_sPtr>& LocalStoreManager::load()
 
             DataBlock_sPtr db(new DataBlock);
             db->setHeader(dbh);
-            db->setTimetamp(h.timeStamp);
+            db->setTimestamp(h.timeStamp);
             db->setPriority( h.priority );
 
             char buffer2[file_size - sizeof(BinFileHeader)];

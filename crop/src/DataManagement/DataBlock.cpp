@@ -100,7 +100,7 @@ void DataBlock::setRelevanceData(const RelevanceData& rel)
   relevance = rel;
 }
 
-void DataBlock::setTimetamp(const CTimestamp& ts)
+void DataBlock::setTimestamp(const CTimestamp& ts)
 {
   timestamp.setTimestamp(ts);
 }

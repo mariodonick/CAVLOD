@@ -8,9 +8,6 @@
 #ifndef LOCALSTOREMANAGER_H_
 #define LOCALSTOREMANAGER_H_
 
-#include <fstream>
-#include <iostream>
-
 #include "StoreManager.h"
 #include "../DataManagement/DataBlock.h"
 

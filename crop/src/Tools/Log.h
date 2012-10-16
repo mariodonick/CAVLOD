@@ -75,7 +75,7 @@ class Log
   }*stream;
 
 public:
-  Log(const Verbosity& level);//, const std::string& path);
+  Log(const Verbosity& level);
   virtual ~Log();
 
   typedef Log& (*StreamManipulator)(Log&); // function that takes a custom stream, and returns it

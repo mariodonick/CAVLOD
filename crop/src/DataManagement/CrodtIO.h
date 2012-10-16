@@ -1,5 +1,5 @@
 /*
- * @brief RelevanceData.h
+ * @brief CrodtIO.h
  *
  */
 
@@ -17,15 +17,15 @@ typedef unsigned short uint16;
 
 struct Position
 {
-  uint16 x;
-  uint16 y;
-  uint16 len_x;
+  uint16 x; // column
+  uint16 y; // the line
+  uint16 len_x; // lenght of the content starts by position x/y (by text the values are char precise)
 };
 
 struct RelevanceData
 {
-  float relevanceValue;
-  Position pos;
+  float relevanceValue; // the relevance value
+  Position pos; // the position of the relevant area
 
   friend std::ostream& operator<<(std::ostream& out, const RelevanceData& rel)
   {
@@ -41,24 +41,25 @@ struct RelevanceData
 
 struct CrodtInput
 {
+  // stores all information about the position of the relevant areas
   std::vector<RelevanceData> relevanceVector;
-  std::string content;
-  bool is_timestamp;
+  std::string content; // cointains the content
+  bool is_timestamp; // is true if we want to send a timestamp
 };
 
 template<class T>
 struct COItem
 {
-  Position pos;
-  T content;
-  bool usingTimestamp;
-  uint64 timestamp;
+  Position pos; // position of this item
+  T content; // contains the content
+  bool usingTimestamp; // is true if we want to send a timestamp
+  uint64 timestamp; // contains the timestamp
 };
 
 template<class T>
 struct CrodtOutput
 {
-  std::vector<COItem<T> > sortedContent;
+  COItem<T> sortedContent; // contains the data which was produced by the crodt module
 };
 
 } // namespace crodt

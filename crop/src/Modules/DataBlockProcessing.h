@@ -23,7 +23,7 @@ class DataBlockProcessing : protected Parser, protected Decoder
   using Decoder::sortedContent;
   using Parser::parseContent;
 
-  typedef std::function<void(const CrodtOutput<C>&)> Callback;
+  typedef std::function<void(const CrodtOutput<C>)> Callback;
 
 public:
   DataBlockProcessing();
@@ -87,10 +87,13 @@ void DataBlockProcessing<T, Parser, Decoder, C>::start(const DataBlock::Header& 
     coi.usingTimestamp = usingTimestamp;
     decode(dbh.dataObjectID.to_uint(), dbh.sequenceNumber.to_uint(), coi);
 
+    output.sortedContent = coi;
+    std::cout << "content: " << output.sortedContent.content << "\n";
+    std::cout << "pos x: " << output.sortedContent.pos.x << "\n";
+    std::cout << "pos length: " << output.sortedContent.pos.len_x << "\n";
+    callback(output);
     INFO() << "\n--------------- DB END ---------------------------\n";
   }
-  output.sortedContent = sortedContent;
-  callback(output);
 }
 
 template<class T, class Parser, class Decoder, class C>

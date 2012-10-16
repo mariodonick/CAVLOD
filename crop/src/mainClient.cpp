@@ -10,7 +10,7 @@ int main()
   crodt::SenderModuleIF* crodt = new crodt::SenderModule;
   crodt->initialize();
 
-  while(true)
+  for(unsigned int i = 0; i < 100; ++i)
   {
     std::string text = "Es folgt ein Beispieltext:\n";
     text.append("Hallo ich bin ein Beispieltext und komme vom Mars.\n");
@@ -49,6 +49,7 @@ int main()
     crodt::CrodtInput ci;
     ci.is_timestamp = true;
     ci.content = text;
+
     ci.relevanceVector.push_back(rd0);
     ci.relevanceVector.push_back(rd1);
     ci.relevanceVector.push_back(rd2);
@@ -57,7 +58,7 @@ int main()
 
     crodt->sendText(ci);
 
-    sleep(5);
+    sleep(1);
   }
   delete crodt;
   return 0;

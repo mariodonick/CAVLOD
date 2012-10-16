@@ -19,7 +19,6 @@ public:
 
   virtual ~StopWatch()
   {
-
   }
 
   void restart()

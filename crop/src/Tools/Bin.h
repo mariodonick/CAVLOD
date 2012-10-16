@@ -6,7 +6,7 @@
 #define BIN_H_
 
 #include <bitset>
-#include <iostream> // todo unschön wegen 1 cerr :(
+#include <iostream>
 
 const unsigned int BIT_PER_BYTE = 8;
 const unsigned int RSHIFT_TO_BYTE = 3;

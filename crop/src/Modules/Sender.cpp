@@ -66,14 +66,15 @@ void Sender::packetizerThread()
   {
     usleep(config.sendDelayMS * 1000);
 
-    INFO() << "start Sending... Data available in Prioritized Queue: " << prioQueue->size() << ENDL;
+    INFO() << "Data available in Prioritized Queue: " << prioQueue->size() << ENDL;
 
     const ByteArray& data = packetizer->packetizeMessage();
 
     if( !data.isEmpty() )
+    {
       network->sendData(data, config.ipAddress.c_str(), config.port);
-
-    INFO() << "Sending... Data available in Prioritized Queue: " << prioQueue->size() << ENDL;
+      INFO() << "Sending....... Data available in Prioritized Queue: " << prioQueue->size() << ENDL;
+    }
   }
 }
 

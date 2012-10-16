@@ -17,6 +17,22 @@
 namespace crodt
 {
 
+struct RelevanceDataXCmp
+{
+  bool operator() (RelevanceData lhs, RelevanceData rhs)
+  {
+    return (lhs.pos.x < rhs.pos.x);
+  }
+};
+
+struct RelevanceDataYCmp
+{
+  bool operator() (RelevanceData lhs, RelevanceData rhs)
+  {
+    return (lhs.pos.y<rhs.pos.y);
+  }
+};
+
 class SplitEncoding : public Partitioning
 {
 public:

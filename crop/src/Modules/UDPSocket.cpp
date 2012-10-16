@@ -44,7 +44,7 @@ const ByteArray_sPtr UDPSocket::receiveData()
   return barr;
 }
 
-void UDPSocket::sendData(const ByteArray& data, const char* s_addr, const unsigned int& s_port)
+const bool UDPSocket::sendData(const ByteArray& data, const char* s_addr, const unsigned int& s_port)
 {
 	//open socket (SOCK_DGRAM = UDP Socket)
 	sock_c = socket(AF_INET, SOCK_DGRAM, 0);
@@ -52,7 +52,8 @@ void UDPSocket::sendData(const ByteArray& data, const char* s_addr, const unsign
   {
 	  perror("socket");
 	  ERROR() << "socket" << ENDL;
-	  return;
+	  close(sock_c);
+	  return false;
   }
 
 	server_c.sin_family = AF_INET;
@@ -61,7 +62,8 @@ void UDPSocket::sendData(const ByteArray& data, const char* s_addr, const unsign
 	if (hp_c==0)
 	{
 	  ERROR() << "Unknown host" << ENDL;
-	  return;
+	  close(sock_c);
+	  return false;
 	}
 
 	bcopy((char *)hp_c->h_addr,
@@ -73,16 +75,20 @@ void UDPSocket::sendData(const ByteArray& data, const char* s_addr, const unsign
 
 	length_c = sizeof(struct sockaddr_in);
 
-	//send message to the server with the choosen address and port
+	std::cout << "before sendto\n";
+	//send message to the server with the chosen address and port
 	n_c = sendto(sock_c, data.dataPtr(), data.size(), 0 ,(sockaddr *)&server_c,length_c);
 
+	std::cout << "num bytes send1: " << n_c << "\n";
 	if (n_c < 0)
 	{
 	  ERROR() << "error by sending\n";
-	  return;
+	  close(sock_c);
+	  return false;
 	}
 
 	close(sock_c);
+	return true;
 }
 
 void UDPSocket::startServer(const unsigned int& s_port)

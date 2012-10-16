@@ -37,6 +37,8 @@ struct RelevanceData
   }
 };
 
+
+
 struct CrodtInput
 {
   std::vector<RelevanceData> relevanceVector;

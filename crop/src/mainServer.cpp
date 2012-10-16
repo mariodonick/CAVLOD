@@ -10,6 +10,10 @@
 #include <iostream>
 #include <unistd.h>
 
+#include "Tools/Bin.h"
+#include "Tools/ByteArray.h"
+#include "DataManagement/DataBlock.h"
+#include "Modules/LocalStoreManager.h"
 
 crodt::ReceiverModuleIF* receiver;
 

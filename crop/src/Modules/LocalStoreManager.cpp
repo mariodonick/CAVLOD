@@ -12,6 +12,7 @@
 #include "../Tools/FileSystem.h"
 #include "../Tools/Log.h"
 #include "../DataManagement/DataBlock.h"
+#include "../Tools/Bin.h"
 
 #include <string>
 #include <sstream>
@@ -20,6 +21,8 @@
 #include "boost/filesystem/operations.hpp"
 #include "boost/filesystem/path.hpp"
 #include "boost/progress.hpp"
+#include <sys/stat.h>
+#include <sys/types.h>
 
 using namespace crodt;
 
@@ -34,6 +37,17 @@ LocalStoreManager::~LocalStoreManager(){}
 const std::vector<DataBlock_sPtr>& LocalStoreManager::load()
 {
   dbVec.clear();
+
+  struct block
+  {
+    uint type;
+    uint cfg;
+    uint doid;
+    uint seqNum;
+    uint len;
+    uint64_t ts;
+    uint prio;
+  };
 
   boost::filesystem::path backup_path( config.backupPath );
   std::string filename;
@@ -62,6 +76,8 @@ const std::vector<DataBlock_sPtr>& LocalStoreManager::load()
         {
           try
           {
+            std::cout << "path: " << temp << std::endl;
+            std::cout << "filename: " << subDir_itr_begin->path().filename() << std::endl;
             DataBlock_sPtr db(new DataBlock);
             DataBlock::Header dbh;
             std::ifstream bin(temp,std::ios::binary);
@@ -73,32 +89,55 @@ const std::vector<DataBlock_sPtr>& LocalStoreManager::load()
             }
 
             bin.seekg(0,std::ios::end);  //an letzte position der datei springen
-            int file_size = bin.tellg(); // position auslesen => groesse der datei
+            uint file_size = bin.tellg(); // position auslesen => groesse der datei
             bin.seekg(0,std::ios::beg); // wieder an anfang der datei springen
 
-            char dataBlockEntries[file_size];
-            bin.read(reinterpret_cast <char*> (&dataBlockEntries), file_size); // auslesen der daten in ausgabe array
+            block moep;
+            bin.read(reinterpret_cast <char*> (&moep), sizeof(block)); // auslesen der daten in ausgabe array
 
-            char* test = (reinterpret_cast <char*> (&dataBlockEntries));
-            std::cout << "dataBlockEntries: " << std::hex << test << std::endl;
-            dbh.dataType = char2uint( &dataBlockEntries[0], 4 );
+            char DBcontent[file_size-sizeof(block)];
+            bin.read(DBcontent, (file_size-sizeof(block)));
+            //std::cout << "dataBlockEntries: " << test << std::endl;
+            std::cout << "file_size: " << sizeof(block) << std::endl;
+
+            dbh.dataType = moep.type;
+            dbh.config = moep.cfg;
+            dbh.dataObjectID = moep.doid;
+            dbh.sequenceNumber = moep.seqNum;
+            dbh.length = moep.len;
+
+/*            dbh.dataType = char2uint( &dataBlockEntries[0], 4 );
             dbh.config = char2uint( &dataBlockEntries[4], 4 );
             dbh.dataObjectID = char2uint( &dataBlockEntries[8], 4 );
             dbh.sequenceNumber = char2uint( &dataBlockEntries[12], 4 );
-            dbh.length = char2uint( &dataBlockEntries[16], 4 );
+            dbh.length = char2uint( &dataBlockEntries[16], 4 );*/
 
             db->setHeader(dbh);
 
-            Bin<32> time1 = char2uint( &dataBlockEntries[20], 4 );
+/*            Bin<32> time1 = char2uint( &dataBlockEntries[20], 4 );
             Bin<32> time2 = char2uint( &dataBlockEntries[24], 4 );
             db->setTimetamp(merge(time1, time2));
 
-            db->setPriority( char2uint( &dataBlockEntries[28], 4) );
+            db->setPriority( char2uint( &dataBlockEntries[28], 4) );*/
+
+            db->setTimetamp(moep.ts);
+            db->setPriority(moep.prio);
 
             ByteArray_sPtr ba(new ByteArray);
-            ba->insert(&dataBlockEntries[32], file_size-32);
-
+            ba->insert(&DBcontent[0], file_size-sizeof(block));
+//
             db->addContent( ba );
+
+            std::cout << "type: " << dbh.dataType.to_string() << " " << dbh.dataType.to_uint() << std::endl;
+            std::cout << "config: " << dbh.config.to_string() << " " << dbh.config.to_uint() << std::endl;
+            std::cout << "DOID: " << dbh.dataObjectID.to_string() << " " << dbh.dataObjectID.to_uint() << std::endl;
+            std::cout << "SN: " << dbh.sequenceNumber.to_string() << " " << dbh.sequenceNumber.to_uint() << std::endl;
+            std::cout << "length: " << dbh.length.to_string() << " " << dbh.length.to_uint() << "\n" << std::endl;
+            std::cout << "prio: " << moep.prio << "\n" << std::endl;
+            //std::cout << "time1: " << time1.to_string() << " " << time1.to_uint() << std::endl;
+            //std::cout << "time2: " << time2.to_string() << " " << time2.to_uint() << std::endl;
+
+            //ba->dumpHex(std::cout);
 
             dbVec.push_back(db);
 
@@ -121,37 +160,61 @@ const std::vector<DataBlock_sPtr>& LocalStoreManager::load()
 
 void LocalStoreManager::store(const DataBlock_sPtr& db)
 {
-  ByteArray_sPtr dbContent = db->getContent();
+  struct block
+  {
+    uint type;
+    uint cfg;
+    uint doid;
+    uint seqNum;
+    uint len;
+    uint64_t ts;
+    uint prio;
+  };
 
-  uint dataType_uint = db->getDataType().to_uint();
-  uint config_uint = db->getConfig().to_uint();
-  uint dataObjectID_uint = db->getDataObjectID().to_uint();
-  uint sequenzNumber_uint = db->getSequenceNumber().to_uint();
-  uint length_uint = db->getLength().to_uint();
-  uint64_t timeStamp_uint = db->getTimestamp().to_ulong();
-  uint priority_uint = db->getPriority();
+  ByteArray_sPtr dbContent = db->getContent();
+  block data;
+
+  data.type = db->getDataType().to_uint();
+  data.cfg = db->getConfig().to_uint();
+  data.doid = db->getDataObjectID().to_uint();
+  data.seqNum = db->getSequenceNumber().to_uint();
+  data.len = db->getLength().to_uint();
+  data.ts = db->getTimestamp().to_ulong();
+  data.prio = db->getPriority();
+
+  std::cout << "dataType: " << data.type << std::endl;
+  std::cout << "config: " << data.cfg << std::endl;
+  std::cout << "DOID: " << data.doid << std::endl;
+  std::cout << "SN: " << data.seqNum << std::endl;
+  std::cout << "legnth: " << data.len << std::endl;
+  std::cout << "ts: " << data.ts << std::endl;
+  std::cout << "priority: " << data.prio << std::endl;
+
 
   std::stringstream ssDataType;
-  ssDataType << dataType_uint;
+  ssDataType << data.type;
 
   std::stringstream ssDOID;
-  ssDOID << dataObjectID_uint;
+  ssDOID << data.doid;
 
   std::stringstream ssSequenzNumber;
-  ssSequenzNumber << sequenzNumber_uint;
+  ssSequenzNumber << data.seqNum;
 
   std::string path = config.backupPath + ssDataType.str() + "_" + ssDOID.str() + "/";
   createFolder(path);
 
-  std::string filePath = path + ssSequenzNumber.str() + ".text";
+  std::string filePath = path + ssSequenzNumber.str() + ".bin";
   std::ofstream outbin(filePath,std::ios::binary);
-  outbin.write( reinterpret_cast <const char*> (&dataType_uint), sizeof(uint) );
+
+/*  outbin.write( reinterpret_cast <const char*> (&dataType_uint), sizeof(uint) );
   outbin.write( reinterpret_cast <const char*> (&config_uint), sizeof(uint) );
   outbin.write( reinterpret_cast <const char*> (&dataObjectID_uint), sizeof(uint) );
   outbin.write( reinterpret_cast <const char*> (&sequenzNumber_uint), sizeof(uint) );
   outbin.write( reinterpret_cast <const char*> (&length_uint), sizeof(uint) );
   outbin.write( reinterpret_cast <const char*> (&timeStamp_uint), sizeof(uint64_t) );
-  outbin.write( reinterpret_cast <const char*> (&priority_uint), sizeof(uint) );
+  outbin.write( reinterpret_cast <const char*> (&priority_uint), sizeof(uint) );*/
+
+  outbin.write( reinterpret_cast <const char*> (&data), sizeof(block));
   outbin.write( dbContent->dataPtr(), dbContent->size() );
 
   outbin.close();

@@ -30,7 +30,7 @@ void callbackFuntion(const crodt::CrodtOutput<std::string>& co)
 {
   std::vector<crodt::COItem<std::string> >::const_iterator it = co.sortedContent.begin();
   for(; it != co.sortedContent.end(); ++it)
-    DBG() << it->content;
+    std::cout << it->content;
 }
 
 int main()

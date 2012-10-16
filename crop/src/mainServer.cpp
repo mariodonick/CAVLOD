@@ -28,7 +28,7 @@ void signal_handler_SIGINT (int status)
 
 void callbackFuntion(const crodt::CrodtOutput<std::string>& co)
 {
-    INFO << co.sortedContent.content << ENDL;
+    INFO() << co.sortedContent.content << ENDL;
 }
 
 int main()

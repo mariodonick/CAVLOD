@@ -43,7 +43,6 @@ void Priority::evaluate()
     data->setPriority( prio );
     prioQueue->push( data );
     dbStorage->store( data );
-
     ++i;
   }
 }

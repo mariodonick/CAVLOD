@@ -57,7 +57,7 @@ public:
   void setConfig(const DBConfig& conf);
   void setPriority(const float& prio);
   void setRelevanceData(const RelevanceData& rel);
-  void setTimetamp(const CTimestamp& ts);
+  void setTimestamp(const CTimestamp& ts);
   void setHeader(const DataBlock::Header& dbh);
 
   void stamp();

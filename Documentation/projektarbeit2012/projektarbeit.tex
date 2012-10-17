@@ -1,0 +1,160 @@
+% ------------------------------------------------------------------------------
+% Formatvorlage für Masterarbeiten an der Ohm-Hochschule Nürnberg
+% ------------------------------------------------------------------------------
+%   erstellt von Stefan Macke, 24.04.2009
+%   http://blog.stefan-macke.de
+
+% Dokumentenkopf ---------------------------------------------------------------
+%   Diese Vorlage basiert auf "scrreprt" aus dem koma-script.
+% ------------------------------------------------------------------------------
+\documentclass[
+    11pt, % Schriftgröße
+    DIV=11,
+    ngerman, % für Umlaute, Silbentrennung etc.
+    a4paper, % Papierformat
+    oneside, % einseitiges Dokument
+    titlepage, % es wird eine Titelseite verwendet
+    parskip=half, % Abstand zwischen Abstüzen (halbe Zeile)
+    headings=normal, % Größe der Überschriften verkleinern
+    listof=totoc, % Verzeichnisse im Inhaltsverzeichnis aufführen
+    bibliography=totoc, % Literaturverzeichnis im Inhaltsverzeichnis aufführen
+    index=totoc, % Index im Inhaltsverzeichnis aufführen
+    captions=tableheading, % Beschriftung von Tabellen unterhalb ausgeben
+    final % Status des Dokuments (final/draft)
+]{scrreprt}
+
+% Meta-Informationen -----------------------------------------------------------
+%   Informationen �ber das Dokument, wie z.B. Titel, Autor, Matrikelnr. etc
+%   werden in der Datei Meta.tex definiert und können danach global
+%   verwendet werden.
+% ------------------------------------------------------------------------------
+\input{config/Meta}
+
+% benötigte Packages -----------------------------------------------------------
+%   LaTeX-Packages, die benötigt werden, sind in die Datei Packages.tex
+%   "ausgelagert", um diese Vorlage möglichst übersichtlich zu halten.
+% ------------------------------------------------------------------------------
+\input{Packages}
+
+% Erstellung eines Index und Abkürzungsverzeichnisses aktivieren ---------------
+\makeindex
+\makenomenclature
+
+% Kopf- und Fußzeilen, Seitenränder etc. ---------------------------------------
+\input{config/Seitenstil}
+
+% eigene Definitionen für Silbentrennung
+\include{config/Silbentrennung}
+
+% eigene LaTeX-Befehle
+\include{config/Befehle}
+
+% Das eigentliche Dokument -----------------------------------------------------
+%   Der eigentliche Inhalt des Dokuments beginnt hier. Die einzelnen Seiten
+%   und Kapitel werden in eigene Dateien ausgelagert und hier nur inkludiert.
+% ------------------------------------------------------------------------------
+\begin{document}
+
+% auch subsubsection nummerieren
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+% Deckblatt und Abstract ohne Seitenzahl
+\ofoot{}
+\include{Deckblatt}
+\ofoot{\pagemark}
+
+% Seitennummerierung -----------------------------------------------------------
+%   Vor dem Hauptteil werden die Seiten in großen römischen Ziffern 
+%   nummeriert.
+% ------------------------------------------------------------------------------
+\pagenumbering{Roman}
+\tableofcontents % Inhaltsverzeichnis
+
+% Abkürzungsverzeichnis
+% --------------------------------------------------------
+\input{Glossar}
+% für korrekte Überschrift in der Kopfzeile
+\clearpage\markboth{\nomname}{\nomname} 
+\printnomenclature
+\label{sec:Glossar}
+
+\listoffigures % Abbildungsverzeichnis
+\listoftables % Tabellenverzeichnis
+\renewcommand{\lstlistlistingname}{Verzeichnis der Listings}
+\lstlistoflistings % Listings-Verzeichnis
+
+% arabische Seitenzahlen im Hauptteil ------------------------------------------
+\clearpage
+\pagenumbering{arabic}
+
+% die Inhaltskapitel werden in "Inhalt.tex" inkludiert -------------------------
+\chapter{Einleitung}
+	\input{Einleitung}
+
+\chapter{Stand der Technik}
+	\input{StandDerTechnik}
+	
+\chapter{Grundlagen}
+	\input{Grundlagen}
+	\section{Protokoll-Stack}
+		\input{Protokoll-Stack}
+	\section{OSI-Modell}
+		\input{OSI-Modell}
+	\section{CROP}
+		\input{CROP}
+	\section{Zeitmessung}
+		\input{Zeitmessung}
+	
+\chapter{Konzept}
+	\input{Konzept}
+	\section{Vorüberlegung}
+		\input{Vorueberlegung}
+	\section{Protokoll-Design}
+		\input{Protokoll-Design}
+	\section{Anwendungsszenarien}
+		\input{Anwendungsszenarien}
+	\section{Schnittstellen}
+		\input{Schnittstellen}
+	
+\chapter{Implementierung}
+	\input{Implementierung}
+	
+\chapter{Test-Szenario}	
+	\input{Test-Szenario}
+	
+\chapter{Auswertung}
+	\input{Auswertung}
+	
+\chapter{Zusammenfassung und Ausblick}
+	\input{ZusammenfassungAusblick}
+
+% Literaturverzeichnis ---------------------------------------------------------
+%   Das Literaturverzeichnis wird aus der BibTeX-Datenbank "Bibliographie.bib"
+%   erstellt.
+% ------------------------------------------------------------------------------
+%\bibliography{Bibliographie} % Aufruf: bibtex Masterarbeit
+%\bibliographystyle{natdin} % DIN-Stil des Literaturverzeichnisses
+
+\include{Eides_Erklaerung} % Selbständigkeitserklärung
+
+% Anhang -----------------------------------------------------------------------
+%   Die Inhalte des Anhangs werden analog zu den Kapiteln inkludiert.
+%   Dies geschieht in der Datei "Anhang.tex".
+% ------------------------------------------------------------------------------
+\begin{appendix}
+    \clearpage
+    \pagenumbering{roman}
+    \chapter{Anhang}
+    \label{sec:Anhang}
+    % Rand der Aufzählungen in Tabellen anpassen
+    \setdefaultleftmargin{1em}{}{}{}{}{}
+    \input{Anhang}
+\end{appendix}
+
+% Index ------------------------------------------------------------------------
+%   Zum Erstellen eines Index, die folgende Zeile auskommentieren.
+% ------------------------------------------------------------------------------
+%\printindex
+
+\end{document}

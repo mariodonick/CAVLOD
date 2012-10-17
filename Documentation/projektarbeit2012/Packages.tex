@@ -1,0 +1,160 @@
+% Anpassung des Seitenlayouts --------------------------------------------------
+%   siehe Seitenstil.tex
+% ------------------------------------------------------------------------------
+\usepackage[
+    automark, % Kapitelangaben in Kopfzeile automatisch erstellen
+    headsepline, % Trennlinie unter Kopfzeile
+    ilines % Trennlinie linksb�ndig ausrichten
+]{scrpage2}
+
+% Anpassung an Landessprache ---------------------------------------------------
+\usepackage[ngerman]{babel}
+
+% Umlaute ----------------------------------------------------------------------
+%   Umlaute/Sonderzeichen wie ���� direkt im Quelltext verwenden (CodePage).
+%   Erlaubt automatische Trennung von Worten mit Umlauten.
+% ------------------------------------------------------------------------------
+\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+\usepackage{textcomp} % Euro-Zeichen etc.
+
+% Schrift ----------------------------------------------------------------------
+\usepackage{lmodern} % bessere Fonts
+\usepackage{relsize} % Schriftgr��e relativ festlegen
+
+% Grafiken ---------------------------------------------------------------------
+% Einbinden von JPG-Grafiken erm�glichen
+\usepackage[pdftex]{graphicx}
+% hier liegen die Bilder des Dokuments
+\graphicspath{{Bilder/}}
+
+% Befehle aus AMSTeX f�r mathematische Symbole z.B. \boldsymbol \mathbb --------
+\usepackage{amsmath,amsfonts}
+
+% f�r Index-Ausgabe mit \printindex --------------------------------------------
+\usepackage{makeidx}
+
+% Einfache Definition der Zeilenabst�nde und Seitenr�nder etc. -----------------
+\usepackage{setspace}
+\usepackage{geometry}
+
+% Symbolverzeichnis ------------------------------------------------------------
+%   Symbolverzeichnisse bequem erstellen. Beruht auf MakeIndex:
+%     makeindex.exe %Name%.nlo -s nomencl.ist -o %Name%.nls
+%   erzeugt dann das Verzeichnis. Dieser Befehl kann z.B. im TeXnicCenter
+%   als Postprozessor eingetragen werden, damit er nicht st�ndig manuell
+%   ausgef�hrt werden muss.
+%   Die Definitionen sind ausgegliedert in die Datei "Glossar.tex".
+% ------------------------------------------------------------------------------
+\usepackage[intoc]{nomencl}
+\let\abbrev\nomenclature
+\renewcommand{\nomname}{Abkürzungsverzeichnis}
+\setlength{\nomlabelwidth}{.25\hsize}
+\renewcommand{\nomlabel}[1]{#1 \dotfill}
+\setlength{\nomitemsep}{-\parsep}
+
+% zum Umflie�en von Bildern ----------------------------------------------------
+\usepackage{floatflt}
+
+
+% zum Einbinden von Programmcode -----------------------------------------------
+\usepackage{listings}
+\usepackage{xcolor} 
+\definecolor{hellgelb}{rgb}{1,1,0.9}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\lstset{
+    float=hbp,
+    basicstyle=\ttfamily\color{black}\small\smaller,
+    identifierstyle=\color{colIdentifier},
+    keywordstyle=\color{colKeys},
+    stringstyle=\color{colString},
+    commentstyle=\color{colComments},
+    columns=flexible,
+    tabsize=2,
+    frame=single,
+    extendedchars=true,
+    showspaces=false,
+    showstringspaces=false,
+    numbers=left,
+    numberstyle=\tiny,
+    breaklines=true,
+    backgroundcolor=\color{hellgelb},
+    breakautoindent=true
+}
+\lstset{literate=%
+{Ö}{{\"O}}1
+{Ä}{{\"A}}1
+{Ü}{{\"U}}1
+{ß}{{\ss}}2
+{ü}{{\"u}}1
+{ä}{{\"a}}1
+{ö}{{\"o}}1
+}
+
+% URL verlinken, lange URLs umbrechen etc. -------------------------------------
+\usepackage{url}
+
+% wichtig f�r korrekte Zitierweise ---------------------------------------------
+\usepackage[square]{natbib}
+
+% PDF-Optionen -----------------------------------------------------------------
+\usepackage[
+    bookmarks,
+    bookmarksopen=true,
+    colorlinks=true,
+% diese Farbdefinitionen zeichnen Links im PDF farblich aus
+    linkcolor=red, % einfache interne Verkn�pfungen
+    anchorcolor=black,% Ankertext
+    citecolor=blue, % Verweise auf Literaturverzeichniseintr�ge im Text
+    filecolor=magenta, % Verkn�pfungen, die lokale Dateien �ffnen
+    menucolor=red, % Acrobat-Men�punkte
+    urlcolor=cyan, 
+% diese Farbdefinitionen sollten f�r den Druck verwendet werden (alles schwarz)
+    %linkcolor=black, % einfache interne Verkn�pfungen
+    %anchorcolor=black, % Ankertext
+    %citecolor=black, % Verweise auf Literaturverzeichniseintr�ge im Text
+    %filecolor=black, % Verkn�pfungen, die lokale Dateien �ffnen
+    %menucolor=black, % Acrobat-Men�punkte
+    %urlcolor=black, 
+    backref,
+    plainpages=false, % zur korrekten Erstellung der Bookmarks
+    pdfpagelabels, % zur korrekten Erstellung der Bookmarks
+    hypertexnames=false, % zur korrekten Erstellung der Bookmarks
+    linktocpage % Seitenzahlen anstatt Text im Inhaltsverzeichnis verlinken
+]{hyperref}
+% Befehle, die Umlaute ausgeben, f�hren zu Fehlern, wenn sie hyperref als Optionen �bergeben werden
+\hypersetup{
+    pdftitle={\titel \untertitel},
+    pdfauthor={\autor},
+    pdfcreator={\autor},
+    pdfsubject={\titel \untertitel},
+    pdfkeywords={\titel \untertitel},
+}
+
+% fortlaufendes Durchnummerieren der Fu�noten ----------------------------------
+\usepackage{chngcntr}
+
+% f�r (lange) Tabellen ---------------------------------------------------------
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{ragged2e}
+\usepackage{lscape}
+\usepackage{tabularx}
+
+% Spaltendefinition rechtsb�ndig mit definierter Breite ------------------------
+\newcolumntype{w}[1]{>{\raggedleft\hspace{0pt}}p{#1}}
+
+% Formatierung von Listen �ndern -----------------------------------------------
+\usepackage{paralist}
+
+% bei der Definition eigener Befehle ben�tigt
+\usepackage{ifthen}
+
+% definiert u.a. die Befehle \todo und \listoftodos
+\usepackage{todonotes}
+
+% sorgt daf�r, dass Leerzeichen hinter parameterlosen Makros nicht als Makroendezeichen interpretiert werden
+\usepackage{xspace}

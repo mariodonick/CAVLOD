@@ -1,0 +1,8 @@
+/extLib
+/debug
+/release
+/Makefile
+/Makefile.Debug
+/Makefile.Release
+/ui_ChatGui.h
+/chatGui

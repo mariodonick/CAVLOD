@@ -40,7 +40,7 @@ int main()
   crodt::TextCallback func = callbackFuntion;
   receiver->registerCallback(func);
 
-  sleep(300);
+  sleep(30000);
 
   return 0;
 }

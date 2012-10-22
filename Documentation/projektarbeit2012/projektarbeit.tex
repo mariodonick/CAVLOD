@@ -74,7 +74,7 @@
 % Abkürzungsverzeichnis
 % --------------------------------------------------------
 \input{Glossar}
-% für korrekte Überschrift in der Kopfzeile
+% für eine korrekte Überschrift in der Kopfzeile
 \clearpage\markboth{\nomname}{\nomname} 
 \printnomenclature
 \label{sec:Glossar}
@@ -106,11 +106,11 @@
 	\section{Zeitmessung}
 		\input{Zeitmessung}
 	
-\chapter{Konzept}
+\chapter{Konzept} \label{sec:Konzept}
 	\input{Konzept}
-	\section{Vorüberlegung}
+	\section{Vorüberlegung} \label{sec:Vorueberlegung}
 		\input{Vorueberlegung}
-	\section{Protokoll-Design}
+	\section{Protokoll-Design} \label{sec:ProtokolDesign}
 		\input{Protokoll-Design}
 	\section{Anwendungsszenarien}
 		\input{Anwendungsszenarien}
@@ -119,6 +119,8 @@
 	
 \chapter{Implementierung}
 	\input{Implementierung}
+	\section{ChatGui}
+	\input{ChatGui}
 	
 \chapter{Test-Szenario}	
 	\input{Test-Szenario}

@@ -1,7 +1,8 @@
 % Zeilenabstand 1,5 Zeilen -----------------------------------------------------
 \onehalfspacing
 
-% Seitenr�nder -----------------------------------------------------------------
+% Seitenraender
+% -----------------------------------------------------------------
 \setlength{\topskip}{\ht\strutbox} % behebt Warnung von geometry
 \geometry{paper=a4paper,left=35mm,right=35mm,top=30mm}
 
@@ -16,16 +17,9 @@
 
 
 % Kopfzeile
-\ihead{{\textit{\rightmark}}\\}%[2ex] \textit{\headmark}}
+\ihead{\textit{\headmark}}
 \chead{}
-\ohead{\pagemark\\}
-%\setlength{\headheight}{21mm} % Höhe der Kopfzeile
-% Kopfzeile über den Text hinaus verbreitern
-%\setheadwidth[0pt]{textwithmarginpar} 
-%\setheadsepline[text]{0.4pt} % Trennlinie unter Kopfzeile
-
-%\lhead{\fancyplain{}{\textit{\rightmark}}}
-%\rhead{\pagemark}
+\ohead{\pagemark}
 
 % Fußzeile
 \ifoot{\copyright\ \autor}

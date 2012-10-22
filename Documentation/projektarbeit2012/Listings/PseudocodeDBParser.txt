@@ -1,0 +1,19 @@
+function start(datablockheader, data)
+  position = 0
+  s = lengthOf(Datablock) - maximumLengthOf(DataBlockHeader)
+  while position < s do
+    timestampBit <- parseTimestampBit()
+    offset = 0;
+    if timestampBit then
+      offset = position + lengthOf(timestamp)
+      parseTimestamp()
+    end if
+  
+    position = position + offset
+    b = parseContent(data[position], s - offset)
+    position = position + lengthOf(b)
+    a = createOutputObject()
+    decode(DatablockHeader, a)
+    callback(a)
+  end while
+end function

@@ -2,13 +2,13 @@
 Für die Umsetzung der im Kapitel \ref{sec:Konzept} angesprochenen Ideen und
 Eigenschaften wurde die Programmiersprache C++ verwendet. Als Entwicklungsumgebung kommt
 Eclipse zum Einsatz. Zur Verbesserung der Teamarbeit und des Austausches
-von Quellcode wurde ein Github Repository (LINK fussnote) angelegt, welches über
-das Eclipse-Plugin EGit genutzt wurde. \newline 
-Im Folgenden wird im Detail auf die Art und Weise der Realisierung
-der beiden Top-Level-Module Sender und Receiver eingegangen. Hierfür wurde
-eine flexible und modulare Softwarearchitektur entwickelt, damit auf
-spätere Änderungen, neue Anforderungen und erforderliche Optimierungen flexible
-reagieren werden kann. Dies ist durch das Austauschen kompletter Module möglich.
+von Quellcode wurde ein Github Repository \footnote{www.github.com} angelegt,
+welches über das Eclipse-Plugin EGit genutzt wurde. \newline Im Folgenden wird
+im Detail auf die Art und Weise der Realisierung der beiden Top-Level-Module
+\Code{Sender} und \Code{Receiver} eingegangen. Hierfür wurde eine flexible und
+modulare Softwarearchitektur entwickelt, damit auf spätere Änderungen, neue Anforderungen
+und erforderliche Optimierungen flexible reagieren werden kann. Dies ist durch
+das Austauschen kompletter Module möglich.
 Dafür wird ein objektorientiertes Design genutzt, womit Quellcoderedundanzen und damit
 zahlreiche potentielle Programmfehler vermieden werden konnten.
 Weiterhin ist die Wiederverwendung einzelner Quellcodepassagen möglich.\newline
@@ -19,13 +19,14 @@ nur die beiden Datentypen Text und Sensorwerte integriert.
 
 \section{Modulaufbau Sender}
 
-Die Aufgabe des Moduls Sender besteht darin, die aus vier Phasen bestehende
-Verarbeitung der Daten aus (LINK zur arbeit) umzusetzen. In
-\abbildung{BlockdiagrammSender} ist das Blockdiagramm des Senders darstellt.
+Die Aufgabe des Moduls \Code{Sender} besteht darin, die aus vier Phasen
+bestehende Verarbeitung der Daten aus \todo{LINK zur arbeit} umzusetzen. In
+\abbildung{BlockdiagrammSender} ist das Blockdiagramm des Moduls \Code{Sender}
+darstellt.
 Dies bietet eine Übersicht zu allen Modulen und wie diese mit anderen
-Kommunizieren. In der Grafik ist jedes Modul durch ein M in der linken oberen
-Ecke gekennezeichnt. Ebenso ist die Schnittstellenklasse angegeben und durch die
-Abkürzung IF (Interface) gekennzeichnet. Dadurch ist der geforderte modulare
+Kommunizieren. In der Grafik ist jedes Submodul durch ein M in der linken
+oberen Ecke des Blockes gekennezeichnt. Ebenso ist die Schnittstellenklasse angegeben
+und durch die Abkürzung IF (Interface) gekennzeichnet. Dadurch ist der geforderte modulare
 Aufbau sichergestellt.
 
 \begin{figure}[htb]
@@ -35,46 +36,33 @@ Aufbau sichergestellt.
 \label{fig:BlockdiagrammSender}
 \end{figure}
 
-Die Daten werden über die Schnittstelle des Topmodules übergeben und an die
-Partitionierung weitergegeben. Dort werden diese in Datenblöcke
+Die Daten werden über die Schnittstelle des Topmoduls übergeben und an die
+Klasse \Code{Partitionierung} weitergegeben. Dort werden diese in Datenblöcke
 abhängig ihrer Relevanz zerlegt. Zusätzlich werden in diesem Schritt die
 Datenblockheader (siehe Kapitel \ref{sec:ProtokolDesign}) erstellt und der
 Content in binäre Daten umgewandelt. Am Ende werden die Datenblöcke mit den
-Headerinformationen in einer FIFO gebuffert. Anschliessend wird jedem einzelnen
-Datenblock im nächsten Modul eine Priorität zugewiesen. Die angesprochene
+Headerinformationen in einer First-In-First-Out-Datenstruktur (FIFO)
+gebuffert.
+Anschliessend wird jedem einzelnen Datenblock im nächsten Modul eine Priorität zugewiesen. Die angesprochene
 Relevanz und die Priorität der Datenblöcke wird in einem extra Modul namens
-CRODM (abkürzung nachschaun LINK verweis) berechnet und den Modulen übergeben.
-Anhand dieser wird der Datenblock in eine priorisierende Queue einsortiert.
-Dadurch wird gewährleistet, dass die wichtigen Daten zuerst gesendet werden.
+CRODM (Content Relevance-oriented Data Management)
+berechnet und den Modulen übergeben.
+Anhand dieser wird der Datenblock in derDatenstruktur
+\Code{SmartPrioritizedQueue} einsortiert. Für diese Aufgabe wird eine einfache
+Liste aus der Standard Template Library (STL) verwendet.
+Diese gewährt die beste Laufzeitgeschwindkeit. Dadurch wird gewährleistet, dass die wichtigen
+Daten zuerst gesendet werden.
 Damit die Verzögerung, die durch große Entfernungen auftreten, besser
-berücksichtigt werden kann, wird das Modul Packetizer als Thread gestartet.
+berücksichtigt werden kann, wird das Submodul \Code{Packetizer} als Thread
+gestartet.
 Dieser holt sich die Packete mit der höchsten Priorität aus der priorisierenden Queue
 und verpackt diese in eine Nachricht, welche anschliessend an die
 Netzwerkschnittstelle übergeben und versendet wird. \newline
-% In der \abbildung{KlassendiagrammSender} ist das Klassendiagramm dargestellt, welche
-% die bereitgestellten Schnittstellen der einzelnen Submodule und das
-% Zusammenspiel dieser veranschaulicht.
-% 
-% \begin{figure}[htb]
-% \centering
-% \includegraphics[width=0.3\textwidth]{KlassendiagrammSender.png} % skalieren
-% \caption{Klassendiagramm des Senders}
-% \label{fig:KlassendiagrammSender}
-% \end{figure}
-% 
-% Hierbei ist zu erkennen das der Sender nur eine lose Kopplung mittels eines
-% Pointers auf die Klasse besitzt, um deren Funktionen zugreifen zu können.
-% Um die Speicherverwaltung auf ein Minimum zu reduzieren wurden dafür unique
-% pointer benutzt. Für die Weitergabe der Datenstrukturen haben sich shared
-% pointer angeboten. Die beiden Klassen sind in der Standard Template
-% Library (STL) vorhanden. Dadurch ließen sich zahlreiche potentielle
-% Segemtation Faults vermeiden.
-% \newline
 Die Umsetzung der Submodule wird im nachfolgenden genauer erläutert.
 
 \subsection{Splitten und Encoden}
 
-Die Aufgabe des Moduls SplitEncoding ist die einkommenden Daten
+Die Aufgabe des Submoduls \Code{SplitEncoding} ist die einkommenden Daten
 anhand ihrer Relevanz in kleine Datenblöcke zu unterteilen. Die Relevanz ist
 in einem prozentuallen Bereich von 0 bis 100 festgelegt, wobei 0 keine und 100
 die höchste Relevanz bezeichnet. Für die Entwicklung des dafür erforderlichen
@@ -113,63 +101,73 @@ Daraus ergeben sich folgende relevanten Bereiche:
 \end{longtable}
 
 Für den Algorithmus ist es wichtig, dass die relevanten Bereiche nach den
-Positionen sortiert sind. Das bedeutet, je niedriger die Zeile und Spalte, desto
-früher ist diese Position in der Datenstruktur gespeichert.
-Deshalb werden alle Angaben, die von dem Modul CRODM übergeben werden 
+Positionen sortiert sind. Das bedeutet, je niedriger die Zeile und Spalte,
+desto weiter vorn ist diese Position in der Datenstruktur gespeichert.
+Deshalb werden alle Angaben, die von dem Submodul \Code{Crodm} übergeben werden 
 zusätzlich sortiert.
 Im nächsten Schritt werden die zweidimensionalen Koordinaten zu einer
 eindimensionalen umgerechnet, dadurch konnte das Problem der
 Zeilensprünge und der Bereiche, welche über eine Zeile hinaus gehen
-gelöst werden. Dafür werden die Längen der einzelnen Zeilen
-berechnet. Aus diesen Daten können anschließend die Blöcke für die
-relevanten Bereiche genutzt werden, um die unrelevanten Bereiche zu berechnen.
+gelöst werden. Dies vereinfacht den Algorithmus erheblich. Dafür werden die
+Längen der einzelnen Zeilen berechnet. Aus diesen Daten können anschließend die Blöcke für die
+relevanten Bereiche genutzt werden, um die unrelevanten Fragmente zu berechnen.
 Zum Schluss muss noch der letzte Block berechnet werden, der nach dem letzten
-relevanten Bereich übrig ist, wenn dieser nicht mit dem Ende abschliesst. Mit
+relevanten Bereich übrig ist, falls dieser nicht mit dem Ende abschliesst. Mit
 diesen Daten kann der Teiltext für jeden Block aus dem Content
 herrausgeschnitten werden. An dieser Stelle wird noch überprüft, ob der
 Datenblock des Teiltextes größer ist als die maximale Datenblöckgröße und
 gegebenenfalls in mehrere kleinere Teile zerlegt. Dieser wird danach zusammen
-mit den Informationen des Datenblockheaders in der Klasse Datenblock
-gespeichert und in einer Fifo zwischengespeichert. \newline
-%In \abbildung{AlgoSplitEncoding} ist der Algorithmus nochmal anschaulich
-% dargestellt.
+mit den Informationen des Datenblockheaders in der Klasse \Code{Datablock}
+gespeichert und in einer einfachen FIFO zwischengespeichert. Für
+Sensorwerte ist kein Zerlegen der Daten in einzelne Blöcke notwendig.
+hier werden lediglich mehrere Daten einer Quelle mit dem passenden
+Zeitstempel gebuffert, damit diese platzsparender in dem Datenblock als
+Content eingefügt werden können. \newline
+Zusammenfassend lässt sich der Algorithmus als Abarbeitung nachfolgender
+Teilschritte betrachten.
 
-% eventl pseudocode
-% \begin{figure}[htb]
-% \centering
-% \includegraphics[width=0.3\textwidth]{AlgoSplitEncoding.jpg}
-% \caption{Algorithmus zum Splitten und Encodieren}
-% \label{fig:AlgoSplitEncoding}
-% \end{figure}
+\lstdefinelanguage{pseudo}{
+morekeywords={if, else, for, in, remove, from, case, do, forever, to, false,
+break, function, then, end, true, while}, sensitive=true,%
+morecomment=[l]\#,%
+morestring=[b]',%
+}
+\lstset{language=pseudo}
+\lstset{commentstyle=\textit}
+\lstset{literate=
+{<=} {$\le$}{2} {!=} {$\neq$}{2} {=} {$\leftarrow$}{2} {==} {=}{2} {&&} {$\cap$}{2} {||} {$\cup$}{2} }
+\lstinputlisting[label=PseudocodeSplitEncoding,caption=Pseudocode
+des Datenblock Parsers]{Listings/PseudocodeSplitEncoding.txt}
 
 \subsection{Verpacken}
 
 Die priorisierten Datenblöcke werden in diesem Schritt zu einer Nachricht
 verpackt. Hierbei ist darauf zu achten, dass die maximale Packetgröße
-nicht überschritten wird. Weiterhin sollte kein Platz verschwendet werden.
-Um die Nachricht auf der Empfängerseite wieder korrekt darstellen zu können, ist die
-Einhaltung der Reihenfolge von hoher Wichtigkeit. \newline
-Das Modul ist, wie bereits angesprochen, nebenläufig zum Programmablauf
+nicht überschritten wird. Weiterhin sollte kein Platz verschwendet werden, \dahe
+die Nachricht soll die maximale Nachrichtenlänge so gut wie möglich erreichen.
+Um die Nachricht auf der Empfängerseite wieder korrekt darstellen zu können, ist
+die Einhaltung der Reihenfolge von hoher Wichtigkeit. \newline
+Das Submodul ist, wie bereits angesprochen, nebenläufig zum Programmablauf
 integriert, um die Verzögerungen simulieren zu können. Damit die
 dadurch auftretenden Probleme der Gleichzeitigkeit vermieden werden können,
-wurden Semaphore in der priorisierenden Queue eingefügt, welche sicherstellen,
-dass nicht zwei Programmteile gleichzeitig auf die Daten zugreifen. Da erst
-am Ende bekannt ist, wie lang die Nachricht wird, werden alle Daten zuerst
-temporär angelegt, die Länge aufaddiert und zum Schluß zur Nachricht
+wurden Semaphore in der Klasse \Code{SmartPrioritizedQueue}
+eingefügt, welche sicherstellen, dass nicht zwei Programmteile gleichzeitig auf
+die Daten zugreifen. Da erst am Ende bekannt ist, wie lang die Nachricht wird,
+werden alle Daten zuerst temporär angelegt, die Länge aufaddiert und zum Schluß zur Nachricht
 zusammengefügt.
-Damit die Nachricht möglichst effizient verpackt wird, wird in der
-priorisierenden Queue zuerst das vorderste Packet (\^= höchste Priorität)
-herausgenommen. Deshalb wurde der Queue eine gewisse intelligenz integriert.
+Um die Nachricht möglichst effizient zu verpacken, wird in der
+Datenstruktur \Code{SmartPrioritizedQueue} zuerst das vorderste Packet
+(\^= höchste Priorität) herausgenommen. Deshalb wurde der
+\Code{SmartPrioritizedQueue} eine gewisse Intelligenz integriert.
 Diese ist in der Lage den Block mit der höchsten Priorität zu finden, welcher
 noch in den vorhandenen freien Raum der Nachricht passt. Dies stellt die
-optimalste Lösung dar, um den Freiraum sinnvoll aufzufüllen. \newline 
+optimalste Lösung dar, um den Platz sinnvoll aufzufüllen. \newline 
 Ist das erste Packet größer als die maximale Nachrichtengröße für die ein CRC-16
 genutzt werden kann, wird ein CRC-32 verwendet und die Nachricht mit weiteren
 Datenblöcken aufgefüllt bis die maximale Packetgrösse erreicht ist. Dabei wird
-die priorisierden queue solange durchlaufen bis kein Packet vorhanden ist,
-welches noch in der Nachricht Platz finden würde. Mit diesem Vorgehen ist
-sichergestellt, dass bis auf wenige Bytes die maximale Packetgröße erreicht
-wird. \newline 
+die Datenstruktur \Code{SmartPrioritizedQueue} solange
+durchlaufen bis kein Packet vorhanden ist, welches den noch freien Raum
+ausfüllt. \newline 
 Der Algorithmus ist in \abbildung{AlgorithmusPacketizer} graphisch dargestellt.
 
 \begin{figure}[htb]
@@ -181,24 +179,25 @@ Der Algorithmus ist in \abbildung{AlgorithmusPacketizer} graphisch dargestellt.
 
 \subsection{Netzwerk}
 
-Beschreiben der Klasse UDPSocket und Erläuterung. Wieso wurde udp genommen?
+Beschreiben der Klasse \Code{UDPSocket} und Erläuterung. Wieso wurde udp
+genommen?
 
 \subsection{StoreManager}
 
-Während der Entwicklung des Moduls Sender wurde ein weiteres Fähigkeit
-gefordert.
-Die Daten, welchen während des Progammablaufes erstellt und zum versenden
+Während der Entwicklung des Moduls \Code{Sender} wurde eine weitere Eigenschaft
+der Software gefordert.
+Die Daten, welchen während des Progammablaufes erstellt und zum Versenden
 gespeichert werden, sollen auch nach einem Programmabsturz oder nach einem
-Stromausfall noch vorhanden sein. Weil die priorisierden Queue die Daten im RAM
-hinterlegt, wären diese Daten verloren.
+Stromausfall noch vorhanden sein. Weil die Klasse \Code{SmartPrioritizedQueue}
+die Daten im RAM hinterlegt, wären diese verloren.
 Für das Abspeichern der Daten auf die Festplatte existieren prinzipielle drei Methoden.
 
 \begin{enumerate}
 \item Jede erzeugte Variable wird direkt auf der Festplatte abgespeichert.
-\item Ein Datenpacket (mehrere Variablen) wird an einer Stelle auf
+\item Ein Datenpacket (mehrere Variablen) wird an einer Stelle im Programm auf
 einmal gespeichert.
 \item Es werden Interrupts des Prozessors abgefangen, um Abstürze zu erkennen
-und entsprechend dann alle Daten zu speichern.
+um dann entsprechend alle wichtigen Daten zu speichern.
 \end{enumerate}
 
 Die erste Methode hat den Vorteil, dass alle Daten sofort gesichert werden und
@@ -210,8 +209,8 @@ einem Stromausfall würden trotzdem alle Daten verloren gehen. Deshalb wird
 Methode Zwei verwendet. Diese stellt den besten Kompromiss aus Datensicherheit
 und Performance dar. \newline
 Für diese Aufgabe wurde ein Submodul entwickelt, welches die Datenblöcke auf
-der Festplatte hinterlegt und bei einem Absturz neu lädt und damit die Queue
-vorinitialisiert. Dadurch sind die Schnittstellen schon indirekt
+der Festplatte hinterlegt und bei einem Absturz neu lädt und damit die
+\Code{SmartPrioritizedQueue} vorinitialisiert. Dadurch sind die Schnittstellen schon indirekt
 vorgegeben, welche das Modul bereitstellen soll. Das ist eine Methode,
 welche Datenblöcke auf der Festplatte speichert, eine weitere um diese zu laden
 und eine dritte, mit der bereits gespeicherte Datenblöcke gelöscht werden können. 
@@ -219,22 +218,24 @@ und eine dritte, mit der bereits gespeicherte Datenblöcke gelöscht werden kön
 \begin{figure}[htb]
 \centering
 \includegraphics[width=0.3\textwidth]{EinbettungStoreManager.jpg}
-\caption{Integration des Submoduls StoreManager}
+\caption{Integration des Submoduls \Code{StoreManager}}
 \label{fig:EinbettungStoreManager}
 \end{figure}
 
-Die Einbettung des StoreManager in das Modul Sender ist in 
-\abbildung{EinbettungStoreManager} veranschaulicht. Dazu wird der Storemanager
-parallel zur priorisierenden Queue integriert. Alle Datenblöcke, welche in
-die Queue gelangen, werden ebenfalls an den Storemanager übergeben. Die vom
-Packetizer gelesenen Datenblöcke werden diesen wieder gelöscht. Somit
-ist immer der aktuelle Datenbestand der priorisierenden Queue zusätzlich auf der
-Festplatte vorhanden. Beim Programmstart wird in der
-Initialisierungsmethode des Topmoduls überprüft, ob bereits alte Daten
-vorhanden sind, welche anschliessend geladen werden. \newline
-Für das Abspeichern der Daten fehlt noch ein passendes Dateiformat,
-welches das schnelle speichern und lesen ermöglicht. Dazu wurden zwei Möglichkeiten
-gegenüber gestellt. Diese sind in Tabelle \ref{tab:Speicherformate} aufgeführt.
+Die Einbettung des Submoduls \Code{StoreManager} in das Modul \Code{Sender} ist
+in \abbildung{EinbettungStoreManager} veranschaulicht. Dazu wird der
+\Code{StoreManager} parallel zur \Code{SmartPrioritizedQueue} integriert. Alle
+Datenblöcke, welche in die Queue gelangen, werden ebenfalls an die
+Klasse \Code{StoreManager} übergeben. Die von dem Submodul \Code{Packetizer}
+gelesenen Datenblöcke werden anschliesend wieder gelöscht. Somit ist immer der
+aktuelle Datenbestand der \Code{SmartPrioritizedQueue}
+zusätzlich auf der Festplatte gesichert. Beim Programmstart wird in der
+Initialisierungsmethode des Topmoduls überprüft, ob bereits alte Daten vorhanden
+sind, welche anschliessend geladen werden. \newline
+Für das Abspeichern der
+Daten fehlt noch ein passendes Dateiformat, welches ein schnelle Speichern und
+Lesen ermöglicht. Dazu wurden zwei Möglichkeiten gegenüber gestellt. Diese sind
+in Tabelle \ref{tab:Speicherformate} aufgeführt.
 
 \begin{longtable}{|lcc|}
 \caption{Vergleich der Speicherformate} \\
@@ -249,15 +250,15 @@ gegenüber gestellt. Diese sind in Tabelle \ref{tab:Speicherformate} aufgeführt
 \hline
 \caption*{ + Gut, 0 Medium, - Schlecht }
 \end{longtable}
-% QUELLE???????????????????
+\todo{ QUELLE???????????????????}
 
 Der Tabelle ist zu entnehmen, dass XML auf dem ersten Blick das bessere Format
-ist. Dennoch wurde eine binäre Datei verwendet, weil die beiden Schwachstellen,
+ist. Dennoch wurde eine binäre Datei verwendet, weil die beiden Schwachstellen
 die Portabilität und die Lesbarkeit für einen Menschen für den konkreten
 Anwendungsfall keine Bedeutung haben.
 Weiterhin soll nur der Computer die Daten auf der Festplatte ablegen und
-wieder lesen können, womit das versenden über das Internet oder anderen Medien
-und damit die Portabilität keinen großen Stellenwert besitzt.
+wieder lesen können Das Versenden über das Internet oder anderen
+Medien besitzt damit die Portabilität keinen großen Stellenwert.
 Dafür sind die beiden wichtigsten Eigenschaften, die Dateigröße und die
 Geschwindigkeit, bei dem Format im Vergleich besser.
 \newline
@@ -290,9 +291,10 @@ eindeutig zu identifizieren.
 
 Auf der Empfängerseite sollen die ankommenden Nachrichten empfangen und geparst
 werden, um an die darin enthaltenen Informationen zu gelangen. Das Empfangen
-durch das Modul UDPSocket ist blockend. Deswegen wird der Vorgang nebenläufig
-ausgeführt, damit der Programmablauf nicht behindert wird. Anschliessend wird
-die Nachricht geparst und nach dem Beenden des Vorganges ein Callback ausgelöst.
+durch das Submodul \Code{UDPSocket} ist blockend. Deswegen wird der Vorgang
+nebenläufig ausgeführt, damit der Programmablauf nicht behindert wird. Anschliessend wird
+die Nachricht geparst und nach dem Beenden des Vorganges ein Callback
+\todo{erklären was callback ist} ausgelöst.
 Diese Funktion kann mittels einer Methode registriert werden, in der die
 geparsten Daten weiter verarbeitet werden können. Das könnte beispielsweise die
 Visualisierung dieser sein. \newline
@@ -307,7 +309,7 @@ erläutert.
 \label{fig:BlockdiagrammEmpfaenger}
 \end{figure}
 
-\subsection{Der Parser}
+\subsection{Parser}
 
 Der Parser basiert auf dem in Kapitel \ref{sec:ProtokolDesign}
 vorgestellten Protokoll-Design.
@@ -327,8 +329,9 @@ Klasse DataBlockProcessing verarbeitet.
 \end{figure}
 
 Dafür wird ein Softwarekonzept namens Policy-Based-Template-Meta Programmierung
-(LINK buch + wiki) verwendet, damit die unterschiedlichen Datentypen der
-Datenblöcke nach dem parsen wieder in einem typsicheren Format vorliegen.
+\todo{LINK buch + wiki} verwendet, damit die unterschiedlichen Datentypen der
+Datenblöcke nach dem parsen wieder in einem typsicheren Format vorliegen und
+einfacher verwendet werden können.
 In diesem Fall werden die folgenden vier Klassen als Templateparameter Klasse
 übergeben:
 
@@ -339,9 +342,9 @@ In diesem Fall werden die folgenden vier Klassen als Templateparameter Klasse
 \item C - Datentyp der als Callback zurückgegeben wird
 \end{itemize}
 
-Die beiden Parameter Parser und Decoder erben zusätzlich von einer
-Schnittstelle. Die Klasse DataBlockProcessing erbt
-wiederum von den beiden Parametern Parser und Decoder.
+Die beiden Parameter \Code{Parser} und \Code{Decoder} erben zusätzlich von einer
+Schnittstelle. Die Klasse \Code{DataBlockProcessing} erbt
+wiederum von den beiden Parametern \Code{Parser} und \Code{Decoder}.
 Dadurch besteht die Möglichkeit in der Klasse auf Funktionen und
 Membervariablen zugreifen zu können.
 Durch dieses Vorgehen kann das Verhalten der Klasse einfach durch die
@@ -351,29 +354,21 @@ Weise verändert werden muss, wie die Daten geparst oder decodiert werden müsse
 ist dieser Weg der optimalste. Durch das Konzept wurden
 Redundanzen im Quellcode vermieden und weitere Datentypen lassen sich
 sehr einfach hinzufügen ohne bestehenden Quellcode zu verändern. Dadurch konnten
-die Grundprinzipien der objektorientierten Programmierung (LINK)
+die Grundprinzipien der objektorientierten Programmierung \todo{buch LINK}
 eingehalten werden.
-\newline 
-% Der eben angesprochene Grundalgorithmus ist in
-% \abbildung{GrundalgorithmusDesDBParsers} dargestellt, welcher für jeden Datentyp
-% durchlaufen wird.\newline
+Der eben angesprochene Grundalgorithmus ist in Listing 
+\ref{lst:PseudocodeDBParser} dargestellt, welcher für jeden Datentyp
+durchlaufen wird.
 
-%pseudocode einfügen
-% Funktion start(Datenblockheader, daten)
-% pos = 0
-% s = DatenblockLänge - Gesamtlänge eines Datenblockes Headers
-% solange pos < s wiederhole
-% t_bit = parseZeitstempelBit()
-% offset = 0;
-% wenn t_bit gesetzt dann
-%   ofsett = pos + zeitstempelLänge
-%   parseZeitstempel()
-% wenn_ende
-% pos += offset
-% b = parseContent(data[pos], s - offset)
-% pos += länge(b)
-% a = erstelleAusgabeObjekt()
-% decode(DatenblockHeader, a)
-% callback(a)
-% wiederholen_ende
-% funktion_ende
+\lstdefinelanguage{pseudo}{
+morekeywords={if, else, for, in, remove, from, case, do, forever, to, false,
+function, then, end, true, while}, sensitive=true,%
+morecomment=[l]\#,%
+morestring=[b]',%
+}
+\lstset{language=pseudo}
+\lstset{commentstyle=\textit}
+\lstset{literate=
+{<=} {$\le$}{2} {!=} {$\neq$}{2} {=} {$\leftarrow$}{2} {==} {=}{2} {&&} {$\cap$}{2} {||} {$\cup$}{2} }
+\lstinputlisting[label=lst:PseudocodeDBParser,caption=Pseudocode
+des Datenblock Parsers]{Listings/PseudocodeDBParser.txt}

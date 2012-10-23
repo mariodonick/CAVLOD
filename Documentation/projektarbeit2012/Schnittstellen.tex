@@ -1,0 +1,71 @@
+Anhand der im vorherigen Kapitel \ref{sec:Anwendungsszenarien} genannten Anwendungsszenarien lassen
+sich die einzelnen Schnittstellen zwischen den Modulen ableiten. In
+\abbildung{Schnittstellen} ist ein schematischer Aufbau der Module
+dargestellt. Die Schnittstellen zwischen diesen sind nummerisch gekennzeichnet.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=.7]{Schnittstellen.jpg}
+\caption{Schnittstellen der Module}
+\label{fig:Schnittstellen}
+\end{figure}
+
+Daraus ergeben sich die folgenden Verallgemeinerungen:
+
+\textbf{Schnittstelle (1)}\newline
+Die Schnittstelle (1) ist die Gesamtschnittstelle. Hier wird der
+Content an das Modul übergeben. Weiterhin erfolgt die Übergabe der DOID, des
+Datentypes und eines Flags, welches angibt, ob ein Zeitangabe berücksichtigt
+werden soll.
+Optional sind ein oder mehrere Positionsangaben mit einem Relevanzwert
+anzugeben. Als Relevanzwert wurde festgelegt, dass dieser eine prozentuale
+Angabe im Bereich von 0 bis 100 ist. Dabei wird 0 als unwichtig und 100 als
+sehr wichtig eingestuft. Die Positionsangaben beinhalten zum einen den
+Startpunkt des relevanten Bereiches mit einer x- und y-Koordinate. Weiterhin
+wird das Volumen des Bereiches mit einer Länge in x- und y-Richtung angegeben.
+Die Angabe der Positionen und des Relevanzwertes ist \zB notwendig, wenn diese
+Daten nicht selbst berechnet werden sollen, sondern der Benutzer diese über eine
+grafische Benutzeroberfläche vorgibt.
+
+\textbf{Schnittstelle (2)} \newline
+An den Evaluator wird von den Eingangsdaten der Schnittstelle (1)
+der Content übergeben. Zusätzlich werden die Relevanzwerte mit den
+Positionsangaben übermittelt, wenn diese vorgegeben wurden.
+
+\textbf{Schnittstelle (3)} \newline
+Aus Schnittstelle (1) wird an die Partitonierung
+die DOID, der Datentyp, der Content und das Zeitflag weitergegeben.
+
+\textbf{Schnittstelle (4)} \newline
+Damit der Evaluator nachvollziehen kann, welches Datenpacket gerade bearbeitet
+wird, erfolgt die Übergabe der DOID und des Datentyps.  
+
+\textbf{Schnittstelle (5)} \newline
+Als Antwort auf die einkommenden Daten der Schnittstelle (4)
+erfolgt die Rückgabe der relevanten Bereiche mit den Positionen und den
+dazugehörigen Relevanzwerten durch den Evaluator.
+
+\textbf{Schnittstelle (6)} \newline
+Nach der Zerlegung der Blöcke werden die einzelnen
+Datenblöcke mit den dazugehörigen Datenblockheadern an die
+Priorisierung übergeben.
+
+\textbf{Schnittstelle (7)} \newline
+Durch Übergabe der DOID, des Datentypes und der Positionsangaben kann der
+Content identifiziert werden.
+
+\textbf{Schnittstelle (8)} \newline
+Durch erhalt der Daten in Schnittstelle (7) kann für
+den Datenblock eine Priorität berechnet werden, welche an die Priorisierung übergeben
+wird. Die Priorität wird als reelle Zahl aufgefasst und ist ähnlich des
+Relevanzwertes eine prozentuale Größe zwischen 0 und 100.
+
+\textbf{Schnittstelle (9)} \newline
+Nach der Priorisierung werden die priorisierten Datenblöcke mit den
+Datenblockheadern und der Priorität an die Packetization übergeben.
+
+Bei den Schnittstellen ist zu beachten, dass manche Angaben abhängig von den
+jeweiligen Datentypen sind und für den Fall nicht benutzt oder
+standardmässig auf einen bestimmten Wert gesetzt werden. Beispielsweise benötigt
+ein Text als Positionsangaben keine Länge in y-Richtung. Dieser ist bei einem
+Bild jedoch zwingend notwendig.

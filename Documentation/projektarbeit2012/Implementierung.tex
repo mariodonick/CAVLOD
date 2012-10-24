@@ -7,23 +7,23 @@ welches über das Eclipse-Plugin EGit genutzt wurde. \newline Im Folgenden wird
 im Detail auf die Art und Weise der Realisierung der beiden Top-Level-Module
 \Code{Sender} und \Code{Receiver} eingegangen. Hierfür wurde eine flexible und
 modulare Softwarearchitektur entwickelt, damit auf spätere Änderungen, neue Anforderungen
-und erforderliche Optimierungen flexible reagieren werden kann. Dies ist durch
-das Austauschen kompletter Module möglich.
+und erforderlichen Optimierungen flexible reagieren werden kann. Dies ist durch
+das einfache Austauschen kompletter Module möglich.
 Dafür wird ein objektorientiertes Design genutzt, womit Quellcoderedundanzen und damit
-zahlreiche potentielle Programmfehler vermieden werden konnten.
+zahlreiche potentielle Programmierfehler vermieden werden konnten.
 Weiterhin ist die Wiederverwendung einzelner Quellcodepassagen möglich.\newline
-Damit die beiden Module in anderen Projekten einfach genutzt werden kann, wurde
-eine statische Library erstellt, welche über eine Schnittstelle die Funktionen
-der beiden Module bereitstellt. Wie bereits angesprochen wurden in dieser Arbeit
-nur die beiden Datentypen Text und Sensorwerte integriert.
+Damit die beiden Module in anderen Projekten einfach genutzt werden können,
+wurde eine statische Library erstellt, welche über eine Schnittstelle die Funktionen
+der beiden Module bereitstellt. In dieser Arbeit wurden nur die beiden
+Datentypen Text und Sensorwerte integriert.
 
 \section{Modulaufbau Sender}
 
 Die Aufgabe des Moduls \Code{Sender} besteht darin, die aus vier Phasen
-bestehende Verarbeitung der Daten aus \todo{LINK zur arbeit} umzusetzen. In
+bestehende Verarbeitung der Daten aus \todo{LINK zur crop-arbeit} umzusetzen. In
 \abbildung{BlockdiagrammSender} ist das Blockdiagramm des Moduls \Code{Sender}
 darstellt.
-Dies bietet eine Übersicht zu allen Modulen und wie diese mit anderen
+Dies bietet eine Übersicht zu den Modulen und wie diese untereinander 
 Kommunizieren. In der Grafik ist jedes Submodul durch ein M in der linken
 oberen Ecke des Blockes gekennezeichnt. Ebenso ist die Schnittstellenklasse angegeben
 und durch die Abkürzung IF (Interface) gekennzeichnet. Dadurch ist der geforderte modulare
@@ -47,17 +47,17 @@ Anschliessend wird jedem einzelnen Datenblock im nächsten Modul eine Priorität
 Relevanz und die Priorität der Datenblöcke wird in einem extra Modul namens
 CRODM (Content Relevance-oriented Data Management)
 berechnet und den Modulen übergeben.
-Anhand dieser wird der Datenblock in derDatenstruktur
-\Code{SmartPrioritizedQueue} einsortiert. Für diese Aufgabe wird eine einfache
-Liste aus der Standard Template Library (STL) verwendet.
-Diese gewährt die beste Laufzeitgeschwindkeit. Dadurch wird gewährleistet, dass die wichtigen
-Daten zuerst gesendet werden.
+Anhand dieser wird der Datenblock in die Datenstruktur
+\Code{SmartPrioritizedQueue} einsortiert. Dadurch wird
+gewährleistet, dass die wichtigen Daten zuerst gesendet werden. Für diese
+Aufgabe wird eine einfache Liste aus der Standard Template Library (STL) verwendet.
+Diese hat für den Zweck die beste Laufzeitgeschwindkeit.
 Damit die Verzögerung, die durch große Entfernungen auftreten, besser
 berücksichtigt werden kann, wird das Submodul \Code{Packetizer} als Thread
 gestartet.
-Dieser holt sich die Packete mit der höchsten Priorität aus der priorisierenden Queue
-und verpackt diese in eine Nachricht, welche anschliessend an die
-Netzwerkschnittstelle übergeben und versendet wird. \newline
+Dieser holt sich die Packete mit der höchsten Priorität aus der
+\Code{SmartPriorisierendenQueue} und verpackt diese in eine Nachricht, welche
+anschliessend an die Netzwerkschnittstelle übergeben und versendet wird. \newline
 Die Umsetzung der Submodule wird im nachfolgenden genauer erläutert.
 
 \subsection{Splitten und Encoden}
@@ -74,17 +74,13 @@ dargestellte Beispieltext erstellt.
 \label{fig:Beispieltext}
 \end{figure}
 
-In diesem Testfall wurden die relevanten Bereiche festgelegt, um mögliche
-Randfälle abzudecken. Die relevanten Bereiche sind in
-der \abbildung{Beispieltext} gelb markiert.
-Ein Bereich beginnt immer mit einer zeichengenauen Position, der x- und
-y-Koordinate im Text und der jeweiligen Länge. Für einen Textausschnitt ist die
-Angabe der Länge nur in x Richtung notwendig. \newline
-Daraus ergeben sich folgende relevanten Bereiche:
+In diesem Testfall wurden die relevanten Bereiche willkürlich festgelegt, mit
+dem Augenmerk mögliche Randfälle abzudecken. Die relevanten Bereiche sind in
+der \abbildung{Beispieltext} gelb markiert.\newline
+Daraus ergeben sich folgenden Positionen der relevanten Bereiche:
 
-% tabelle der relevanten bereiche
 \begin{longtable}{|cccl|}
-\caption{Übersicht der relevanten Bereiche} \\
+\caption{Übersicht der relevanten 2D-Bereiche} \\
 \hline
 \label{tab:UebersichtDerRelevantenBereiche}
 \textbf{Position x} & \textbf{Position y} & \textbf{Länge x} &
@@ -102,13 +98,71 @@ Für den Algorithmus ist es wichtig, dass die relevanten Bereiche nach den
 Positionen sortiert sind. Das bedeutet, je niedriger die Zeile und Spalte,
 desto weiter vorn ist diese Position in der Datenstruktur gespeichert.
 Deshalb werden alle Angaben, die von dem Submodul \Code{Crodm} übergeben werden 
-zusätzlich sortiert.
+zuerst sortiert.
 Im nächsten Schritt werden die zweidimensionalen Koordinaten zu einer
-eindimensionalen umgerechnet, dadurch konnte das Problem der
-Zeilensprünge und der Bereiche, welche über eine Zeile hinaus gehen
-gelöst werden. Dies vereinfacht den Algorithmus erheblich. Dafür werden die
-Längen der einzelnen Zeilen berechnet. Aus diesen Daten können anschließend die Blöcke für die
-relevanten Bereiche genutzt werden, um die unrelevanten Fragmente zu berechnen.
+eindimensionalen umgerechnet, dadurch konnte das herausschneiden der
+Textfragmente, welcher Zeilensprünge beinhalten kann oder über eine Zeile hinaus
+geht vereinfacht werden. Dafür
+werden zuerst die akkumulierten Gesamtlängen der einzelnen Zeilen berechnet.
+Vorhandene Umlaute und andere Zeichen die nicht im ASCII\footnote{ASCII
+(American Standard Code for Information Interchange): Ist eine 7-Bit Zeichencodierung.}\todo{quelle für ascii}
+-Zeichensatz enthalten sind, benötigen die doppelte Länge.
+Die Gesamtlängen der Zeilen sind in der Tabelle
+\ref{tab:UebersichtDerAkkumuliertenZeilenlaengen} angegeben.
+
+\begin{longtable}{|cc|}
+\caption{Übersicht der akkumulierten Zeilenlängen} \\
+\hline
+\label{tab:UebersichtDerAkkumuliertenZeilenlaengen}
+\textbf{Zeile} & \textbf{Länge}\\
+\hline
+  0 &    0 \\
+  1 &   27 \\
+  2 &   78 \\
+  3 &  192 \\
+\hline
+\end{longtable}
+
+Daraus ergeben sich die folgenden eindimensionalen Positionsangaben:
+
+\begin{longtable}{|ccl|}
+\caption{Übersicht der relevanten 1D-Bereiche} \\
+\hline
+\label{tab:UebersichtDerEindimensionalenBereiche}
+\textbf{Position x} & \textbf{Länge x} &
+\textbf{relevanter Text}\\
+\hline
+   13 & 14 & "`Beispieltext:\ensuremath{\backslash}n"' \\
+   27 &  9 & "`Hallo ich"' \\
+   62 & 22 & "`komme vom Mars.\ensuremath{\backslash}nDabei"' \\
+  115 & 18 & "`dann priorisiert,"' \\
+  151 &  4 & "`und "' \\
+\hline
+\end{longtable}
+
+Die Blöcke für die relevanten Bereiche können genutzt werden,
+um die dazwischenliegenden unrelevanten Fragmente zu berechnen. Die Differenz
+zwischen der Endposition des ersten Blockes und der Anfangsposition des
+darauf Folgenden ergibt die Länge des neuen Blockes. Die Anfangspositon des
+neuen Blockes ist die Endposition des Vorhergehenden. Die Relevanz ist Null.
+Zusammengefasst ergibt die Berechnung die in Tabelle
+\ref{tab:UebersichtDerUNRelevantenBereiche} aufgeführten Bereiche.
+
+\begin{longtable}{|ccl|}
+\caption{Übersicht der unrelevanten Bereiche} \\
+\hline
+\label{tab:UebersichtDerUNRelevantenBereiche}
+\textbf{Position x} & \textbf{Länge x} &
+\textbf{unrelevanter Text}\\
+\hline
+   0 & 13 & "`Es folgt ein "' \\
+  36 & 26 & "` bin ein Beispieltext und "' \\
+  84 & 31 & "`wurde ich zerstückelt, "' \\
+ 133 & 18 & "`einzeln versendet "' \\
+ 155 & 37 & "` auf der Erde wieder zusammengesetzt.\ensuremath{\backslash}n"' \\
+\hline
+\end{longtable}
+
 Zum Schluss muss noch der letzte Block berechnet werden, der nach dem letzten
 relevanten Bereich übrig ist, falls dieser nicht mit dem Ende abschliesst. Mit
 diesen Daten kann der Teiltext für jeden Block aus dem Content
@@ -116,13 +170,12 @@ herrausgeschnitten werden. An dieser Stelle wird noch überprüft, ob der
 Datenblock des Teiltextes größer ist als die maximale Datenblöckgröße und
 gegebenenfalls in mehrere kleinere Teile zerlegt. Dieser wird danach zusammen
 mit den Informationen des Datenblockheaders in der Klasse \Code{Datablock}
-gespeichert und in einer einfachen FIFO zwischengespeichert. Für
-Sensorwerte ist kein Zerlegen der Daten in einzelne Blöcke notwendig.
-hier werden lediglich mehrere Daten einer Quelle mit dem passenden
+gespeichert und in einer einfachen FIFO hinterlegt. Für die Sensorwerte
+ist kein Zerlegen der Daten in Teilblöcke notwendig.
+Hier werden lediglich mehrere Daten einer Quelle mit dem passenden
 Zeitstempel gebuffert, damit diese platzsparender in dem Datenblock als
 Content eingefügt werden können. \newline
-Zusammenfassend lässt sich der Algorithmus als Abarbeitung nachfolgender
-Teilschritte betrachten.
+Der Algorithmus ist noch einmal im nachfolgenden Pseudocode dargestellt.
 
 \lstdefinelanguage{pseudo}{
 morekeywords={if, else, for, in, remove, from, case, do, forever, to, false,
@@ -141,8 +194,8 @@ des Moduls SplitEncoding]{Listings/PseudocodeSplitEncoding.txt}
 
 Die priorisierten Datenblöcke werden in diesem Schritt zu einer Nachricht
 verpackt. Hierbei ist darauf zu achten, dass die maximale Packetgröße
-nicht überschritten wird. Weiterhin sollte kein Platz verschwendet werden, \dahe
-die Nachricht soll die maximale Nachrichtenlänge so gut wie möglich erreichen.
+nicht überschritten wird. Weiterhin soll kein Platz verschwendet werden, \dahe
+die Nachricht soll die maximale Nachrichtenlänge so genau wie möglich erreichen.
 Um die Nachricht auf der Empfängerseite wieder korrekt darstellen zu können, ist
 die Einhaltung der Reihenfolge von hoher Wichtigkeit. \newline
 Das Submodul ist, wie bereits angesprochen, nebenläufig zum Programmablauf
@@ -150,9 +203,9 @@ integriert, um die Verzögerungen simulieren zu können. Damit die
 dadurch auftretenden Probleme der Gleichzeitigkeit vermieden werden können,
 wurden Semaphore in der Klasse \Code{SmartPrioritizedQueue}
 eingefügt, welche sicherstellen, dass nicht zwei Programmteile gleichzeitig auf
-die Daten zugreifen. Da erst am Ende bekannt ist, wie lang die Nachricht wird,
-werden alle Daten zuerst temporär angelegt, die Länge aufaddiert und zum Schluß zur Nachricht
-zusammengefügt.
+die gleichen Daten zugreifen. Da erst am Ende bekannt ist, wie lang die
+Nachricht wird, werden alle Daten zuerst temporär angelegt, die Länge aufaddiert
+und zum Schluß zur Nachricht zusammengefügt.
 Um die Nachricht möglichst effizient zu verpacken, wird in der
 Datenstruktur \Code{SmartPrioritizedQueue} zuerst das vorderste Packet
 (\^= höchste Priorität) herausgenommen. Deshalb wurde der
@@ -194,8 +247,8 @@ Für das Abspeichern der Daten auf die Festplatte existieren prinzipielle drei M
 \item Jede erzeugte Variable wird direkt auf der Festplatte abgespeichert.
 \item Ein Datenpacket (mehrere Variablen) wird an einer Stelle im Programm auf
 einmal gespeichert.
-\item Es werden Interrupts des Prozessors abgefangen, um Abstürze zu erkennen
-um dann entsprechend alle wichtigen Daten zu speichern.
+\item Es werden Interrupts des Prozessors abgefangen, um Abstürze zu erkennen,
+infolgedessen alle wichtigen Daten gesichert werden.
 \end{enumerate}
 
 Die erste Methode hat den Vorteil, dass alle Daten sofort gesichert werden und
@@ -211,7 +264,8 @@ der Festplatte hinterlegt und bei einem Absturz neu lädt und damit die
 \Code{SmartPrioritizedQueue} vorinitialisiert. Dadurch sind die Schnittstellen schon indirekt
 vorgegeben, welche das Modul bereitstellen soll. Das ist eine Methode,
 welche Datenblöcke auf der Festplatte speichert, eine weitere um diese zu laden
-und eine dritte, mit der bereits gespeicherte Datenblöcke gelöscht werden können. 
+und eine Dritte, mit der bereits gespeicherte Datenblöcke gelöscht werden
+können.
 
 \begin{figure}[H]
 \centering
@@ -231,7 +285,7 @@ zusätzlich auf der Festplatte gesichert. Beim Programmstart wird in der
 Initialisierungsmethode des Topmoduls überprüft, ob bereits alte Daten vorhanden
 sind, welche anschliessend geladen werden. \newline
 Für das Abspeichern der
-Daten fehlt noch ein passendes Dateiformat, welches ein schnelle Speichern und
+Daten fehlt noch ein passendes Dateiformat, welches ein schnelles Speichern und
 Lesen ermöglicht. Dazu wurden zwei Möglichkeiten gegenüber gestellt. Diese sind
 in Tabelle \ref{tab:Speicherformate} aufgeführt.
 
@@ -271,15 +325,15 @@ aufgeführten Reihenfolge gespeichert:
 \end{itemize}
 
 Aufgrund der Tatsache, dass der Datenblockheader eine Kompression beinhaltet,
-und damit die Größe der Variablen unterschiedlich sein kann, wurde für die
+und damit die Größe der Variablen unterschiedlich sein kann, wird für die
 Variablen festgelegt, dass für jeden Wert die höchste auftretende Bitzahl
-aufgerundet zu ganzen Byte verwendet wird. Dadurch wird das Laden und
-Speichern stark vereinfacht. Der dabei auftretende zusätzliche
+aufgerundet zur nächsten Zweierpotenz als Byte verwendet wird. Dadurch
+wird das Laden und Speichern stark vereinfacht. Der dabei auftretende zusätzliche
 Speicherplatzbedarf kann vernachlässigt werden.
 \newline 
 Für die Ordnerstruktur wurde eine möglichst flache Hierachie genutzt, welche in
-der obersten Stufe den Ordner Backup beinhaltet. Darin befinden sich weitere Ordner, welche
-als Namen die Nummer des Datentypes beinhalten. In diesem liegen die binären
+der obersten Stufe den Ordner \Code{Backup} beinhaltet. Darin befinden sich
+weitere Ordner, welche als Namen die Nummer des Datentypes beinhalten. In diesem liegen die binären
 Dateien dessen Namen aus der Nummer der DOID und der Sequenznummer besteht.
 Diese sind durch einen Unterstrich voneinander getrennt. Die drei Parameter
 werden von der Methode remove zum Löschen einer Datei übergeben, um diese
@@ -292,13 +346,16 @@ werden, um an die darin enthaltenen Informationen zu gelangen. Das Empfangen
 durch das Submodul \Code{UDPSocket} ist blockend. Deswegen wird der Vorgang
 nebenläufig ausgeführt, damit der Programmablauf nicht behindert wird. Anschliessend wird
 die Nachricht geparst und nach dem Beenden des Vorganges ein Callback
-\todo{erklären was callback ist} ausgelöst.
-Diese Funktion kann mittels einer Methode registriert werden, in der die
-geparsten Daten weiter verarbeitet werden können. Das könnte beispielsweise die
-Visualisierung dieser sein. \newline
-In \abbildung{BlockdiagrammEmpfaenger} ist eine schematische
-Darstellung des Moduls dargestellt. Die Implementierung wird im Folgendem näher
-erläutert.
+\todo{erklären was callback ist} ausgelöst. Bei einem Callback wird
+ein Zeiger auf die Speicheradresse der Funktion in der Klasse gespeichert. Durch
+Aufruf der Funktion ist es möglich den sequentiellen Programmablauf an einer
+anderen Stelle weiterlaufen zu lassen. Nach Abarbeitung dieser kehrt der Ablauf
+zur ursprünglichen Position zurück. Diese Funktion kann mittels einer Methode
+registriert werden, in der die geparsten Daten weiter verarbeitet werden können.
+Die Callbackfunktion könnte beispielsweise die Visualisierung der Daten
+übernehmen. \newline 
+In \abbildung{BlockdiagrammEmpfaenger} ist eine schematische Darstellung des
+Moduls dargestellt. Die Implementierung wird im Folgendem näher erläutert.
 
 \begin{figure}[H]
 \centering
@@ -313,11 +370,11 @@ Der Parser basiert auf dem in Kapitel \ref{sec:ProtokolDesign}
 vorgestellten Protokoll-Design.
 Anhand dieser Daten wird die empfangende Nachricht Bit für Bit analysiert
 und die Informationen herrausgezogen. 
-Die Klasse UDPSocket empfängt neue Daten und gibt diese an
-die Klasse MessageParser weiter. Dieser parst die Nachrichtenheader. Dessen
-Algorithmus ist in \abbildung{AlgorithmusMessageParser} dargestellt.
+Die Klasse \Code{UDPSocket} empfängt neue Daten und gibt diese an
+die Klasse \Code{MessageParser} weiter. Dieser parst den Nachrichtenheader.
+Dessen Algorithmus ist in \abbildung{AlgorithmusMessageParser} dargestellt.
 Anschließend werden die Datenblockheader geparst. Der Content wird von der
-Klasse DataBlockProcessing verarbeitet.
+Klasse \Code{DataBlockProcessing} verarbeitet.
 
 \begin{figure}[H]
 \centering
@@ -328,10 +385,10 @@ Klasse DataBlockProcessing verarbeitet.
 
 Dafür wird ein Softwarekonzept namens Policy-Based-Template-Meta Programmierung
 \todo{LINK buch + wiki} verwendet, damit die unterschiedlichen Datentypen der
-Datenblöcke nach dem parsen wieder in einem typsicheren Format vorliegen und
+Datenblöcke nach dem Parsen wieder in einem typsicheren Format vorliegen und
 einfacher verwendet werden können.
-In diesem Fall werden die folgenden vier Klassen als Templateparameter Klasse
-übergeben:
+Der Templateklasse werden die folgenden vier Klassen als Templateparameter
+Klasse übergeben:
 
 \begin{itemize}
 \item T - Datentyp des Rückgabewertes des Parsers
@@ -341,7 +398,7 @@ In diesem Fall werden die folgenden vier Klassen als Templateparameter Klasse
 \end{itemize}
 
 Die beiden Parameter \Code{Parser} und \Code{Decoder} erben zusätzlich von einer
-Schnittstelle. Die Klasse \Code{DataBlockProcessing} erbt
+Schnittstelle gleichen Namens. Die Klasse \Code{DataBlockProcessing} erbt
 wiederum von den beiden Parametern \Code{Parser} und \Code{Decoder}.
 Dadurch besteht die Möglichkeit in der Klasse auf Funktionen und
 Membervariablen zugreifen zu können.

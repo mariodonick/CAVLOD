@@ -35,6 +35,12 @@ void callbackFuntion(const crodt::CrodtOutput<std::string>& co)
     INFO() << co.sortedContent.content << ENDL;
 }
 
+void callbackFuntionSensor(const crodt::CrodtOutput<float>& co)
+{
+    INFO() << "value: " << co.sortedContent.content << ENDL;
+    INFO() << "time: " << co.sortedContent.timestamp << ENDL;
+}
+
 int main()
 {
   signal(SIGINT, signal_handler_SIGINT);
@@ -43,6 +49,8 @@ int main()
   receiver->start();
   crodt::TextCallback func = callbackFuntion;
   receiver->registerCallback(func);
+  crodt::SensorCallback func2 = callbackFuntionSensor;
+  receiver->registerCallback(func2);
 
   sleep(30000);
 

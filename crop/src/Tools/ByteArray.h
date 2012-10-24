@@ -23,7 +23,7 @@ public:
 
   template<unsigned int BAND_WIDTH>
   void insert(const Bin<BAND_WIDTH>& data);
-  void insert(char* data, const size_t& length);
+  void insert(char* data, const std::size_t& length);
 
   void insert(crodt::Text& text);
   void insert(crodt::Sensor& sensor);
@@ -32,7 +32,7 @@ public:
 
   template<unsigned int BAND_WIDTH>
   void append(const Bin<BAND_WIDTH>& data);
-  void append(char* data, const size_t& length);
+  void append(char* data, const std::size_t& length);
 
   const char& operator[](const std::size_t& index) const;
   const Byte getByte(const std::size_t& index) const;
@@ -48,7 +48,7 @@ public:
 private:
   template<typename T>
   void append(T& data, const std::size_t& byteLength);
-  void append(const char* data, const size_t& length);
+  void append(const char* data, const std::size_t& length);
 
   void setBitInChar( char& tmp, const bool& value, const unsigned int& pos);
 

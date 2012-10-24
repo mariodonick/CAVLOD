@@ -9,10 +9,10 @@
 #include "Partitioning.h"
 #include "../TypesConfig/Pointer.h"
 #include "../DataManagement/CrodtIO.h"
+#include "../DataManagement/Content.h"
 
-#include <cstdint>
-#include <vector>
 #include <list>
+#include <queue>
 
 namespace crodt
 {
@@ -51,7 +51,7 @@ public:
 
 private:
   void partText(const DBDataObjectID& doid, const std::string& content, const bool& usingTimestamp);
-  void partSensor(const DBDataObjectID& doid, const float& value, const bool& usingTimestamp);
+  void partSensor(const DBDataObjectID& doid, const float& value);
 
   const SplitEncoding::GlobalPosition transform2global(
       const RelevanceData& lp,
@@ -66,6 +66,8 @@ private:
 private:
   const Crodm_uPtr& crodm;
   DBQueue_uPtr& dbFifo;
+
+  std::queue<Sensor> sensorBuffer;
 };
 
 } // namespace crodt

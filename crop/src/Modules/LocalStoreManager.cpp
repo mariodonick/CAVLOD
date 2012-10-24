@@ -107,7 +107,7 @@ const std::vector<DataBlock_sPtr>& LocalStoreManager::load()
 
             ByteArray_sPtr ba(new ByteArray);
             ba->insert(buffer2, file_size - sizeof(BinFileHeader));
-            db->addContent( ba );
+            db->insertContent( ba );
 
             dbVec.push_back(db);
             bin.close();

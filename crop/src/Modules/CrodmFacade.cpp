@@ -31,7 +31,7 @@ const float& CrodmFacade::getPriority(const RelevanceData& relevance, const DBDa
   priority = 0.f;
   switch( static_cast<DataTypes>(dt.to_uint()) )
   {
-    case TYPE_SENSOR: break;
+    case TYPE_SENSOR: priority = 89.f; break;
     case TYPE_TEXT:
     {
       priority = relevance.relevanceValue;

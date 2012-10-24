@@ -192,15 +192,31 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
 
     ByteArray_sPtr content(new ByteArray);
     content->insert(text);
-    db->addContent( content );
+    db->insertContent( content );
     db->setRelevanceData( rel_tmp );
 
     dbFifo->push(db);
   }
 }
 
-void SplitEncoding::partSensor(const DBDataObjectID& doid, const float& value, const bool& usingTimestamp)
+void SplitEncoding::partSensor(const DBDataObjectID& doid, const float& value)
 {
+  if(sensorBuffer.size() < MAX_SENSORVALUES_PER_DB-1)
+  {
+    Sensor st;
+    st.time.stamp();
+    st.value = value;
+    sensorBuffer.push(st);
+    return;
+  }
+  else
+  {
+    Sensor st;
+    st.time.stamp();
+    st.value = value;
+    sensorBuffer.push(st);
+  }
+
   static unsigned int sNr = 0;
 
   DataBlock::Header dbh;
@@ -208,19 +224,21 @@ void SplitEncoding::partSensor(const DBDataObjectID& doid, const float& value, c
   dbh.dataObjectID = doid;
   dbh.sequenceNumber = sNr++;
   dbh.dataType = TYPE_SENSOR;
-  dbh.config[DB_CONFIG_TIMESTAMP_INDEX] = usingTimestamp;
-
-  Sensor sensor;
-  sensor.value = value;
+  dbh.config[DB_CONFIG_TIMESTAMP_INDEX] = true;
 
   DataBlock_sPtr db( new DataBlock );
   db->setHeader(dbh);
-  db->stamp();
-
   ByteArray_sPtr content(new ByteArray);
-  content->insert(sensor);
-  db->addContent( content );
+  content->clear();
 
+  while( !sensorBuffer.empty() )
+  {
+    Sensor s;
+    s = sensorBuffer.front();
+    sensorBuffer.pop();
+    content->append( s );
+  }
+  db->insertContent( content );
   dbFifo->push(db);
 }
 

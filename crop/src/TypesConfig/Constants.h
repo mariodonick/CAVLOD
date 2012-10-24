@@ -12,6 +12,9 @@ namespace crodt
 //network
 const std::size_t NETWORK_BUFFER_SIZE = 2*1024*1024;
 
+// sensor values per datablock
+const std::size_t MAX_SENSORVALUES_PER_DB = 5;
+
 //length
 // message bytes
 const std::size_t MSG_VER_CONFIG_LENGTH_BYTES = 2;
@@ -43,10 +46,7 @@ const std::size_t MSG_FIXED_HEADER_LENGTH_BYTES = MSG_VER_CONFIG_LENGTH_BYTES + 
 const std::size_t DB_HEADER_LENGTH_BYTES = DB_DATA_TYPE_CONFIG_BYTES + DB_DATA_OBJECT_ID_BYTES + DB_SEQUENCE_NUMBER_BYTES + DB_LENGTH_BYTES;
 
 const std::size_t MAX_MSG_LENGTH = 0xFFFFFF;
-// if you want to test the protocol with small datablock size choose something like that
-// "21+20;" 21 ist constant in jedem text db 20 ist textgrösse
 const std::size_t MAX_DB_LENGTH = 0xFFFF;
-
 } // namespace crodt
 
 #endif /* CONSTANTS_H_ */

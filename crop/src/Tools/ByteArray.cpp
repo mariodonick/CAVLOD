@@ -53,13 +53,13 @@ const bool ByteArray::isEmpty() const
   return vector.empty();
 }
 
-void ByteArray::insert(char* data, const size_t& length)
+void ByteArray::insert(char* data, const std::size_t& length)
 {
   clear();
   append(data, length);
 }
 
-void ByteArray::append(char* data, const size_t& length)
+void ByteArray::append(char* data, const std::size_t& length)
 {
   for(unsigned int i = 0; i < length; ++i)
     vector.push_back( data[i] & 0xFF );
@@ -68,7 +68,7 @@ void ByteArray::append(char* data, const size_t& length)
   bitCount = 0;
 }
 
-void ByteArray::append(const char* data, const size_t& length)
+void ByteArray::append(const char* data, const std::size_t& length)
 {
   char tmp[length];
   for(unsigned int i = 0; i < length; ++i)
@@ -98,6 +98,7 @@ void ByteArray::append(crodt::Text& text)
 
 void ByteArray::append(crodt::Sensor& sensor)
 {
+  append( sensor.time.getTime() );
   append(sensor.value, crodt::C_VALUE_BYTES);
 }
 

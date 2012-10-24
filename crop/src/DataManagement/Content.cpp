@@ -34,7 +34,7 @@ Sensor::~Sensor()
 
 const std::size_t Sensor::size() const
 {
-  return C_VALUE_BYTES;
+  return C_VALUE_BYTES + C_TIMESTAMP_BYTES;
 }
 
 std::ostream& operator<<(std::ostream& out, const Sensor& sensor)

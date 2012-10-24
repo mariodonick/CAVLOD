@@ -4,11 +4,30 @@
 
 #include "Modules/SenderModule.h"
 #include "DataManagement/CrodtIO.h"
+#include "Tools/Random.h"
+
+#include <thread>
+
+crodt::SenderModuleIF* c;
+bool running;
+
+void sensorIn()
+{
+  while(running)
+  {
+    sleep(1);
+    c->sendSensor(randomDouble(0.0, 100.0));
+  }
+}
 
 int main()
 {
-  crodt::SenderModuleIF* crodt = new crodt::SenderModule;
-  crodt->initialize();
+  randomInitialize();
+  c = new crodt::SenderModule;
+  c->initialize();
+
+  running = true;
+  std::thread sens(&sensorIn); // start sensor thread
 
   for(unsigned int i = 0; i < 100; ++i)
   {
@@ -56,10 +75,16 @@ int main()
     ci.relevanceVector.push_back(rd3);
     ci.relevanceVector.push_back(rd4);
 
-    crodt->sendText(ci);
+    c->sendText(ci);
 
     sleep(1);
   }
-  delete crodt;
+
+  running = false;
+
+  if(sens.joinable())
+    sens.join();
+
+  delete c;
   return 0;
 }

@@ -20,7 +20,6 @@ SmartPrioritizedQueue::~SmartPrioritizedQueue()
 // return the next element which is smaller or equal to the given size otherwise this function return a nullptr
 DataBlock_sPtr SmartPrioritizedQueue::pop(const std::size_t& size)
 {
-  // todo leere queue abfangen in dem leeres element zurück gegeben wird! oder nullptr oder sowas
   std::lock_guard<std::mutex> lock(mutex);
 
   std::list<DataBlock_sPtr>::iterator it = queue.begin();

@@ -81,94 +81,92 @@ void ChatGui::refresh()
 
 void ChatGui::sliderMoved()
 {
-    if(ui->horizontalSlider->value()<30)
-    {
-        ui->label->setText("niedrig");
-        QPalette* palette = new QPalette();
-        palette->setColor(QPalette::WindowText,Qt::black);
-        ui->label->setPalette(*palette);
-    }
-    if((ui->horizontalSlider->value()>30)&&(ui->horizontalSlider->value()<60))
-    {
-        ui->label->setText("mittel");
-        QPalette* palette = new QPalette();
-        palette->setColor(QPalette::WindowText,Qt::darkYellow);
-        ui->label->setPalette(*palette);
-    }
-    if((ui->horizontalSlider->value()>60)&&(ui->horizontalSlider->value()<101))
-    {
-        ui->label->setText("hoch");
-        QPalette* palette = new QPalette();
-        palette->setColor(QPalette::WindowText,Qt::red);
-        ui->label->setPalette(*palette);
-    }
+  if(ui->horizontalSlider->value()<30)
+  {
+    ui->label->setText("niedrig");
+    QPalette* palette = new QPalette();
+    palette->setColor(QPalette::WindowText,Qt::black);
+    ui->label->setPalette(*palette);
+  }
+  if((ui->horizontalSlider->value()>30)&&(ui->horizontalSlider->value()<60))
+  {
+    ui->label->setText("mittel");
+    QPalette* palette = new QPalette();
+    palette->setColor(QPalette::WindowText,Qt::darkYellow);
+    ui->label->setPalette(*palette);
+  }
+  if((ui->horizontalSlider->value()>60)&&(ui->horizontalSlider->value()<101))
+  {
+    ui->label->setText("hoch");
+    QPalette* palette = new QPalette();
+    palette->setColor(QPalette::WindowText,Qt::red);
+    ui->label->setPalette(*palette);
+  }
 }
 
 
-void ChatGui::buttonClicked(){
-    if(ui->textEdit_2->textCursor().selectedText().isEmpty())
-    {
-        QMessageBox msg;
-        msg.setIcon(QMessageBox::Warning);
-        msg.setText("Bitte zuvor die zu priorisierende Textpassage markieren.");
-        msg.exec();
+void ChatGui::buttonClicked()
+{
+  if(ui->textEdit_2->textCursor().selectedText().isEmpty())
+  {
+    QMessageBox msg;
+    msg.setIcon(QMessageBox::Warning);
+    msg.setText("Bitte zuvor die zu priorisierende Textpassage markieren.");
+    msg.exec();
+  }
+  ret = 1;
 
-    }
-    ret = 1;
+  crodt::RelevanceData tmp;
 
-    crodt::RelevanceData tmp;
+  tmp.relevanceValue = ui->horizontalSlider->value();
+  tmp.pos.x = ui->textEdit_2->textCursor().selectionStart();
+  tmp.pos.y = 0; // todo line genau ausrechnen xD (klappt aber auch ohne ;))
+  tmp.pos.len_x = ui->textEdit_2->textCursor().selectedText().size();
 
-    tmp.relevanceValue = ui->horizontalSlider->value();
-    tmp.pos.x = ui->textEdit_2->textCursor().selectionStart();
-    tmp.pos.y = 0; //bei neuer Nachricht counter hochzählen !!!
-    tmp.pos.len_x = ui->textEdit_2->textCursor().selectedText().size();
+  vektor.push_back(tmp);
 
-    vektor.push_back(tmp);
+  if(ui->textEdit_2->textCursor().selectedText().isEmpty())
+    return;
+  else
+  {
+    QString var_text = ui->textEdit_2->textCursor().selectedText();
+    int var_int = ui->horizontalSlider->value();
+    QString var_zahl;
+    var_zahl.setNum(var_int);
 
-    if(ui->textEdit_2->textCursor().selectedText().isEmpty())
-        return;
-    else
-    {
-        QString var_text = ui->textEdit_2->textCursor().selectedText();
-        int var_int = ui->horizontalSlider->value();
-        QString var_zahl;
-        var_zahl.setNum(var_int);
+    int laenge = var_zahl.length();
+    if(laenge == 1)
+        var_zahl = "00"+var_zahl;
+    if(laenge == 2)
+        var_zahl = "0"+var_zahl;
+    if(laenge == 3)
+        var_zahl = ""+var_zahl;
 
-        int laenge = var_zahl.length();
-        if(laenge == 1)
-            var_zahl = "00"+var_zahl;
-        if(laenge == 2)
-            var_zahl = "0"+var_zahl;
-        if(laenge == 3)
-            var_zahl = ""+var_zahl;
+    QString var_ges = var_zahl + " " + var_text;
+    ui->listWidget->addItem(var_ges);
 
-        QString var_ges = var_zahl + " " + var_text;
-        ui->listWidget->addItem(var_ges);
-
-        QString bam = ui->textEdit_2->textCursor().selectedText();
-        ui->textEdit_2->setTextColor(QColor("red"));
-        ui->textEdit_2->textCursor().insertText(bam);
-        ui->textEdit_2->setTextColor(QColor("black"));
-        ui->horizontalSlider->setValue(0);
-        ui->listWidget->sortItems(Qt::AscendingOrder);
-    }
-
+    QString bam = ui->textEdit_2->textCursor().selectedText();
+    ui->textEdit_2->setTextColor(QColor("red"));
+    ui->textEdit_2->textCursor().insertText(bam);
+    ui->textEdit_2->setTextColor(QColor("black"));
+    ui->horizontalSlider->setValue(0);
+    ui->listWidget->sortItems(Qt::AscendingOrder);
+  }
 }
 
 void ChatGui::buttonClicked2()
 {
-    if(ui->listWidget->selectedItems().isEmpty())
-    {
-        QMessageBox msg;
-        msg.setIcon(QMessageBox::Information);
-        msg.setText("Bitte erst das zu l"+trUtf8("ö")+"schende Element in der Liste (oben rechts) markieren.");
-        msg.exec();
-    }
-    else
-    {
-        delete ui->listWidget->currentItem();
-    }
-
+  if(ui->listWidget->selectedItems().isEmpty())
+  {
+      QMessageBox msg;
+      msg.setIcon(QMessageBox::Information);
+      msg.setText("Bitte erst das zu l"+trUtf8("ö")+"schende Element in der Liste (oben rechts) markieren.");
+      msg.exec();
+  }
+  else
+  {
+      delete ui->listWidget->currentItem();
+  }
 }
 
 

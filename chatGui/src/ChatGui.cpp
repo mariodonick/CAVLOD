@@ -75,7 +75,6 @@ void ChatGui::refresh()
     tmp.append("\n");
   }
 
-  std::cout << "next text: " << tmp << "\n";
   QString qs = QString::fromStdString( tmp );
   ui->textEdit_3->append(qs);
 }

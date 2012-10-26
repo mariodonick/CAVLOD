@@ -87,9 +87,7 @@ void UniversalDecoder<T>::decode(const uint& doid,
 
     }
     sortedContent.push_back(vecTmp);
-    std::cout << "vecTmp size: " << vecTmp.size() << "\n";
   }
-  std::cout << "---sortedContent size: " << sortedContent.size() << "\n";
 }
 
 template<class T>
@@ -116,7 +114,7 @@ void UniversalDecoder<T>::dump(std::ostream& out) const
 template<class T>
 void UniversalDecoder<T>::clear()
 {
-  typename StdVec2D::const_iterator outer = sortedContent.begin();
+  typename StdVec2D::iterator outer = sortedContent.begin();
   for(; outer != sortedContent.end(); ++outer)
     outer->clear();
 

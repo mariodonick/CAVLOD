@@ -14,54 +14,44 @@ namespace Ui {
     class ChatGui;
 }
 
-struct Pack
-{
-  Pack(){}
-  virtual ~Pack(){}
-
-  QString text;
-  uint x; // column
-  uint y; // line
-  uint len_x;
-  uint doid;
-  uint sequenceNumber;
-};
-
 class ChatGui : public QMainWindow
 {
-    Q_OBJECT
+  Q_OBJECT
+
+  typedef UniversalDecoder<std::string> TextDecoder;
 
 public:
-    explicit ChatGui(QWidget *parent = 0);
-    ~ChatGui();
+  explicit ChatGui(QWidget *parent = 0);
+  virtual ~ChatGui();
 
 public slots:
-    void buttonClicked();
-    void buttonClicked2();
-    void buttonClicked3();
-    void sliderMoved();
-    void receive();
-    void refresh(Pack p);
-    void incoming(const crodt::CrodtOutput<std::string>& out);
+  void buttonClicked();
+  void buttonClicked2();
+  void buttonClicked3();
+  void sliderMoved();
+  void refresh();
+  void incoming(const crodt::CrodtOutput<std::string>& out);
 
 signals:
-  void receive(Pack p);
+  void received();
 
 protected:
-    void keyPressEvent(QKeyEvent *);
-    void keyReleaseEvent(QKeyEvent *);
+  void keyPressEvent(QKeyEvent *);
+  void keyReleaseEvent(QKeyEvent *);
 
 private:
-    Ui::ChatGui *ui;
-    QVector<crodt::RelevanceData>vektor;
-    QMessageBox msg;
-    QErrorMessage errorMessage;
-    crodt::SenderModuleIF* sender;
-    crodt::ReceiverModuleIF* receiver;
-    int ret;
-//    int zeilenschub;
-    std::vector<Pack> textVec;
-    UniversalDecoder<std::string> decoder;
+  Ui::ChatGui *ui;
+
+  crodt::SenderModuleIF* sender;
+  crodt::ReceiverModuleIF* receiver;
+
+  int ret;
+
+  QVector<crodt::RelevanceData>vektor;
+  QMessageBox msg;
+  QErrorMessage errorMessage;
+
+  TextDecoder decoder;
 };
 
 #endif // CHATWINDOW_H

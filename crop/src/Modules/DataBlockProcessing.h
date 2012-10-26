@@ -16,11 +16,9 @@
 namespace crodt
 {
 
-template<class T, class Parser, class Decoder, class C>
-class DataBlockProcessing : protected Parser, protected Decoder
+template<class T, class Parser, class C>
+class DataBlockProcessing : protected Parser
 {
-  using Decoder::decode;
-  using Decoder::sortedContent;
   using Parser::parseContent;
 
   typedef std::function<void(const CrodtOutput<C>)> Callback;
@@ -39,21 +37,21 @@ private:
 };
 
 
-template<class T, class Parser, class Decoder, class C>
-DataBlockProcessing<T, Parser, Decoder, C>::DataBlockProcessing()
+template<class T, class Parser, class C>
+DataBlockProcessing<T, Parser, C>::DataBlockProcessing()
 : curContentPos(0)
 {
 
 }
 
-template<class T, class Parser, class Decoder, class C>
-DataBlockProcessing<T, Parser, Decoder, C>::~DataBlockProcessing()
+template<class T, class Parser, class C>
+DataBlockProcessing<T, Parser, C>::~DataBlockProcessing()
 {
 
 }
 
-template<class T, class Parser, class Decoder, class C>
-void DataBlockProcessing<T, Parser, Decoder, C>::start(const DataBlock::Header& dbh, const char* data)
+template<class T, class Parser, class C>
+void DataBlockProcessing<T, Parser, C>::start(const DataBlock::Header& dbh, const char* data)
 {
   DBG() << "\n---------------DBProcessing---------------------------" << ENDL;
 
@@ -88,16 +86,14 @@ void DataBlockProcessing<T, Parser, Decoder, C>::start(const DataBlock::Header& 
     coi.doid = dbh.dataObjectID.to_uint();
     coi.sequenceNumber = dbh.sequenceNumber.to_uint();
 
-//    decode(dbh.dataObjectID.to_uint(), dbh.sequenceNumber.to_uint(), coi);
-
     output.sortedContent = coi;
     callback(output);
   }
   INFO() << "\n--------------- DB END ---------------------------" << ENDL;
 }
 
-template<class T, class Parser, class Decoder, class C>
-void DataBlockProcessing<T, Parser, Decoder, C>::registerCallback(const Callback& cb)
+template<class T, class Parser, class C>
+void DataBlockProcessing<T, Parser, C>::registerCallback(const Callback& cb)
 {
   callback = cb;
 }

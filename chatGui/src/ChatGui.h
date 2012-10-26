@@ -8,6 +8,7 @@
 #include <QMessageBox>
 #include <QErrorMessage>
 #include <crodt.h>
+#include "UniversalDecoder.h"
 
 namespace Ui {
     class ChatGui;
@@ -23,6 +24,7 @@ struct Pack
   uint y; // line
   uint len_x;
   uint doid;
+  uint sequenceNumber;
 };
 
 class ChatGui : public QMainWindow
@@ -57,8 +59,9 @@ private:
     crodt::SenderModuleIF* sender;
     crodt::ReceiverModuleIF* receiver;
     int ret;
-    int zeilenschub;
+//    int zeilenschub;
     std::vector<Pack> textVec;
+    UniversalDecoder<std::string> decoder;
 };
 
 #endif // CHATWINDOW_H

@@ -14,6 +14,7 @@ ChatGui::ChatGui(QWidget *parent)
 , ui(new Ui::ChatGui)
 , sender(new crodt::SenderModule())
 , receiver(new crodt::ReceiverModule)
+, ret(0)
 {
     qRegisterMetaType<Pack>("Pack");
     ui->setupUi(this);
@@ -38,17 +39,16 @@ ChatGui::ChatGui(QWidget *parent)
     palette->setColor(QPalette::WindowText,Qt::black);
     ui->label->setPalette(*palette);
 
-    ret = 0;
-    zeilenschub = 0;
     ui->textEdit_2->setFocus();
 
+    // register callback
     using namespace std::placeholders;
     crodt::TextCallback func = std::bind(&ChatGui::incoming, this, _1);
     receiver->registerCallback( func );
     receiver->start();
 }
 
-
+// double signal slot method because multi-threading
 void ChatGui::incoming(const crodt::CrodtOutput<std::string>& out)
 {
   Pack p;
@@ -57,31 +57,37 @@ void ChatGui::incoming(const crodt::CrodtOutput<std::string>& out)
   p.y = out.sortedContent.pos.y;
   p.len_x = out.sortedContent.pos.len_x;
   p.doid = out.sortedContent.doid;
+  p.sequenceNumber = out.sortedContent.sequenceNumber;
 
   qDebug() << "text: " << p.text;
   qDebug() << "x: " << p.x;
   qDebug() << "y: " << p.y;
   qDebug() << "len: " << p.len_x;
   qDebug() << "doid: " << p.doid;
+  qDebug() << "sequnr: " << p.sequenceNumber;
 
+  decoder.decode(out.sortedContent.doid,
+                 out.sortedContent.sequenceNumber,
+                 out.sortedContent.content);
   emit receive(p);
 }
 
 
-void ChatGui::refresh(Pack p)
+void ChatGui::refresh(Pack)
 {
   ui->textEdit_3->clear();
-  textVec.push_back(p);
+//  textVec.push_back(p);
 
-    QString tmp;
-    std::vector<Pack>::iterator prev = textVec.begin();
-    for(std::vector<Pack>::iterator it = textVec.begin(); it != textVec.end(); ++it)
-    {
-      tmp.append(it->text);
-      prev = it;
-    }
+  QString tmp;
+//  std::vector<std:.string>::iterator prev = textVec.begin();
+  for(std::vector<std::string>::const_iterator it = decoder.getSortedContent().begin();
+      it != decoder.getSortedContent().end(); ++it)
+  {
+    tmp.append( QString::fromStdString( *it ) );
 
-    ui->textEdit_3->append(tmp);
+  }
+
+  ui->textEdit_3->append(tmp);
 }
 
 void ChatGui::sliderMoved(){
@@ -120,7 +126,7 @@ void ChatGui::buttonClicked(){
 
     tmp.relevanceValue = ui->horizontalSlider->value();
     tmp.pos.x = ui->textEdit_2->textCursor().selectionStart();
-    tmp.pos.y = zeilenschub; //bei neuer Nachricht counter hochzählen !!!
+    tmp.pos.y = 0; //bei neuer Nachricht counter hochzählen !!!
     tmp.pos.len_x = ui->textEdit_2->textCursor().selectedText().size();
 
     vektor.push_back(tmp);
@@ -154,7 +160,8 @@ void ChatGui::buttonClicked(){
 
 }
 
-void ChatGui::buttonClicked2(){
+void ChatGui::buttonClicked2()
+{
     if(ui->listWidget->selectedItems().isEmpty()){
         QMessageBox msg;
         msg.setIcon(QMessageBox::Information);
@@ -237,17 +244,11 @@ void ChatGui::buttonClicked3(){
         out.is_timestamp = ui->checkBox->isChecked();
         out.relevanceVector = vektor.toStdVector();
         vektor.clear();
-        std::cout << "send text\n";
 
         sender->sendText(out);
         ui->textEdit_2->clear();
         ui->listWidget->clear();
         ret = 0;
-
-        QString ausgabe;
-        QString damn = ausgabe.number(zeilenschub);
-        zeilenschub++;
-
     }
     else
         return;

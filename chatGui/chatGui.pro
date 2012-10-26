@@ -2,7 +2,8 @@ TEMPLATE = app
 TARGET = chatGui
 QT += core \
     gui
-HEADERS += src/ChatGui.h \
+HEADERS += src/UniversalDecoder.h \
+    src/ChatGui.h \
     src/qhostaddress.h \
     src/qhostinfo.h \
     src/qhostaddress.h \

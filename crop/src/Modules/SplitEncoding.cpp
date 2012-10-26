@@ -46,6 +46,10 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
 
   if (vec.begin() != vec.end())
   {
+    std::cout << "sort relevance!!!!!!!!!!!!!!!\n";
+    for(std::vector<RelevanceData>::iterator it = vec.begin(); it != vec.end(); ++it)
+      std::cout << "sorted RD: " << *it << "\n";
+
     std::vector<RelevanceData>::iterator next = vec.begin()+1;
     while (next < vec.end())
     {
@@ -65,7 +69,7 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
   // small check
   if(content.size() == 0)
   {
-    WARNING() << "The content ist empty!!!\n";
+    WARNING() << "The content is empty!!!\n";
     return;
   }
 
@@ -86,7 +90,7 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
     if( !curLine.empty()  )
     {
       unsigned int lineSize = curLine.size() + 1 + oldTotalLineSize; // +1 because last char is the line break
-      linePos.push_back( lineSize  );
+       linePos.push_back( lineSize  );
       oldTotalLineSize = lineSize;
     }
   }
@@ -96,11 +100,22 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
 
   // transform two dimensional coordinates to 1 dimensional
   // and create blocks with relevant informations
-  while(r_cur != relevanceData.end())
+  if(relevanceData.empty())
   {
-    GlobalPosition fragm = transform2global(*r_cur, linePos);
+    GlobalPosition fragm;
+    fragm.begin = 0;
+    fragm.length = content.size();
+    fragm.relevance = 0.f;
     globalPositions.push_back(fragm);
-    ++r_cur;
+  }
+  else
+  {
+    while(r_cur != relevanceData.end())
+    {
+      GlobalPosition fragm = transform2global(*r_cur, linePos);
+      globalPositions.push_back(fragm);
+      ++r_cur;
+    }
   }
 
   // compute blocks without relevance by using the current block and the next block with relevant values
@@ -121,14 +136,14 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
   --lastFrag;
 
   // if the last block do not reach the end of the content, this will compute the last block
-  if(lastFrag->begin + lastFrag->length < *(linePos.end()-1))
+  if(lastFrag->begin + lastFrag->length < *(linePos.end()-1) )
   {
     uint16_t endPos = lastFrag->begin + lastFrag->length;
 
     GlobalPosition lastZero;
     lastZero.length = *(linePos.end()-1) - endPos;
     lastZero.begin = endPos;
-    lastZero.relevance = 0;
+    lastZero.relevance = 0.f;
 
     globalPositions.push_back(lastZero);
   }
@@ -189,6 +204,9 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
     RelevanceData rel_tmp = transform2localRelData(*it, linePos);
     text.line = rel_tmp.pos.y;
     text.column = rel_tmp.pos.x;
+
+    if(text.text.empty())
+      continue;
 
     ByteArray_sPtr content(new ByteArray);
     content->insert(text);

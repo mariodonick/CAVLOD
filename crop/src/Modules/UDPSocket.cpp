@@ -17,8 +17,8 @@ using namespace crodt;
 
 UDPSocket::UDPSocket()
 {
-  Config* config = Config::instance();
-  startServer(config->port);
+//  Config* config = Config::instance();
+//  startServer(config->receivePort);
 }
 
 UDPSocket::~UDPSocket()

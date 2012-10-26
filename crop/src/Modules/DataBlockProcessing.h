@@ -85,7 +85,10 @@ void DataBlockProcessing<T, Parser, Decoder, C>::start(const DataBlock::Header& 
     coi.pos = obj->pos;
     coi.timestamp = timestamp.to_ulong();
     coi.usingTimestamp = usingTimestamp;
-    decode(dbh.dataObjectID.to_uint(), dbh.sequenceNumber.to_uint(), coi);
+    coi.doid = dbh.dataObjectID.to_uint();
+    coi.sequenceNumber = dbh.sequenceNumber.to_uint();
+
+//    decode(dbh.dataObjectID.to_uint(), dbh.sequenceNumber.to_uint(), coi);
 
     output.sortedContent = coi;
     callback(output);

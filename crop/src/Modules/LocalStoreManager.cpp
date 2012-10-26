@@ -177,8 +177,8 @@ void LocalStoreManager::remove(const DataBlock::Header& dbh)
 
     if( ::remove(file.c_str()) != 0 )
     {
-      perror( "Error deleting file: " );
-      ERROR() << "error removing successfully" << ENDL;
+      perror( "Deleting file failed" );
+      WARNING() << "file removing not successfully: " << file << ENDL;
     }
     else
     {

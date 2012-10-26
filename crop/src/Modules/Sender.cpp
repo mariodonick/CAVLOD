@@ -72,7 +72,7 @@ void Sender::packetizerThread()
 
     if( !data.isEmpty() )
     {
-      network->sendData(data, config.ipAddress.c_str(), config.port);
+      network->sendData(data, config.ipAddress.c_str(), config.sendPort);
       INFO() << "Sending....... Data available in Prioritized Queue: " << prioQueue->size() << ENDL;
     }
   }

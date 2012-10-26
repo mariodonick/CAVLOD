@@ -16,7 +16,7 @@ void sensorIn()
   while(running)
   {
     sleep(1);
-    c->sendSensor(randomDouble(0.0, 100.0));
+//    c->sendSensor(randomDouble(0.0, 100.0));
   }
 }
 
@@ -77,8 +77,22 @@ int main()
 
     c->sendText(ci);
 
-    sleep(1);
+    sleep(5);
   }
+
+//  crodt::CrodtInput ci;
+//  ci.is_timestamp = true;
+//  ci.content = "hallo welt";
+//
+//  c->sendText(ci);
+//  sleep(11);
+//
+//  crodt::CrodtInput ci2;
+//  ci2.is_timestamp = true;
+//  ci2.content = "abcdef";
+//  c->sendText(ci2);
+//  sleep(20);
+
 
   running = false;
 

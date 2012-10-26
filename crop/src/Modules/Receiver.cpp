@@ -14,7 +14,8 @@ Receiver::Receiver()
 , parser(new MessageParser)
 , running(true)
 {
-
+  Config* config = Config::instance();
+  network->startServer(config->receivePort);
 }
 
 Receiver::~Receiver()

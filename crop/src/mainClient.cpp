@@ -16,7 +16,7 @@ void sensorIn()
   while(running)
   {
     sleep(1);
-//    c->sendSensor(randomDouble(0.0, 100.0));
+    c->sendSensor(randomDouble(0.0, 100.0));
   }
 }
 
@@ -29,7 +29,8 @@ int main()
   running = true;
   std::thread sens(&sensorIn); // start sensor thread
 
-  for(unsigned int i = 0; i < 100; ++i)
+  // first test case
+  for(unsigned int i = 0; i < 3; ++i)
   {
     std::string text = "Es folgt ein Beispieltext:\n";
     text.append("Hallo ich bin ein Beispieltext und komme vom Mars.\n");
@@ -69,17 +70,18 @@ int main()
     ci.is_timestamp = true;
     ci.content = text;
 
-    ci.relevanceVector.push_back(rd0);
     ci.relevanceVector.push_back(rd1);
     ci.relevanceVector.push_back(rd2);
-    ci.relevanceVector.push_back(rd3);
     ci.relevanceVector.push_back(rd4);
+    ci.relevanceVector.push_back(rd3);
+    ci.relevanceVector.push_back(rd0);
 
     c->sendText(ci);
 
     sleep(5);
   }
 
+  // second test case
 //  crodt::CrodtInput ci;
 //  ci.is_timestamp = true;
 //  ci.content = "hallo welt";
@@ -92,7 +94,6 @@ int main()
 //  ci2.content = "abcdef";
 //  c->sendText(ci2);
 //  sleep(20);
-
 
   running = false;
 

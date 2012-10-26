@@ -17,22 +17,6 @@
 namespace crodt
 {
 
-struct RelevanceDataXCmp
-{
-  bool operator() (RelevanceData lhs, RelevanceData rhs)
-  {
-    return (lhs.pos.x < rhs.pos.x);
-  }
-};
-
-struct RelevanceDataYCmp
-{
-  bool operator() (RelevanceData lhs, RelevanceData rhs)
-  {
-    return (lhs.pos.y<rhs.pos.y);
-  }
-};
-
 class SplitEncoding : public Partitioning
 {
 public:
@@ -42,7 +26,19 @@ public:
     uint16_t length;
     float relevance;
 
-    friend std::ostream& operator<<(std::ostream& out, const GlobalPosition& frag);
+    friend std::ostream& operator<<(std::ostream& out, const GlobalPosition& frag)
+    {
+      out << "begin: " << frag.begin << " length: " << frag.length << " relevance: " << frag.relevance;
+      return out;
+    }
+  };
+
+  struct GlobalPosCmp
+  {
+    bool operator() (GlobalPosition& lhs, GlobalPosition& rhs)
+    {
+      return (lhs.begin < rhs.begin);
+    }
   };
 
 public:

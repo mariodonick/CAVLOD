@@ -33,39 +33,6 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
 {
   const std::vector<RelevanceData>& relevanceData = crodm->getRelevanceData(doid, TYPE_TEXT);
 
-  // sort the input vector to avoid problems
-  std::vector<RelevanceData> vec = relevanceData;
-
-  RelevanceDataXCmp comX;
-  RelevanceDataYCmp comY;
-  std::sort(vec.begin(), vec.end(), comY);
-
-  std::vector<RelevanceData>::iterator first = vec.begin();
-  std::vector<RelevanceData>::iterator cur = vec.begin();
-  std::vector<RelevanceData>::iterator last = vec.begin();
-
-  if (vec.begin() != vec.end())
-  {
-    std::cout << "sort relevance!!!!!!!!!!!!!!!\n";
-    for(std::vector<RelevanceData>::iterator it = vec.begin(); it != vec.end(); ++it)
-      std::cout << "sorted RD: " << *it << "\n";
-
-    std::vector<RelevanceData>::iterator next = vec.begin()+1;
-    while (next < vec.end())
-    {
-      if (cur->pos.y != next->pos.y)
-      {
-        last = cur+1;
-        std::sort(first, last, comX);
-        first = next;
-      }
-      ++cur;
-      ++next;
-      if (next == vec.end())
-        std::sort(first, vec.end(), comX);
-    }
-  }
-
   // small check
   if(content.size() == 0)
   {
@@ -96,7 +63,6 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
   }
 
   std::list<GlobalPosition> globalPositions;
-  std::vector<RelevanceData>::const_iterator r_cur = relevanceData.begin();
 
   // transform two dimensional coordinates to 1 dimensional
   // and create blocks with relevant informations
@@ -110,6 +76,7 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
   }
   else
   {
+    std::vector<RelevanceData>::const_iterator r_cur = relevanceData.begin();
     while(r_cur != relevanceData.end())
     {
       GlobalPosition fragm = transform2global(*r_cur, linePos);
@@ -117,6 +84,8 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
       ++r_cur;
     }
   }
+
+  globalPositions.sort(GlobalPosCmp());
 
   // compute blocks without relevance by using the current block and the next block with relevant values
   std::list<GlobalPosition>::iterator curBlock = globalPositions.begin();

@@ -6,13 +6,24 @@
 #include <QTime>
 #include <QTimer>
 #include <QMessageBox>
+#include <QErrorMessage>
 #include <crodt.h>
-//#include <QtNetwork/QHostInfo>
-
 
 namespace Ui {
     class ChatGui;
 }
+
+struct Pack
+{
+  Pack(){}
+  virtual ~Pack(){}
+
+  QString text;
+  uint x; // column
+  uint y; // line
+  uint len_x;
+  uint doid;
+};
 
 class ChatGui : public QMainWindow
 {
@@ -27,6 +38,12 @@ public slots:
     void buttonClicked2();
     void buttonClicked3();
     void sliderMoved();
+    void receive();
+    void refresh(Pack p);
+    void incoming(const crodt::CrodtOutput<std::string>& out);
+
+signals:
+  void receive(Pack p);
 
 protected:
     void keyPressEvent(QKeyEvent *);
@@ -36,7 +53,12 @@ private:
     Ui::ChatGui *ui;
     QVector<crodt::RelevanceData>vektor;
     QMessageBox msg;
+    QErrorMessage errorMessage;
     crodt::SenderModuleIF* sender;
+    crodt::ReceiverModuleIF* receiver;
+    int ret;
+    int zeilenschub;
+    std::vector<Pack> textVec;
 };
 
 #endif // CHATWINDOW_H

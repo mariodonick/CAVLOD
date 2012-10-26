@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ChatGui</class>
- <widget class="QMainWindow" name="ChatGui">
+ <class>ChatWindow</class>
+ <widget class="QMainWindow" name="ChatWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>639</width>
-    <height>428</height>
+    <width>1060</width>
+    <height>508</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -50,39 +50,47 @@
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>500</x>
-      <y>244</y>
-      <width>139</width>
+      <x>488</x>
+      <y>242</y>
+      <width>148</width>
       <height>163</height>
      </rect>
     </property>
     <property name="title">
-     <string>Controls</string>
+     <string>Bedienelemente</string>
     </property>
     <widget class="QCheckBox" name="checkBox">
      <property name="geometry">
       <rect>
-       <x>24</x>
-       <y>134</y>
-       <width>91</width>
+       <x>18</x>
+       <y>136</y>
+       <width>113</width>
        <height>17</height>
       </rect>
      </property>
      <property name="text">
-      <string>Timestamp</string>
+      <string>Zeitstempel</string>
      </property>
     </widget>
     <widget class="QLCDNumber" name="lcdNumber">
      <property name="geometry">
       <rect>
-       <x>36</x>
-       <y>38</y>
-       <width>64</width>
-       <height>17</height>
+       <x>8</x>
+       <y>32</y>
+       <width>32</width>
+       <height>13</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+      </font>
      </property>
      <property name="smallDecimalPoint">
       <bool>true</bool>
+     </property>
+     <property name="numDigits">
+      <number>3</number>
      </property>
      <property name="segmentStyle">
       <enum>QLCDNumber::Flat</enum>
@@ -91,10 +99,10 @@
     <widget class="QSlider" name="horizontalSlider">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>57</y>
-       <width>75</width>
-       <height>15</height>
+       <x>18</x>
+       <y>55</y>
+       <width>112</width>
+       <height>17</height>
       </rect>
      </property>
      <property name="maximum">
@@ -107,64 +115,114 @@
     <widget class="QPushButton" name="pushButton_2">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>100</y>
-       <width>99</width>
-       <height>32</height>
+       <x>-4</x>
+       <y>107</y>
+       <width>156</width>
+       <height>29</height>
       </rect>
      </property>
      <property name="text">
-      <string>Del Prio</string>
+      <string>Priorität löschen</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>72</y>
-       <width>99</width>
-       <height>32</height>
+       <x>-4</x>
+       <y>77</y>
+       <width>156</width>
+       <height>31</height>
       </rect>
      </property>
      <property name="text">
-      <string>Add Prio</string>
+      <string>Priorität hinzufügen</string>
      </property>
     </widget>
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>36</x>
-       <y>20</y>
-       <width>62</width>
+       <x>96</x>
+       <y>30</y>
+       <width>51</width>
        <height>16</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+       <stylestrategy>PreferAntialias</stylestrategy>
+      </font>
+     </property>
      <property name="text">
-      <string>prio</string>
+      <string>niedrig</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="Line" name="line">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>44</y>
+       <width>130</width>
+       <height>11</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="Line" name="line_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>70</y>
+       <width>130</width>
+       <height>11</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>44</x>
+       <y>30</y>
+       <width>49</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Priorität:</string>
      </property>
     </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>500</x>
+      <x>488</x>
       <y>2</y>
-      <width>139</width>
+      <width>148</width>
       <height>245</height>
      </rect>
     </property>
     <property name="title">
-     <string>Prio List</string>
+     <string>Prioritätenliste</string>
     </property>
     <widget class="QListWidget" name="listWidget">
      <property name="geometry">
       <rect>
        <x>0</x>
        <y>18</y>
-       <width>139</width>
+       <width>148</width>
        <height>227</height>
       </rect>
      </property>
@@ -175,12 +233,12 @@
      <rect>
       <x>2</x>
       <y>2</y>
-      <width>495</width>
+      <width>484</width>
       <height>401</height>
      </rect>
     </property>
     <property name="title">
-     <string>Chat</string>
+     <string>Sendefanster</string>
     </property>
     <widget class="QTextEdit" name="textEdit">
      <property name="enabled">
@@ -190,8 +248,8 @@
       <rect>
        <x>0</x>
        <y>18</y>
-       <width>495</width>
-       <height>261</height>
+       <width>484</width>
+       <height>277</height>
       </rect>
      </property>
     </widget>
@@ -199,9 +257,9 @@
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>300</y>
-       <width>495</width>
-       <height>103</height>
+       <y>314</y>
+       <width>484</width>
+       <height>89</height>
       </rect>
      </property>
      <property name="verticalScrollBarPolicy">
@@ -215,33 +273,45 @@
      <property name="geometry">
       <rect>
        <x>-6</x>
-       <y>275</y>
-       <width>507</width>
+       <y>290</y>
+       <width>496</width>
        <height>32</height>
       </rect>
      </property>
      <property name="text">
-      <string>Send</string>
+      <string>Senden</string>
      </property>
     </widget>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>639</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuMarsChat">
-    <property name="title">
-     <string>MarsChat</string>
+   <widget class="QGroupBox" name="groupBox_4">
+    <property name="geometry">
+     <rect>
+      <x>638</x>
+      <y>2</y>
+      <width>433</width>
+      <height>401</height>
+     </rect>
     </property>
-    <addaction name="action_Einstellungen"/>
+    <property name="title">
+     <string>Empfangsfenster</string>
+    </property>
+    <widget class="QTextEdit" name="textEdit_3">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>18</y>
+       <width>421</width>
+       <height>383</height>
+      </rect>
+     </property>
+     <property name="verticalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOn</enum>
+     </property>
+     <property name="horizontalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
+    </widget>
    </widget>
-   <addaction name="menuMarsChat"/>
   </widget>
   <action name="action_Einstellungen">
    <property name="text">

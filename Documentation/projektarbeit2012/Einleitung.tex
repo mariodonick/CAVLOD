@@ -1,0 +1,85 @@
+Seit {\"u}ber f{\"u}nfzig Jahren entwickeln Forscher Strategien zur Erkundung
+des Weltraums. Dabei hat sich seit der Entsendung des ersten k{\"u}nstlichen
+Satelliten namens Sputnik und der ersten Mondlandung viel getan.
+Zahlreiche Sonden oder Landefahrzeuge wurden seither zu diversen Zielen unseres
+Sonnensystems entsandt um neue Erkenntnisse {\"u}ber unser Universum und dessen
+Entstehung zu sammeln. Ein aktuelles Beispiel stellt der Mars Rover Curiosity
+dar, welcher j{\"u}ngst im Gale Krater auf dem Mars landete. Der Rover
+verf{\"u}gt {\"u}ber zahlreiche Messinstrumente, darunter Kameras, Sensoren zur
+Messung Kosmischer Strahlung, Spektrografen, Meteorologische Messinstrumente und
+vieles mehr. Der Rover selbst ist mit einem Gewicht von $900$ kg und der
+Gr{\"o}{\ss}e eines kompakten Kleinwagens das bisher mit Abstand gr{\"o}{\ss}te
+vom Menschen geschaffene Objekt das je die Marsoberfl{\"a}che erreichte. Er
+stellt ein mobiles Labor dar, das neben den Sensoren und Messinstrumenten
+Greifarme und R{\"a}der zur Fortbewegung und Interaktion aufweist. Alle
+Messinstrumente und s{\"a}mtliche Peripherie des Rovers werden dabei von der
+Erde aus gesteuert. Mit steigender Komplexit{\"a}t der mobilen Labore
+steigt nat{\"u}rlich auch die Menge an Daten die es zu {\"u}bertragen gilt. Da
+die Komplette Steuerung und Auswertung auf der Erde stattfindet gilt es sowohl
+Steuerdaten von der Erde an den Rover zu senden als auch Messdaten, Bilder und
+{\"a}hnliches vom Rover an die Erde zu {\"u}bermitteln. Dabei unterliegt die
+Kommunikation einigen entscheidenden Restriktionen. Die wohl wichtigste ist die
+Lichtgeschwindigkeit, welche sich im Vakuum mit $299 792 458$ m/s ausbreitet.
+Die Ausbreitung der entsandten Signale kann daher niemals schneller erfolgen. Da die
+Entfernung zum Mars je nach Konstellation variiert, ist es im folgenden
+hilfreich von der mittleren minimalen Entfernung zur Erde auszugehen. Diese
+betr{\"a}gt $0,52$ AE oder aber ca. $77,8$ Millionen Kilometer (Schwankung des
+$[Erde - Mars]$ Abstandes je nach Konstellation: $0,372 - 2,683$ AE, d.h. bei
+Opposition $[Sonne - Erde - Mars]$ zwischen ca. $55 - 105$ Millionen Kilometern
+und bei Konjunktion $[Mars - Sonne - Erde]$ ca. $400$ Millionen Kilometer).
+Ausgehend von dieser Entfernung, bei einer Ausbreitungsgeschwindigkeit der
+Signale von ca. $300 000$ km/s, erh{\"a}lt man eine Zeit von ca. $4,3$ Minuten
+pro {\"U}bertragungsrichtung. Daraus folgt, dass die Antwort auf eine an den
+Mars gesandte Frage (im aktuellen Szenario) im Idealfall nach $8,6$ Minuten die
+Erde erreicht (im Fall der Maximalen Entfernung zwischen Erde und Mars sogar
+erst nach $44$ Minuten, wobei in dieser Konstellation eine direkte
+Funkverbindung nahezu unm{\"o}glich ist).
+Da der Mars jedoch genau wie die Erde eine Rotation um seine eigene Achse ausf{\"u}hrt und die Kommunikation {\"u}ber eine
+Marsstation{\"a}re Sendevorrichtung (Satellit) erfolgt, wird das Zeitfenster der
+{\"U}bertragung weiter beschr{\"a}nkt. Diese Physikalisch begr{\"u}ndeten
+Latenzen sind ein wichtiger Faktor den es in der Interplanetaren Kommunikation
+zu ber{\"u}cksichtigen gilt. Die hieraus abzuleitende Erkenntnis ist, das eine
+Kommunikation Beispielsweise zwischen Erde und Mars nicht mit einer heutigen
+Irdischen Kommunikation zu vergleichen ist. Zwar ist das Modell der
+verz{\"o}gerten Kommunikation dem Menschen keineswegs unbekannt, exemplarisch
+sei hier auf den vor der Erfindung der Telegraphie ausschlie{\ss}lich
+betriebenen Briefverkehr verwiesen, jedoch ist dieses Ph{\"a}nomen in der
+heutigen vernetzten Generation nahezu in Vergessenheit geraten. Irdische
+Kommunikation im $21$. Jahrhundert setzt auf geringe Latenzen und kann somit
+idealisiert als verz{\"o}gerungsfrei betrachtet werden. Doch eine Interplanetare
+Kommunikation wird nicht allein durch die unvermeidlichen Latenzen beeinflusst
+auch die Bandbreite unserer {\"U}bertragung unterliegt zumindest auf der von der
+Erde entfernten Seite einer Beschr{\"a}nkung. Am Beispiel der Mars Rover sei
+hier auf die genutzten Solarpanele bzw. eingesetzten Batterien (zumeist
+Radionuklidbatterien) verwiesen, welche nur eine begrenzte Energieversorgung
+gew{\"a}hrleisten und somit keine nahezu unbegrenzte Sendeleistung 
+erm{\"o}glichen wie es auf der Erde der Fall ist (vereinfacht betrachtet). 
+Ein weiterer Punkt ist die f{\"u}r den Rover eingesetzte Technologie. Hierbei 
+sind unter anderem Faktoren wie Gr{\"o}{\ss}e und Gewicht von Bedeutung, da 
+diese die Kosten der Unternehmung stark beeinflussen. So kostet Beispielsweise 
+der Start einer Ariane $5$ Rakete zwischen $125$ und $155$ Millionen Euro bei 
+einer Nutzlast von $23000$ kg im LEO (Low Earth Orbit: $200-2000$ km). Hieraus 
+ergibt sich f{\"u}r dieses Beispiel ein Preis von ca. $7000$ Euro pro kg 
+Nutzlast. An diesem Beispiel wird sichtbar wie Wichtig es ist das Gewicht 
+der Rover genau zu kalkulieren. Diese Restriktion wirkt sich direkt auf die 
+verbaute Hardware des Rovers aus und somit auch indirekt auf Ressourcen wie 
+z.B. die Gr{\"o}{\ss}e des verbauten Speichers um lokal Daten zu Speichern. 
+Zusammenfassend kann man anhand der Beispiele feststellen, dass Latenz, 
+Bandbreite sowie lokaler Speicher wichtige Restriktionen sind denen die 
+Interplanetare Kommunikation unterliegt. Diese Vorraussetzungen verlangen 
+eine besondere Kommunikationsstruktur die von den {\"u}blichen Protokollen 
+abweicht. Das CRODT Protokoll soll genau hier f{\"u}r Abhilfe sorgen. 
+Der Gedanke des Protokolls ist ein gezielter Umgang mit den begrenzten 
+Ressourcen. hierbei wird einerseits eine Verallgemeinerung der vorhandenen 
+Daten in DataBlocks vorgenommen und andererseits eine Priorisierung der 
+Daten erwirkt, welche {\"u}ber die Reihenfolge und den Zeitpunkt des 
+Versendens entscheidet. Das Resultat ist nun, dass Daten Hoher Relevanz 
+vor Daten einer niederen Relevanz verschickt werden. Somit k{\"o}nnen 
+Beispielsweise zeitkritische Daten das Kontrollzentrum auf der Erde 
+schneller erreichen. Als einfaches Beispiel dient an dieser Stelle ein 
+Bild, welches einen Besonders relevanten Inhalt beherbergt, welcher 
+zuerst versendet wird. Die Bildinhalte geringerer Relevanz werden erst 
+dann gesendet, wenn keine weiteren Datenbl{\"o}cke h{\"o}herer Relevanz 
+eines anderen Prozesses (Beispielsweise Sensorwerte) mehr vorliegen. Die 
+Relevanz Verwaltung erfolgt somit Global {\"u}ber alle Daten (DataBlocks) 
+und wird durch eine Ontologie gesteuert.

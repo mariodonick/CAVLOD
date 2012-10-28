@@ -44,7 +44,7 @@ struct CrodtInput
 {
   // stores all information about the position of the relevant areas
   std::vector<RelevanceData> relevanceVector;
-  std::string content; // cointains the content
+  std::string content; // contains the content
   bool is_timestamp; // is true if we want to send a timestamp
 };
 

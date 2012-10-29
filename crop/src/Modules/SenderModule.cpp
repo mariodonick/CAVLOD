@@ -22,9 +22,9 @@ void SenderModule::initialize()
   sender->initialize();
 }
 
-void SenderModule::sendSensor(const float& value, const bool& usingTimestamp)
+void SenderModule::sendSensor(const float& value)
 {
-  sender->sendSensor(value, usingTimestamp);
+  sender->sendSensor(value);
 }
 
 void SenderModule::sendText(const std::string& text, const bool& usingTimestamp)

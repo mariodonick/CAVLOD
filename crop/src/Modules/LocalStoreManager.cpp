@@ -107,7 +107,7 @@ const std::vector<DataBlock_sPtr>& LocalStoreManager::load()
 
             ByteArray_sPtr ba(new ByteArray);
             ba->insert(buffer2, file_size - sizeof(BinFileHeader));
-            db->addContent( ba );
+            db->insertContent( ba );
 
             dbVec.push_back(db);
             bin.close();
@@ -177,8 +177,8 @@ void LocalStoreManager::remove(const DataBlock::Header& dbh)
 
     if( ::remove(file.c_str()) != 0 )
     {
-      perror( "Error deleting file: " );
-      ERROR() << "error removing successfully" << ENDL;
+      perror( "Deleting file failed" );
+      WARNING() << "file removing not successfully: " << file << ENDL;
     }
     else
     {

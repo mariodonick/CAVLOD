@@ -72,7 +72,7 @@ void Sender::packetizerThread()
 
     if( !data.isEmpty() )
     {
-      network->sendData(data, config.ipAddress.c_str(), config.port);
+      network->sendData(data, config.ipAddress.c_str(), config.sendPort);
       INFO() << "Sending....... Data available in Prioritized Queue: " << prioQueue->size() << ENDL;
     }
   }
@@ -104,13 +104,13 @@ void Sender::sendText(const CrodtInput& ci)
   DBG() << "text STOP time: " << sw << ENDL;
 }
 
-void Sender::sendSensor(const float& value, const bool& usingTimestamp)
+void Sender::sendSensor(const float& value)
 {
   std::unique_lock<std::mutex> lock(eventMutex);
 
   StopWatch sw;
   crodm->evaluateSensor(value, sensorId);
-  partitioning->partSensor(sensorId, value, usingTimestamp);
+  partitioning->partSensor(sensorId, value);
   prioritization->evaluate();
 
   sensorId += 1;

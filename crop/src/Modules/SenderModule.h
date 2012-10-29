@@ -18,7 +18,7 @@ public:
   virtual ~SenderModule();
 
   void initialize();
-  void sendSensor(const float& value, const bool& usingTimestamp);
+  void sendSensor(const float& value);
   void sendText(const std::string& text, const bool& usingTimestamp);
   void sendText(const CrodtInput& ci);
 

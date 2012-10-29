@@ -28,10 +28,10 @@ Config::Config()
 
     my_options.add_options()
       ("General.backupPath", boost::program_options::value<std::string>()->default_value(stdBackupPath), "path to store datablocks")
-      ("General.port", boost::program_options::value<unsigned int>()->default_value(5657), "port number")
+      ("General.sendPort", boost::program_options::value<unsigned int>()->default_value(5657), "port number")
+      ("General.receivePort", boost::program_options::value<unsigned int>()->default_value(5658), "port number")
       ("General.ipAddress", boost::program_options::value<std::string>()->default_value("127.0.0.1"), "IP Address for the receiver which get the message")
       ("General.sendDelayMS", boost::program_options::value<unsigned int>()->default_value(10000), "delay in ms to send a new message")
-      ("General.sensorInputDelayMS", boost::program_options::value<unsigned int>()->default_value(1000), "delay in ms to create a new sensor value")
 
       ("Message.messageCrcBorder", boost::program_options::value<std::size_t>()->default_value(0xFFFF), "max size of the message for crc 16bit")
       ("Message.messageConfig", boost::program_options::value<unsigned int>()->default_value(0), "configuration bits for the message header")
@@ -44,10 +44,10 @@ Config::Config()
     boost::program_options::notify(vm);
 
     backupPath = vm["General.backupPath"].as<std::string>();
-    port = vm["General.port"].as<unsigned int>();
+    sendPort = vm["General.sendPort"].as<unsigned int>();
+    receivePort = vm["General.receivePort"].as<unsigned int>();
     ipAddress = vm["General.ipAddress"].as<std::string>();
     sendDelayMS = vm["General.sendDelayMS"].as<unsigned int>();
-    sensorInputDelayMS = vm["General.sensorInputDelayMS"].as<unsigned int>();
     messageCrcBorder = vm["Message.messageCrcBorder"].as<std::size_t>();
     messageConfig = vm["Message.messageConfig"].as<unsigned int>();
 

@@ -25,10 +25,10 @@ public:
 
   /*
    * call this function to send sensor values to the crodt module
+   * the timestamp is always true and in use
    * param float value - contain the next sensor value
-   * param bool timestamp - set this to true if you want to send the actual timestamp
    */
-  virtual void sendSensor(const float& value, const bool& usingTimestamp) = 0;
+  virtual void sendSensor(const float& value) = 0;
 
  /*
   * call this function to send a text to the crodt module

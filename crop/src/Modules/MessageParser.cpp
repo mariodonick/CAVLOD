@@ -23,23 +23,24 @@ MessageParser::~MessageParser()
 
 void MessageParser::parse(const ByteArray& recv_data)
 {
-  INFO() << "\n---------------parser start---------------------------\n";
+  INFO() << "\n---------------parser start---------------------------" << ENDL;
+
   version = recv_data.getByte(0).separate<0,4>();
   msgConfig = merge( recv_data.getByte(0).separate<4,8>(), recv_data.getByte(1) );
 
-  INFO() << "version: " << version.to_uint() << "\n";
-  INFO() << "config: 0x" << std::hex << msgConfig.to_uint() << std::dec << "\n";
+  INFO() << "version: " << version.to_uint() << ENDL;
+  INFO() << "config: 0x" << std::hex << msgConfig.to_uint() << std::dec << ENDL;
 
   switch( static_cast<EMsgVersion>(version.to_uint()) )
   {
     case VERSION_1: parse_v1(recv_data); break;
-    default: ERROR() << "received unknown version\n"; break;
+    default: ERROR() << "received unknown version" << ENDL; break;
   }
 }
 
 void MessageParser::parse_v1(const ByteArray& data)
 {
-  INFO() << "\n---------------message---------------------------\n";
+  INFO() << "\n---------------message---------------------------" << ENDL;
   curMsgPos = computeFirstDBByte();
   unsigned int msgLength = constChar2uint(&data.dataPtr()[curMsgPos - MSG_LENGTH_BYTES], MSG_LENGTH_BYTES);
 
@@ -49,9 +50,9 @@ void MessageParser::parse_v1(const ByteArray& data)
   else
     crcSize = MSG_CRC_32_BYTES;
 
-  INFO() << "Message Length: 0x" << std::hex << msgLength << std::dec << " = " << msgLength << "Bytes " << "\n";
-  DBG() << "db_start: " << computeFirstDBByte() << "\n";
-  DBG() << "crcSize: " << crcSize << "\n";
+  INFO() << "Message Length: 0x" << std::hex << msgLength << std::dec << " = " << msgLength << "Bytes " << ENDL;
+  DBG() << "db_start: " << computeFirstDBByte() << ENDL;
+  DBG() << "crcSize: " << crcSize << ENDL;
 
   assert(msgLength < MAX_MSG_LENGTH);
   assert(msgLength >= computeFirstDBByte());
@@ -62,12 +63,12 @@ void MessageParser::parse_v1(const ByteArray& data)
     parseDB(data);
   }
 
-  INFO() << "---------------parser end---------------------------\n\n";
+  INFO() << "---------------parser end---------------------------\n" << ENDL;
 }
 
 void MessageParser::parseDB(const ByteArray& data)
 {
-  INFO() << "\n---------------DBHeader---------------------------\n";
+  INFO() << "\n---------------DBHeader---------------------------" << ENDL;
   // parse DB header
   DBDatatype dbDataType = merge( data.getByte(curMsgPos).separate<0, 8>(), data.getByte(curMsgPos+1).separate<0, 2>() );
   DBConfig dbConfig = data.getByte(curMsgPos + 1).separate<2, 8>();
@@ -83,11 +84,11 @@ void MessageParser::parseDB(const ByteArray& data)
   offset += DB_LENGTH_BYTES;
 
   INFO() << "DB - DataType: 0x" << std::hex << dbDataType.to_uint() << std::dec << " = "
-      << dataType2String( static_cast<DataTypes>(dbDataType.to_ulong()) ) << "\n";
-  INFO() << "DB - Config: 0x" << std::hex << dbConfig.to_uint() << std::dec << "\n";
-  INFO() << "DB - Doid: 0x" << std::hex << dbDoid.to_uint() << std::dec << "\n";
-  INFO() << "DB - Sequence Number: 0x" << std::hex << dbSequNum.to_uint() << std::dec << "\n";
-  INFO() << "DB - Length: 0x" << std::hex << dbLengthBytes.to_uint() << " = " << std::dec << dbLengthBytes.to_uint() << " Bytes\n";
+      << dataType2String( static_cast<DataTypes>(dbDataType.to_ulong()) ) << ENDL;
+  INFO() << "DB - Config: 0x" << std::hex << dbConfig.to_uint() << std::dec << ENDL;
+  INFO() << "DB - Doid: 0x" << std::hex << dbDoid.to_uint() << std::dec << ENDL;
+  INFO() << "DB - Sequence Number: 0x" << std::hex << dbSequNum.to_uint() << std::dec << ENDL;
+  INFO() << "DB - Length: 0x" << std::hex << dbLengthBytes.to_uint() << " = " << std::dec << dbLengthBytes.to_uint() << " Bytes" << ENDL;
 
   assert(dbLengthBytes < config.messageCrcBorder);
   assert(dbLengthBytes >= DB_HEADER_LENGTH_BYTES);
@@ -105,7 +106,7 @@ void MessageParser::parseDB(const ByteArray& data)
   switch( static_cast<DataTypes>(dbDataType.to_uint()) )
   {
     case TYPE_TEXT: textProcessing.start(dbh, &data[contentPos]); break;
-    case TYPE_SENSOR: /*sensorProcessing.start(dbh, &data[contentPos]);*/ break; //todo wieder einkommentieren wenn fertig
+    case TYPE_SENSOR: sensorProcessing.start(dbh, &data[contentPos]); break;
   }
 
   curMsgPos += dbLengthBytes.to_uint();
@@ -115,7 +116,7 @@ const std::size_t MessageParser::computeFirstDBByte()
 {
   // parse address type
   Bin<3> addrType = msgConfig.separate<0,3>();
-  INFO() << "AddressType: " << addrType.to_uint() << "\n";
+  INFO() << "AddressType: " << addrType.to_uint() << ENDL;
 
   unsigned int addrTypeLength = 0;
   switch( static_cast<MsgAddressType>(addrType.to_uint()) )

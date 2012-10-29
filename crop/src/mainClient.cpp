@@ -4,13 +4,33 @@
 
 #include "Modules/SenderModule.h"
 #include "DataManagement/CrodtIO.h"
+#include "Tools/Random.h"
+
+#include <thread>
+
+crodt::SenderModuleIF* c;
+bool running;
+
+void sensorIn()
+{
+  while(running)
+  {
+    sleep(1);
+    c->sendSensor(randomDouble(0.0, 100.0));
+  }
+}
 
 int main()
 {
-  crodt::SenderModuleIF* crodt = new crodt::SenderModule;
-  crodt->initialize();
+  randomInitialize();
+  c = new crodt::SenderModule;
+  c->initialize();
 
-  for(unsigned int i = 0; i < 100; ++i)
+  running = true;
+  std::thread sens(&sensorIn); // start sensor thread
+
+  // first test case
+  for(unsigned int i = 0; i < 3; ++i)
   {
     std::string text = "Es folgt ein Beispieltext:\n";
     text.append("Hallo ich bin ein Beispieltext und komme vom Mars.\n");
@@ -50,16 +70,36 @@ int main()
     ci.is_timestamp = true;
     ci.content = text;
 
-    ci.relevanceVector.push_back(rd0);
     ci.relevanceVector.push_back(rd1);
     ci.relevanceVector.push_back(rd2);
-    ci.relevanceVector.push_back(rd3);
     ci.relevanceVector.push_back(rd4);
+    ci.relevanceVector.push_back(rd3);
+    ci.relevanceVector.push_back(rd0);
 
-    crodt->sendText(ci);
+    c->sendText(ci);
 
-    sleep(1);
+    sleep(5);
   }
-  delete crodt;
+
+  // second test case
+//  crodt::CrodtInput ci;
+//  ci.is_timestamp = true;
+//  ci.content = "hallo welt";
+//
+//  c->sendText(ci);
+//  sleep(11);
+//
+//  crodt::CrodtInput ci2;
+//  ci2.is_timestamp = true;
+//  ci2.content = "abcdef";
+//  c->sendText(ci2);
+//  sleep(20);
+
+  running = false;
+
+  if(sens.joinable())
+    sens.join();
+
+  delete c;
   return 0;
 }

@@ -33,39 +33,10 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
 {
   const std::vector<RelevanceData>& relevanceData = crodm->getRelevanceData(doid, TYPE_TEXT);
 
-  // sort the input vector to avoid problems
-  std::vector<RelevanceData> vec = relevanceData;
-
-  RelevanceDataXCmp comX;
-  RelevanceDataYCmp comY;
-  std::sort(vec.begin(), vec.end(), comY);
-
-  std::vector<RelevanceData>::iterator first = vec.begin();
-  std::vector<RelevanceData>::iterator cur = vec.begin();
-  std::vector<RelevanceData>::iterator last = vec.begin();
-
-  if (vec.begin() != vec.end())
-  {
-    std::vector<RelevanceData>::iterator next = vec.begin()+1;
-    while (next < vec.end())
-    {
-      if (cur->pos.y != next->pos.y)
-      {
-        last = cur+1;
-        std::sort(first, last, comX);
-        first = next;
-      }
-      ++cur;
-      ++next;
-      if (next == vec.end())
-        std::sort(first, vec.end(), comX);
-    }
-  }
-
   // small check
   if(content.size() == 0)
   {
-    WARNING() << "The content ist empty!!!\n";
+    WARNING() << "The content is empty!!!\n";
     return;
   }
 
@@ -86,22 +57,35 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
     if( !curLine.empty()  )
     {
       unsigned int lineSize = curLine.size() + 1 + oldTotalLineSize; // +1 because last char is the line break
-      linePos.push_back( lineSize  );
+       linePos.push_back( lineSize  );
       oldTotalLineSize = lineSize;
     }
   }
 
   std::list<GlobalPosition> globalPositions;
-  std::vector<RelevanceData>::const_iterator r_cur = relevanceData.begin();
 
   // transform two dimensional coordinates to 1 dimensional
   // and create blocks with relevant informations
-  while(r_cur != relevanceData.end())
+  if(relevanceData.empty())
   {
-    GlobalPosition fragm = transform2global(*r_cur, linePos);
+    GlobalPosition fragm;
+    fragm.begin = 0;
+    fragm.length = content.size();
+    fragm.relevance = 0.f;
     globalPositions.push_back(fragm);
-    ++r_cur;
   }
+  else
+  {
+    std::vector<RelevanceData>::const_iterator r_cur = relevanceData.begin();
+    while(r_cur != relevanceData.end())
+    {
+      GlobalPosition fragm = transform2global(*r_cur, linePos);
+      globalPositions.push_back(fragm);
+      ++r_cur;
+    }
+  }
+
+  globalPositions.sort(GlobalPosCmp());
 
   // compute blocks without relevance by using the current block and the next block with relevant values
   std::list<GlobalPosition>::iterator curBlock = globalPositions.begin();
@@ -121,14 +105,14 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
   --lastFrag;
 
   // if the last block do not reach the end of the content, this will compute the last block
-  if(lastFrag->begin + lastFrag->length < *(linePos.end()-1))
+  if(lastFrag->begin + lastFrag->length < *(linePos.end()-1) )
   {
     uint16_t endPos = lastFrag->begin + lastFrag->length;
 
     GlobalPosition lastZero;
     lastZero.length = *(linePos.end()-1) - endPos;
     lastZero.begin = endPos;
-    lastZero.relevance = 0;
+    lastZero.relevance = 0.f;
 
     globalPositions.push_back(lastZero);
   }
@@ -190,17 +174,36 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
     text.line = rel_tmp.pos.y;
     text.column = rel_tmp.pos.x;
 
+    if(text.text.empty())
+      continue;
+
     ByteArray_sPtr content(new ByteArray);
     content->insert(text);
-    db->addContent( content );
+    db->insertContent( content );
     db->setRelevanceData( rel_tmp );
 
     dbFifo->push(db);
   }
 }
 
-void SplitEncoding::partSensor(const DBDataObjectID& doid, const float& value, const bool& usingTimestamp)
+void SplitEncoding::partSensor(const DBDataObjectID& doid, const float& value)
 {
+  if(sensorBuffer.size() < MAX_SENSORVALUES_PER_DB-1)
+  {
+    Sensor st;
+    st.time.stamp();
+    st.value = value;
+    sensorBuffer.push(st);
+    return;
+  }
+  else
+  {
+    Sensor st;
+    st.time.stamp();
+    st.value = value;
+    sensorBuffer.push(st);
+  }
+
   static unsigned int sNr = 0;
 
   DataBlock::Header dbh;
@@ -208,19 +211,21 @@ void SplitEncoding::partSensor(const DBDataObjectID& doid, const float& value, c
   dbh.dataObjectID = doid;
   dbh.sequenceNumber = sNr++;
   dbh.dataType = TYPE_SENSOR;
-  dbh.config[DB_CONFIG_TIMESTAMP_INDEX] = usingTimestamp;
-
-  Sensor sensor;
-  sensor.value = value;
+  dbh.config[DB_CONFIG_TIMESTAMP_INDEX] = true;
 
   DataBlock_sPtr db( new DataBlock );
   db->setHeader(dbh);
-  db->stamp();
-
   ByteArray_sPtr content(new ByteArray);
-  content->insert(sensor);
-  db->addContent( content );
+  content->clear();
 
+  while( !sensorBuffer.empty() )
+  {
+    Sensor s;
+    s = sensorBuffer.front();
+    sensorBuffer.pop();
+    content->append( s );
+  }
+  db->insertContent( content );
   dbFifo->push(db);
 }
 

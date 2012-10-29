@@ -7,7 +7,6 @@
 #define MESSAGEPARSER_H_
 
 #include "ContentParser.h"
-#include "UniversalDecoder.h"
 #include "DataBlockProcessing.h"
 #include "../DataManagement/DataTypes.h"
 #include "../Tools/Bin.h"
@@ -46,8 +45,8 @@ private:
 
   unsigned int curMsgPos;
 
-  DataBlockProcessing<Text_sPtr, TextParser, UniversalDecoder<COItem<std::string> >, std::string > textProcessing;
-  DataBlockProcessing<Sensor_sPtr, SensorParser, UniversalDecoder<COItem<float> >, float> sensorProcessing;
+  DataBlockProcessing<Text_sPtr, TextParser, std::string > textProcessing;
+  DataBlockProcessing<Sensor_sPtr, SensorParser, float> sensorProcessing;
 };
 
 } // namespace crodt

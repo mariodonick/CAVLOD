@@ -31,7 +31,8 @@ public:
   std::string currentIp;
   //general
   std::string backupPath;
-  unsigned int port;
+  unsigned int sendPort;
+  unsigned int receivePort;
   std::string ipAddress;
   unsigned int sendDelayMS;
   unsigned int sensorInputDelayMS;

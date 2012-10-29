@@ -61,7 +61,7 @@ public:
   void setHeader(const DataBlock::Header& dbh);
 
   void stamp();
-  void addContent(ByteArray_sPtr content);
+  void insertContent(ByteArray_sPtr content);
   ByteArray_sPtr getContent();
 
   void dump(std::ostream& out);

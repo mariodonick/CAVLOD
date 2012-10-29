@@ -16,11 +16,9 @@
 namespace crodt
 {
 
-template<class T, class Parser, class Decoder, class C>
-class DataBlockProcessing : protected Parser, protected Decoder
+template<class T, class Parser, class C>
+class DataBlockProcessing : protected Parser
 {
-  using Decoder::decode;
-  using Decoder::sortedContent;
   using Parser::parseContent;
 
   typedef std::function<void(const CrodtOutput<C>)> Callback;
@@ -39,40 +37,40 @@ private:
 };
 
 
-template<class T, class Parser, class Decoder, class C>
-DataBlockProcessing<T, Parser, Decoder, C>::DataBlockProcessing()
+template<class T, class Parser, class C>
+DataBlockProcessing<T, Parser, C>::DataBlockProcessing()
 : curContentPos(0)
 {
 
 }
 
-template<class T, class Parser, class Decoder, class C>
-DataBlockProcessing<T, Parser, Decoder, C>::~DataBlockProcessing()
+template<class T, class Parser, class C>
+DataBlockProcessing<T, Parser, C>::~DataBlockProcessing()
 {
 
 }
 
-template<class T, class Parser, class Decoder, class C>
-void DataBlockProcessing<T, Parser, Decoder, C>::start(const DataBlock::Header& dbh, const char* data)
+template<class T, class Parser, class C>
+void DataBlockProcessing<T, Parser, C>::start(const DataBlock::Header& dbh, const char* data)
 {
-  DBG() << "\n---------------DBProcessing---------------------------\n";
+  DBG() << "\n---------------DBProcessing---------------------------" << ENDL;
 
   curContentPos = 0;
   unsigned int totalLength = dbh.length.to_uint() - DB_HEADER_LENGTH_BYTES;
 
-  DBG() << "dblength: " << dbh.length.to_uint() << "\n";
-  DBG() << "totalLength: " << totalLength << "\n";
+  DBG() << "dblength: " << dbh.length.to_uint() << ENDL;
+  DBG() << "totalLength: " << totalLength << ENDL;
 
   while(curContentPos < totalLength)
   {
     bool usingTimestamp = dbh.config[DB_CONFIG_TIMESTAMP_INDEX] == true;
     unsigned int offset = (usingTimestamp) ? C_TIMESTAMP_BYTES : 0;
-    CTimestamp timestamp;
+    CTimestamp timestamp = 0;
 
     if(usingTimestamp)
     {
       timestamp = char2Bin<C_TIMESTAMP_BYTES * BIT_PER_BYTE>(&data[curContentPos]);
-      DBG() << "timestamp: " << timestamp.to_ulong() << " = 0x" << std::hex << timestamp.to_ulong() << std::dec << "\n";
+      DBG() << "timestamp: " << timestamp.to_ulong() << " = 0x" << std::hex << timestamp.to_ulong() << std::dec << ENDL;
     }
 
     curContentPos += offset;
@@ -85,19 +83,17 @@ void DataBlockProcessing<T, Parser, Decoder, C>::start(const DataBlock::Header& 
     coi.pos = obj->pos;
     coi.timestamp = timestamp.to_ulong();
     coi.usingTimestamp = usingTimestamp;
-    decode(dbh.dataObjectID.to_uint(), dbh.sequenceNumber.to_uint(), coi);
+    coi.doid = dbh.dataObjectID.to_uint();
+    coi.sequenceNumber = dbh.sequenceNumber.to_uint();
 
     output.sortedContent = coi;
-    std::cout << "content: " << output.sortedContent.content << "\n";
-    std::cout << "pos x: " << output.sortedContent.pos.x << "\n";
-    std::cout << "pos length: " << output.sortedContent.pos.len_x << "\n";
     callback(output);
-    INFO() << "\n--------------- DB END ---------------------------\n";
   }
+  INFO() << "\n--------------- DB END ---------------------------" << ENDL;
 }
 
-template<class T, class Parser, class Decoder, class C>
-void DataBlockProcessing<T, Parser, Decoder, C>::registerCallback(const Callback& cb)
+template<class T, class Parser, class C>
+void DataBlockProcessing<T, Parser, C>::registerCallback(const Callback& cb)
 {
   callback = cb;
 }

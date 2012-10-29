@@ -9,6 +9,7 @@
 #include "SmartPrioritizedQueue.h"
 #include "LocalStoreManager.h"
 #include "../TypesConfig/ProtocolTypes.h"
+#include "../DataManagement/DataTypes.h"
 #include "../TypesConfig/Constants.h"
 #include "../TypesConfig/Config.h"
 #include "../Tools/IPTools.h"
@@ -54,10 +55,15 @@ const ByteArray& MessagePacketizer::packetizeMessage()
   tmpContent.append( first_db->getSequenceNumber() );
 
   // length must for timestamp so we compute and add the bytes from the timestamp now
-  unsigned int offset = (first_db->getConfig()[DB_CONFIG_TIMESTAMP_INDEX] == true) ? C_TIMESTAMP_BYTES : 0;
+  unsigned int offset = 0;
+  if(static_cast<DataTypes>( first_db->getDataType().to_uint() ) != TYPE_SENSOR)
+    offset = (first_db->getConfig()[DB_CONFIG_TIMESTAMP_INDEX] == true) ? C_TIMESTAMP_BYTES : 0;
+
   tmpContent.append( first_db->getLength() + offset );
 
-  if(first_db->getConfig()[DB_CONFIG_TIMESTAMP_INDEX] == true)
+  // sensor timestamp is handled in split encoding
+  if(first_db->getConfig()[DB_CONFIG_TIMESTAMP_INDEX] == true &&
+      static_cast<DataTypes>( first_db->getDataType().to_uint() ) != TYPE_SENSOR)
   {
     tmpContent.append( first_db->getTimestamp() );
     msgLength += C_TIMESTAMP_BYTES;
@@ -69,7 +75,7 @@ const ByteArray& MessagePacketizer::packetizeMessage()
   // calculate message lengths to add maximal number of datablocks
   const std::size_t max_msg_length = (first_db->getLength().to_uint() > config->messageCrcBorder) ? MAX_MSG_LENGTH : config->messageCrcBorder;
   const std::size_t crc_length = (max_msg_length == MAX_MSG_LENGTH) ? MSG_CRC_32_BYTES : MSG_CRC_16_BYTES;
-  const std::size_t message_header_length = MSG_FIXED_HEADER_LENGTH_BYTES + 2*MSG_ADDRESS_TYPE_IPV6_BYTES + crc_length;// + C_TIMESTAMP_BYTES;
+  const std::size_t message_header_length = MSG_FIXED_HEADER_LENGTH_BYTES + 2*MSG_ADDRESS_TYPE_IPV6_BYTES + crc_length;
 
   // pack more db to the message
   // cancel if there is no other datablocks or the message is to long
@@ -93,10 +99,17 @@ const ByteArray& MessagePacketizer::packetizeMessage()
     tmpContent.append( next_db->getDataObjectID() );
     tmpContent.append( next_db->getSequenceNumber() );
 
-    unsigned int offset = (first_db->getConfig()[DB_CONFIG_TIMESTAMP_INDEX] == true) ? C_TIMESTAMP_BYTES : 0;
+    unsigned int offset = 0;
+    if(static_cast<DataTypes>( first_db->getDataType().to_uint() ) != TYPE_SENSOR)
+    {
+      offset = (first_db->getConfig()[DB_CONFIG_TIMESTAMP_INDEX] == true) ? C_TIMESTAMP_BYTES : 0;
+    }
+
     tmpContent.append( next_db->getLength() + offset );
 
-    if(first_db->getConfig()[DB_CONFIG_TIMESTAMP_INDEX] == true)
+    // sensor timestamp is handled in split encoding
+    if(first_db->getConfig()[DB_CONFIG_TIMESTAMP_INDEX] == true &&
+       static_cast<DataTypes>( first_db->getDataType().to_uint() ) != TYPE_SENSOR)
     {
       tmpContent.append( first_db->getTimestamp() );
       msgLength += C_TIMESTAMP_BYTES;

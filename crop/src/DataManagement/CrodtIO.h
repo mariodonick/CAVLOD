@@ -13,6 +13,7 @@ namespace crodt
 {
 
 typedef unsigned long long int uint64;
+typedef unsigned int uint32;
 typedef unsigned short uint16;
 
 struct Position
@@ -51,9 +52,11 @@ template<class T>
 struct COItem
 {
   Position pos; // position of this item
-  T content; // contains the content
+  T content; // contains the content of every type
   bool usingTimestamp; // is true if we want to send a timestamp
   uint64 timestamp; // contains the timestamp
+  uint32 doid; // contains the data object id
+  uint32 sequenceNumber; // contains the sequence number
 };
 
 template<class T>

@@ -7,6 +7,7 @@
 #define CONTENT_H_
 
 #include "../TypesConfig/ProtocolTypes.h"
+#include "../Tools/Timestamp.h"
 #include "../Tools/Bin.h"
 
 #include <string>
@@ -37,6 +38,7 @@ public:
 
 public:
   float value;
+  Timestamp time;
 };
 
 

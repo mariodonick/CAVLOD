@@ -1,0 +1,104 @@
+Nachfolgend wird eine Anleitung dargestellt, um die in
+dieser Arbeit verwendeten Tools einzurichten, womit der erstellte
+Quellcode kompiliert werden kann. Weiterhin wird ein Anwendungsbeispiel
+gegeben, welches die statische Bibliothek nutzt. Dazu werden die notwendigen
+Header-Dateien aktualisiert und in das Beispiel eingebunden.
+
+\section{Vorbereitungen}
+
+Als Betriebssystem wurde Ubuntu 12.4 verwendet. In diesem müssen
+über den Packetmanager zuerst folgenden Programme und Bibliotheken installiert
+werden, wenn diese noch nicht vorhanden sind.
+
+\begin{itemize}
+\item "`libboost-all-dev"' (ab Version 1.48.0.2) 
+\item "`libqt4-dev"' (ab Version 4.8)
+\item "`gcc"' (ab Version 4.6.3)
+\item "`build-essential"'
+\end{itemize}
+
+Im nächsten Schritt wird die Eclipse IDE for C/C++
+Developers\footnote{http://www.eclipse.org/downloads/packages/release/helios/sr2}
+heruntergeladen und eingerichtet. Für dieses wurden die folgenden Plugins installiert:
+
+\begin{itemize}
+\item EGit\footnote{http://download.eclipse.org/egit/updates-nightly}
+\item QT
+% \footnote{http://blog.qt.digia.com/2007/07/11/develop-qt-applications-in-eclipse/}
+alternativ QT Creator
+\end{itemize}
+
+Das Installieren von Plugins unter Eclipse erfolgt über \Code{Help $\rightarrow$
+Install New Software\ldots} durch die Eingabe der in Fußnoten stehenden
+Internetadresse. Zum kompilieren der grafischen Benutzeroberfläche sollte die
+QT eigene Entwicklungsumgebung QT Creator \todo{link zufügen} genutzt werden.
+Das QT-Plugin für Eclipse ist auf der Webseite derzeit nicht herunterladbar.
+
+\section{Git}
+
+Als Erstes sollte eine SSH verbindung zum Git-Repository eingerichtet werden.
+Dazu sei auf die Anleitung von Git verwiesen
+\todo{https://help.github.com/articles/generating-ssh-keys}. Als nächstes können
+die Quelldateien unter Eclipse heruntergeladen werden. Dazu wird im Eclipse die
+Ansicht zum Git-Repository gewechselt. Dies erfolgt mit \Code{Window
+$\rightarrow$ Open Perspective $\rightarrow$ Other\ldots $\rightarrow$ Git
+Reposity Exploring}. In der neuen Ansicht das Herunterladen durch anklicken des
+Icons "`Clone a Git Repository and add the clone to this view"'. Im sich öffnenden
+Assistenten müssen unter URI die SSH-Daten
+\Code{ssh://git@github.com/Helferlein/CAVLOD.git} eingetragen und
+beim letzten Fenster sollte ein Pfad angegeben werde, welcher
+unabhängig des Workspaces von Eclipse ist.\newline
+Danach wird die Ansicht auf \Code{Window
+$\rightarrow$ Open Perspective $\rightarrow$ Other\ldots $\rightarrow$ C/C++}
+zurückgesetzt. Unter \Code{File $\rightarrow$ Import\ldots Git $\rightarrow$
+Projects from Git $\rightarrow$ local} kann das entsprechende Projekt von Git
+in die Eclipse-Projektumgebung importiert werden. Zum Kompilieren kann
+mit Rechtsklick auf den Projektname und Auswahl des Buildes (\Code{Build Configurations
+$\rightarrow$ Set Active}) das Programm erstellt werden. Hierfür existieren
+drei Auswahlmöglichkeiten:
+
+\begin{enumerate}
+\item \Code{client} bezeichnet die Testumgebung, welches
+Daten an den Sender übergibt, der diese verarbeitet und über eine UDP-Schnitttelle ausgibt. 
+\item \Code{server} bezeichnet die Testumgebung, welche die
+Daten vom Client empfängt und ausgibt.
+\item \Code{statLib} erstellt eine statische Bibliotheke zum weiterverwenden der
+Module in einem anderen Projekt.
+\end{enumerate}
+
+Der Kompiliervorgang kann durch Rechtsklick auf den Projektname und auswählen
+von \Code{Build Project} gestartet werden.
+
+\section{Beispiel}
+
+Nach erfolgreicher erstellen der Bibliothek müssen die folgenden Dateien
+im Pfad \Code{Crodt/include/} der statischen Bibliotheke aktualisiert werden,
+wenn diese geändert wurden. Ebenso wie die erstellte Datei
+\Code{Crodt/lib/libcrodt.a}.
+
+\begin{itemize}
+\item \Code{src/DataManagement/CrodtIO.h} 
+\item \Code{src/Modules/ReceiverModule.h}
+\item \Code{src/Modules/ReceiverModuleIF.h}
+\item \Code{src/Modules/SenderModule.h}
+\item \Code{src/Modules/SenderModuleIF.h}
+\end{itemize}
+
+Zur Verwendung sind zwei Beispielquellcodes in Listing
+\ref{lst:BeispielcodeSender} und \ref{lst:BeispielcodeReceiver} dargestellt. Der
+erste erstellt ein Sendermodul und übergibt diesen die passenden Daten, die
+gesendet werden sollen. Beim Zweiten wird ein Empfangsmodul erstellt. In diesem
+wird ein Callback registriert, welches die empfangenen Daten auf der Konsole
+ausgibt. Dabei sei zu beachten, dass in beiden die Header-Datei \Code{crodt.h}
+inkludiert werden muss.
+
+\newpage
+
+\lstset{language=C++}
+\lstinputlisting[label=lst:BeispielcodeSender, caption=Anwendungsbeispiel:
+Sender]{Listings/BeispielcodeSender.cpp}
+
+
+\lstset{language=C++}
+\lstinputlisting[label=lst:BeispielcodeReceiver, caption=Anwendungsbeispiel:
+Receiver]{Listings/BeispielcodeReceiver.cpp}

@@ -177,18 +177,20 @@ Zeitstempel gebuffert, damit diese platzsparender in dem Datenblock als
 Content eingefügt werden können. \newline
 Der Algorithmus ist noch einmal im nachfolgenden Pseudocode dargestellt.
 
+\todo{listing einstellugen lokal definieren sonst verhaut er was im c-code}
 \lstdefinelanguage{pseudo}{
 morekeywords={if, else, for, in, remove, from, case, do, forever, to, false,
-break, function, then, end, true, while}, sensitive=true,%
+function, then, end, true, while}, sensitive=true,%
 morecomment=[l]\#,%
 morestring=[b]',%
 }
 \lstset{language=pseudo}
 \lstset{commentstyle=\textit}
 \lstset{literate=
-{<=} {$\le$}{2} {!=} {$\neq$}{2} {=} {$\leftarrow$}{2} {==} {=}{2} {&&} {$\cap$}{2} {||} {$\cup$}{2} }
-\lstinputlisting[label=PseudocodeSplitEncoding,caption=Pseudocode
-des Moduls SplitEncoding]{Listings/PseudocodeSplitEncoding.txt}
+ {<=} {$\le$}{2} {!=} {$\neq$}{2} {=} {$\leftarrow$}{2} {==} {=}{2} {&&}
+{$\cap$}{2} {||} {$\cup$}{2} }
+\lstinputlisting[label=PseudocodeSplitEncoding,
+caption=Pseudocode des Moduls SplitEncoding] {Listings/PseudocodeSplitEncoding.txt}
 
 \subsection{Verpacken}
 
@@ -423,6 +425,7 @@ morestring=[b]',%
 \lstset{language=pseudo}
 \lstset{commentstyle=\textit}
 \lstset{literate=
-{<=} {$\le$}{2} {!=} {$\neq$}{2} {=} {$\leftarrow$}{2} {==} {=}{2} {&&} {$\cap$}{2} {||} {$\cup$}{2} }
-\lstinputlisting[label=lst:PseudocodeDBParser,caption=Pseudocode
-des Datenblock Parsers]{Listings/PseudocodeDBParser.txt}
+ {<=} {$\le$}{2} {!=} {$\neq$}{2} {=} {$\leftarrow$}{2} {==} {=}{2} {&&}
+{$\cap$}{2} {||} {$\cup$}{2} } \lstinputlisting[label=lst:PseudocodeDBParser,caption=Pseudocode
+des Datenblock Parsers]
+{Listings/PseudocodeDBParser.txt}

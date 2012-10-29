@@ -14,13 +14,12 @@ namespace crodt
 
 typedef unsigned long long int uint64;
 typedef unsigned int uint32;
-typedef unsigned short uint16;
 
 struct Position
 {
-  uint16 x; // column
-  uint16 y; // the line
-  uint16 len_x; // lenght of the content starts by position x/y (by text the values are char precise)
+  uint32 x; // column
+  uint32 y; // the line
+  uint32 len_x; // lenght of the content starts by position x/y (by text the values are char precise)
 };
 
 struct RelevanceData

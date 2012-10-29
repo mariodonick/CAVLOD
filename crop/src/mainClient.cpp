@@ -21,9 +21,9 @@ void sensorIn()
   }
 }
 
-void validation(const std::string& filename)
+void validationSpeed(const std::string& filename, const bool& fresh)
 {
-  // if you do the test again change the directory
+  // if you make the test again change the directory
   std::ifstream file("/home/flo/CAVLOD/validation/"+filename, std::ios::in);
   if( !file.is_open() )
     std::cerr << "error open file: " << filename << "\n";
@@ -41,32 +41,158 @@ void validation(const std::string& filename)
 
   std::cout << "\nThis file has " << size << " bytes, measuring 10 times...\n";
   for(unsigned int i = 0; i < 10; ++i)
-    c->sendText(ci);
+  {
+    if(fresh)
+    {
+      c = new crodt::SenderModule;
+      c->sendText(ci);
+      delete c;
+      usleep(100*1000);
+    }
+    else
+      c->sendText(ci);
+  }
 
   delete[] buf;
+  file.close();
+}
+
+void validRelevance(const unsigned int& numRelParts, const bool& fresh)
+{
+  // if you make the test again change the directory
+  std::ifstream file("/home/flo/CAVLOD/validation/5000000B.txt", std::ios::in);
+  if( !file.is_open() )
+    std::cerr << "error open file: " << "/home/flo/CAVLOD/validation/5000000B.txt" << "\n";
+
+  file.seekg(0, std::ios::end);
+  std::size_t size = file.tellg();
+  file.seekg(0, std::ios::beg);
+
+  char* buf = new char[size];
+  file.read(buf, size);
+
+  std::vector<crodt::RelevanceData> rv;
+
+  if(numRelParts < 5)
+  {
+    crodt::RelevanceData tmp;
+    tmp.pos.x = 20000;
+    tmp.pos.y = 2;
+    tmp.pos.len_x = 30000;
+    tmp.relevanceValue = 50.f;
+    rv.push_back(tmp);
+  }
+  else
+  {
+    unsigned int partsPerLine = numRelParts / 5;
+    unsigned int lengthPerLine = (100000 / partsPerLine / 2);
+
+    for(unsigned int line = 0; line < 5; ++line)
+    {
+      for(unsigned int c = 0; c < 100000; c+= 2*lengthPerLine)
+      {
+        crodt::RelevanceData tmp;
+        tmp.pos.x = c;
+        tmp.pos.y = line;
+        tmp.pos.len_x = lengthPerLine;
+        tmp.relevanceValue = randomDouble(0.0, 100.0);
+        rv.push_back(tmp);
+      }
+    }
+  }
+
+  crodt::CrodtInput ci;
+  ci.is_timestamp = false;
+  ci.content.insert(0, buf, size);
+  ci.relevanceVector = rv;
+
+  std::cout << "\nThe relevance Vector contains " << rv.size() << " Elements (planned relevanceparts: " << numRelParts << ").\n";
+  std::cout << "This file has " << size << " bytes, measuring 10 times...\n";
+  for(unsigned int i = 0; i < 10; ++i)
+  {
+    if(fresh)
+    {
+      c = new crodt::SenderModule;
+      c->sendText(ci);
+      delete c;
+      usleep(100*1000);
+    }
+    else
+      c->sendText(ci);
+  }
+
+  delete[] buf;
+  file.close();
+}
+
+void measureFresh()
+{
+  std::cout << "\nstart measuring fresh\n";
+  validationSpeed("2B.txt", true);
+  validationSpeed("10B.txt", true);
+  validationSpeed("100B.txt", true);
+  validationSpeed("1000B.txt", true);
+  validationSpeed("10000B.txt", true);
+  validationSpeed("100000B.txt", true);
+  validationSpeed("500000B.txt", true);
+  validationSpeed("1000000B.txt", true);
+  validationSpeed("5000000B.txt", true);
+  validationSpeed("10000000B.txt", true);
+
+  std::cout << "\nMeasure Relevance!\n";
+
+  validRelevance(1, true);
+  validRelevance(5, true);
+  validRelevance(10, true);
+  validRelevance(50, true);
+  validRelevance(100, true);
+  validRelevance(500, true);
+  validRelevance(1000, true);
+  std::cout << "Finished measurement fresh!\n\n";
+}
+
+void measureNormal()
+{
+  std::cout << "\nstart measuring normal\n";
+  c = new crodt::SenderModule;
+  validationSpeed("2B.txt", false);
+  validationSpeed("10B.txt", false);
+  validationSpeed("100B.txt", false);
+  validationSpeed("1000B.txt", false);
+  validationSpeed("10000B.txt", false);
+  validationSpeed("100000B.txt", false);
+  validationSpeed("500000B.txt", false);
+  validationSpeed("1000000B.txt", false);
+  validationSpeed("5000000B.txt", false);
+  validationSpeed("10000000B.txt", false);
+
+  std::cout << "\nMeasure Relevance!\n";
+
+  validRelevance(1, false);
+  validRelevance(5, false);
+  validRelevance(10, false);
+  validRelevance(50, false);
+  validRelevance(100, false);
+  validRelevance(500, false);
+  validRelevance(1000, false);
+  delete c;
+  std::cout << "Finished measurement normal!\n\n";
 }
 
 int main()
 {
   randomInitialize();
-  c = new crodt::SenderModule;
-  c->initialize();
 
-  // validation
-  validation("2B.txt");
-  validation("10B.txt");
-  validation("100B.txt");
-  validation("1000B.txt");
-  validation("10000B.txt");
-  validation("100000B.txt");
-  validation("500000B.txt");
-  validation("1000000B.txt");
-  validation("5000000B.txt");
-  validation("10000000B.txt");
-  std::cout << "Finished measurement!\n";
+  // measurments for PA
+  measureFresh(); // recreates a new sendermodul for every test iteration
+  sleep(2);
+  measureNormal(); // creates the sender module once
+  sleep(5);
 
-  sleep(120);
-
+  // for debugging
+//  c = new crodt::SenderModule;
+//  c->initialize();
+//
 //   running = true;
 //  std::thread sens(&sensorIn); // start sensor thread
 //
@@ -139,7 +265,7 @@ int main()
 //  ci2.content = "abcdef";
 //  c->sendText(ci2);
 //  sleep(20);
-
-  delete c;
+//
+//  delete c;
   return 0;
 }

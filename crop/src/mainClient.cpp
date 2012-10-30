@@ -17,7 +17,8 @@ void sensorIn()
   while(running)
   {
     sleep(1);
-    c->sendSensor(randomDouble(0.0, 100.0));
+//    c->sendSensor(randomDouble(0.0, 100.0));
+    c->sendSensor(50.f);
   }
 }
 
@@ -184,8 +185,8 @@ int main()
   randomInitialize();
 
   // measurments for PA
-  measureFresh(); // recreates a new sendermodul for every test iteration
-  sleep(2);
+//  measureFresh(); // recreates a new sendermodul for every test iteration
+//  sleep(2);
   measureNormal(); // creates the sender module once
   sleep(5);
 

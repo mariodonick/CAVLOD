@@ -2,7 +2,7 @@ Dieser Abschnitt befasst sich mit dem aktuellen Stand der Technik. Dies umfasst
 sowohl die gegenw{\"a}rtig eingesetzte Hardware, als auch bereits
 entwickelte Protokolle zur Interplanetaren Kommunikation.
 
-
+\todo{quellen einfügen}
 \textbf{Mars Rover Curiosity}
 
 Der Mars Rover Curiosity (Abb. \ref{fig:Curiosity}) verf{\"u}gt {\"u}ber einen
@@ -49,7 +49,7 @@ Das Deep Space Network wird auch f{\"u}r die Kommunikation zwischen dem Mars
 Rover Curiosity und der Erde genutzt. Die Anlagen liegen an exponierter Position
 (zumei{\ss}t h{\"u}geliges schalenf{\"o}rmiges Gel{\"a}nde). Dies soll den
 Einfluss von St{\"o}rungen z.B. durch Radiofrequenzen reduzieren. Die Stationen
-befinden sich je in einem Abstand von einem drittel Erd{\"a}quator um eine
+befinden sich je in einem Abstand von einem Drittel des Erd{\"a}quators um eine
 fortw{\"a}hrende Kommunikation mit Raumfahrzeugen trotz Erdrotation zu
 erm{\"o}glichen.
 
@@ -65,19 +65,19 @@ Kalifornien, USA}
 
 Das IPN bezeichnet die Erweiterung des Internets auf einen au{\ss}erirdischen
 Bereich. Die damit verbundenen {\"A}nderungen im Vergleich zum Irdischen
-Internet umfassern z.B. einen gesonderten Umgang mit Latenzen, da diese beim IPN
-im Minuten bis Stunden Bereich liegen. Die Entwicklung von Protokollen
+Internet umfassen z.B. einen gesonderten Umgang mit Latenzen, da diese beim IPN
+im Minuten- bis Stundenbereich liegen. Die Entwicklung von Protokollen
 f{\"u}r das IPN obliegt dabei dem Consultative Committee for Space Data Systems
 (CCSDS).
 
 \textbf{Delay Tolerant Networking}
 
 DTN bezeichnet eine Protokollarchitektur f{\"u}r End-to-end Netzwerkverbindungen
-mit geringer stabilit{\"a}t. Die Basis der DTN Netzwerkarchitektur stellt das
+mit geringer Stabilit{\"a}t. Die Basis der DTN Netzwerkarchitektur stellt das
 von der NASA entwickelte IPN (Interplanitary Internet) dar. Ein wichtiger
-Bestandteil dieser Netzwerke ist der Umgang mit gro{\ss}en Latenzen. zudem
+Bestandteil dieser Netzwerke ist der Umgang mit gro{\ss}en Latenzen. Zudem
 m{\"u}ssen die an der Kommunikation beteiligten Knoten (Teilnehmer) Daten so
-lange zwischen bis der Empf{\"a}nger den erhalt quittiert hat
+lange zwischenspeichern bis der Empf{\"a}nger den Erhalt quittiert hat
 (store-and-forward).
 
 \textbf{Bundle-Protokoll}
@@ -92,8 +92,6 @@ erfolgt die {\"U}bertragung per store-and-forward. Die eingesetzten
 Transportprotokolle k{\"o}nnen dabei variieren (IP basierend o.a.). Das
 Bundle-Protokoll z{\"a}hlt zu den Overlay-Netzwerken, welche auf einer bereits
 bestehenden Netzwerkstruktur aufsetzen.
-
-\todo{Quellen und weitere ausf{\"u}hrungen zum bundle protokoll}
 
 \textbf{Licklider Transmission Protocol}
 
@@ -114,7 +112,7 @@ Checkpoint nicht quittiert wird kann durch einen ablaufenden Timer auf seiten
 des Senders ein erneutes Senden getriggert werden. Sowohl das Senden als auch
 Empfangen eines Blocks kann per Signal abgebrochen werden. Zudem ist die
 Gr{\"o}{\ss}e der Segmente einstellbar um sie an den jeweiligen zweck
-anzupassen. Handelt es sich bei den zu Sendenden Daten um Daten geringerer
+anzupassen. Handelt es sich bei den zu sendenden Daten um Daten mit geringerer
 Relevanz (green data) so ist keine Best{\"a}tigung durch den Empf{\"a}nger
 vonn{\"o}ten.
 Diese Daten werden direkt nach dem Versenden gel{\"o}scht.
@@ -129,7 +127,7 @@ Diese Daten werden direkt nach dem Versenden gel{\"o}scht.
 \textbf{Ontologien}
 
 Ontologien sind Sammlungen aus Inferenz- und Integrit{\"a}tsregeln um
-Schlussfolgerungen auf Komplexe Probleme zu beziehen. Ontologien werden zum
+Schlussfolgerungen auf komplexe Probleme zu beziehen. Ontologien werden zum
 Austausch von Wissen in digitaler Form genutzt.
 
 Bestandteile einer Ontologie:

@@ -1,23 +1,1 @@
-Dieser Abschnitt befasst sich mit der Kommunikation zwischen dem Client
-und dem Server (z.B. Station auf der Erde und Rover auf dem Mars). Die
-Kommunikation erfolgt hierbei {\"u}ber UDP Sockets. Das im verlauf der Arbeit
-Implementierte CROP Protokoll verpackt zuvor die Inhalte (Bilder, Sensordaten etc.) 
-nach den Protokollvorgaben und reicht die Datenpakete aus der priorisierten Queue 
-direkt an den zuvor ge{\"o}ffneten UDP Socket weiter. Durch eine Client/Server
-basierte Socket-Kommunikation {\"u}ber UDP 
-(verbindungslose Kommunikation im Gegensatz zu TCP) wird der Datenstrom an die
-definierte Zieladresse und den definierten Zielport geleitet. Da es sich
-hierbei um eine UDP Socket-Verbindung handelt, werden Paketverluste nicht
-bemerkt (keine Sicherung der Daten{\"u}bertragung). Lediglich ein {\"u}bergreifendes
-Protokoll wie CROP, welches dies erkennen k{\"o}nnte, kann dann eine erneute
-Sendung anfordern (zum jetzigen Zeitpunkt ist CROP jedoch nicht f{\"a}hig einen
-Verbindungsabbruch zu detektieren). Die dabei genutzte Adressierungsart wird im
-CROP Protokoll festgelegt und dann f{\"u}r die Socket-Kommunikation {\"u}bernommen. Im
-Testszenario der Projektarbeit kam dabei IPv4 zum Einsatz.
-
-\begin{figure}[H]
-\centering
-\includegraphics[scale=.38]{OSI.pdf}
-\caption{{\"U}berblick des OSI-Schichtenmodells und der Zuordnung von CROP}
-\label{fig:OSI}
-\end{figure}
+Das OSI-Modell besteht aus sieben Schichten und ist eine allgemeine Beschreibungbzw. Designrichtlinie f{\"u}r Kommunikationsprotokolle (siehe Abb.\ref{fig:OSI_M}).\begin{figure}[H]\centering\includegraphics[scale=.3]{OSI_M.pdf}\caption{Das OSI-Referenzmodell}\label{fig:OSI_M}\end{figure}\textbf{Physical Layer}Der Physical Layer stellt eine physische Verbindung {\"u}ber das jeweiligeMedium her (z.B. Kupferkabel, Wireless etc.). Hier findet die eigentlicheBit{\"u}bertragung statt.\textbf{Data Link Layer}Der Data Link Layer soll eine sichere {\"U}bertragung gew{\"a}rleisten. Ihmobliegt somit das Herstellen einer Ende-zu-Ende Verbindung (Link) um eine{\"U}bertragung zu erm{\"o}glichen. Dazu geh{\"o}rt die Einteilung der Daten inFrames, das hinzuf{\"u}gen von Pr{\"u}fsummen sowie die Kanalkodierung und eineDatenflusskontrolle (Protokollbeispiele: Ethernet, FDDI).\textbf{Network Layer}Der Network Layer sorgt f{\"u}r die Weitervermittlung von Datenpaketen. Ihmobliegt die Adressierung von Datenpaketen (via IP) und das Routing (aufbau vonRoutingtabellen etc.). Protokollbeispiele in dieser Schicht: IP, ICMP.\textbf{Transport Layer}Die Aufgaben des Transport Layer sind die Segmentierung des Datenstroms sowieStauvermeidung und Bereitstellung von Felersicherungs- undFehlerbehebungsverfahren (Protokollbeispiele: TCP, UDP).\textbf{Session Layer}Zu den Aufgaben des Session Layer geh{\"o}ren die Handhabung vonVerbindungsabbr{\"u}chen und das daraus resultierende Setzen vonSicherungspunkte (Checkpoints). Diese erm{\"o}glichen eine Wiederaufnahmenach einem erfolgten Abbruch. Somit wird eine st{\"a}ndige synchronit{\"a}t derDienste gew{\"a}rleistet (Protokollbeispiele: HTTP, FTP).\textbf{Presentation Layer}Der Presentation Layer erm{\"o}glicht eine Darstellung von Daten ineiner unabh{\"a}ngigen Form (dies garantiert eien Datenaustausch zwischenunterschiedlichen Systemen). Desweiteren werden die Daten hier Komprimiert undVerschl{\"u}sselt (Protokollbeispiele: HTTP, FTP).\textbf{Application Layer}Der Application Layer verwaltet den Zugriff der Anwendung auf das Netzwerk(Protokollbeispiele: HTTP, FTP).

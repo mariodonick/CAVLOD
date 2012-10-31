@@ -5,7 +5,7 @@ entwickelte Protokolle zur Interplanetaren Kommunikation.
 
 \textbf{Mars Rover Curiosity}
 
-Der Mars Rover Curiosity (Abb. \ref{fig:Curiosity})verf{\"u}gt {\"u}ber einen
+Der Mars Rover Curiosity (Abb. \ref{fig:Curiosity}) verf{\"u}gt {\"u}ber einen
 RAD750 Prozessor von BAE-Systems.
 Dieser hat eine Taktfrequenz von bis zu 200 MHz und kann 266 MIPS oder mehr
 verarbeiten. Desweiteren verf{\"u}gt Curiosity {\"u}ber einen Arbeitsspeicher von 256 MB
@@ -80,7 +80,7 @@ m{\"u}ssen die an der Kommunikation beteiligten Knoten (Teilnehmer) Daten so
 lange zwischen bis der Empf{\"a}nger den erhalt quittiert hat
 (store-and-forward).
 
-\textbf{Bundle Protokolle}
+\textbf{Bundle-Protokoll}
 
 Die in den RFCs 4838 und 5050 festgelegten Anforderungen f{\"u}r DTN sind
 weitgehend unter der bezeichnung Bundle-Protokoll bekannt. In diesem werden Folgen von
@@ -93,6 +93,55 @@ Transportprotokolle k{\"o}nnen dabei variieren (IP basierend o.a.). Das
 Bundle-Protokoll z{\"a}hlt zu den Overlay-Netzwerken, welche auf einer bereits
 bestehenden Netzwerkstruktur aufsetzen.
 
+\todo{Quellen und weitere ausf{\"u}hrungen zum bundle protokoll}
+
+\textbf{Licklider Transmission Protocol}
+
+Das LTP kann direkt auf dem Data Link Layer aufsetzen oder aber auch unter UDP
+laufen (siehe Abb. \ref{fig:LTP}). LTP wird zudem als standard convergence layer
+Protokoll f{\"u}r das Bundle Protokoll genutzt. Das LTP wurde zur sicheren {\"U}bertragung von Daten
+zwischen einem Sender und einem Empf{\"a}nger (point-to-point) unter DTN Bedingungen entwickelt. LTP entscheidet dabei sogar zwischen wichtigen
+(red data) und unwichtigen Daten (green data) und gew{\"a}hrleistet somit eine
+effiziente {\"U}bermittlung. Eine {\"U}bertragung beginnt sobald ein Link zwischen Sender und Empf{\"a}nger
+besteht. Die zu sendenden Datenbl{\"o}cke werden beim LTP in Segmente
+geteilt. Handelt es sich um wichtige Daten (red data) so werden w{\"a}hrend des
+Sendevorgangs innerhalb der im LTP verwendeten Segmente spezielle Flags gesetzt.
+Diese einfach als Checkpoints bezeichneten Signale erfordern eine Quittierung durch den Empf{\"a}nger um so bei einem eventuellen
+Verbindungsabbruchs eine erneute Sendung des jeweiligen Datenpakets
+auszul{\"o}sen. Die Daten werden so lange beim Sender in einer Queue
+vorgehalten, bis der zugeh{\"o}rige Checkpoint quittiert wurde. Wenn ein
+Checkpoint nicht quittiert wird kann durch einen ablaufenden Timer auf seiten
+des Senders ein erneutes Senden getriggert werden. Sowohl das Senden als auch
+Empfangen eines Blocks kann per Signal abgebrochen werden. Zudem ist die
+Gr{\"o}{\ss}e der Segmente einstellbar um sie an den jeweiligen zweck
+anzupassen. Handelt es sich bei den zu Sendenden Daten um Daten geringerer
+Relevanz (green data) so ist keine Best{\"a}tigung durch den Empf{\"a}nger
+vonn{\"o}ten.
+Diese Daten werden direkt nach dem Versenden gel{\"o}scht.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=.5]{LTP.pdf}
+\caption{Eiordnung des LTP in das Kommunikationsmodell}
+\label{fig:LTP}
+\end{figure}
+
+\textbf{Ontologien}
+
+Ontologien sind Sammlungen aus Inferenz- und Integrit{\"a}tsregeln um
+Schlussfolgerungen auf Komplexe Probleme zu beziehen. Ontologien werden zum
+Austausch von Wissen in digitaler Form genutzt.
+
+Bestandteile einer Ontologie:
+
+ \begin{compactenum}[I]
+     \item \textit{Begriffe}
+     \item \textit{Typen}
+     \item \textit{Instanzen}
+     \item \textit{Relationen}
+     \item \textit{Vererbung}
+     \item \textit{Axiome}
+   \end{compactenum}
 
 
 

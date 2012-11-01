@@ -6,8 +6,8 @@ Header-Dateien aktualisiert und in das Beispiel eingebunden.
 
 \section{Vorbereitungen}
 
-Als Betriebssystem wurde Ubuntu 12.4 verwendet. In diesem müssen
-über den Packetmanager zuerst folgenden Programme und Bibliotheken installiert
+Als Betriebssystem wurde Ubuntu 12.4 verwendet. In diesem m{\"u}ssen
+{\"u}ber den Packetmanager zuerst folgenden Programme und Bibliotheken installiert
 werden, wenn diese noch nicht vorhanden sind.
 
 \begin{itemize}
@@ -17,9 +17,9 @@ werden, wenn diese noch nicht vorhanden sind.
 \item "`build-essential"'
 \end{itemize}
 
-Im nächsten Schritt wird die Eclipse IDE for C/C++
+Im n{\"a}chsten Schritt wird die Eclipse IDE for C/C++
 Developers\footnote{http://www.eclipse.org/downloads/packages/release/helios/sr2}
-heruntergeladen und eingerichtet. Für dieses wurden die folgenden Plugins installiert:
+heruntergeladen und eingerichtet. F{\"u}r dieses wurden die folgenden Plugins installiert:
 
 \begin{itemize}
 \item EGit\footnote{http://download.eclipse.org/egit/updates-nightly}
@@ -28,52 +28,52 @@ heruntergeladen und eingerichtet. Für dieses wurden die folgenden Plugins insta
 alternativ QT Creator
 \end{itemize}
 
-Das Installieren von Plugins unter Eclipse erfolgt über \Code{Help $\rightarrow$
-Install New Software\ldots} durch die Eingabe der in Fußnoten stehenden
-Internetadresse. Zum kompilieren der grafischen Benutzeroberfläche sollte die
-QT eigene Entwicklungsumgebung QT Creator \todo{link zufügen} genutzt werden.
-Das QT-Plugin für Eclipse ist auf der Webseite derzeit nicht herunterladbar.
+Das Installieren von Plugins unter Eclipse erfolgt {\"u}ber \Code{Help $\rightarrow$
+Install New Software\ldots} durch die Eingabe der in Fu{\ss}noten stehenden
+Internetadresse. Zum kompilieren der grafischen Benutzeroberfl{\"a}che sollte die
+QT eigene Entwicklungsumgebung QT Creator \todo{link zuf{\"u}gen} genutzt werden.
+Das QT-Plugin f{\"u}r Eclipse ist auf der Webseite derzeit nicht herunterladbar.
 
 \section{Git}
 
 Als Erstes sollte eine SSH verbindung zum Git-Repository eingerichtet werden.
 Dazu sei auf die Anleitung von Git verwiesen
-\todo{https://help.github.com/articles/generating-ssh-keys}. Als nächstes können
+\todo{https://help.github.com/articles/generating-ssh-keys}. Als n{\"a}chstes k{\"o}nnen
 die Quelldateien unter Eclipse heruntergeladen werden. Dazu wird im Eclipse die
 Ansicht zum Git-Repository gewechselt. Dies erfolgt mit \Code{Window
 $\rightarrow$ Open Perspective $\rightarrow$ Other\ldots $\rightarrow$ Git
 Reposity Exploring}. In der neuen Ansicht das Herunterladen durch anklicken des
-Icons "`Clone a Git Repository and add the clone to this view"'. Im sich öffnenden
-Assistenten müssen unter URI die SSH-Daten
+Icons "`Clone a Git Repository and add the clone to this view"'. Im sich {\"o}ffnenden
+Assistenten m{\"u}ssen unter URI die SSH-Daten
 \Code{ssh://git@github.com/Helferlein/CAVLOD.git} eingetragen und
 beim letzten Fenster sollte ein Pfad angegeben werde, welcher
-unabhängig des Workspaces von Eclipse ist.\newline
+unabh{\"a}ngig des Workspaces von Eclipse ist.\newline
 Danach wird die Ansicht auf \Code{Window
 $\rightarrow$ Open Perspective $\rightarrow$ Other\ldots $\rightarrow$ C/C++}
-zurückgesetzt. Unter \Code{File $\rightarrow$ Import\ldots Git $\rightarrow$
+zur{\"u}ckgesetzt. Unter \Code{File $\rightarrow$ Import\ldots Git $\rightarrow$
 Projects from Git $\rightarrow$ local} kann das entsprechende Projekt von Git
 in die Eclipse-Projektumgebung importiert werden. Zum Kompilieren kann
 mit Rechtsklick auf den Projektname und Auswahl des Buildes (\Code{Build Configurations
-$\rightarrow$ Set Active}) das Programm erstellt werden. Hierfür existieren
-drei Auswahlmöglichkeiten:
+$\rightarrow$ Set Active}) das Programm erstellt werden. Hierf{\"u}r existieren
+drei Auswahlm{\"o}glichkeiten:
 
 \begin{enumerate}
 \item \Code{client} bezeichnet die Testumgebung, welches
-Daten an den Sender übergibt, der diese verarbeitet und über eine UDP-Schnitttelle ausgibt. 
+Daten an den Sender {\"u}bergibt, der diese verarbeitet und {\"u}ber eine UDP-Schnitttelle ausgibt. 
 \item \Code{server} bezeichnet die Testumgebung, welche die
-Daten vom Client empfängt und ausgibt.
+Daten vom Client empf{\"a}ngt und ausgibt.
 \item \Code{statLib} erstellt eine statische Bibliotheke zum weiterverwenden der
 Module in einem anderen Projekt.
 \end{enumerate}
 
-Der Kompiliervorgang kann durch Rechtsklick auf den Projektname und auswählen
+Der Kompiliervorgang kann durch Rechtsklick auf den Projektname und ausw{\"a}hlen
 von \Code{Build Project} gestartet werden.
 
 \section{Beispiel}
 
-Nach erfolgreicher erstellen der Bibliothek müssen die folgenden Dateien
+Nach erfolgreicher erstellen der Bibliothek m{\"u}ssen die folgenden Dateien
 im Pfad \Code{Crodt/include/} der statischen Bibliotheke aktualisiert werden,
-wenn diese geändert wurden. Ebenso wie die erstellte Datei
+wenn diese ge{\"a}ndert wurden. Ebenso wie die erstellte Datei
 \Code{Crodt/lib/libcrodt.a}.
 
 \begin{itemize}
@@ -86,7 +86,7 @@ wenn diese geändert wurden. Ebenso wie die erstellte Datei
 
 Zur Verwendung sind zwei Beispielquellcodes in Listing
 \ref{lst:BeispielcodeSender} und \ref{lst:BeispielcodeReceiver} dargestellt. Der
-erste erstellt ein Sendermodul und übergibt diesen die passenden Daten, die
+erste erstellt ein Sendermodul und {\"u}bergibt diesen die passenden Daten, die
 gesendet werden sollen. Beim Zweiten wird ein Empfangsmodul erstellt. In diesem
 wird ein Callback registriert, welches die empfangenen Daten auf der Konsole
 ausgibt. Dabei sei zu beachten, dass in beiden die Header-Datei \Code{crodt.h}

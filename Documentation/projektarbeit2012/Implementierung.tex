@@ -20,8 +20,10 @@ Datentypen Text und Sensorwerte integriert.
 \section{Modulaufbau Sender}
 
 Die Aufgabe des Moduls \Code{Sender} besteht darin, die aus vier Phasen
-bestehende Verarbeitung der Daten aus \todo{LINK zur crop-arbeit} umzusetzen. In
-\abbildung{BlockdiagrammSender} ist das Blockdiagramm des Moduls \Code{Sender}
+bestehende Verarbeitung der Daten aus \todo{REF }
+%zu 1 CRODT framework final_v1.3 pdf - der mag das iwi nicht im todo
+umzusetzen.
+In \abbildung{BlockdiagrammSender} ist das Blockdiagramm des Moduls \Code{Sender}
 darstellt.
 Dies bietet eine {\"U}bersicht zu den Modulen und wie diese untereinander 
 Kommunizieren. In der Grafik ist jedes Submodul durch ein M in der linken
@@ -105,8 +107,8 @@ Textfragmente, welcher Zeilenspr{\"u}nge beinhalten kann oder {\"u}ber eine Zeil
 geht vereinfacht werden. Daf{\"u}r
 werden zuerst die akkumulierten Gesamtl{\"a}ngen der einzelnen Zeilen berechnet.
 Vorhandene Umlaute und andere Zeichen die nicht im ASCII\footnote{ASCII
-(American Standard Code for Information Interchange): Ist eine 7-Bit Zeichencodierung.}\todo{quelle f{\"u}r ascii}
--Zeichensatz enthalten sind, ben{\"o}tigen die doppelte L{\"a}nge.
+(American Standard Code for Information Interchange) ist eine 7-Bit
+Zeichencodierung.}\todo{quelle f{\"u}r ascii} -Zeichensatz enthalten sind, ben{\"o}tigen die doppelte L{\"a}nge.
 Die Gesamtl{\"a}ngen der Zeilen sind in der Tabelle
 \ref{tab:UebersichtDerAkkumuliertenZeilenlaengen} angegeben.
 
@@ -386,12 +388,13 @@ werden, um an die darin enthaltenen Informationen zu gelangen. Das Empfangen
 durch das Submodul \Code{UDPSocket} ist blockend. Deswegen wird der Vorgang
 nebenl{\"a}ufig ausgef{\"u}hrt, damit der Programmablauf nicht behindert wird. Anschliessend wird
 die Nachricht geparst und nach dem Beenden des Vorganges ein Callback
-\todo{erkl{\"a}ren was callback ist} ausgel{\"o}st. Bei einem Callback wird
-ein Zeiger auf die Speicheradresse der Funktion in der Klasse gespeichert. Durch
-Aufruf der Funktion ist es m{\"o}glich den sequentiellen Programmablauf an einer
-anderen Stelle weiterlaufen zu lassen. Nach Abarbeitung dieser kehrt der Ablauf
-zur urspr{\"u}nglichen Position zur{\"u}ck. Diese Funktion kann mittels einer Methode
-registriert werden, in der die geparsten Daten weiter verarbeitet werden k{\"o}nnen.
+ausgel{\"o}st. Bei einem Callback wird ein Zeiger auf die Speicheradresse der
+Funktion in der Klasse gespeichert. Durch Aufruf der Funktion ist es
+m{\"o}glich den sequentiellen Programmablauf an einer anderen Stelle
+weiterlaufen zu lassen. Nach Abarbeitung dieser kehrt der Ablauf zur
+urspr{\"u}nglichen Position zur{\"u}ck. Diese Funktion kann mittels einer
+Methode registriert werden, in der die geparsten Daten weiter verarbeitet werden
+k{\"o}nnen.
 Die Callbackfunktion k{\"o}nnte beispielsweise die Visualisierung der Daten
 {\"u}bernehmen. \newline 
 In \abbildung{BlockdiagrammEmpfaenger} ist eine schematische Darstellung des
@@ -424,8 +427,8 @@ Klasse \Code{DataBlockProcessing} verarbeitet.
 \end{figure}
 
 Daf{\"u}r wird ein Softwarekonzept namens Policy-Based-Template-Meta Programmierung
-\todo{LINK buch + wiki} verwendet, damit die unterschiedlichen Datentypen der
-Datenbl{\"o}cke nach dem Parsen wieder in einem typsicheren Format vorliegen und
+\todo{LINK modern c++ design generic programming and design patterns applied}
+verwendet, damit die unterschiedlichen Datentypen der Datenbl{\"o}cke nach dem Parsen wieder in einem typsicheren Format vorliegen und
 einfacher verwendet werden k{\"o}nnen.
 Der Templateklasse werden die folgenden vier Klassen als Templateparameter
 Klasse {\"u}bergeben:
@@ -448,8 +451,9 @@ Weise ver{\"a}ndert werden muss, wie die Daten geparst werden m{\"u}ssen,
 ist dieser Weg der optimalste. Durch das Konzept wurden
 Redundanzen im Quellcode vermieden und weitere Datentypen lassen sich
 sehr einfach hinzuf{\"u}gen ohne bestehenden Quellcode zu ver{\"a}ndern. Dadurch konnten
-die Grundprinzipien der objektorientierten Programmierung \todo{buch LINK}
-eingehalten werden.
+die Grundprinzipien der objektorientierten Programmierung \todo{go to
+objektorientierung + clean code + patterns kompakt (ja die behandeln alle die
+grundlagen der OOP^^)} eingehalten werden.
 Der eben angesprochene Grundalgorithmus ist in Listing 
 \ref{lst:PseudocodeDBParser} dargestellt, welcher f{\"u}r jeden Datentyp
 durchlaufen wird.

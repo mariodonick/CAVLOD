@@ -1,0 +1,34 @@
+
+% relevanzwerte und priorität erklären (nicht erklären dass die von
+%0-100 gehn und prozente darstellen das erfolgt in schnittstellen)
+
+\todo{anfangs bla find ich noch unschön}
+Dieses Kapitel befasst sich mit den Vorbetrachtungen zur Projektarbeit. Dabei
+geht es um {\"U}berlegungen zur Fehlererkennung und der Handhabung von
+Verbindungsabbr{\"u}chen bzw. fehlerhaften {\"U}bertragungen.
+
+\textbf{Time To Live}
+
+Die TTL bezeichnet die Lebensdauer eines Datenpakets und ist dabei von
+unterschiedlichen Aspekten abh{\"a}ngig. So kann ein Paket einerseits nach
+Ablauf eines Zeitraums verworfen werden oder aber nach einer bestimmten Anzahl
+von hops. \todo{vervollständigende frage was sind hops eventl nebensatz
+erklärnug} Unter Ber{\"u}cksichtigung einer Interplanetare Kommunikation
+w{\"a}re eine TTL Realisierung per Zeitstempel sinnvoll, da hier{\"u}ber
+unrealistische {\"U}bertragungszeiten erkannt werden k{\"o}nnen.
+\todo{wir hatten glaub ich schon ein erstes konzept/ideen zur umsetzung}
+
+\textbf{Protocol Stack}
+
+
+
+\textbf{Error Correction Code}
+
+Zur Fehlererkennung bzw. Korrektur kommt ein CRC-Code zum Einsatz. Dieser kann
+innerhalb des Protokolls je nach Paketgr{\"o}{\ss}e auf CRC 16 Bit oder CRC 32
+Bit eingestellt werden. Die Pr{\"u}fsumme wird durch einen mathematischen
+Algorithmus ermittelt und dann mit dem Paket {\"u}bertragen. Wenn der
+Empf{\"a}nger die R{\"u}ckrechnung unter Einbeziehnung der Pr{\"u}fsumme
+vornimmt, kann anhand des Ergebnisses ermittelt werden ob das Paket
+verf{\"a}lscht wurde. \todo{eventl genauer die beiden CRCs beschreiben? wie die
+funktionieren formeln etc?}

@@ -52,12 +52,15 @@ berechnet und den Modulen {\"u}bergeben.
 Anhand dieser wird der Datenblock in die Datenstruktur
 \Code{SmartPrioritizedQueue} einsortiert. Dadurch wird
 gew{\"a}hrleistet, dass die wichtigen Daten zuerst gesendet werden. F{\"u}r diese
-Aufgabe wird eine einfache Liste aus der Standard Template Library (STL) verwendet.
-Diese hat f{\"u}r den Zweck die beste Laufzeitgeschwindkeit.
+Aufgabe wird eine einfache Liste aus der Standard Template Library (STL)
+verwendet. Durch diese kann iteriert werden und es besteht ein schneller
+zufälliger Zugriff auf das jedes Element, welches ebenso effektiv eingefügt und
+gelöscht werden kann. Weiterhin exsistiert die notwendige Sortierfunktion. Diese
+hat f{\"u}r den Zweck eine gute Laufzeit.
 Damit die Verz{\"o}gerung, die durch gro{\ss}e Entfernungen auftreten, besser
 ber{\"u}cksichtigt werden kann, wird das Submodul \Code{Packetizer} als Thread
 gestartet.
-Dieser holt sich die Packete mit der h{\"o}chsten Priorit{\"a}t aus der
+Dieser holt sich die Pakete mit der h{\"o}chsten Priorit{\"a}t aus der
 \Code{SmartPriorisierendenQueue} und verpackt diese in eine Nachricht, welche
 anschliessend an die Netzwerkschnittstelle {\"u}bergeben und versendet wird. \newline
 Die Umsetzung der Submodule wird im nachfolgenden genauer erl{\"a}utert.
@@ -197,7 +200,7 @@ caption=Pseudocode des Moduls SplitEncoding] {Listings/PseudocodeSplitEncoding.t
 \subsection{Verpacken}
 
 Die priorisierten Datenbl{\"o}cke werden in diesem Schritt zu einer Nachricht
-verpackt. Hierbei ist darauf zu achten, dass die maximale Packetgr{\"o}{\ss}e
+verpackt. Hierbei ist darauf zu achten, dass die maximale Paketgr{\"o}{\ss}e
 nicht {\"u}berschritten wird. Weiterhin soll kein Platz verschwendet werden, \dahe
 die Nachricht soll die maximale Nachrichtenl{\"a}nge so genau wie m{\"o}glich erreichen.
 Um die Nachricht auf der Empf{\"a}ngerseite wieder korrekt darstellen zu k{\"o}nnen, ist
@@ -211,17 +214,17 @@ die gleichen Daten zugreifen. Da erst am Ende bekannt ist, wie lang die
 Nachricht wird, werden alle Daten zuerst tempor{\"a}r angelegt, die L{\"a}nge aufaddiert
 und zum Schlu{\ss} zur Nachricht zusammengef{\"u}gt.
 Um die Nachricht m{\"o}glichst effizient zu verpacken, wird in der
-Datenstruktur \Code{SmartPrioritizedQueue} zuerst das vorderste Packet
+Datenstruktur \Code{SmartPrioritizedQueue} zuerst das vorderste Paket
 (\^= h{\"o}chste Priorit{\"a}t) herausgenommen. Deshalb wurde der
 \Code{SmartPrioritizedQueue} eine gewisse Intelligenz integriert.
 Diese ist in der Lage den Block mit der h{\"o}chsten Priorit{\"a}t zu finden, welcher
 noch in den vorhandenen freien Raum der Nachricht passt. Dies stellt die
 optimalste L{\"o}sung dar, um den Platz sinnvoll aufzuf{\"u}llen. \newline 
-Ist das erste Packet gr{\"o}{\ss}er als die maximale Nachrichtengr{\"o}{\ss}e f{\"u}r die ein CRC-16
+Ist das erste Paket gr{\"o}{\ss}er als die maximale Nachrichtengr{\"o}{\ss}e f{\"u}r die ein CRC-16
 genutzt werden kann, wird ein CRC-32 verwendet und die Nachricht mit weiteren
-Datenbl{\"o}cken aufgef{\"u}llt bis die maximale Packetgr{\"o}sse erreicht ist. Dabei wird
+Datenbl{\"o}cken aufgef{\"u}llt bis die maximale Paketgr{\"o}sse erreicht ist. Dabei wird
 die Datenstruktur \Code{SmartPrioritizedQueue} solange
-durchlaufen bis kein Packet vorhanden ist, welches den noch freien Raum
+durchlaufen bis kein Paket vorhanden ist, welches den noch freien Raum
 ausf{\"u}llt. \newline 
 Der Algorithmus ist in \abbildung{AlgorithmusPacketizer} graphisch dargestellt.
 
@@ -234,15 +237,9 @@ Der Algorithmus ist in \abbildung{AlgorithmusPacketizer} graphisch dargestellt.
 
 \subsection{Netzwerk}
 
-\Code{UDPSocket}
-
-Dieser Abschnitt befasst sich mit der Kommunikation zwischen dem Client
-und dem Server (z.B. Station auf der Erde und Rover auf dem Mars). Die zuvor
-durch CROP verpackten Inhalte (Bilder, Sensordaten etc.) werden nun nach den
-Protokollvorgaben an die n{\"a}chsten Schichten des Stacks (priorisierte Queue)
-weitergereicht.
-Die Datenpakete aus der priorisierten Queue werden dabei direkt an einen zuvor
-ge{\"o}ffneten UDP Socket geleitet. Durch eine Client/Server basierte
+Als Netzwerkschnittstelle wird ein UDP Socket verwendet. Dieser erh{\"a}lt die
+erstellte Nachricht vom Submodul \Code{Packetizer} und leitet diese an einen
+zuvor ge{\"o}ffneten UDP Socket weiter. Durch eine Client/Server basierte
 Socket-Kommunikation {\"u}ber UDP (verbindungslose Kommunikation im Gegensatz
 zu TCP) wird der Datenstrom an die definierte Zieladresse und den definierten
 Zielport geleitet. Da es sich hierbei um eine UDP Socket-Verbindung handelt,
@@ -251,8 +248,8 @@ Lediglich ein {\"u}bergreifendes Protokoll wie CROP, welches dies erkennen
 k{\"o}nnte, kann dann eine erneute Sendung anfordern (zum jetzigen Zeitpunkt
 ist CROP jedoch nicht f{\"a}hig einen Verbindungsabbruch zu detektieren). Die
 f{\"u}r den Vorgang genutzte Adressierungsart wird im CROP Protokoll festgelegt
-und somit f{\"u}r die Socket-Kommunikation {\"u}bernommen. Im Testszenario der
-Projektarbeit kam dabei IPv4 zum Einsatz.
+und somit f{\"u}r die Socket-Kommunikation {\"u}bernommen. Im Testszenario
+dieser Arbeit kommt dabei IPv4 zum Einsatz.
 
 \begin{figure}[H]
 \centering
@@ -287,7 +284,7 @@ F{\"u}r das Abspeichern der Daten auf die Festplatte existieren prinzipielle dre
 
 \begin{enumerate}
 \item Jede erzeugte Variable wird direkt auf der Festplatte abgespeichert.
-\item Ein Datenpacket (mehrere Variablen) wird an einer Stelle im Programm auf
+\item Ein Datenpaket (mehrere Variablen) wird an einer Stelle im Programm auf
 einmal gespeichert.
 \item Es werden Interrupts des Prozessors abgefangen, um Abst{\"u}rze zu erkennen,
 infolgedessen alle wichtigen Daten gesichert werden.

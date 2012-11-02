@@ -22,8 +22,8 @@ class SplitEncoding : public Partitioning
 public:
   struct GlobalPosition
   {
-    uint16_t begin;
-    uint16_t length;
+    uint32_t begin;
+    uint32_t length;
     float relevance;
 
     friend std::ostream& operator<<(std::ostream& out, const GlobalPosition& frag)

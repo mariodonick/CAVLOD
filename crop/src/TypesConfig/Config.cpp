@@ -16,7 +16,7 @@ Config* Config::pInstance = nullptr;
 
 Config::Config()
 : homePath( getenv("HOME") )
-, currentIp( ownIP() )
+, currentIp( "127.0.0.1" /*todo ownIP()*/ )
 {
   try
   {

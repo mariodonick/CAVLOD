@@ -68,6 +68,7 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
   // and create blocks with relevant informations
   if(relevanceData.empty())
   {
+    // processing with relevance data
     GlobalPosition fragm;
     fragm.begin = 0;
     fragm.length = content.size();
@@ -76,6 +77,7 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
   }
   else
   {
+    // processing without relevance data
     std::vector<RelevanceData>::const_iterator r_cur = relevanceData.begin();
     while(r_cur != relevanceData.end())
     {
@@ -83,38 +85,38 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
       globalPositions.push_back(fragm);
       ++r_cur;
     }
-  }
 
-  globalPositions.sort(GlobalPosCmp());
+    globalPositions.sort(GlobalPosCmp());
 
-  // compute blocks without relevance by using the current block and the next block with relevant values
-  std::list<GlobalPosition>::iterator curBlock = globalPositions.begin();
-  std::list<GlobalPosition>::iterator preBlock = globalPositions.begin();
+    // compute blocks without relevance by using the current block and the next block with relevant values
+    std::list<GlobalPosition>::iterator curBlock = globalPositions.begin();
+    std::list<GlobalPosition>::iterator preBlock = globalPositions.begin();
 
-  for(; curBlock != globalPositions.end(); ++curBlock)
-  {
-    GlobalPosition zero = diffFrom2RelevanceData(preBlock, curBlock);
+    for(; curBlock != globalPositions.end(); ++curBlock)
+    {
+      GlobalPosition zero = diffFrom2RelevanceData(preBlock, curBlock);
 
-    if(zero.length != 0)
-      globalPositions.insert(curBlock, zero);
+      if(zero.length != 0)
+        globalPositions.insert(curBlock, zero);
 
-    preBlock = curBlock;
-  }
+      preBlock = curBlock;
+    }
 
-  std::list<GlobalPosition>::iterator lastFrag = globalPositions.end();
-  --lastFrag;
+    std::list<GlobalPosition>::iterator lastFrag = globalPositions.end();
+    --lastFrag;
 
-  // if the last block do not reach the end of the content, this will compute the last block
-  if(lastFrag->begin + lastFrag->length < *(linePos.end()-1) )
-  {
-    uint16_t endPos = lastFrag->begin + lastFrag->length;
+    // if the last block do not reach the end of the content, this will compute the last block
+    if(lastFrag->begin + lastFrag->length < *(linePos.end()-1) )
+    {
+      uint16_t endPos = lastFrag->begin + lastFrag->length;
 
-    GlobalPosition lastZero;
-    lastZero.length = *(linePos.end()-1) - endPos;
-    lastZero.begin = endPos;
-    lastZero.relevance = 0.f;
+      GlobalPosition lastZero;
+      lastZero.length = *(linePos.end()-1) - endPos;
+      lastZero.begin = endPos;
+      lastZero.relevance = 0.f;
 
-    globalPositions.push_back(lastZero);
+      globalPositions.push_back(lastZero);
+    }
   }
 
   // check if all datablocks have the correct size... otherwise we split this
@@ -173,7 +175,6 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
     RelevanceData rel_tmp = transform2localRelData(*it, linePos);
     text.line = rel_tmp.pos.y;
     text.column = rel_tmp.pos.x;
-
     if(text.text.empty())
       continue;
 

@@ -14,13 +14,12 @@ namespace crodt
 
 typedef unsigned long long int uint64;
 typedef unsigned int uint32;
-typedef unsigned short uint16;
 
 struct Position
 {
-  uint16 x; // column
-  uint16 y; // the line
-  uint16 len_x; // lenght of the content starts by position x/y (by text the values are char precise)
+  uint32 x; // column
+  uint32 y; // the line
+  uint32 len_x; // lenght of the content starts by position x/y (by text the values are char precise)
 };
 
 struct RelevanceData
@@ -44,7 +43,7 @@ struct CrodtInput
 {
   // stores all information about the position of the relevant areas
   std::vector<RelevanceData> relevanceVector;
-  std::string content; // cointains the content
+  std::string content; // contains the content
   bool is_timestamp; // is true if we want to send a timestamp
 };
 

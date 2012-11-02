@@ -3,3 +3,5 @@
 /ReleaseClient
 /ReleaseServer
 /staticLib
+/client
+/server

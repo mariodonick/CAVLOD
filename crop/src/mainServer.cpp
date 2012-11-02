@@ -32,13 +32,13 @@ void signal_handler_SIGINT (int status)
 
 void callbackFuntion(const crodt::CrodtOutput<std::string>& co)
 {
-    INFO() << co.sortedContent.content << ENDL;
+  std::cout << co.sortedContent.content << "\n";
 }
 
 void callbackFuntionSensor(const crodt::CrodtOutput<float>& co)
 {
-    INFO() << "value: " << co.sortedContent.content << ENDL;
-    INFO() << "time: " << co.sortedContent.timestamp << ENDL;
+  std::cout << "value: " << co.sortedContent.content << "\n";
+  std::cout << "time: " << co.sortedContent.timestamp << "\n";
 }
 
 int main()

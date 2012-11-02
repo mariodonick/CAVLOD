@@ -24,12 +24,12 @@ using namespace crodt;
 
 struct BinFileHeader
 {
-  uint dataType;
-  uint config;
-  uint dataObjectID;
-  uint sequenzNumber;
-  uint length;
-  uint64 timeStamp;
+  uint16_t dataType;
+  uint8_t config;
+  uint32_t dataObjectID;
+  uint16_t sequenzNumber;
+  uint16_t length;
+  uint64_t timeStamp;
   float priority;
 };
 

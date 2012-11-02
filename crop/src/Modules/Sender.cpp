@@ -39,7 +39,7 @@ Sender::Sender()
   running = true;
   packerThread = std::thread( &Sender::packetizerThread, this );
 
-  INFO() << "client is up and running!\n";
+  INFO() << "client is up and running!" << ENDL;
 }
 
 Sender::~Sender()
@@ -88,7 +88,12 @@ void Sender::sendText(const std::string& text, const bool& usingTimestamp)
   prioritization->evaluate();
 
   textId += 1;
-  DBG() << "text STOP time: " << sw << ENDL;
+  std::stringstream ss;
+  ss << sw << " ";
+  sw.dumpUS(ss);
+  sw.dumpMS(ss);
+  ss << "\n";
+  std::cout << ss.str();
 }
 
 void Sender::sendText(const CrodtInput& ci)
@@ -101,7 +106,11 @@ void Sender::sendText(const CrodtInput& ci)
   prioritization->evaluate();
 
   textId += 1;
-  DBG() << "text STOP time: " << sw << ENDL;
+  std::stringstream ss;
+  ss << sw << " ";
+  sw.dumpUS(ss); ss << " ";
+  sw.dumpMS(ss); ss << "\n";
+  std::cout << ss.str();
 }
 
 void Sender::sendSensor(const float& value)

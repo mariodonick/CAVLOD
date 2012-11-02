@@ -67,6 +67,16 @@ public:
     return out;
   }
 
+  std::ostream& dumpMS(std::ostream& out)
+  {
+    return out << (ts_end.tv_sec - ts_start.tv_sec) * 1e3 + (ts_end.tv_nsec - ts_start.tv_nsec) * 1e-6 << " ms";
+  }
+
+  std::ostream& dumpUS(std::ostream& out)
+  {
+    return out << (ts_end.tv_sec - ts_start.tv_sec) * 1e6 + (ts_end.tv_nsec - ts_start.tv_nsec) * 1e-3 << " us";
+  }
+
 private:
   timespec ts_start, ts_end;
   double diff;

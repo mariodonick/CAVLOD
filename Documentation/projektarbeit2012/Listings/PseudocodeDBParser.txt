@@ -2,7 +2,7 @@ function start(datablockheader, data)
   position = 0
   s = lengthOf(Datablock) - maximumLengthOf(DataBlockHeader)
   while position < s do
-    timestampBit <- parseTimestampBit()
+    timestampBit = parseTimestampBit()
     offset = 0;
     if timestampBit then
       offset = position + lengthOf(timestamp)

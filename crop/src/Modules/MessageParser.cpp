@@ -122,7 +122,7 @@ const std::size_t MessageParser::computeFirstDBByte()
   switch( static_cast<MsgAddressType>(addrType.to_uint()) )
   {
     case IP_V6: addrTypeLength = 2 * MSG_ADDRESS_TYPE_IPV6_BYTES; break;
-    default: ERROR() << "ERROR: detected unknown address type\n"; throw;
+    default: ERROR() << "ERROR: detected unknown address type" << ENDL; throw;
   }
 
   return MSG_FIXED_HEADER_LENGTH_BYTES + addrTypeLength;

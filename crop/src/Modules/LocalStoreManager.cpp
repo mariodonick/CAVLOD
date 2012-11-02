@@ -50,7 +50,7 @@ const std::vector<DataBlock_sPtr>& LocalStoreManager::load()
 
   if ( !boost::filesystem::exists( backup_path ) )
   {
-    std::cout << "\nNot found: " << backup_path.c_str() << std::endl;
+    WARNING() << "\nNot found: " << backup_path.c_str() << ENDL;
     return dbVec;
   }
 
@@ -114,14 +114,14 @@ const std::vector<DataBlock_sPtr>& LocalStoreManager::load()
           }
           catch( const std::exception & ex )
           {
-            std::cerr << "Error: " << dir_it->path().filename() << " " << ex.what() << std::endl;
+            ERROR() << dir_it->path().filename() << " " << ex.what() << ENDL;
           }
         }
       }
     }
     catch( const std::exception & ex )
     {
-      std::cout << dir_itr->path().filename() << " " << ex.what() << std::endl;
+      ERROR() << dir_itr->path().filename() << " " << ex.what() << ENDL;
     }
   }
   return dbVec;

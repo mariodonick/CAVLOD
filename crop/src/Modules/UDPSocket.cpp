@@ -17,8 +17,7 @@ using namespace crodt;
 
 UDPSocket::UDPSocket()
 {
-//  Config* config = Config::instance();
-//  startServer(config->receivePort);
+
 }
 
 UDPSocket::~UDPSocket()
@@ -35,7 +34,7 @@ const ByteArray_sPtr UDPSocket::receiveData()
 
   if(n_s < 0)
   {
-    WARNING() << "error at receiving\n";
+    WARNING() << "error at receiving" << ENDL;
     return barr;
   }
   barr->insert(buf_s, n_s);
@@ -79,7 +78,7 @@ const bool UDPSocket::sendData(const ByteArray& data, const char* s_addr, const 
 
 	if (n_c < 0)
 	{
-	  ERROR() << "error by sending\n";
+	  ERROR() << "error by sending" << ENDL;
 	  close(sock_c);
 	  return false;
 	}

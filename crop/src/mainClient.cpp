@@ -185,8 +185,8 @@ int main()
   randomInitialize();
 
   // measurments for PA
-//  measureFresh(); // recreates a new sendermodul for every test iteration
-//  sleep(2);
+  measureFresh(); // recreates a new sendermodul for every test iteration
+  sleep(2);
   measureNormal(); // creates the sender module once
   sleep(5);
 

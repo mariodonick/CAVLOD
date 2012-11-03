@@ -23,15 +23,47 @@ Vielzahl an Stationen). Somit w{\"a}re unter Ber{\"u}cksichtigung einer
 Interplanetare Kommunikation eher eine TTL Realisierung per Zeitstempel
 sinnvoll, da hier{\"u}ber unrealistische {\"U}bertragungszeiten einfach erkannt
 werden k{\"o}nnen (unter Ber{\"u}cksichtigung des {\"U}bertragungskontextes).
+Aufgrund der beschr{\"a}nkten Ressourcen unter Interplanetaren
+Kommunikationsumgebungen ist die Frage nach der Vorhaltedauer (Speicherung der
+Daten auf Seiten des extraterrestrischen Senders z.B. in einer Sendqueue) von
+entscheidender Bedeutung.
+Eine m{\"o}gliche Entscheidungsgrundlage daf{\"u}r, wann Daten aus einer
+Sendqueue verworfen werden sollten, w{\"a}re die Wichtigkeit selbiger. So
+k{\"o}nnen Daten geringer Relevanz direkt nach dem Senden gel{\"o}scht werden,
+wohingegen daten hoher Relevanz erst nach Empfangsquittierung bzw. Ablauf des
+TTL Timers verworfen werden.
 \todo{wir hatten glaub ich schon ein erstes konzept/ideen zur umsetzung}
 
+\newpage %Damit die Überschrift auf der nächsten seite erscheint
 \textbf{Protocol Stack}
+
+Die von der jeweiligen Anwendung an den CROP Stack {\"u}bergebenen Daten werden
+zun{\"a}chst in kleinere Datenbl{\"o}cke gesplittet. Diese Datenbl{\"o}cke
+werden dann ihrer Relevanz nach evaluiert und anschlie{\ss}end priorisiert. Im
+Anschlu{\ss} daran werden die priorisierten Datenbl{\"o}cke der jeweiligen
+wertigkeit nach einer Queue zugef{\"u}hrt. Anschlie{\ss}end werden im Packetizer
+die Datenbl{\"o}cke h{\"o}chster Priorit{\"a}t zu einer Message zusammengefasst
+die dann an den UDP Stack {\"u}bergeben werden kann.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=.25]{CRODT.pdf}
 \caption{Das CRODT Framework}
 \label{fig:CRODT}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=.5]{OSI_Stack.pdf}
+\caption{Der OSI Stack}
+\label{fig:OSI_Stack}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=.5]{CROP_Stack.pdf}
+\caption{Der CROP Stack}
+\label{fig:CROP_Stack}
 \end{figure}
 
 \textbf{Error Correction Code}
@@ -85,7 +117,7 @@ Division des erweiterten Frames durch das Generatorpolynom.
 \end{alignat*}
 \end{figure}
 
-Das Ergebnis dieser Division (der Rest in Zahlen: 1110) wird an das
+Das Ergebnis dieser Modulo-2-Division (der Rest in Zahlen: 1110) wird an das
 urspr{\"u}nglich zu {\"u}bertragende Frame (11 0101 1011) angeh{\"a}ngt. Somit ergibt sich
 nun das Frame inklusive Pr{\"u}fsumme: 11 0101 1011 1110. Der
 Empf{\"a}nger kann nun {\"u}berpr{\"u}fen, ob der Frame korrekt {\"u}bertragen

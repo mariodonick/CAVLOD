@@ -427,8 +427,7 @@ Klasse \Code{DataBlockProcessing} verarbeitet.
 \end{figure}
 
 Daf{\"u}r wird ein Softwarekonzept namens Policy-Based-Template-Meta Programmierung
-\todo{LINK modern c++ design generic programming and design patterns applied}
-verwendet, damit die unterschiedlichen Datentypen der Datenbl{\"o}cke nach dem Parsen wieder in einem typsicheren Format vorliegen und
+verwendet (Ref. \cite{Alexandrescu:2001:MCD:377789}), damit die unterschiedlichen Datentypen der Datenbl{\"o}cke nach dem Parsen wieder in einem typsicheren Format vorliegen und
 einfacher verwendet werden k{\"o}nnen.
 Der Templateklasse werden die folgenden vier Klassen als Templateparameter
 Klasse {\"u}bergeben:
@@ -451,9 +450,7 @@ Weise ver{\"a}ndert werden muss, wie die Daten geparst werden m{\"u}ssen,
 ist dieser Weg der optimalste. Durch das Konzept wurden
 Redundanzen im Quellcode vermieden und weitere Datentypen lassen sich
 sehr einfach hinzuf{\"u}gen ohne bestehenden Quellcode zu ver{\"a}ndern. Dadurch konnten
-die Grundprinzipien der objektorientierten Programmierung \todo{go to
-objektorientierung + clean code + patterns kompakt (ja die behandeln alle die
-grundlagen der OOP^^)} eingehalten werden.
+die Grundprinzipien der objektorientierten Programmierung eingehalten werden (Ref. \cite{herold2001go}).
 Der eben angesprochene Grundalgorithmus ist in Listing 
 \ref{lst:PseudocodeDBParser} dargestellt, welcher f{\"u}r jeden Datentyp
 durchlaufen wird.

@@ -122,10 +122,36 @@ Diese Daten werden direkt nach dem Versenden gel{\"o}scht (Ref. \cite{web4}).
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=.5]{LTP.pdf}
+\includegraphics[scale=.4]{LTP.pdf}
 \caption{Eiordnung des LTP in das Kommunikationsmodell}
 \label{fig:LTP}
 \end{figure}
+
+Das DTN Bundle Protokoll agiert als ein overlay auf dem Transport
+Layer. Abbildung \ref{fig:PSSBN} zeigt den Einsatz des Bundle Protokoll in einem
+Interplanetaren Kommunikationsansatz. Dabei repr{\"a}sentiert der linke Teil des
+Stacks das Landefahrzeug auf der Marsoberfl{\"a}che, welches das CFDP (CCSDS
+File Delivery Protocol) {\"u}ber das Bundle Protokoll in verbindung mit dem LTP
+nutzt.
+Das Landefahrzeug wird schlie{\ss}lich {\"u}ber das Proximity-1 Space Link
+Protokoll mit dem Orbiter (zweiter Stack von Links) verbunden. Der Dritte Stack von links
+repr{\"a}sentiert nun z.B. eine Deep Space Network Bodenstation (DSN). Der
+Orbiter kommuniziert mit der DSN Bodenstation {\"u}ber einen deep-space-link via
+Bundle Protokoll unter nutzung des LTP. Das LTP gew{\"a}rleistet dabei eine
+verl{\"a}ssliche Verbindung. Der Stack auf der Rechten {\"a}u{\ss}eren Seite
+symbolisiert eine Missionskontrollstation, welche mit der DSN Bodenstation
+{\"u}ber einen klassische TCP/IP Stack kommuniziert. Das Bundle Protokoll
+sichert dabei eine ende-zu-ende Kommunikation (Ref. \cite{DTNBundle}).
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=.3]{PSSBN.pdf}
+\caption{Protokoll Stack eines Interplanetaren Netzwerks (Ref.
+\cite{DTNBundle})}
+\label{fig:PSSBN}
+\end{figure}
+
+
 
 \textbf{Ontologien}
 

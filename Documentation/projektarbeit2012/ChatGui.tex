@@ -1,7 +1,7 @@
 \label{cap:chatGui}
 
 Dieser Abschnitt befasst sich mit der Entwickelung des Graphical User Interface
-(GUI), {\"u}ber welches es m{\"o}glich ist eine Chat Kommunikation via CRODT
+(GUI), dies erm{\"o}glicht eine Chat Kommunikation via CRODT
 Protokoll vorzunehmen. Hierbei wurde auf Basis der Design Regeln nach
 Jakob Nielsen der erste Prototyp entwickelt. Das GUI besteht
 aus dem Empfangsfenster (Abb 1. oben links) dem Eingabenfenster (Abb 1.
@@ -45,28 +45,30 @@ Nielsen).
 \end{figure}
 
 Abbildung \ref{fig:GUI} zeigt die GUI im {\"U}berblick. Die auf den
-ersten Blick ungew{\"o}hnlich anmutende (getrennte) Anordnung von Sende und
+ersten Blick ungew{\"o}hnlich anmutende (getrennte) Anordnung von Sende- und
 Empfangsfenster ist das Resultat der stark verz{\"o}gerten Kommunikation. Da
 Satzteile unterschiedliche Priorit{\"a}ten aufweisen k{\"o}nnen und somit eine
 {\"u}bertragene Nachricht {\"u}ber einen l{\"a}ngeren Zeitraum erfolgen kann,
 ist eine gew{\"o}hnliche Chat Oberfl{\"a}che ungeeignet. In der getrennten
-Anordnung kann die mit verz{\"o}gerung empfangene Nachricht im rechten Teil der
+Anordnung kann die mit Verz{\"o}gerung empfangene Nachricht im rechten Teil der
 GUI aufgebaut werden, w{\"a}rend im linken Teil weiterhin Nachrichten verschickt
 werden k{\"o}nnen. F{\"u}r die Zukunft ist eine weitere Verbesserung dieses
 Verhaltens vorgesehen, so dass vollst{\"a}ndig empfangene Nachrichten im
 Sendefenster in die Kommunikation chronologisch eingeordnet werden. Die
-Grundlegende Funktionalit{\"a}t der GUI entspricht der eines {\"u}blichen Chat
-programms, welches eingaben {\"u}ber ein Textfeld erm{\"o}glicht und diese nach
-Best{\"a}tigung versendet. Die Eingabe erfolgt {\"u}ber das Textfeld im rechten unteren
-bereich der GUI. Nach erfolgter Eingabe kann nun die Nachricht durch dr{\"u}cken des
-Senden Buttons oder per Shortcut (Regel sieben nach Nielsen) verschickt werden.
-Sollte dies geschehen ohne zuvor einem Wort, Satzteil oder Satz eine priorit{\"a}t zuzuordnen, wird der Eingabe
-die standardpriorit{\"a}t null zugeordnet. F{\"u}r den Fall das zuvor eine
-Priorisierung erfolgen soll, besteht die M{\"o}glichkeit dies mit Hilfe der in
-der Mitte (unten) befindlichen Steuerelemente zu tun. Diese sind klar und
-eindeutig bezeichnet und nach zusammengeh{\"o}rigkeit angeordnet (Regel sechs
-nach Nielsen). Fehleingaben wie beispielsweise das Versenden leerer Nachrichten
-werden nach Regel neun durch die GUI verhindert.
+Grundlegende Funktionalit{\"a}t der GUI entspricht der eines {\"u}blichen
+Chat-Programms, welches eingaben {\"u}ber ein Textfeld erm{\"o}glicht und diese
+nach Best{\"a}tigung versendet. Die Eingabe erfolgt {\"u}ber das Textfeld im
+rechten unteren Bereich der GUI. Nach erfolgter Eingabe kann die Nachricht
+durch dr{\"u}cken des Senden Buttons oder per Shortcut (Regel sieben nach
+Nielsen) verschickt werden.
+Sollte dies geschehen ohne zuvor einem Wort, Satzteil oder Satz eine
+Priorit{\"a}t zuzuordnen, wird der Eingabe die Standardpriorit{\"a}t Null
+zugeordnet. F{\"u}r den Fall, dass zuvor eine Priorisierung erfolgen soll,
+besteht die M{\"o}glichkeit dies mit Hilfe der in der Mitte (unten) befindlichen
+Steuerelemente zu tun. Diese sind klar und eindeutig bezeichnet und nach
+Zusammengeh{\"o}rigkeit angeordnet (Regel sechs nach Nielsen). Fehleingaben wie
+beispielsweise das Versenden leerer Nachrichten werden nach Regel neun durch die
+GUI verhindert.
 
 \begin{figure}[H]
 \centering
@@ -98,9 +100,8 @@ nach Nielsen eine Umsetzung.
 
 Auch die Formulierungen der Dialoge und Bedienelementen unterliegen dabei den
 geforderten Regularien (Regeln eins, zwei, vier nach Nielsen). Die im mittleren
-oberen bereich der GUI angeordnete Liste beinhaltet die vom User vergebenen
+oberen Bereich der GUI angeordnete Liste beinhaltet die vom User vergebenen
 Priorit{\"a}ten. Da die bereits priorisierten Textpassagen zudem farblich
-markiert werden, muss der User sich nicht merken welche Bereiche er bereits priorisiert
-hat. Es erfolgt somit eine minimierung der Ged{\"a}chtnislast des Users
-(Regel drei nach Nielsen).
-
+markiert werden, muss der User sich nicht merken, welche Bereiche er bereits
+priorisiert hat. Es erfolgt somit eine Minimierung der Ged{\"a}chtnislast des
+Users (Regel drei nach Nielsen).

@@ -25,10 +25,14 @@
 % Grafiken ---------------------------------------------------------------------
 % Einbinden von JPG-Grafiken erm�glichen
 \usepackage[pdftex]{graphicx}
+%Möglichkeit des Einfügens von Subfigures um Bilder nebeneinander einzufügen
+\usepackage{subfigure}
 % hier liegen die Bilder des Dokuments
 \graphicspath{{Bilder/}}
 % zum richtigen Positionieren der Bilder
 \usepackage{float}
+% zum seitenfüllenden Einfügen von PDFs und JPGs
+\usepackage{pdfpages}
 
 % Befehle aus AMSTeX f�r mathematische Symbole z.B. \boldsymbol \mathbb --------
 \usepackage{amsmath,amsfonts}
@@ -109,7 +113,7 @@
     bookmarksopen=true,
     colorlinks=true,
 % diese Farbdefinitionen zeichnen Links im PDF farblich aus
-    linkcolor=red, % einfache interne Verkn�pfungen
+    linkcolor=black, % einfache interne Verkn�pfungen
     anchorcolor=black,% Ankertext
     citecolor=blue, % Verweise auf Literaturverzeichniseintr�ge im Text
     filecolor=magenta, % Verkn�pfungen, die lokale Dateien �ffnen
@@ -126,7 +130,7 @@
     plainpages=false, % zur korrekten Erstellung der Bookmarks
     pdfpagelabels, % zur korrekten Erstellung der Bookmarks
     hypertexnames=false, % zur korrekten Erstellung der Bookmarks
-    linktocpage % Seitenzahlen anstatt Text im Inhaltsverzeichnis verlinken
+    %linktocpage % Seitenzahlen anstatt Text im Inhaltsverzeichnis verlinken
 ]{hyperref}
 % Befehle, die Umlaute ausgeben, f�hren zu Fehlern, wenn sie hyperref als Optionen �bergeben werden
 \hypersetup{

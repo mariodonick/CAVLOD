@@ -62,8 +62,10 @@
 % Deckblatt und Abstract ohne Seitenzahl
 \ofoot{}
 \include{Deckblatt}
-\ofoot{\pagemark}
 
+% Aufgabenstellung
+%\include{Aufgabenstellung}
+%\ofoot{\pagemark}
 % Seitennummerierung -----------------------------------------------------------
 %   Vor dem Hauptteil werden die Seiten in großen römischen Ziffern 
 %   nummeriert.
@@ -107,18 +109,18 @@
 	\section{Zeitmessung}
 		\input{Zeitmessung}
 	
-\chapter{Konzept} \label{sec:Konzept}
+\chapter{Konzept}
 	\input{Konzept}
-	\section{Vorüberlegung} \label{sec:Vorueberlegung}
+	\section{Vorüberlegung}
 		\input{Vorueberlegung}
-	\section{Protokoll-Design} \label{sec:ProtokolDesign}
+	\section{Protokoll-Design}
 		\input{Protokoll-Design}
-	\section{Anwendungsszenarien}\label{sec:Anwendungsszenarien}
+	\section{Anwendungsszenarien}
 		\input{Anwendungsszenarien}
 	\section{Schnittstellen}
 		\input{Schnittstellen}
 	
-\chapter{Implementierung} \label{sec:Implementierung}
+\chapter{Implementierung}
 	\input{Implementierung}
 	\section{ChatGui}
 	\input{ChatGui}
@@ -131,7 +133,12 @@
 	
 \chapter{Zusammenfassung und Ausblick}
 	\input{ZusammenfassungAusblick}
+	
+	
 
+\bibliography{Referenzen}
+\bibliographystyle{natdin}
+	
 % Literaturverzeichnis ---------------------------------------------------------
 %   Das Literaturverzeichnis wird aus der BibTeX-Datenbank "Bibliographie.bib"
 %   erstellt.

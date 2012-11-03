@@ -1,4 +1,47 @@
+Für die interplanetare Kommunikation stehen besondere Aspekte, wie Latenz,
+Bandbreite oder der lokale Speicher, im Vordergrund. Dazu ist ein besonderes
+Kommunikationsprotokoll notwendig. Ein derartiges Protokoll (CROP) war im Rahmen
+dieser Arbeit zu entwickeln und vorzustellen.
 
+Dabei wurde in Kapitel \ref{cap:standDerTechnik} und \ref{cap:grundlagen} ein
+erster Überblick über den momentanen stand der Technik, sowie Grundlagen zur
+Einordnung der Thematik gegeben \todo{ob das nu so wirklich stimmt weiß ich net
+... klingt erstmal toll aber vllt muss da noch was anderes gefunden werden}.
+Die konzeptionelle Darstellung des Protokolls erfolgte in Kapitel
+\ref{cap:konzept}. Dazu gehörten neben möglichen Implementierungen und
+Vorüberlegungen auch die eigentliche theoretische Umsetzung sowie Szenarien,
+welche den Ablauf des Protokolls beispielhaft vorstellen. Der eigentliche
+softwaretechnische Aufbau und die Implementierung wurde in Kapitel
+\ref{cap:implementierung} detailliert beschrieben. Abschließend wurde das
+Protokoll hinsichtlich Laufzeit und Speicherbedarf analysiert und ausgewertet
+(Kapitel \ref{cap:testSzenario}, \ref{cap:auswertung}). \todo{hier müssen noch
+1-2 sätze hin was bei der auswertung rauskam, kommt quasi am ende ... kapitel
+ist am fertig werden ;)}
+
+Das bis hierhin entwickelte Protokoll bietet eine solide Grundlage zur
+Relevanz-Orientierten Kommunikation. Im Rahmen der weiteren Entwicklung und
+Nutzung sind jedoch Verbesserungen notwendig. Hier kann an verschiedenen Stellen
+angesetzt werden.
+
+Zum Einen wäre eine Optimierung der implementierten Algorithmen sinmvoll.
+Hauptaugenmerk sollte dabei unter anderem auf dem Storemanager liegen. Die
+Festplattenzugriffe während des kontinuierlichen Speicherns und Ladens der Daten
+geht sehr langsam von statten und bremst den restlichen Vorgang stark ab.
+
+Das Protokoll ist auf Grund seiner Flexibilität auf eine Vielzahl an Datentypen
+anwendbar. Die Handhabung vieler Daten eines Datentyps zur selben Zeit könnten
+in Form von parallel Ablaufenden Prozessen zur Geschwindigkeitsoptimierung
+beitragen.
+
+Die ebenfalls in diesem Rahmen der Arbeit entwickelt ChatGui (Kapitel
+\ref{cap:chatGui} soll nur einen ersten Einstieg in die benutzerfreundlichere
+Verwendung des Protokolls geben. Dabei sind Verbesserungen in Form einer
+überarbeiteten Usability notwendig.
+
+Auf Grund der Tatsache, dass sich das Protokoll zur Zeit nur innerhalb eines
+lokalen Netzes verwenden lässt, muss ein Weg gefunden werden, die Application
+als Webservice starten zu lassen, sodass eine leichtes Verbinden auf Sender- und
+Empfängerseite möglich ist.
 
 
 ideen für ausblick:\newline

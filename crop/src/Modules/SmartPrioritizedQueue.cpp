@@ -64,11 +64,13 @@ void SmartPrioritizedQueue::push(const DataBlock_sPtr& data)
 
 const bool SmartPrioritizedQueue::isEmpty()
 {
+  std::lock_guard<std::mutex> lock(mutex);
   return queue.empty();
 }
 
 const std::size_t SmartPrioritizedQueue::size()
 {
+  std::lock_guard<std::mutex> lock(mutex);
   return queue.size();
 }
 

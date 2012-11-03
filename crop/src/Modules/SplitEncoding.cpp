@@ -36,7 +36,7 @@ void SplitEncoding::partText( const DBDataObjectID& doid, const std::string& con
   // small check
   if(content.size() == 0)
   {
-    WARNING() << "The content is empty!!!\n";
+    WARNING() << "The content is empty!!!" << ENDL;
     return;
   }
 

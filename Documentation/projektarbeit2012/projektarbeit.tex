@@ -18,6 +18,7 @@
     headings=normal, % Größe der Überschriften verkleinern
     listof=totoc, % Verzeichnisse im Inhaltsverzeichnis aufführen
     bibliography=totoc, % Literaturverzeichnis im Inhaltsverzeichnis aufführen
+    bibliographyWebverzeichnis=totoc,
     index=totoc, % Index im Inhaltsverzeichnis aufführen
     captions=tableheading, % Beschriftung von Tabellen unterhalb ausgeben
     final % Status des Dokuments (final/draft)
@@ -64,8 +65,8 @@
 \include{Deckblatt}
 
 % Aufgabenstellung
-\include{Aufgabenstellung}
-\ofoot{\pagemark}
+%\include{Aufgabenstellung}
+%\ofoot{\pagemark}
 % Seitennummerierung -----------------------------------------------------------
 %   Vor dem Hauptteil werden die Seiten in großen römischen Ziffern 
 %   nummeriert.
@@ -109,18 +110,18 @@
 	\section{Zeitmessung}
 		\input{Zeitmessung}
 	
-\chapter{Konzept} \label{sec:Konzept}
+\chapter{Konzept}
 	\input{Konzept}
-	\section{Vorüberlegung} \label{sec:Vorueberlegung}
+	\section{Vorüberlegung}
 		\input{Vorueberlegung}
-	\section{Protokoll-Design} \label{sec:ProtokolDesign}
+	\section{Protokoll-Design}
 		\input{Protokoll-Design}
-	\section{Anwendungsszenarien}\label{sec:Anwendungsszenarien}
+	\section{Anwendungsszenarien}
 		\input{Anwendungsszenarien}
 	\section{Schnittstellen}
 		\input{Schnittstellen}
 	
-\chapter{Implementierung} \label{sec:Implementierung}
+\chapter{Implementierung}
 	\input{Implementierung}
 	\section{ChatGui}
 	\input{ChatGui}
@@ -136,7 +137,25 @@
 	
 \chapter{Zusammenfassung und Ausblick}
 	\input{ZusammenfassungAusblick}
+	
+	
 
+
+%\bibliographyWebverzeichnis{Webverzeichnis}
+%\bibliographystyleWebverzeichnis{plain}
+%\nociteWebverzeichnis{*}
+
+
+\renewcommand{\refname}{Literatur- und Webverzeichnis} %klappt wunderbar
+\bibliography{Referenzen}
+\bibliographystyle{natdin}
+
+	
+	
+
+
+
+	
 % Literaturverzeichnis ---------------------------------------------------------
 %   Das Literaturverzeichnis wird aus der BibTeX-Datenbank "Bibliographie.bib"
 %   erstellt.

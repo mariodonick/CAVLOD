@@ -1,15 +1,4 @@
-
-Dieses Kapitel befasst sich mit den essenziellen Vorbetrachtungen zur
-Projektarbeit. Dabei geht es vorrangig um {\"U}berlegungen zur Fehlererkennung
-und der Handhabung von Verbindungsabbr{\"u}chen bzw. fehlerhaften
-{\"U}bertragungen. In diesem Kontext werden die Notwendigkeit einer TTL sowie
-die unterschiedlichen Optionen zur Realisierung einer Datenkonsistenzpr{u}fung
-via CRC-Checksumme er{\"o}rtert. Desweiteren werden {\"U}berlegungen
-bez{\"u}glich der Entwicklung des CROP Protokollstacks aufgezeigt und
-analysiert. Daf√ºr wird ein Protokol designt, welches unterschiedliche
-Datenformate \todo{besser formulieren/erg√§nzen PHIL!?} verpackt. F√ºr die
-anstehende Implementierung werden anhand von Anwendungszenarien die
-Schnittstellen der notwendingen Module bestimmt.
+\label{sec:Vorueberlegung}
 
 \textbf{Time To Live}
 
@@ -23,15 +12,47 @@ Vielzahl an Stationen). Somit w{\"a}re unter Ber{\"u}cksichtigung einer
 Interplanetare Kommunikation eher eine TTL Realisierung per Zeitstempel
 sinnvoll, da hier{\"u}ber unrealistische {\"U}bertragungszeiten einfach erkannt
 werden k{\"o}nnen (unter Ber{\"u}cksichtigung des {\"U}bertragungskontextes).
+Aufgrund der beschr{\"a}nkten Ressourcen unter Interplanetaren
+Kommunikationsumgebungen ist die Frage nach der Vorhaltedauer (Speicherung der
+Daten auf Seiten des extraterrestrischen Senders z.B. in einer Sendqueue) von
+entscheidender Bedeutung.
+Eine m{\"o}gliche Entscheidungsgrundlage daf{\"u}r, wann Daten aus einer
+Sendqueue verworfen werden sollten, w{\"a}re die Wichtigkeit selbiger. So
+k{\"o}nnen Daten geringer Relevanz direkt nach dem Senden gel{\"o}scht werden,
+wohingegen daten hoher Relevanz erst nach Empfangsquittierung bzw. Ablauf des
+TTL Timers verworfen werden.
 \todo{wir hatten glaub ich schon ein erstes konzept/ideen zur umsetzung}
 
+\newpage %Damit die Überschrift auf der nächsten seite erscheint
 \textbf{Protocol Stack}
+
+Die von der jeweiligen Anwendung an den CROP Stack {\"u}bergebenen Daten werden
+zun{\"a}chst in kleinere Datenbl{\"o}cke gesplittet. Diese Datenbl{\"o}cke
+werden dann ihrer Relevanz nach evaluiert und anschlie{\ss}end priorisiert. Im
+Anschlu{\ss} daran werden die priorisierten Datenbl{\"o}cke der jeweiligen
+wertigkeit nach einer Queue zugef{\"u}hrt. Anschlie{\ss}end werden im Packetizer
+die Datenbl{\"o}cke h{\"o}chster Priorit{\"a}t zu einer Message zusammengefasst
+die dann an den UDP Stack {\"u}bergeben werden kann.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=.25]{CRODT.pdf}
 \caption{Das CRODT Framework}
 \label{fig:CRODT}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=.5]{OSI_Stack.pdf}
+\caption{Der OSI Stack}
+\label{fig:OSI_Stack}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=.5]{CROP_Stack.pdf}
+\caption{Der CROP Stack}
+\label{fig:CROP_Stack}
 \end{figure}
 
 \textbf{Error Correction Code}
@@ -85,7 +106,7 @@ Division des erweiterten Frames durch das Generatorpolynom.
 \end{alignat*}
 \end{figure}
 
-Das Ergebnis dieser Division (der Rest in Zahlen: 1110) wird an das
+Das Ergebnis dieser Modulo-2-Division (der Rest in Zahlen: 1110) wird an das
 urspr{\"u}nglich zu {\"u}bertragende Frame (11 0101 1011) angeh{\"a}ngt. Somit ergibt sich
 nun das Frame inklusive Pr{\"u}fsumme: 11 0101 1011 1110. Der
 Empf{\"a}nger kann nun {\"u}berpr{\"u}fen, ob der Frame korrekt {\"u}bertragen
@@ -94,5 +115,5 @@ Ergebnis muss dabei 0 sein. Das im Beispiel genutzte Polynom kann mit der Ordnun
 ($2^4=16$) auf 16 Bits an Daten angewandt werden. Das Polynom $x16+x12+x5+1$
 wird hingegen beispielsweise beim CRC-CCITT 16 Bit-Verfahren genutzt und
 kann auf Datenframes bis zu einer Gr{\"o}{\ss}e von $2^{16}=65536 Bit$
-angewendet werden (Polynom eines 32 Bit CRC entsrechend mit Ordnung 32).
+angewendet werden (Polynom eines 32 Bit CRC entsrechend mit Ordnung 32) (Ref. \cite{web2}).
 

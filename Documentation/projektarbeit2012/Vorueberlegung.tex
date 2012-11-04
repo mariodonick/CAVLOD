@@ -23,7 +23,7 @@ wohingegen daten hoher Relevanz erst nach Empfangsquittierung bzw. Ablauf des
 TTL Timers verworfen werden.
 \todo{wir hatten glaub ich schon ein erstes konzept/ideen zur umsetzung}
 
-\newpage %Damit die Überschrift auf der nächsten seite erscheint
+\newpage %Damit die {\"U}berschrift auf der n{\"a}chsten seite erscheint
 \textbf{Protocol Stack}
 
 Die von der jeweiligen Anwendung an den CROP Stack {\"u}bergebenen Daten werden
@@ -40,6 +40,29 @@ die dann an den UDP Stack {\"u}bergeben werden kann.
 \caption{Das CRODT Framework}
 \label{fig:CRODT}
 \end{figure}
+
+Abbildung \ref{fig:OSI_Stack} zeigt die Schachtelung von Daten innerhalb des
+OSI-Stacks. Dabei wird das Weiterreichen der Daten an die jeweils n{\"a}chste
+Schicht des Stacks verdeutlicht. In jedem dieser Schritte wird dem neuen
+Datenpaket der Header der aktuellen Schicht angeh{\"a}ngt und somit das
+weitergereichte Datenpaket um notwendige {\"U}bersetzungsinformationen f{\"u}r
+den Empf{\"a}nger erweitert. Auf der Empf{\"a}ngerseite erfolgt eine Invertierung dieses
+vorgangs. Abbildung \ref{fig:CROP_Stack} zeigt die Handhabung im CROP-Stack
+unter Nutzung des UDP-Protokolls f{\"u}r die finale Daten{\"u}bertragung. Die Layer
+7,6,5 des OSI Modells (Application, Presentation und Session Layer) werden
+hierbei vereinfacht als Anwendungsschicht zusammengefasst und bezeichnet. Der
+Transport Layer des OSI Modells entspricht der Transportschicht des
+vereinfachten Modells, die Internet Schicht repr{\"a}sentiert den Network Layer.
+Der Data Link Layer und der Physical Layer des OSI-Modells werden zur
+Netzzugangsschicht zusammengefasst. Dem OSI-Modell entsprechend wird eine
+equivalente Darstellung der Paketerweiterung (um den jeweiligen Header)
+aufgef{\"u}hrt. Der Protokollablauf sieht dabei nach Aufteilung der Daten in Bl{\"o}cke
+und Zuweisung einer Priorit{\"a}t (Datenbl{\"o}cke mit Datenblock-Header), eine
+Zusammenfassung zu einer Message voll mit hoch priorisierten Daten vor (Paket
+aus mehreren Datenbl{\"o}cken um einen Message-Header erweitert). Dieses Datenpaket
+wird nun an den UDP-Stack weitergegeben (Daten um UDP-Header erweitert). Werden
+anschlie{\ss}end Adressiert (erweitert um IP-Header) und dann entsprechend der
+{\"U}bertragungsschnittstelle und deren Protokoll versandt.
 
 \begin{figure}[H]
 \centering

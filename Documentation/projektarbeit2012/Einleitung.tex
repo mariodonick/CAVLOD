@@ -9,19 +9,19 @@ verf{\"u}gt {\"u}ber zahlreiche Messinstrumente, darunter Kameras, Sensoren zur
 Messung Kosmischer Strahlung, Spektrografen, Meteorologische Messinstrumente und
 vieles mehr. Der Rover selbst ist mit einem Gewicht von $900$ kg und der
 Gr{\"o}{\ss}e eines kompakten Kleinwagens das bisher mit Abstand gr{\"o}{\ss}te
-vom Menschen geschaffene Objekt das je die Marsoberfl{\"a}che erreichte. Er
-stellt ein mobiles Labor dar, das neben den Sensoren und Messinstrumenten
+vom Menschen geschaffene Objekt das je die Marsoberfl{\"a}che erreichte.
+Dieser stellt ein mobiles Labor dar, das neben den Sensoren und Messinstrumenten
 Greifarme und R{\"a}der zur Fortbewegung und Interaktion aufweist. Alle
 Messinstrumente und s{\"a}mtliche Peripherie des Rovers werden dabei von der
 Erde aus gesteuert. Mit steigender Komplexit{\"a}t der mobilen Labore
 steigt nat{\"u}rlich auch die Menge an Daten die es zu {\"u}bertragen gilt. Da
-die Komplette Steuerung und Auswertung auf der Erde stattfindet gilt es sowohl
+die komplette Steuerung und Auswertung auf der Erde stattfindet, gilt es sowohl
 Steuerdaten von der Erde an den Rover zu senden als auch Messdaten, Bilder und
 {\"a}hnliches vom Rover an die Erde zu {\"u}bermitteln. Dabei unterliegt die
 Kommunikation einigen entscheidenden Restriktionen. Die wohl wichtigste ist die
 Lichtgeschwindigkeit, welche sich im Vakuum mit $299 792 458$ m/s ausbreitet.
 Die Ausbreitung der entsandten Signale kann daher niemals schneller erfolgen. Da die
-Entfernung zum Mars je nach Konstellation variiert, ist es im folgenden
+Entfernung zum Mars je nach Konstellation variiert, ist es im Folgenden
 hilfreich von der mittleren minimalen Entfernung zur Erde auszugehen. Diese
 betr{\"a}gt $0,52$ AE oder aber ca. $77,8$ Millionen Kilometer (Schwankung des
 $[Erde - Mars]$ Abstandes je nach Konstellation: $0,372 - 2,683$ AE, d.h. bei
@@ -38,8 +38,8 @@ Da der Mars jedoch genau wie die Erde eine Rotation um seine eigene Achse ausf{\
 Marsstation{\"a}re Sendevorrichtung (Satellit) erfolgt, wird das Zeitfenster der
 {\"U}bertragung weiter beschr{\"a}nkt. Diese Physikalisch begr{\"u}ndeten
 Latenzen sind ein wichtiger Faktor den es in der Interplanetaren Kommunikation
-zu ber{\"u}cksichtigen gilt. Die hieraus abzuleitende Erkenntnis ist, das eine
-Kommunikation Beispielsweise zwischen Erde und Mars nicht mit einer heutigen
+zu ber{\"u}cksichtigen gilt. Die hieraus abzuleitende Erkenntnis ist, dass eine
+Kommunikation beispielsweise zwischen Erde und Mars nicht mit einer heutigen
 Irdischen Kommunikation zu vergleichen ist. Zwar ist das Modell der
 verz{\"o}gerten Kommunikation dem Menschen keineswegs unbekannt, exemplarisch
 sei hier auf den vor der Erfindung der Telegraphie ausschlie{\ss}lich
@@ -60,26 +60,26 @@ diese die Kosten der Unternehmung stark beeinflussen. So kostet Beispielsweise
 der Start einer Ariane $5$ Rakete zwischen $125$ und $155$ Millionen Euro bei 
 einer Nutzlast von $23000$ kg im LEO (Low Earth Orbit: $200-2000$ km). Hieraus 
 ergibt sich f{\"u}r dieses Beispiel ein Preis von ca. $7000$ Euro pro kg 
-Nutzlast. An diesem Beispiel wird sichtbar wie Wichtig es ist das Gewicht 
+Nutzlast. An diesem Beispiel wird sichtbar wie wichtig es ist das Gewicht 
 der Rover genau zu kalkulieren. Diese Restriktion wirkt sich direkt auf die 
 verbaute Hardware des Rovers aus und somit auch indirekt auf Ressourcen wie 
-z.B. die Gr{\"o}{\ss}e des verbauten Speichers um lokal Daten zu Speichern. 
-Zusammenfassend kann man anhand der Beispiele feststellen, dass Latenz, 
-Bandbreite sowie lokaler Speicher wichtige Restriktionen sind denen die 
-Interplanetare Kommunikation unterliegt. Diese Vorraussetzungen verlangen 
+z.B. die Gr{\"o}{\ss}e des verbauten Speichers zum ablegen lokaler Daten.
+Zusammenfassend kann anhand der Beispiele festgestellt werden, dass Latenz, 
+Bandbreite sowie lokaler Speicher wichtige Restriktionen sind, denen die 
+Interplanetare Kommunikation unterliegt. Diese Voraussetzungen verlangen 
 eine besondere Kommunikationsstruktur die von den {\"u}blichen Protokollen 
 abweicht. Das CROP Protokoll soll genau hier f{\"u}r Abhilfe sorgen. 
 Der Gedanke des Protokolls ist ein gezielter Umgang mit den begrenzten 
-Ressourcen. hierbei wird einerseits eine Verallgemeinerung der vorhandenen 
-Daten in DataBlocks vorgenommen und andererseits eine Priorisierung der 
+Ressourcen. Hierbei wird einerseits eine Verallgemeinerung der vorhandenen 
+Daten in Datenbl{\"o}cke vorgenommen und andererseits eine Priorisierung der 
 Daten erwirkt, welche {\"u}ber die Reihenfolge und den Zeitpunkt des 
-Versendens entscheidet. Das Resultat ist nun, dass Daten Hoher Relevanz 
-vor Daten einer niederen Relevanz verschickt werden. Somit k{\"o}nnen 
-Beispielsweise zeitkritische Daten das Kontrollzentrum auf der Erde 
-schneller erreichen. Als einfaches Beispiel dient an dieser Stelle ein 
-Bild, welches einen Besonders relevanten Inhalt beherbergt, welcher 
+Versendens entscheidet. Daraus resultiert, dass Daten von hoher Relevanz 
+vor Daten mit niederer Relevanz verschickt werden. Somit k{\"o}nnen 
+beispielsweise zeitkritische Daten das Kontrollzentrum auf der Erde 
+schneller erreichen. \todo{zuviel detail!?}Als einfaches Beispiel dient an
+dieser Stelle ein Bild, welches einen Besonders relevanten Inhalt beherbergt, welcher 
 zuerst versendet wird. Die Bildinhalte geringerer Relevanz werden erst 
 dann gesendet, wenn keine weiteren Datenbl{\"o}cke h{\"o}herer Relevanz 
-eines anderen Prozesses (Beispielsweise Sensorwerte) mehr vorliegen. Die 
+eines anderen Prozesses (beispielsweise Sensorwerte) mehr vorliegen. Die 
 Relevanz Verwaltung erfolgt somit Global {\"u}ber alle Daten (DataBlocks) 
 und wird durch eine Ontologie gesteuert.

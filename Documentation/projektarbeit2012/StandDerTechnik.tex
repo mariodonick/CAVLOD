@@ -64,21 +64,21 @@ Kalifornien, USA (Ref. \cite{imgGoldstone})}
 
 \textbf{Interplanitary Internet}
 
-Das IPN bezeichnet die Erweiterung des Internets auf einen au{\ss}erirdischen
-Bereich. Die damit verbundenen {\"A}nderungen im Vergleich zum Irdischen
-Internet umfassern z.B. einen gesonderten Umgang mit Latenzen, da diese beim IPN
-im Minuten bis Stunden Bereich liegen. Die Entwicklung von Protokollen
+Das Interplanitary Internet (IPN) bezeichnet die Erweiterung des Internets auf
+einen au{\ss}erirdischen Bereich. Die damit verbundenen {\"A}nderungen im Vergleich zum Irdischen
+Internet umfassen z.B. einen gesonderten Umgang mit Latenzen, da diese beim IPN
+im Minuten- bis Stundenbereich liegen. Die Entwicklung von Protokollen
 f{\"u}r das IPN obliegt dabei dem Consultative Committee for Space Data Systems
 (CCSDS).
 
 \textbf{Delay Tolerant Networking}
 
-DTN bezeichnet eine Protokollarchitektur f{\"u}r End-to-end Netzwerkverbindungen
-mit geringer stabilit{\"a}t. Die Basis der DTN Netzwerkarchitektur stellt das
-von der NASA entwickelte IPN (Interplanitary Internet) dar. Ein wichtiger
-Bestandteil dieser Netzwerke ist der Umgang mit gro{\ss}en Latenzen. zudem
-m{\"u}ssen die an der Kommunikation beteiligten Knoten (Teilnehmer) Daten so
-lange zwischen bis der Empf{\"a}nger den erhalt quittiert hat
+Delay Tolerant Networking (DTN) bezeichnet eine Protokollarchitektur f{\"u}r
+End-to-end Netzwerkverbindungen mit geringer Stabilit{\"a}t. Die Basis der DTN
+Netzwerkarchitektur stellt das von der NASA entwickelte IPN dar. Ein wichtiger
+Bestandteil dieser Netzwerke ist der Umgang mit gro{\ss}en Latenzen. Zudem
+m{\"u}ssen die an der Kommunikation beteiligten Knoten (Teilnehmer)
+Daten solange zwischenspeichern bis der Empf{\"a}nger den Erhalt quittiert hat
 (store-and-forward) (Ref. \cite{web3}).
 
 \textbf{Bundle-Protokoll}
@@ -88,36 +88,37 @@ weitgehend unter der bezeichnung Bundle-Protokoll bekannt. In diesem werden Folg
 Datenbl{\"o}cken als B{\"u}ndel zusammengefasst. Jedes B{\"u}ndel enth{\"a}lt
 dabei ausreichende semantische Informationen um eine etwaige Applikation
 fortzusetzen. Exemplarisch sei hier ein Webbrowser angef{\"u}hrt, welcher ein
-Bundle-Paket erh{\"a}lt und dadurch eine Komplette Webseite anzeigt. Auch hier
+Bundle-Paket erh{\"a}lt und dadurch eine komplette Webseite anzeigt. Auch hier
 erfolgt die {\"U}bertragung per store-and-forward. Die eingesetzten
 Transportprotokolle k{\"o}nnen dabei variieren (IP basierend o.a.). Das
 Bundle-Protokoll z{\"a}hlt zu den Overlay-Netzwerken, welche auf einer bereits
 bestehenden Netzwerkstruktur aufsetzen (Ref. \cite{web1}).
 
-\todo{Quellen und weitere ausf{\"u}hrungen zum bundle protokoll}
-
 \textbf{Licklider Transmission Protocol}
-
-Das LTP kann direkt auf dem Data Link Layer aufsetzen oder aber auch unter UDP
-laufen (siehe Abb. \ref{fig:LTP}). LTP wird zudem als standard convergence layer
-Protokoll f{\"u}r das Bundle Protokoll genutzt. Das LTP wurde zur sicheren {\"U}bertragung von Daten
-zwischen einem Sender und einem Empf{\"a}nger (point-to-point) unter DTN Bedingungen entwickelt. LTP entscheidet dabei sogar zwischen wichtigen
-(red data) und unwichtigen Daten (green data) und gew{\"a}hrleistet somit eine
-effiziente {\"U}bermittlung. Eine {\"U}bertragung beginnt sobald ein Link zwischen Sender und Empf{\"a}nger
-besteht. Die zu sendenden Datenbl{\"o}cke werden beim LTP in Segmente
-geteilt. Handelt es sich um wichtige Daten (red data) so werden w{\"a}hrend des
-Sendevorgangs innerhalb der im LTP verwendeten Segmente spezielle Flags gesetzt.
-Diese einfach als Checkpoints bezeichneten Signale erfordern eine Quittierung durch den Empf{\"a}nger um so bei einem eventuellen
-Verbindungsabbruchs eine erneute Sendung des jeweiligen Datenpakets
-auszul{\"o}sen. Die Daten werden so lange beim Sender in einer Queue
-vorgehalten, bis der zugeh{\"o}rige Checkpoint quittiert wurde. Wenn ein
-Checkpoint nicht quittiert wird kann durch einen ablaufenden Timer auf seiten
-des Senders ein erneutes Senden getriggert werden. Sowohl das Senden als auch
-Empfangen eines Blocks kann per Signal abgebrochen werden. Zudem ist die
-Gr{\"o}{\ss}e der Segmente einstellbar um sie an den jeweiligen zweck
-anzupassen. Handelt es sich bei den zu Sendenden Daten um Daten geringerer
-Relevanz (green data) so ist keine Best{\"a}tigung durch den Empf{\"a}nger
-vonn{\"o}ten.
+\todo{layer werden erst später erklärt\ldots}
+Das Licklider Transmission Protocol (LTP) kann direkt auf dem Data Link Layer
+aufsetzen oder aber auch unter UDP laufen (siehe Abb. \ref{fig:LTP}). LTP wird
+zudem als standard convergence layer Protokoll f{\"u}r das Bundle Protokoll
+genutzt. Das LTP wurde zur sicheren {\"U}bertragung von Daten zwischen einem
+Sender und einem Empf{\"a}nger (point-to-point) unter DTN Bedingungen
+entwickelt. LTP entscheidet dabei sogar zwischen wichtigen (red data) und
+unwichtigen Daten (green data) und gew{\"a}hrleistet somit eine effiziente
+{\"U}bermittlung. Eine {\"U}bertragung beginnt sobald ein Link zwischen Sender
+und Empf{\"a}nger besteht. Die zu sendenden Datenbl{\"o}cke werden beim LTP in
+Segmente geteilt. Handelt es sich um wichtige Daten (red data) werden
+w{\"a}hrend des Sendevorgangs innerhalb der im LTP verwendeten Segmente
+spezielle Flags gesetzt.
+Diese einfach als Checkpoints bezeichneten Signale erfordern eine Quittierung
+durch den Empf{\"a}nger um so bei einem eventuellen Verbindungsabbruchs eine
+erneute Sendung des jeweiligen Datenpakets auszul{\"o}sen. Die Daten werden
+solange beim Sender in einer Queue vorgehalten, bis der zugeh{\"o}rige
+Checkpoint quittiert wurde. Wenn ein Checkpoint nicht quittiert wird kann durch
+einen ablaufenden Timer auf der Seite des Senders ein erneutes Senden
+durchgeführt werden. Sowohl das Senden als auch Empfangen eines Blocks kann per
+Signal abgebrochen werden. Zudem ist die Gr{\"o}{\ss}e der Segmente einstellbar um
+diese an den jeweiligen Zweck anzupassen. Handelt es sich bei den zu sendenden
+Daten um Daten mit geringerer Relevanz (green data) so ist keine Best{\"a}tigung
+durch den Empf{\"a}nger notwendig.
 Diese Daten werden direkt nach dem Versenden gel{\"o}scht (Ref. \cite{web4}).
 
 \begin{figure}[H]
@@ -129,21 +130,21 @@ Diese Daten werden direkt nach dem Versenden gel{\"o}scht (Ref. \cite{web4}).
 
 \textbf{Stack einer interplanetaren Kommunikation}
 
-Das DTN Bundle Protokoll agiert als ein overlay auf dem Transport
+Das DTN Bundle Protokoll agiert als ein Overlay auf dem Transport
 Layer. Abbildung \ref{fig:PSSBN} zeigt den Einsatz des Bundle Protokoll in einem
-Interplanetaren Kommunikationsansatz. Dabei repr{\"a}sentiert der linke Teil des
-Stacks das Landefahrzeug auf der Marsoberfl{\"a}che, welches das CFDP (CCSDS
-File Delivery Protocol) {\"u}ber das Bundle Protokoll in verbindung mit dem LTP
+interplanetaren Kommunikationsansatz. Dabei repr{\"a}sentiert der linke Teil
+des Stacks das Landefahrzeug auf der Marsoberfl{\"a}che, welches das CFDP (CCSDS
+File Delivery Protocol) {\"u}ber das Bundle Protokoll in Verbindung mit dem LTP
 nutzt.
 Das Landefahrzeug wird schlie{\ss}lich {\"u}ber das Proximity-1 Space Link
-Protokoll mit dem Orbiter (zweiter Stack von Links) verbunden. Der Dritte Stack von links
-repr{\"a}sentiert nun z.B. eine Deep Space Network Bodenstation (DSN). Der
+Protokoll mit dem Orbiter (zweiter Stack von links) verbunden. Der Dritte Stack
+von links repr{\"a}sentiert z.B. eine Deep Space Network Bodenstation (DSN). Der
 Orbiter kommuniziert mit der DSN Bodenstation {\"u}ber einen deep-space-link via
-Bundle Protokoll unter nutzung des LTP. Das LTP gew{\"a}rleistet dabei eine
+Bundle Protokoll unter Nutzung des LTP. Das LTP gew{\"a}rleistet dabei eine
 verl{\"a}ssliche Verbindung. Der Stack auf der Rechten {\"a}u{\ss}eren Seite
 symbolisiert eine Missionskontrollstation, welche mit der DSN Bodenstation
 {\"u}ber einen klassische TCP/IP Stack kommuniziert. Das Bundle Protokoll
-sichert dabei eine ende-zu-ende Kommunikation (Ref. \cite{DTNBundle}).
+sichert dabei eine Ende-zu-Ende Kommunikation (Ref. \cite{DTNBundle}).
 
 \begin{figure}[H]
 \centering
@@ -152,8 +153,6 @@ sichert dabei eine ende-zu-ende Kommunikation (Ref. \cite{DTNBundle}).
 \cite{DTNBundle})}
 \label{fig:PSSBN}
 \end{figure}
-
-
 
 \textbf{Ontologien}
 

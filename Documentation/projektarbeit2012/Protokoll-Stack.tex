@@ -1,11 +1,12 @@
 Der Protocol Stack bzw. Protokollstapel bezeichnet die Verschachtelung der
 einzelnen Schichten die zur Erf{\"u}llung einer Protokollkommunikation
-notwendig sind. Dabei werden die Daten der vorherigen schicht genommen und zur
+notwendig sind. Dabei werden die Daten der vorherigen Schicht genommen und zur
 Weiterverarbeitung der nachfolgenden Schicht zugef{\"u}hrt. Diese Stapelprinzip
 gibt dem Protocol Stack seinen Namen. Der Stack {\"u}bernimmt dabei
 s{\"a}mtliche Koordination und Verarbeitung der Datenstr{\"o}me (z.B.
 Segmentierungen, Adressierung etc.).
 Je nach Anforderung an die Kommunikation muss der Stack angepasst werden. Die
-eingehenden Daten werden dann im top down Verfahren durch den Stack verpackt und
-einer Sendqueue zugef{\"u}hrt nach dem Versenden werden sie auf der
-Empfangsseite im bottom up Verfahren wieder ausgepackt und k{\"o}nnen dann ausgewertet werden.
+eingehenden Daten werden dann im Top-down Verfahren durch den Stack verpackt
+und einer Sendqueue zugef{\"u}hrt nach dem Versenden werden die Daten auf der
+Empfangsseite im Bottom-up Verfahren wieder ausgepackt und k{\"o}nnen
+ausgewertet werden.

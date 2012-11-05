@@ -1,29 +1,30 @@
 \label{cap:standDerTechnik}
-Dieser Abschnitt befasst sich mit dem aktuellen Stand der Technik. Dies umfasst
-sowohl die gegenw{\"a}rtig eingesetzte Hardware, als auch bereits
-entwickelte Protokolle zur Interplanetaren Kommunikation.
+Dieses Kapitel befasst sich mit dem aktuellen Stand der Technik. Dies
+umfasst sowohl die gegenw{\"a}rtig eingesetzte Hardware, als auch bereits
+entwickelte Protokolle zur interplanetaren Kommunikation.
 
 
-\textbf{Mars Rover Curiosity}
+\textbf{Mars Rover Curiosity} 
 
-Der Mars Rover Curiosity (Abb. \ref{fig:Curiosity}) verf{\"u}gt {\"u}ber einen
-RAD750 Prozessor von BAE-Systems.
-Dieser hat eine Taktfrequenz von bis zu 200 MHz und kann 266 MIPS oder mehr
-verarbeiten. Desweiteren verf{\"u}gt Curiosity {\"u}ber einen Arbeitsspeicher von 256 MB
-und einen Flash-Speicher von 2 GB. Zus{\"a}tzlich hat Curiosity einen EPROM von 256
-KB. Alle Bauteile sind dabei besonders Strahlungsresistent und unempfindlich
-gegen{\"u}ber gro{\ss}en Temperaturschwankungen. Das genutzte Betriebssystem ist
-VxWorks. Zur Kommunikation nutzt der Rover
-einerseits das X-Band (7 - 8 GHz), welches zur {\"U}bertragung von Statusdaten
-und zum Empfang von Steuerdaten genutzt wird. Desweiteren verf{\"u}gt der Rover
-{\"u}ber ein Kommunikationssystem im UHF-Band (0,4 GHz) welches f{\"u}
-wissenschaftliche Daten mit hohem Datenvolumen genutzt wird (bis zu 250 Mbit
-pro Tag, somit ca. 30 MB/Tag). Die Ausstattung an wissenschaftlichen
-Instrumenten umfasst zehn Ger{\"a}te. Darunter z.B. zwei Mastkameras welche je
-eine Aufl{\"o}sung von 1200 x 1200 Pixeln haben (1,44 Megapixel). Diese Kameras
-sind ebenfalls in der Lage 720p-Videos mit einer Framerate von 10 Bildern pro
-Sekunde aufzunehmen. Hinzu kommen Spektrografen, weitere Kameras, Sensoren etc.,
-welche weitere Analysedaten beisteuern.
+Der Mars Rover \textit{Curiosity} (Abbildung \ref{fig:Curiosity}) verf{\"u}gt
+{\"u}ber einen RAD750 Prozessor von BAE-Systems.
+Dieser hat eine Taktfrequenz von bis zu 200 MHz und kann 266 MIPS
+verarbeiten. Desweiteren verf{\"u}gt \textit{Curiosity} {\"u}ber einen
+Arbeitsspeicher von 256 MB und einen Flash-Speicher von 2 GB. Zus{\"a}tzlich hat
+\textit{Curiosity} einen EPROM von 256 KB. Alle Bauteile sind dabei besonders
+strahlungsresistent und unempfindlich gegen{\"u}ber gro{\ss}en
+Temperaturschwankungen. Das genutzte Betriebssystem ist VxWorks \todo{quelle}.
+Zur Kommunikation nutzt der Rover einerseits das X-Band (7 - 8 GHz), welches zur
+{\"U}bertragung von Statusdaten und zum Empfang von Steuerdaten genutzt wird.
+Desweiteren verf{\"u}gt der Rover {\"u}ber ein Kommunikationssystem im UHF-Band
+(0,4 GHz), welches f{\"u}r wissenschaftliche Daten mit hohem Datenvolumen
+genutzt wird (bis zu 250 Mbit pro Tag, somit ca. 30 MB/Tag). Die Ausstattung an
+wissenschaftlichen Instrumenten umfasst zehn Ger{\"a}te. Darunter z.B. zwei
+Mastkameras welche je eine Aufl{\"o}sung von 1200 x 1200 Pixeln haben (1,44
+Megapixel). Diese Kameras sind ebenfalls in der Lage 720p-Videos mit einer
+Framerate von 10 Bildern pro Sekunde aufzunehmen. Hinzu kommen Spektrografen,
+weitere Kameras, Sensoren etc., welche weitere Analysedaten beisteuern. 
+\todo{einfach die anderen 5 sachen noch mit aufzählen?}
 
 \begin{figure}[H]
 \centering
@@ -47,8 +48,8 @@ folgenden drei gro{\ss}en Stationen betrieben:
 \end{compactenum}
 
 Das Deep Space Network wird auch f{\"u}r die Kommunikation zwischen dem Mars
-Rover Curiosity und der Erde genutzt. Die Anlagen liegen an exponierter Position
-(zumei{\ss}t h{\"u}geliges schalenf{\"o}rmiges Gel{\"a}nde). Dies soll den
+Rover \textit{Curiosity} und der Erde genutzt. Die Anlagen liegen an exponierter Position
+(zumeist h{\"u}geliges schalenf{\"o}rmiges Gel{\"a}nde). Dies soll den
 Einfluss von St{\"o}rungen z.B. durch Radiofrequenzen reduzieren. Die Stationen
 befinden sich je in einem Abstand von einem drittel Erd{\"a}quator um eine
 fortw{\"a}hrende Kommunikation mit Raumfahrzeugen trotz Erdrotation zu
@@ -78,7 +79,7 @@ Ende-zu-Ende Netzwerkverbindungen mit geringer Stabilit{\"a}t. Die Basis der
 DTN Netzwerkarchitektur stellt das von der NASA entwickelte IPN dar. Ein wichtiger
 Bestandteil dieser Netzwerke ist der Umgang mit gro{\ss}en Latenzen. Zudem
 m{\"u}ssen die an der Kommunikation beteiligten Knoten (Teilnehmer)
-Daten solange zwischenspeichern bis der Empf{\"a}nger den Erhalt quittiert hat
+Daten solange zwischenspeichern, bis der Empf{\"a}nger den Erhalt quittiert hat
 (store-and-forward) (Ref. \cite{web3}).
 
 \textbf{Bundle-Protokoll}
@@ -97,27 +98,27 @@ bestehenden Netzwerkstruktur aufsetzen (Ref. \cite{web1}).
 \textbf{Licklider Transmission Protocol}
 \todo{layer werden erst später erklärt\ldots}
 Das Licklider Transmission Protocol (LTP) kann direkt auf dem Data Link Layer
-aufsetzen oder aber auch unter UDP laufen (siehe Abb. \ref{fig:LTP}). LTP wird
-zudem als standard convergence layer Protokoll f{\"u}r das Bundle Protokoll
+aufsetzen oder aber auch unter UDP laufen (siehe Abb. \ref{fig:LTP}). Das LTP
+wird zudem als standard convergence layer protocol f{\"u}r das Bundle Protokoll
 genutzt. Das LTP wurde zur sicheren {\"U}bertragung von Daten zwischen einem
 Sender und einem Empf{\"a}nger (Punkt-zu-Punkt) unter DTN Bedingungen
 entwickelt. Das LTP entscheidet dabei zwischen wichtigen (red data) und
 unwichtigen Daten (green data) und gew{\"a}hrleistet somit eine effiziente
 {\"U}bermittlung. Eine {\"U}bertragung beginnt sobald ein Link zwischen Sender
 und Empf{\"a}nger besteht. Die zu sendenden Datenbl{\"o}cke werden beim LTP in
-Segmente geteilt. Handelt es sich um wichtige Daten (red data) werden
+Segmente geteilt. Handelt es sich um wichtige Daten werden
 w{\"a}hrend des Sendevorgangs innerhalb der im LTP verwendeten Segmente
 spezielle Flags gesetzt.
 Diese einfach als Checkpoints bezeichneten Signale erfordern eine Quittierung
-durch den Empf{\"a}nger um so bei einem eventuellen Verbindungsabbruch eine
-erneute Sendung des jeweiligen Datenpakets auszul{\"o}sen. Die Daten werden
-solange beim Sender in einer Queue vorgehalten, bis der zugeh{\"o}rige
-Checkpoint quittiert wurde. Wenn ein Checkpoint nicht quittiert wird kann durch
+durch den Empf{\"a}nger, um so bei einem eventuellen Verbindungsabbruch ein
+erneutes Senden des jeweiligen Datenpakets auszul{\"o}sen. Die Daten werden
+solange beim Sender in einer FIFO vorgehalten, bis der zugeh{\"o}rige
+Checkpoint quittiert wurde. Wenn ein Checkpoint nicht quittiert wird, kann durch
 einen ablaufenden Timer auf der Seite des Senders ein erneutes Senden
 durchgeführt werden. Sowohl das Senden als auch Empfangen eines Blocks kann per
 Signal abgebrochen werden. Zudem ist die Gr{\"o}{\ss}e der Segmente einstellbar um
 diese an den jeweiligen Zweck anzupassen. Handelt es sich bei den zu sendenden
-Daten um Daten mit geringerer Relevanz (green data) so ist keine
+Daten um Daten mit geringerer Relevanz so ist keine
 Best{\"a}tigung durch den Empf{\"a}nger notwendig.
 Diese Daten werden direkt nach dem Versenden gel{\"o}scht (Ref. \cite{web4}).
 
@@ -130,17 +131,17 @@ Diese Daten werden direkt nach dem Versenden gel{\"o}scht (Ref. \cite{web4}).
 
 \textbf{Stack einer interplanetaren Kommunikation}
 
-Das DTN Bundle Protokoll agiert als ein Overlay auf dem Transport
-Layer. Abbildung \ref{fig:PSSBN} zeigt den Einsatz des Bundle Protokoll in einem
-interplanetaren Kommunikationsansatz. Dabei repr{\"a}sentiert der linke Teil
-des Stacks das Landefahrzeug auf der Marsoberfl{\"a}che, welches das CFDP (CCSDS
-File Delivery Protocol) {\"u}ber das Bundle Protokoll in Verbindung mit dem LTP
-nutzt.
+Das DTN Bundle Protokoll agiert als ein Overlay \todo{fussnote/glosar was
+gemeint ist} auf dem Transport Layer. Die Abbildung \ref{fig:PSSBN} zeigt den
+Einsatz des Bundle Protokolls in einem interplanetaren Kommunikationsansatz.
+Dabei repr{\"a}sentiert der linke Teil des Stacks das Landefahrzeug auf der
+Marsoberfl{\"a}che, welches das CFDP (CCSDS File Delivery Protocol) {\"u}ber das
+Bundle Protokoll in Verbindung mit dem LTP nutzt.
 Das Landefahrzeug wird schlie{\ss}lich {\"u}ber das Proximity-1 Space Link
 Protokoll mit dem Orbiter (zweiter Stack von links) verbunden. Der dritte Stack
 von links repr{\"a}sentiert z.B. eine Deep Space Network Bodenstation (DSN). Der
 Orbiter kommuniziert mit der DSN Bodenstation {\"u}ber einen deep-space-link via
-Bundle Protokoll unter Nutzung des LTP. Das LTP gew{\"a}rleistet dabei eine
+Bundle Protokoll unter Nutzung des LTP. Das LTP gew{\"a}hrleistet dabei eine
 verl{\"a}ssliche Verbindung. Der Stack auf der rechten {\"a}u{\ss}eren Seite
 symbolisiert eine Missionskontrollstation, welche mit der DSN Bodenstation
 {\"u}ber einen klassische TCP/IP Stack kommuniziert. Das Bundle Protokoll
@@ -149,7 +150,7 @@ sichert dabei eine Ende-zu-Ende Kommunikation (Ref. \cite{DTNBundle}).
 \begin{figure}[H]
 \centering
 \includegraphics[scale=.3]{PSSBN.pdf}
-\caption{Protokoll Stack eines Interplanetaren Netzwerks (Ref.
+\caption{Protokoll Stack eines interplanetaren Netzwerks (Ref.
 \cite{DTNBundle})}
 \label{fig:PSSBN}
 \end{figure}

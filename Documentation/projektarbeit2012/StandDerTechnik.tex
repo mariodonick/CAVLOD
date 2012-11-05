@@ -65,17 +65,17 @@ Kalifornien, USA (Ref. \cite{imgGoldstone})}
 \textbf{Interplanitary Internet}
 
 Das Interplanitary Internet (IPN) bezeichnet die Erweiterung des Internets auf
-einen au{\ss}erirdischen Bereich. Die damit verbundenen {\"A}nderungen im Vergleich zum Irdischen
-Internet umfassen z.B. einen gesonderten Umgang mit Latenzen, da diese beim IPN
-im Minuten- bis Stundenbereich liegen. Die Entwicklung von Protokollen
-f{\"u}r das IPN obliegt dabei dem Consultative Committee for Space Data Systems
-(CCSDS).
+einen au{\ss}erirdischen Bereich. Die damit verbundenen {\"A}nderungen im
+Vergleich zum irdischen Internet umfassen z.B. einen gesonderten Umgang mit
+Latenzen, da diese beim IPN im Minuten- bis Stundenbereich liegen. Die
+Entwicklung von Protokollen f{\"u}r das IPN obliegt dabei dem Consultative
+Committee for Space Data Systems (CCSDS).
 
 \textbf{Delay Tolerant Networking}
 
-Delay Tolerant Networking (DTN) bezeichnet eine Protokollarchitektur f{\"u}r
-End-to-end Netzwerkverbindungen mit geringer Stabilit{\"a}t. Die Basis der DTN
-Netzwerkarchitektur stellt das von der NASA entwickelte IPN dar. Ein wichtiger
+Das Delay Tolerant Networking (DTN) bezeichnet eine Protokollarchitektur f{\"u}r
+Ende-zu-Ende Netzwerkverbindungen mit geringer Stabilit{\"a}t. Die Basis der
+DTN Netzwerkarchitektur stellt das von der NASA entwickelte IPN dar. Ein wichtiger
 Bestandteil dieser Netzwerke ist der Umgang mit gro{\ss}en Latenzen. Zudem
 m{\"u}ssen die an der Kommunikation beteiligten Knoten (Teilnehmer)
 Daten solange zwischenspeichern bis der Empf{\"a}nger den Erhalt quittiert hat
@@ -84,8 +84,8 @@ Daten solange zwischenspeichern bis der Empf{\"a}nger den Erhalt quittiert hat
 \textbf{Bundle-Protokoll}
 
 Die in den RFCs 4838 und 5050 festgelegten Anforderungen f{\"u}r DTN sind
-weitgehend unter der bezeichnung Bundle-Protokoll bekannt. In diesem werden Folgen von
-Datenbl{\"o}cken als B{\"u}ndel zusammengefasst. Jedes B{\"u}ndel enth{\"a}lt
+weitgehend unter der Bezeichnung Bundle-Protokoll bekannt. In diesem werden
+Folgen von Datenbl{\"o}cken als B{\"u}ndel zusammengefasst. Jedes B{\"u}ndel enth{\"a}lt
 dabei ausreichende semantische Informationen um eine etwaige Applikation
 fortzusetzen. Exemplarisch sei hier ein Webbrowser angef{\"u}hrt, welcher ein
 Bundle-Paket erh{\"a}lt und dadurch eine komplette Webseite anzeigt. Auch hier
@@ -100,8 +100,8 @@ Das Licklider Transmission Protocol (LTP) kann direkt auf dem Data Link Layer
 aufsetzen oder aber auch unter UDP laufen (siehe Abb. \ref{fig:LTP}). LTP wird
 zudem als standard convergence layer Protokoll f{\"u}r das Bundle Protokoll
 genutzt. Das LTP wurde zur sicheren {\"U}bertragung von Daten zwischen einem
-Sender und einem Empf{\"a}nger (point-to-point) unter DTN Bedingungen
-entwickelt. LTP entscheidet dabei sogar zwischen wichtigen (red data) und
+Sender und einem Empf{\"a}nger (Punkt-zu-Punkt) unter DTN Bedingungen
+entwickelt. Das LTP entscheidet dabei zwischen wichtigen (red data) und
 unwichtigen Daten (green data) und gew{\"a}hrleistet somit eine effiziente
 {\"U}bermittlung. Eine {\"U}bertragung beginnt sobald ein Link zwischen Sender
 und Empf{\"a}nger besteht. Die zu sendenden Datenbl{\"o}cke werden beim LTP in
@@ -109,7 +109,7 @@ Segmente geteilt. Handelt es sich um wichtige Daten (red data) werden
 w{\"a}hrend des Sendevorgangs innerhalb der im LTP verwendeten Segmente
 spezielle Flags gesetzt.
 Diese einfach als Checkpoints bezeichneten Signale erfordern eine Quittierung
-durch den Empf{\"a}nger um so bei einem eventuellen Verbindungsabbruchs eine
+durch den Empf{\"a}nger um so bei einem eventuellen Verbindungsabbruch eine
 erneute Sendung des jeweiligen Datenpakets auszul{\"o}sen. Die Daten werden
 solange beim Sender in einer Queue vorgehalten, bis der zugeh{\"o}rige
 Checkpoint quittiert wurde. Wenn ein Checkpoint nicht quittiert wird kann durch
@@ -117,8 +117,8 @@ einen ablaufenden Timer auf der Seite des Senders ein erneutes Senden
 durchgeführt werden. Sowohl das Senden als auch Empfangen eines Blocks kann per
 Signal abgebrochen werden. Zudem ist die Gr{\"o}{\ss}e der Segmente einstellbar um
 diese an den jeweiligen Zweck anzupassen. Handelt es sich bei den zu sendenden
-Daten um Daten mit geringerer Relevanz (green data) so ist keine Best{\"a}tigung
-durch den Empf{\"a}nger notwendig.
+Daten um Daten mit geringerer Relevanz (green data) so ist keine
+Best{\"a}tigung durch den Empf{\"a}nger notwendig.
 Diese Daten werden direkt nach dem Versenden gel{\"o}scht (Ref. \cite{web4}).
 
 \begin{figure}[H]
@@ -137,11 +137,11 @@ des Stacks das Landefahrzeug auf der Marsoberfl{\"a}che, welches das CFDP (CCSDS
 File Delivery Protocol) {\"u}ber das Bundle Protokoll in Verbindung mit dem LTP
 nutzt.
 Das Landefahrzeug wird schlie{\ss}lich {\"u}ber das Proximity-1 Space Link
-Protokoll mit dem Orbiter (zweiter Stack von links) verbunden. Der Dritte Stack
+Protokoll mit dem Orbiter (zweiter Stack von links) verbunden. Der dritte Stack
 von links repr{\"a}sentiert z.B. eine Deep Space Network Bodenstation (DSN). Der
 Orbiter kommuniziert mit der DSN Bodenstation {\"u}ber einen deep-space-link via
 Bundle Protokoll unter Nutzung des LTP. Das LTP gew{\"a}rleistet dabei eine
-verl{\"a}ssliche Verbindung. Der Stack auf der Rechten {\"a}u{\ss}eren Seite
+verl{\"a}ssliche Verbindung. Der Stack auf der rechten {\"a}u{\ss}eren Seite
 symbolisiert eine Missionskontrollstation, welche mit der DSN Bodenstation
 {\"u}ber einen klassische TCP/IP Stack kommuniziert. Das Bundle Protokoll
 sichert dabei eine Ende-zu-Ende Kommunikation (Ref. \cite{DTNBundle}).
@@ -157,7 +157,7 @@ sichert dabei eine Ende-zu-Ende Kommunikation (Ref. \cite{DTNBundle}).
 \textbf{Ontologien}
 
 Ontologien sind Sammlungen aus Inferenz- und Integrit{\"a}tsregeln um
-Schlussfolgerungen auf Komplexe Probleme zu beziehen. Ontologien werden zum
+Schlussfolgerungen auf komplexe Probleme zu beziehen. Ontologien werden zum
 Austausch von Wissen in digitaler Form genutzt.
 
 Bestandteile einer Ontologie:

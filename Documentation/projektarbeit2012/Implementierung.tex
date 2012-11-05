@@ -1,5 +1,5 @@
 \label{cap:implementierung}
-F{\"u}r die Umsetzung der im Kapitel \ref{sec:Konzept} angesprochenen Ideen und
+F{\"u}r die Umsetzung der im Kapitel \ref{cap:konzept} angesprochenen Ideen und
 Eigenschaften wurde die Programmiersprache C++ verwendet. Als Entwicklungsumgebung kommt
 Eclipse zum Einsatz. Zur Verbesserung der Teamarbeit und des Austausches
 von Quellcode wurde ein Github Repository \footnote{www.github.com} angelegt,
@@ -43,8 +43,7 @@ Klasse \Code{Partitionierung} weitergegeben. Dort werden diese in Datenbl{\"o}ck
 abh{\"a}ngig ihrer Relevanz zerlegt. Zus{\"a}tzlich werden in diesem Schritt die
 Datenblockheader (siehe Kapitel \ref{sec:ProtokolDesign}) erstellt und der
 Content in bin{\"a}re Daten umgewandelt. Am Ende werden die Datenbl{\"o}cke mit den
-Headerinformationen in einer First-In-First-Out-Datenstruktur (FIFO)
-gebuffert.
+Headerinformationen in einer FIFO gepuffert.
 Anschliessend wird jedem einzelnen Datenblock im n{\"a}chsten Modul eine Priorit{\"a}t zugewiesen. Die angesprochene
 Relevanz und die Priorit{\"a}t der Datenbl{\"o}cke wird in einem extra Modul namens
 CRODM (Content Relevance-oriented Data Management)

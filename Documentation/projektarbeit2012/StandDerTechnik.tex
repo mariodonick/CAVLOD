@@ -13,7 +13,7 @@ verarbeiten. Desweiteren verf{\"u}gt \textit{Curiosity} {\"u}ber einen
 Arbeitsspeicher von 256 MB und einen Flash-Speicher von 2 GB. Zus{\"a}tzlich hat
 \textit{Curiosity} einen EPROM von 256 KB. Alle Bauteile sind dabei besonders
 strahlungsresistent und unempfindlich gegen{\"u}ber gro{\ss}en
-Temperaturschwankungen. Das genutzte Betriebssystem ist VxWorks \todo{quelle}.
+Temperaturschwankungen. Das genutzte Betriebssystem ist VxWorks.
 Zur Kommunikation nutzt der Rover einerseits das X-Band (7 - 8 GHz), welches zur
 {\"U}bertragung von Statusdaten und zum Empfang von Steuerdaten genutzt wird.
 Desweiteren verf{\"u}gt der Rover {\"u}ber ein Kommunikationssystem im UHF-Band
@@ -23,8 +23,8 @@ wissenschaftlichen Instrumenten umfasst zehn Ger{\"a}te. Darunter z.B. zwei
 Mastkameras welche je eine Aufl{\"o}sung von 1200 x 1200 Pixeln haben (1,44
 Megapixel). Diese Kameras sind ebenfalls in der Lage 720p-Videos mit einer
 Framerate von 10 Bildern pro Sekunde aufzunehmen. Hinzu kommen Spektrografen,
-weitere Kameras, Sensoren etc., welche weitere Analysedaten beisteuern. 
-\todo{einfach die anderen 5 sachen noch mit aufzählen?}
+weitere Kameras, Sensoren etc., welche weitere Analysedaten beisteuern (Ref.
+\cite{web5}).
 
 \begin{figure}[H]
 \centering
@@ -96,7 +96,7 @@ Bundle-Protokoll z{\"a}hlt zu den Overlay-Netzwerken, welche auf einer bereits
 bestehenden Netzwerkstruktur aufsetzen (Ref. \cite{web1}).
 
 \textbf{Licklider Transmission Protocol}
-\todo{layer werden erst später erklärt\ldots}
+
 Das Licklider Transmission Protocol (LTP) kann direkt auf dem Data Link Layer
 aufsetzen oder aber auch unter UDP laufen (siehe Abb. \ref{fig:LTP}). Das LTP
 wird zudem als standard convergence layer protocol f{\"u}r das Bundle Protokoll
@@ -131,9 +131,8 @@ Diese Daten werden direkt nach dem Versenden gel{\"o}scht (Ref. \cite{web4}).
 
 \textbf{Stack einer interplanetaren Kommunikation}
 
-Das DTN Bundle Protokoll agiert als ein Overlay \todo{fussnote/glosar was
-gemeint ist} auf dem Transport Layer. Die Abbildung \ref{fig:PSSBN} zeigt den
-Einsatz des Bundle Protokolls in einem interplanetaren Kommunikationsansatz.
+Das DTN Bundle Protokoll agiert als ein Overlay auf dem Transport Layer. Die
+Abbildung \ref{fig:PSSBN} zeigt den Einsatz des Bundle Protokolls in einem interplanetaren Kommunikationsansatz.
 Dabei repr{\"a}sentiert der linke Teil des Stacks das Landefahrzeug auf der
 Marsoberfl{\"a}che, welches das CFDP (CCSDS File Delivery Protocol) {\"u}ber das
 Bundle Protokoll in Verbindung mit dem LTP nutzt.
@@ -171,6 +170,3 @@ Bestandteile einer Ontologie:
      \item \textit{Vererbung}
      \item \textit{Axiome}
    \end{compactenum}
-
-   \todo{hinweis auf ontologien muss noch iwo auftauchen bisher nirgendwo in
-   der arbeit!!!!!!!}

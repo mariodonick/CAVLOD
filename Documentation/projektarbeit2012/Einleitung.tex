@@ -35,12 +35,13 @@ Minuten die Erde erreicht (im Fall der maximalen Entfernung zwischen Erde und
 Mars erst nach $44$ Minuten, wobei in dieser Konstellation eine direkte
 Funkverbindung nahezu unm{\"o}glich ist).
 Da der Mars jedoch genau wie die Erde eine Rotation um seine eigene Achse
-ausf{\"u}hrt und die Kommunikation {\"u}ber eine marsstation{\"a}re
-Sendevorrichtung (Satellit) erfolgt, wird das Zeitfenster der {\"U}bertragung
-weiter beschr{\"a}nkt. Diese physikalisch begr{\"u}ndeten Latenzen sind ein
-wichtiger Faktor den es in der interplanetaren Kommunikation zu
-ber{\"u}cksichtigen gilt. Die hieraus abzuleitende Erkenntnis ist, dass eine
-Kommunikation beispielsweise zwischen Erde und Mars nicht mit einer heutigen
+ausf{\"u}hrt und die Kommunikation {\"u}ber eine den Mars
+umkreisende Sendevorrichtung (Satellit) erfolgt, wird das Zeitfenster der
+{\"U}bertragung weiter beschr{\"a}nkt (Zeitfenster betr{\"a}gt ca. 30 Minuten
+pro Tag aufgeteilt in zwei Sendevorg{\"a}nge von je 15 Minuten, dies ist jeweils
+die Zeit f{\"u}r den Vorbeiflug des Orbiters von Horizont zu Horizont bezogen
+auf den Rover).
+Diese physikalisch begr{\"u}ndeten Latenzen sind ein wichtiger Faktor den es in der interplanetaren Kommunikation zu ber{\"u}cksichtigen gilt. Die hieraus abzuleitende Erkenntnis ist, dass eine Kommunikation beispielsweise zwischen Erde und Mars nicht mit einer heutigen
 Irdischen Kommunikation zu vergleichen ist. Zwar ist das Modell der
 verz{\"o}gerten Kommunikation dem Menschen keineswegs unbekannt.
 Hier sei Exemplarisch auf den vor der Erfindung der Telegraphie
@@ -79,5 +80,35 @@ Daten erwirkt, welche {\"u}ber die Reihenfolge und den Zeitpunkt des
 Versendens entscheidet. Daraus resultiert, dass Daten von hoher Relevanz 
 vor Daten mit niederer Relevanz verschickt werden. Somit k{\"o}nnen 
 beispielsweise zeitkritische Daten das Kontrollzentrum auf der Erde 
-schneller erreichen.
-\todo{kurze zusammenfassung zu den eizelnen kapiteln}
+schneller erreichen. Im Folgenden wird ein kurzer {\"U}berblick zu den einzelnen
+Kapiteln der Arbeit gew{\"a}hrt.
+
+In \textbf{Kapitel zwei} werden Grundlagen der Netzwerkkommunikation
+aufgef{\"u}hrt, welche zum Verst{\"a}ndnis der Arbeit vonn{\"o}ten sind. Dabei wird z.B. das
+OSI-Referenzmodell aufgegriffen und erl{\"a}utert. Die im Weiteren
+erl{\"a}uterten Modelle, k{\"o}nnen alle vom OSI-Schichtenmodell abgeleitet
+werden. Die weitere Grundlagen betreffen die Zeitmessung auf dem Mars und
+andere allgemeine Erl{\"a}uterungen.
+
+Das \textbf{dritte Kapitel} befasst sich mit dem aktuellen Stand der Technik.
+Hier werden aktuelle Technologien und Protokolle vorgestellt, welche in der interplanetaren
+Kommunikation zum Einsatz kommen. 
+
+\textbf{Kapitel vier} umfasst das Konzept der Arbeit. Hier werden
+Vor{\"u}berlegungen ausgef{\"u}hrt und grundlegende Funktionen erl{\"a}utert. Zudem werden auch
+Ideen beleuchtet, welche es in der weiteren Protokollentwicklung zu
+ber{\"u}cksichtigen gilt, die aber im derzeitigen Stand nicht implementiert sind.
+
+\textbf{Kapitel f{\"u}nf} behandelt die Implementierung des Protokolls. Dabei
+wird sowohl die Implementierung der das Protokoll betreffenden Module genauer beleuchtet,
+als auch die Entwicklung des Graphical User Interfaces f{\"u}r eine einfache
+Chat Kommunikation.
+
+Im \textbf{sechsten Kapitel} wird die ausf{\"u}hrliche Analyse des Protokolls
+betrachtet.
+Dabei werden Punkte wie Overhead sowie Messreihen (Performance Analyse)
+diskutiert.
+
+Im \textbf{siebten und letzten Kapitel} wird eine Zusammenfassung sowie ein
+Ausblick auf die zuk{\"u}nftige Entwicklung im bearbeiteten Themenbereich gegeben.
+

@@ -53,7 +53,7 @@ Rover \textit{Curiosity} und der Erde genutzt. Die Anlagen liegen an exponierter
 Einfluss von St{\"o}rungen z.B. durch Radiofrequenzen reduzieren. Die Stationen
 befinden sich je in einem Abstand von einem drittel Erd{\"a}quator um eine
 fortw{\"a}hrende Kommunikation mit Raumfahrzeugen trotz Erdrotation zu
-erm{\"o}glichen.
+erm{\"o}glichen (Ref. \cite{web6}).
 
 \begin{figure}[H]
 \centering
@@ -90,7 +90,7 @@ Folgen von Datenbl{\"o}cken als B{\"u}ndel zusammengefasst. Jedes B{\"u}ndel ent
 dabei ausreichende semantische Informationen um eine etwaige Applikation
 fortzusetzen. Exemplarisch sei hier ein Webbrowser angef{\"u}hrt, welcher ein
 Bundle-Paket erh{\"a}lt und dadurch eine komplette Webseite anzeigt. Auch hier
-erfolgt die {\"U}bertragung per store-and-forward. Die eingesetzten
+erfolgt die {\"U}bertragung per \textit{store-and-forward}. Die eingesetzten
 Transportprotokolle k{\"o}nnen dabei variieren (IP basierend o.a.). Das
 Bundle-Protokoll z{\"a}hlt zu den Overlay-Netzwerken, welche auf einer bereits
 bestehenden Netzwerkstruktur aufsetzen (Ref. \cite{web1}).
@@ -99,16 +99,16 @@ bestehenden Netzwerkstruktur aufsetzen (Ref. \cite{web1}).
 
 Das Licklider Transmission Protocol (LTP) kann direkt auf dem Data Link Layer
 aufsetzen oder aber auch unter UDP laufen (siehe Abb. \ref{fig:LTP}). Das LTP
-wird zudem als standard convergence layer protocol f{\"u}r das Bundle Protokoll
-genutzt. Das LTP wurde zur sicheren {\"U}bertragung von Daten zwischen einem
-Sender und einem Empf{\"a}nger (Punkt-zu-Punkt) unter DTN Bedingungen
-entwickelt. Das LTP entscheidet dabei zwischen wichtigen (red data) und
-unwichtigen Daten (green data) und gew{\"a}hrleistet somit eine effiziente
-{\"U}bermittlung. Eine {\"U}bertragung beginnt sobald ein Link zwischen Sender
-und Empf{\"a}nger besteht. Die zu sendenden Datenbl{\"o}cke werden beim LTP in
-Segmente geteilt. Handelt es sich um wichtige Daten werden
-w{\"a}hrend des Sendevorgangs innerhalb der im LTP verwendeten Segmente
-spezielle Flags gesetzt.
+wird zudem als standard \textit{convergence layer protocol} (Zusammenfassung von
+Transport- und Network-Layer) f{\"u}r das Bundle Protokoll genutzt. Das LTP
+wurde zur sicheren {\"U}bertragung von Daten zwischen einem Sender und einem
+Empf{\"a}nger (Punkt-zu-Punkt) unter DTN Bedingungen entwickelt. Das LTP
+entscheidet dabei zwischen wichtigen (red data) und unwichtigen Daten (green
+data) und gew{\"a}hrleistet somit eine effiziente {\"U}bermittlung. Eine
+{\"U}bertragung beginnt sobald ein Link zwischen Sender und Empf{\"a}nger
+besteht. Die zu sendenden Datenbl{\"o}cke werden beim LTP in Segmente geteilt.
+Handelt es sich um wichtige Daten werden w{\"a}hrend des Sendevorgangs
+innerhalb der im LTP verwendeten Segmente spezielle Flags gesetzt.
 Diese einfach als Checkpoints bezeichneten Signale erfordern eine Quittierung
 durch den Empf{\"a}nger, um so bei einem eventuellen Verbindungsabbruch ein
 erneutes Senden des jeweiligen Datenpakets auszul{\"o}sen. Die Daten werden
@@ -129,10 +129,18 @@ Diese Daten werden direkt nach dem Versenden gel{\"o}scht (Ref. \cite{web4}).
 \label{fig:LTP}
 \end{figure}
 
+\textbf{Proximity-1}
+
+Das \textit{Proximity-1 Space Link Protocol} ist das typischer Weise genutzte
+Data Link Layer/Physical Layer Protokoll in einem DTN Stack. Damit kompletttiert
+es zusammen mit dem Bundle Protokoll und dem LTP die notwendigen Protokollschichten
+eines DTN Stack in einer interplanetaren Kommunikation.
+
 \textbf{Stack einer interplanetaren Kommunikation}
 
 Das DTN Bundle Protokoll agiert als ein Overlay auf dem Transport Layer. Die
-Abbildung \ref{fig:PSSBN} zeigt den Einsatz des Bundle Protokolls in einem interplanetaren Kommunikationsansatz.
+Abbildung \ref{fig:PSSBN} zeigt den Einsatz des Bundle Protokolls in einem
+interplanetaren Kommunikationsansatz.
 Dabei repr{\"a}sentiert der linke Teil des Stacks das Landefahrzeug auf der
 Marsoberfl{\"a}che, welches das CFDP (CCSDS File Delivery Protocol) {\"u}ber das
 Bundle Protokoll in Verbindung mit dem LTP nutzt.

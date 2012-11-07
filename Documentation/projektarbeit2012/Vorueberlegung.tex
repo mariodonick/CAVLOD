@@ -5,22 +5,23 @@
 Die bereits im Grundlagenkapitel erw{\"a}hnten Ontologien sind aufgrund ihrer
 Komplexit{\"a}t und umfangreichen Einbindungszeit nicht Bestandteil des im
 Verlaufe dieser Arbeit entwickelten Protokolls. Jedoch ist eine Einbindung
-selbiger im weiteren Entwicklungsverlauf des Protokolls unabdingbar. Sie sind
-jedoch (da nicht verwendet) kein Bestandteil dieser Arbeit.
-
+selbiger im weiteren Entwicklungsverlauf des Protokolls unabdingbar. Diese sind
+jedoch kein Bestandteil dieser Arbeit.
 
 \textbf{Time To Live}
 
 Die Time To Live (TTL) bezeichnet die Lebensdauer eines Datenpakets und ist
 dabei von unterschiedlichen Aspekten abh{\"a}ngig. So kann ein Paket einerseits nach
 Ablauf eines Zeitraums oder nach einer bestimmten Anzahl
-von hops verworfen werden. Das Ablaufen durch den hop\footnote{ein hop
-bezeichnet eine Station einer Route auf dem Weg zum Ziel (Knoten)} count ist
-dabei in einem Szenario der interplanetaren Kommunikation derzeit eher unrealistisch, da zumeist eine Punkt-zu-Punkt Verbindung anvisiert wird (kein intensives Routing {\"u}ber eine Vielzahl an Stationen). Somit
-w{\"a}re unter Ber{\"u}cksichtigung einer interplanetaren Kommunikation eine TTL
-Realisierung per Zeitstempel sinnvoller, da hier{\"u}ber, unter
-Ber{\"u}cksichtigung des {\"U}bertragungskontextes, unrealistische
-{\"U}bertragungszeiten einfach erkannt werden k{\"o}nnen.
+von hops verworfen werden. Das Ablaufen durch den Hop\footnote{Ein Hop
+bezeichnet eine Station einer Route auf dem Weg zum Ziel (Knoten)}-Zähler
+ist dabei in einem Szenario der interplanetaren Kommunikation derzeit eher
+unrealistisch, da zumeist eine Punkt-zu-Punkt Verbindung anvisiert wird (kein
+intensives Routing {\"u}ber eine Vielzahl an Stationen). Somit w{\"a}re unter
+Ber{\"u}cksichtigung einer interplanetaren Kommunikation eine TTL Realisierung
+per Zeitstempel sinnvoller, da hier{\"u}ber, unter Ber{\"u}cksichtigung des
+{\"U}bertragungskontextes, unrealistische {\"U}bertragungszeiten einfach erkannt
+werden k{\"o}nnen.
 Aufgrund der beschr{\"a}nkten Ressourcen unter interplanetaren
 Kommunikationsumgebungen ist die Frage nach der Vorhaltedauer von
 entscheidender Bedeutung. Damit wird die Speicherung der
@@ -31,7 +32,6 @@ k{\"o}nnen Daten geringer Relevanz direkt nach dem Senden gel{\"o}scht werden.
 Wohingegen Daten hoher Relevanz erst nach Empfangsquittierung bzw. Ablauf des
 TTL Timers verworfen werden.
 
-%\newpage %Damit die {\"U}berschrift auf der n{\"a}chsten seite erscheint
 \textbf{Protocol Stack} \label{sec:Konzept_Protocolstack}
 
 Die von der jeweiligen Anwendung an den CROP Stack {\"u}bergebenen Daten werden
@@ -71,7 +71,7 @@ unter Nutzung des UDP-Protokolls f{\"u}r die finale Daten{\"u}bertragung. Der
 Application, Presentation und Session Layer des OSI Modells
 wird hierbei vereinfacht als Anwendungsschicht zusammengefasst.
 Der Transport Layer des OSI Modells entspricht der Transportschicht des
-vereinfachten Modells. Die Internet Schicht repr{\"a}sentiert den Network
+vereinfachten Modells. Die Internetschicht repr{\"a}sentiert den Network
 Layer.
 Der Data Link Layer und der Physical Layer des OSI-Modells wird zur
 Netzzugangsschicht zusammengefasst. Dem OSI-Modell entsprechend wird eine

@@ -1,7 +1,7 @@
 Anhand der im vorherigen Kapitel \ref{sec:Anwendungsszenarien} genannten Anwendungsszenarien lassen
 sich die einzelnen Schnittstellen zwischen den Modulen ableiten. In
 \abbildung{Schnittstellen} ist ein schematischer Aufbau der Module
-dargestellt. Die Schnittstellen zwischen diesen sind nummerisch gekennzeichnet.
+dargestellt. Die Schnittstellen zwischen diesen sind numerisch gekennzeichnet.
 
 \begin{figure}[H]
 \centering
@@ -15,14 +15,14 @@ Daraus ergeben sich die folgenden Verallgemeinerungen:
 \textbf{Schnittstelle (1)}\newline
 Die Schnittstelle (1) ist die Gesamtschnittstelle. Hier wird der
 Content an das Modul übergeben. Weiterhin erfolgt die Übergabe der DOID, des
-Datentypes und eines Flags, welches angibt, ob ein Zeitangabe berücksichtigt
+Datentyps und eines Flags, welches angibt, ob ein Zeitangabe berücksichtigt
 werden soll.
 Optional sind ein oder mehrere zeichengenaue Positionsangaben mit einem
-Relevanzwert anzugeben. Als Relevanzwert wurde festgelegt, dass dieser eine
-prozentuale Angabe im Bereich von 0 bis 100 ist. Dabei wird 0 als unwichtig und
+Relevanzwert anzugeben. Ein Relevanzwert weist hierbei eine
+prozentuale Angabe im Bereich von 0 bis 100 auf. Dabei wird 0 als unwichtig und
 100 als sehr wichtig eingestuft. Die Positionsangaben beinhalten zum einen den
 Startpunkt des relevanten Bereiches mit einer x- und y-Koordinate. Weiterhin
-wird das Fläche des Bereiches mit einer Länge in x- und y-Richtung angegeben.
+wird die Fläche des Bereiches mit einer Länge in x- und y-Richtung angegeben.
 Die Angabe der Positionen und des Relevanzwertes ist beispielsweise notwendig,
 wenn diese Daten nicht selbst berechnet werden sollen, sondern der Benutzer
 diese über eine grafische Benutzeroberfläche vorgibt.
@@ -41,7 +41,7 @@ Damit der Evaluator nachvollziehen kann, welches Datenpaket gerade bearbeitet
 wird, erfolgt die Übergabe der DOID und des Datentyps.  
 
 \textbf{Schnittstelle (5)} \newline
-Als Antwort auf die einkommenden Daten der Schnittstelle (4)
+Als Antwort auf die eingehenden Daten der Schnittstelle (4)
 erfolgt die Rückgabe der relevanten Bereiche mit den Positionen und den
 dazugehörigen Relevanzwerten durch den Evaluator.
 
@@ -62,7 +62,7 @@ Relevanzwertes eine prozentuale Größe zwischen 0 und 100.
 
 \textbf{Schnittstelle (9)} \newline
 Nach der Priorisierung werden die priorisierten Datenblöcke mit den
-Datenblockheadern und der Priorität an das Verpakungsmodul übergeben.
+Datenblockheadern und der Priorität an das Verpackungsmodul übergeben.
 
 Bei den Schnittstellen ist zu beachten, dass manche Angaben abhängig von den
 jeweiligen Datentypen sind und für den Fall nicht benutzt oder

@@ -23,22 +23,19 @@ heruntergeladen und eingerichtet. F{\"u}r dieses wurden die folgenden Plugins in
 
 \begin{itemize}
 \item EGit\footnote{http://download.eclipse.org/egit/updates-nightly}
-\item QT
-% \footnote{http://blog.qt.digia.com/2007/07/11/develop-qt-applications-in-eclipse/}
+\item QT\footnote{http://doc.qt.digia.com/qt-eclipse/eclipse-integration-installation.html}
 alternativ QT Creator
 \end{itemize}
 
 Das Installieren von Plugins unter Eclipse erfolgt {\"u}ber \Code{Help $\rightarrow$
 Install New Software\ldots} durch die Eingabe der in Fu{\ss}noten stehenden
-Internetadresse. Zum kompilieren der grafischen Benutzeroberfl{\"a}che sollte die
-QT eigene Entwicklungsumgebung QT Creator \todo{link zuf{\"u}gen} genutzt werden.
-Das QT-Plugin f{\"u}r Eclipse ist auf der Webseite derzeit nicht herunterladbar.
+Internetadresse.
 
 \section{Git}
 
 Als Erstes sollte eine SSH verbindung zum Git-Repository eingerichtet werden.
 Dazu sei auf die Anleitung von Git verwiesen
-\todo{https://help.github.com/articles/generating-ssh-keys}. Als n{\"a}chstes k{\"o}nnen
+(Ref. \cite{web7}). Als n{\"a}chstes k{\"o}nnen
 die Quelldateien unter Eclipse heruntergeladen werden. Dazu wird im Eclipse die
 Ansicht zum Git-Repository gewechselt. Dies erfolgt mit \Code{Window
 $\rightarrow$ Open Perspective $\rightarrow$ Other\ldots $\rightarrow$ Git
@@ -95,6 +92,7 @@ inkludiert werden muss.
 \newpage
 
 \lstset{language=C++}
+\lstset{literate = {=} {= }{2} }
 \lstinputlisting[label=lst:BeispielcodeSender, caption=Anwendungsbeispiel:
 Sender]{Listings/BeispielcodeSender.cpp}
 

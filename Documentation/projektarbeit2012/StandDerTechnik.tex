@@ -112,7 +112,7 @@ innerhalb der im LTP verwendeten Segmente spezielle Flags gesetzt.
 Diese einfach als Checkpoints bezeichneten Signale erfordern eine Quittierung
 durch den Empf{\"a}nger, um so bei einem eventuellen Verbindungsabbruch ein
 erneutes Senden des jeweiligen Datenpakets auszul{\"o}sen. Die Daten werden
-solange beim Sender in einer FIFO vorgehalten, bis der zugeh{\"o}rige
+solange beim Sender in einer \gls{FIFO} vorgehalten, bis der zugeh{\"o}rige
 Checkpoint quittiert wurde. Wenn ein Checkpoint nicht quittiert wird, kann durch
 einen ablaufenden Timer auf der Seite des Senders ein erneutes Senden
 durchgeführt werden. Sowohl das Senden als auch Empfangen eines Blocks kann per

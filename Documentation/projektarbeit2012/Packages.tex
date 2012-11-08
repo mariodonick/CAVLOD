@@ -4,14 +4,14 @@
 \usepackage[
     automark, % Kapitelangaben in Kopfzeile automatisch erstellen
     headsepline, % Trennlinie unter Kopfzeile
-    ilines % Trennlinie linksb�ndig ausrichten
+    ilines % Trennlinie linksbuendig ausrichten
 ]{scrpage2}
 
 % Anpassung an Landessprache ---------------------------------------------------
 \usepackage[ngerman]{babel}
 
 % Umlaute ----------------------------------------------------------------------
-%   Umlaute/Sonderzeichen wie ���� direkt im Quelltext verwenden (CodePage).
+%   Umlaute/Sonderzeichen wie aeoeue direkt im Quelltext verwenden (CodePage).
 %   Erlaubt automatische Trennung von Worten mit Umlauten.
 % ------------------------------------------------------------------------------
 \usepackage[utf8]{inputenc}
@@ -20,10 +20,10 @@
 
 % Schrift ----------------------------------------------------------------------
 \usepackage{lmodern} % bessere Fonts
-\usepackage{relsize} % Schriftgr��e relativ festlegen
-
+\usepackage{relsize} % Schriftgroesse relativ festlegen
+ 
 % Grafiken ---------------------------------------------------------------------
-% Einbinden von JPG-Grafiken erm�glichen
+% Einbinden von JPG-Grafiken ermoeglichen
 \usepackage[pdftex]{graphicx}
 %Möglichkeit des Einfügens von Subfigures um Bilder nebeneinander einzufügen
 \usepackage{subfigure}
@@ -40,27 +40,30 @@
 % f�r Index-Ausgabe mit \printindex --------------------------------------------
 \usepackage{makeidx}
 
-% Einfache Definition der Zeilenabst�nde und Seitenr�nder etc. -----------------
+% Einfache Definition der Zeilenabstaende und Seitenraender etc.
+% -----------------
 \usepackage{setspace}
 \usepackage{geometry}
 
-% Symbolverzeichnis ------------------------------------------------------------
-%   Symbolverzeichnisse bequem erstellen. Beruht auf MakeIndex:
+% glossar/Symbolverzeichnis
+% ------------------------------------------------------------   Symbolverzeichnisse bequem erstellen. Beruht auf MakeIndex:
 %     makeindex.exe %Name%.nlo -s nomencl.ist -o %Name%.nls
 %   erzeugt dann das Verzeichnis. Dieser Befehl kann z.B. im TeXnicCenter
-%   als Postprozessor eingetragen werden, damit er nicht st�ndig manuell
-%   ausgef�hrt werden muss.
+%   als Postprozessor eingetragen werden, damit er nicht staendig manuell
+%   ausgefuehrt werden muss.
 %   Die Definitionen sind ausgegliedert in die Datei "Glossar.tex".
 % ------------------------------------------------------------------------------
-\usepackage[intoc]{nomencl}
-\let\abbrev\nomenclature
-\renewcommand{\nomname}{Abkürzungsverzeichnis}
-\setlength{\nomlabelwidth}{.25\hsize}
-\renewcommand{\nomlabel}[1]{#1 \dotfill}
-\setlength{\nomitemsep}{-\parsep}
+%Paket laden 
+\usepackage[
+nonumberlist, %keine Seitenzahlen anzeigen
+acronym,      %ein Abkürzungsverzeichnis erstellen
+toc,          %Einträge im Inhaltsverzeichnis
+section]      %im Inhaltsverzeichnis auf section-Ebene erscheinen
+{glossaries}
 
 
-% zum Umflie�en von Bildern ----------------------------------------------------
+% zum Umfliessen von Bildern
+% ----------------------------------------------------
 \usepackage{floatflt}
 
 
@@ -113,17 +116,17 @@
     bookmarksopen=true,
     colorlinks=true,
 % diese Farbdefinitionen zeichnen Links im PDF farblich aus
-    linkcolor=black, % einfache interne Verkn�pfungen
+    linkcolor=black, % einfache interne Verknuepfungen
     anchorcolor=black,% Ankertext
-    citecolor=blue, % Verweise auf Literaturverzeichniseintr�ge im Text
-    filecolor=magenta, % Verkn�pfungen, die lokale Dateien �ffnen
-    menucolor=red, % Acrobat-Men�punkte
+    citecolor=blue, % Verweise auf Literaturverzeichniseintraege im Text
+    filecolor=magenta, % Verknuepfungen, die lokale Dateien oeffnen
+    menucolor=red, % Acrobat-Menuepunkte
     urlcolor=cyan, 
-% diese Farbdefinitionen sollten f�r den Druck verwendet werden (alles schwarz)
-    %linkcolor=black, % einfache interne Verkn�pfungen
+% diese Farbdefinitionen sollten fuer den Druck verwendet werden (alles schwarz)
+    %linkcolor=black, % einfache interne Verknuepfungen
     %anchorcolor=black, % Ankertext
-    %citecolor=black, % Verweise auf Literaturverzeichniseintr�ge im Text
-    %filecolor=black, % Verkn�pfungen, die lokale Dateien �ffnen
+    %citecolor=black, % Verweise auf Literaturverzeichniseintraege im Text
+    %filecolor=black, % Verknuepfungen, die lokale Dateien oeffnen
     %menucolor=black, % Acrobat-Men�punkte
     %urlcolor=black, 
     backref,
@@ -132,7 +135,8 @@
     hypertexnames=false, % zur korrekten Erstellung der Bookmarks
     %linktocpage % Seitenzahlen anstatt Text im Inhaltsverzeichnis verlinken
 ]{hyperref}
-% Befehle, die Umlaute ausgeben, f�hren zu Fehlern, wenn sie hyperref als Optionen �bergeben werden
+% Befehle, die Umlaute ausgeben, f�hren zu Fehlern, wenn sie hyperref als
+% Optionen uebergeben werden
 \hypersetup{
     pdftitle={\titel \untertitel},
     pdfauthor={\autor},
@@ -141,7 +145,8 @@
     pdfkeywords={\titel \untertitel},
 }
 
-% fortlaufendes Durchnummerieren der Fu�noten ----------------------------------
+% fortlaufendes Durchnummerieren der Fussnoten
+% ----------------------------------
 \usepackage{chngcntr}
 
 % f�r (lange) Tabellen ---------------------------------------------------------
@@ -151,13 +156,15 @@
 \usepackage{lscape}
 \usepackage{tabularx}
 
-% Spaltendefinition rechtsb�ndig mit definierter Breite ------------------------
+% Spaltendefinition rechtsbuendig mit definierter Breite
+% ------------------------
 \newcolumntype{w}[1]{>{\raggedleft\hspace{0pt}}p{#1}}
 
-% Formatierung von Listen �ndern -----------------------------------------------
+% Formatierung von Listen aendern
+% -----------------------------------------------
 \usepackage{paralist}
 
-% bei der Definition eigener Befehle ben�tigt
+% bei der Definition eigener Befehle benoetigt
 \usepackage{ifthen}
 
 % definiert u.a. die Befehle \todo und \listoftodos

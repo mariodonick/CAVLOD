@@ -18,18 +18,16 @@ der beiden Module bereitstellt. In dieser Arbeit wurden nur die beiden
 Datentypen Text und Sensorwerte integriert.
 
 \section{Modulaufbau Sender}
-
+ 
 Die Aufgabe des Moduls \Code{Sender} besteht darin, die aus vier Phasen
-bestehende Verarbeitung der Daten aus \todo{REF }
-%zu 1 CRODT framework final_v1.3 pdf - der mag das iwi nicht im todo
-umzusetzen.
+bestehende Verarbeitung der Daten (Ref. \cite{Daher}) umzusetzen.
 In \abbildung{BlockdiagrammSender} ist das Blockdiagramm des Moduls \Code{Sender}
 darstellt.
 Dies bietet eine {\"U}bersicht zu den Modulen und wie diese untereinander 
 Kommunizieren. In der Grafik ist jedes Submodul durch ein M in der linken
 oberen Ecke des Blockes gekennezeichnt. Ebenso ist die Schnittstellenklasse angegeben
-und durch die Abk{\"u}rzung IF (Interface) gekennzeichnet. Dadurch ist der geforderte modulare
-Aufbau sichergestellt.
+und durch die Abk{\"u}rzung \gls{IF} (Interface) gekennzeichnet. Dadurch ist der
+geforderte modulare Aufbau sichergestellt.
 
 \begin{figure}[H]
 \centering
@@ -43,17 +41,16 @@ Klasse \Code{Partitionierung} weitergegeben. Dort werden diese in Datenbl{\"o}ck
 abh{\"a}ngig ihrer Relevanz zerlegt. Zus{\"a}tzlich werden in diesem Schritt die
 Datenblockheader (siehe Kapitel \ref{sec:ProtokolDesign}) erstellt und der
 Content in bin{\"a}re Daten umgewandelt. Am Ende werden die Datenbl{\"o}cke mit den
-Headerinformationen in einer FIFO gepuffert.
+Headerinformationen in einer \gls{FIFO} gepuffert.
 Anschliessend wird jedem einzelnen Datenblock im n{\"a}chsten Modul eine Priorit{\"a}t zugewiesen. Die angesprochene
 Relevanz und die Priorit{\"a}t der Datenbl{\"o}cke wird in einem extra Modul namens
-CRODM (Content Relevance-oriented Data Management)
+\gls{CRODM} (Content Relevance-oriented Data Management)
 berechnet und den Modulen {\"u}bergeben.
 Anhand dieser wird der Datenblock in die Datenstruktur
 \Code{SmartPrioritizedQueue} einsortiert. Dadurch wird
 gew{\"a}hrleistet, dass die wichtigen Daten zuerst gesendet werden. F{\"u}r diese
-Aufgabe wird eine einfache Liste aus der Standard Template Library (STL)
-verwendet. Durch diese kann iteriert werden und es besteht ein schneller
-zufälliger Zugriff auf das jedes Element, welches ebenso effektiv eingefügt und
+Aufgabe wird eine einfache Liste aus der \gls{STL} (Standard Template Library)
+verwendet. Durch diese kann iteriert werden und es besteht ein schneller zufälliger Zugriff auf das jedes Element, welches ebenso effektiv eingefügt und
 gelöscht werden kann. Weiterhin exsistiert die notwendige Sortierfunktion. Diese
 hat f{\"u}r den Zweck eine gute Laufzeit.
 Damit die Verz{\"o}gerung, die durch gro{\ss}e Entfernungen auftreten, besser
@@ -101,8 +98,8 @@ Daraus ergeben sich folgenden Positionen der relevanten Bereiche:
 F{\"u}r den Algorithmus ist es wichtig, dass die relevanten Bereiche nach den
 Positionen sortiert sind. Das bedeutet, je niedriger die Zeile und Spalte,
 desto weiter vorn ist diese Position in der Datenstruktur gespeichert.
-Deshalb werden alle Angaben, die von dem Submodul \Code{Crodm} {\"u}bergeben werden 
-zuerst sortiert.
+Deshalb werden alle Angaben, die von dem Submodul \Code{CRODM}
+{\"u}bergeben werden zuerst sortiert.
 Im n{\"a}chsten Schritt werden die zweidimensionalen Koordinaten zu einer
 eindimensionalen umgerechnet, dadurch konnte das herausschneiden der
 Textfragmente, welcher Zeilenspr{\"u}nge beinhalten kann oder {\"u}ber eine Zeile hinaus
@@ -174,7 +171,7 @@ herrausgeschnitten werden. An dieser Stelle wird noch {\"u}berpr{\"u}ft, ob der
 Datenblock des Teiltextes gr{\"o}{\ss}er ist als die maximale Datenbl{\"o}ckgr{\"o}{\ss}e und
 gegebenenfalls in mehrere kleinere Teile zerlegt. Dieser wird danach zusammen
 mit den Informationen des Datenblockheaders in der Klasse \Code{Datablock}
-gespeichert und in einer einfachen FIFO hinterlegt. F{\"u}r die Sensorwerte
+gespeichert und in einer einfachen \gls{FIFO} hinterlegt. F{\"u}r die Sensorwerte
 ist kein Zerlegen der Daten in Teilbl{\"o}cke notwendig.
 Hier werden lediglich mehrere Daten einer Quelle mit dem passenden
 Zeitstempel gebuffert, damit diese platzsparender in dem Datenblock als
@@ -372,7 +369,8 @@ Speicherplatzbedarf kann vernachl{\"a}ssigt werden.
 F{\"u}r die Ordnerstruktur wurde eine m{\"o}glichst flache Hierachie genutzt, welche in
 der obersten Stufe den Ordner \Code{Backup} beinhaltet. Darin befinden sich
 weitere Ordner, welche als Namen die Nummer des Datentypes beinhalten. In diesem liegen die bin{\"a}ren
-Dateien dessen Namen aus der Nummer der DOID und der Sequenznummer besteht.
+Dateien dessen Namen aus der Nummer der \gls{DOID} und der Sequenznummer
+besteht.
 Diese sind durch einen Unterstrich voneinander getrennt. Die drei Parameter
 werden von der Methode remove zum L{\"o}schen einer Datei {\"u}bergeben, um diese
 eindeutig zu identifizieren.

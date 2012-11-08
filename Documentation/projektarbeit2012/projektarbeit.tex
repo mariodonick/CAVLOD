@@ -25,7 +25,7 @@
 ]{scrreprt}
 
 % Meta-Informationen -----------------------------------------------------------
-%   Informationen �ber das Dokument, wie z.B. Titel, Autor, Matrikelnr. etc
+%   Informationen über das Dokument, wie z.B. Titel, Autor, Matrikelnr. etc
 %   werden in der Datei Meta.tex definiert und können danach global
 %   verwendet werden.
 % ------------------------------------------------------------------------------
@@ -50,6 +50,17 @@
 % eigene LaTeX-Befehle
 \include{config/Befehle}
 
+% ------------ glossar initialisieren -----
+%Ein eigenes Symbolverzeichnis erstellen
+\newglossary[slg]{symbolslist}{syi}{syg}{Symbolverzeichnis} 
+
+%Den Punkt am Ende jeder Beschreibung deaktivieren
+\renewcommand*{\glspostdescription}{}
+
+%Glossar-Befehle anschalten
+\makeglossaries
+\input{Glossar}
+
 % Das eigentliche Dokument -----------------------------------------------------
 %   Der eigentliche Inhalt des Dokuments beginnt hier. Die einzelnen Seiten
 %   und Kapitel werden in eigene Dateien ausgelagert und hier nur inkludiert.
@@ -62,7 +73,7 @@
 
 % Deckblatt und Abstract ohne Seitenzahl
 \ofoot{}
-\include{Deckblatt}
+\include{Deckblatt} 
 
 % Aufgabenstellung
 \include{Aufgabenstellung}
@@ -76,12 +87,24 @@
 
 % Abkürzungsverzeichnis
 % --------------------------------------------------------
-\input{Glossar}
-% für eine korrekte Überschrift in der Kopfzeile
-\clearpage\markboth{\nomname}{\nomname} 
-\printnomenclature
+% % für eine korrekte Überschrift in der Kopfzeile
+\clearpage %\markboth{\nomname}{\nomname}
+ %\printnomenclature 
 \printindex
-\label{sec:Glossar}
+% \label{sec:Glossar}
+ 
+%\cleardoublepage{}
+ 
+%Glossar ausgeben
+\printglossary[style=altlist,title=Glossar]
+ 
+%Abkürzungen ausgeben
+\deftranslation[to=German]{Acronyms}{Abkürzungsverzeichnis}
+\printglossary[type=\acronymtype,style=long]
+
+%Symbole ausgeben
+\printglossary[type=symbolslist,style=long]
+ 
 
 \listoffigures % Abbildungsverzeichnis
 \listoftables % Tabellenverzeichnis
@@ -104,12 +127,12 @@
 		\input{OSI-Modell}
 	\section{CROP}
 		\input{CROP}
-	\section{Zeitmessung} 
+	\section{Zeitmessung}
 		\input{Zeitmessung}
-	
+
 \chapter{Stand der Technik}
   \input{StandDerTechnik}
-  
+
 \chapter{Konzept}
 	\input{Konzept}
 	\section{Vorüberlegung}
@@ -121,13 +144,13 @@
 		\input{Anwendungsszenarien}
 	\section{Schnittstellen}
 		\input{Schnittstellen}
-	
+
 \chapter{Implementierung}
 	\input{Implementierung}
 	\section{ChatGui}
 	\input{ChatGui}
-	
-\chapter{Protokoll-Analyse}	
+
+\chapter{Protokoll-Analyse}
 	\input{Protokoll-Analyse}
 	\section{Overhead}
 		\input{Overhead}
@@ -135,34 +158,22 @@
 		\input{Messreihen}
 	\section{Ergebnisse und Diskussion}
 		\input{ErgebnisseDiskussion}
-	
+
 \chapter{Zusammenfassung und Ausblick}
 	\input{ZusammenfassungAusblick}
-	
-	
 
 
 %\bibliographyWebverzeichnis{Webverzeichnis}
 %\bibliographystyleWebverzeichnis{plain}
 %\nociteWebverzeichnis{*}
 
-
-\renewcommand{\refname}{Literatur- und Webverzeichnis} %klappt wunderbar
-\bibliography{Referenzen}
-\bibliographystyle{natdin}
-
-	
-	
-
-
-
-	
 % Literaturverzeichnis ---------------------------------------------------------
-%   Das Literaturverzeichnis wird aus der BibTeX-Datenbank "Bibliographie.bib"
+%   Das Literaturverzeichnis wird aus der BibTeX-Datenbank "Referenzen.bib"
 %   erstellt.
 % ------------------------------------------------------------------------------
-%\bibliography{Bibliographie} % Aufruf: bibtex Masterarbeit
-%\bibliographystyle{natdin} % DIN-Stil des Literaturverzeichnisses
+\renewcommand{\refname}{Literatur- und Webverzeichnis}
+\bibliography{Referenzen} % Aufruf: bibtex BLA-Arbeit
+\bibliographystyle{natdin} % DIN-Stil des Literaturverzeichnisses
 
 \include{Eides_Erklaerung} % Selbständigkeitserklärung
 

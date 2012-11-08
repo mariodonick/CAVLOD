@@ -27,7 +27,7 @@ Kommunikationsumgebungen ist die Frage nach der Vorhaltedauer von
 entscheidender Bedeutung. Damit wird die Speicherung der
 Daten auf Seiten des extraterrestrischen Senders bezeichnet. 
 Eine m{\"o}gliche Entscheidungsgrundlage daf{\"u}r, wann Daten aus einer
-FIFO verworfen werden sollen, w{\"a}re die Wichtigkeit selbiger. So
+\gls{FIFO} verworfen werden sollen, w{\"a}re die Wichtigkeit selbiger. So
 k{\"o}nnen Daten geringer Relevanz direkt nach dem Senden gel{\"o}scht werden.
 Wohingegen Daten hoher Relevanz erst nach Empfangsquittierung bzw. Ablauf des
 TTL Timers verworfen werden.
@@ -38,8 +38,8 @@ Die von der jeweiligen Anwendung an den CROP Stack {\"u}bergebenen Daten werden
 zun{\"a}chst in kleinere Datenbl{\"o}cke gesplittet. Diese Datenbl{\"o}cke
 werden der Relevanz nach evaluiert und anschlie{\ss}end priorisiert.
 Im Anschlu{\ss} daran werden die priorisierten Datenbl{\"o}cke der jeweiligen
-Wertigkeit in einer FIFO gespeichert. Danach werden im
-Packetizer die Datenbl{\"o}cke h{\"o}chster Priorit{\"a}t zu einer
+Wertigkeit in einer \gls{FIFO} gespeichert. Danach werden im
+\gls{glos:Packetizer} die Datenbl{\"o}cke h{\"o}chster Priorit{\"a}t zu einer
 Nachricht zusammengefasst, die danach an den UDP Stack {\"u}bergeben werden
 kann. Dieser grundlegende Ablauf ist in Abbildung \ref{fig:CRODT} schematisch
 dargestellt.

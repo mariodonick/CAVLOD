@@ -4,7 +4,7 @@
 
 int main()
 {
-  crodt::SenderModuleIF* sender = new crodt::SenderModule; // creates the senderModul
+  crodt::SenderModuleIF* sender = new crodt::SenderModule; // creates the senderModule
   sender->initialize();   // call initialization
 
   // send the text string with using the timestamp flag

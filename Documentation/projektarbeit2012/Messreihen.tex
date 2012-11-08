@@ -1,0 +1,38 @@
+\label{subCap:Messreihen}
+
+Die Messreihen und Tests wurden mit einem Notebook aufgenommen, der Folgende
+Hardwarekonfigurationen besitzt.
+
+\textit{
+	LENOVO Thinkpad t410 Modell 2522-w29 \newline
+	\textbf{Prozessor}: Intel Core i5 520M (2 Kerne mit Hyperthreading $\stackrel{\wedge}=$ 4 Threads)\\
+	\textbf{RAM}: 4 GB DDR3	
+	}
+
+Da eine ähnliche Hardware bei einer Verwendung des Protokolls auf dem Mars
+weniger zu erwarten ist, sind die nachfolgenden Ergebnisse bezüglich ihrer
+absoluten Werte nicht wirklich aussagekräftig. Für unsere Betrachtungen waren
+jedoch mehr die Beziehungen und Entwicklungen der einzelnen Werte zueinander
+wichtig.
+
+Das Protokoll wurde immer grundlegend mit zwei verschiedenen
+Compilereinstellungen getestet. Zum Einen Geschwindigkeits- (\glqq O$2$ \grqq)
+und zum Anderen Quellcodegrößen-Optimiert (\glqq Os \grqq). Dabei wurde
+untersucht, wie lange das Protokoll für Texte verschiedener Größe benötigt, die
+keine relevanten Bereiche besitzen. In diesem Fall ist keine Vorpriorisierung
+notwendig und das Protokoll kann ohne großen Aufwand die Datei splitten und die
+Datenblock nacheinander verschicken. Zum Vergleich dazu ist eine Messreihen mit
+unterschiedlich vielen relevanten Bereichen für einen $5.000.000$ Byte Text
+aufgenommen worden. Hier ist zu erwarten, dass die Laufzeit gegenüber ersterer
+Betrachtung ansteigt. 
+
+Die eben vorgestellten Messungen wurden auf zwei verschiedenen Wegen
+aufgenommen. Diese unterscheiden sich dahingehend, dass bei einem vor jedem
+neuen aufzunehmenden Messwert der RAM gelöscht wurde. Für den zweiten Fall
+wurden die Daten alle hintereinander verschickt um eine realistische Simulation
+darzustellen zu können. 
+
+Für einen aussagekräftigen Wert und um etwaige Messungenauigkeiten zu
+kompensieren, wurde die Messung für jede Einstellung $10$ Mal wiederholt und der
+Mittelwert gebildet. Die Messreihen sind aufgrund der besseren Übersicht im
+Anhang zu finden (\ref{a:messtabellen}).

@@ -31,7 +31,7 @@ geforderte modulare Aufbau sichergestellt.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=.5]{BlockdiagrammSender.pdf} % skalieren
+\includegraphics[scale=.45]{BlockdiagrammSender.pdf} % skalieren
 \caption{Blockdiagramm des Senders}
 \label{fig:BlockdiagrammSender}
 \end{figure}
@@ -70,10 +70,10 @@ des daf{\"u}r erforderlichen Algorithmus wurde der in \abbildung{Beispieltext}
 dargestellte Beispieltext erstellt.
 
 \begin{figure}[H]
-\centering
-\includegraphics[scale=.4]{Beispieltext.pdf}
-\caption{Beispieltext}
-\label{fig:Beispieltext}
+	\centering
+	\includegraphics[scale=.6]{Beispieltext.pdf}
+	\caption{Beispieltext}
+	\label{fig:Beispieltext}
 \end{figure}
 
 In diesem Testfall wurden die relevanten Bereiche willk{\"u}rlich festgelegt, mit
@@ -82,18 +82,18 @@ der \abbildung{Beispieltext} gelb markiert.\newline
 Daraus ergeben sich folgenden Positionen der relevanten Bereiche:
 
 \begin{longtable}{|cccl|}
-\caption{{\"U}bersicht der relevanten 2D-Bereiche} \\
-\hline
-\label{tab:UebersichtDerRelevantenBereiche}
-\textbf{Position x} & \textbf{Position y} & \textbf{L{\"a}nge x} &
-\textbf{relevanter Text}\\
-\hline
-  13 &  0 & 14 & "`Beispieltext:\ensuremath{\backslash}n"' \\
-   0 &  1 &  9 & "`Hallo ich"' \\
-  35 &  1 & 22 & "`komme vom Mars.\ensuremath{\backslash}nDabei"' \\
-  37 &  2 & 18 & "`dann priorisiert,"' \\
-  73 &  2 &  4 & "`und "' \\
-\hline
+	\caption{{\"U}bersicht der relevanten 2D-Bereiche} \\
+	\hline
+	\label{tab:UebersichtDerRelevantenBereiche}
+	\textbf{Position x} & \textbf{Position y} & \textbf{L{\"a}nge x} &
+	\textbf{relevanter Text}\\
+	\hline
+	  13 &  0 & 14 & "`Beispieltext:\ensuremath{\backslash}n"' \\
+	   0 &  1 &  9 & "`Hallo ich"' \\
+	  35 &  1 & 22 & "`komme vom Mars.\ensuremath{\backslash}nDabei"' \\
+	  37 &  2 & 18 & "`dann priorisiert,"' \\
+	  73 &  2 &  4 & "`und "' \\
+	\hline
 \end{longtable}
 
 F{\"u}r den Algorithmus ist es wichtig, dass die relevanten Bereiche den
@@ -227,7 +227,7 @@ Der Algorithmus ist in \abbildung{AlgorithmusPacketizer} graphisch dargestellt.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=.5]{AlgorithmusPacketizer.pdf}
+\includegraphics[scale=.6]{AlgorithmusPacketizer.pdf}
 \caption{Algorithmus Packetizer}
 \label{fig:AlgorithmusPacketizer}
 \end{figure}
@@ -290,23 +290,23 @@ infolgedessen werden alle wichtigen Daten gesichert.
 
 Die erste Methode hat den Vorteil, dass alle Daten sofort gesichert werden und
 somit diese nicht verloren gehen k{\"o}nnen. Jedoch sind daf{\"u}r sehr viele
-Festplattenzugriffe notwendig, wodurch die Laufzeit des Programms stark beeintr{\"a}chtigt wird. Bei der
-dritten Methode sind die Festplattenzugriffe minimal, jedoch k{\"o}nnen nur
-Software- und Hardwarefehler bei der Programmabarbeitung abgefangen werden. Bei
-einem Stromausfall w{\"u}rden trotzdem alle Daten verloren gehen. Deshalb wird
-Methode Zwei verwendet. Diese stellt den besten Kompromiss aus Datensicherheit
-und Performance dar. \newline
-F{\"u}r diese Aufgabe wurde ein Submodul entwickelt, welches die Datenbl{\"o}cke auf
-der Festplatte hinterlegt und bei einem Absturz neu l{\"a}dt und damit die
+Festplattenzugriffe notwendig, wodurch die Laufzeit des Programms stark
+beeintr{\"a}chtigt wird. Bei der dritten Methode sind die Festplattenzugriffe
+minimal, jedoch k{\"o}nnen nur Software- und Hardwarefehler bei der
+Programmabarbeitung abgefangen werden. Bei einem Stromausfall w{\"u}rden
+trotzdem alle Daten verloren gehen. Deshalb wird Methode Zwei verwendet. Diese
+stellt den besten Kompromiss aus Datensicherheit und Performance dar. \newline
+F{\"u}r diese Aufgabe wurde ein Submodul entwickelt, welches die Datenbl{\"o}cke
+auf der Festplatte hinterlegt und bei einem Absturz neu l{\"a}dt und damit die
 \Code{SmartPrioritizedQueue} vorinitialisiert. Dadurch sind die Schnittstellen,
 welche das Modul bereitstellen soll, schon indirekt vorgegeben. Diese sind, eine
-Methode welche Datenbl{\"o}cke auf der Festplatte speichert, eine weitere um diese zu laden
-und eine Dritte, mit der bereits gespeicherte Datenbl{\"o}cke gel{\"o}scht werden
-k{\"o}nnen.
+Methode welche Datenbl{\"o}cke auf der Festplatte speichert, eine weitere um
+diese zu laden und eine Dritte, mit der bereits gespeicherte Datenbl{\"o}cke
+gel{\"o}scht werden k{\"o}nnen.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=.5]{EinbettungStoreManager.pdf}
+\includegraphics[scale=.45]{EinbettungStoreManager.pdf}
 \caption{Integration des Submoduls \Code{StoreManager}}
 \label{fig:EinbettungStoreManager}
 \end{figure}
@@ -362,12 +362,12 @@ aufgef{\"u}hrten Reihenfolge gespeichert:
 \item Content als ByteArray
 \end{itemize}
 
-\todo{Satz eventuell verstaendlicher formulieren ?!?}Aufgrund der Tatsache, dass
-der Datenblockheader eine Kompression beinhaltet, und damit die Gr{\"o}{\ss}e der Variablen unterschiedlich sein kann, wird f{\"u}r die
-Variablen festgelegt, dass f{\"u}r jeden Wert die h{\"o}chste auftretende Bitzahl
-aufgerundet zur n{\"a}chsten Zweierpotenz als Byte verwendet wird. Dadurch
-wird das Laden und Speichern stark vereinfacht. Der dabei auftretende zus{\"a}tzliche
-Speicherplatzbedarf kann vernachl{\"a}ssigt werden.
+Aufgrund der Tatsache, dass eine Kompression des Datenblockheaders möglich ist,
+und damit die Gr{\"o}{\ss}e der Variablen unterschiedlich sein kann, wird
+f{\"u}r die Variablen festgelegt, dass f{\"u}r jeden Wert die h{\"o}chste
+auftretende Bitzahl aufgerundet zur n{\"a}chsten Zweierpotenz als Byte verwendet
+wird. Dadurch wird das Laden und Speichern stark vereinfacht. Der dabei
+auftretende zus{\"a}tzliche Speicherplatzbedarf kann vernachl{\"a}ssigt werden.
 \newline 
 F{\"u}r die Ordnerstruktur wurde eine m{\"o}glichst flache Hierachie genutzt, welche in
 der obersten Stufe den Ordner \Code{Backup} beinhaltet. Darin befinden sich
@@ -399,7 +399,7 @@ Moduls angezeigt. Die Implementierung wird im Folgendem n{\"a}her erl{\"a}utert.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=.5]{BlockdiagrammEmpfaenger.pdf}
+\includegraphics[scale=.6]{BlockdiagrammEmpfaenger.pdf}
 \caption{{\"U}bersicht des Empf{\"a}ngers}
 \label{fig:BlockdiagrammEmpfaenger}
 \end{figure}
@@ -418,7 +418,7 @@ Klasse \Code{DataBlockProcessing} verarbeitet.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=.5]{AlgorithmusMessageParser.pdf}
+\includegraphics[scale=.6]{AlgorithmusMessageParser.pdf}
 \caption{Algorithmus zum Parsen der Nachricht}
 \label{fig:AlgorithmusMessageParser}
 \end{figure}

@@ -55,9 +55,10 @@ Die Messung ist in Abbildung MUH dargestellt, bei der nacheinander
 unterschiedliche Datengrößen verarbeitet werden und das Modul nicht neu erstellt
 wurde. Hierbei ist zu erkennen, dass die Dauer immer grösser wird
 je mehr Daten schon bearbeitet wurden. Eine genauere Analyse zeigt, dass die
-priorisierenden \gls{FIFO} der Flaschenhals ist. Bei diesen Testdurchlauf
-wurden insgesamt $41.400$ Datenblöcke aus $548$ MB bewältigt. Dabei lagen alle
-Datenblöcke gleichzeitig in der \gls{FIFO}, wodurch das Einsortieren neuer
+priorisierenden \gls{FIFO} der Flaschenhals ist. Bei diesem Testdurchlauf
+wurden insgesamt $41.400$ Datenblöcke aus $548$ MB bewältigt \todo{bewältigt
+klingt in diesem zusammenhang iwi komisch hehe}.
+Dabei lagen alle Datenblöcke gleichzeitig in der \gls{FIFO}, wodurch das Einsortieren neuer
 Blöcke sehr viel Rechenleistung in Anspruch nimmt. Gleichzeitig werden diese
 Daten im Arbeitsspeicher und auf der Festplatte gespeichert. Hierbei gilt zu
 untersuchen, ob diese Form der Datensicherung bei einem Rover auf dem

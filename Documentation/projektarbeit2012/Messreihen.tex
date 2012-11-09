@@ -1,38 +1,45 @@
 \label{subCap:Messreihen}
 
-Die Messreihen und Tests wurden mit einem Notebook aufgenommen, der Folgende
-Hardwarekonfigurationen besitzt.
+Die Messungen wurden mit einem Notebook aufgenommen, der
+folgende Hardwarekonfigurationen besitzt.
 
 \textit{
 	LENOVO Thinkpad t410 Modell 2522-w29 \newline
 	\textbf{Prozessor}: Intel Core i5 520M (2 Kerne mit Hyperthreading $\stackrel{\wedge}=$ 4 Threads)\\
-	\textbf{RAM}: 4 GB DDR3	
+	\textbf{Arbeitsspeicher}: 4 GB DDR3	
 	}
 
 Da eine ähnliche Hardware bei einer Verwendung des Protokolls auf dem Mars
-weniger zu erwarten ist, sind die nachfolgenden Ergebnisse bezüglich ihrer
-absoluten Werte nicht wirklich aussagekräftig. Für unsere Betrachtungen waren
-jedoch mehr die Beziehungen und Entwicklungen der einzelnen Werte zueinander
-wichtig.
+weniger zu erwarten ist, sind die Größenordnungen der nachfolgenden Ergebnisse
+nur ein Richtwert. Für die folgenden Betrachtungen sind die Beziehungen und
+Entwicklungen der einzelnen Werte zueinander wichtig, welche mit schwächerer
+Hardware nahezu identisch sind.
 
-Das Protokoll wurde immer grundlegend mit zwei verschiedenen
-Compilereinstellungen getestet. Zum Einen Geschwindigkeits- (\glqq O$2$ \grqq)
-und zum Anderen Quellcodegrößen-Optimiert (\glqq Os \grqq). Dabei wurde
-untersucht, wie lange das Protokoll für Texte verschiedener Größe benötigt, die
-keine relevanten Bereiche besitzen. In diesem Fall ist keine Vorpriorisierung
-notwendig und das Protokoll kann ohne großen Aufwand die Datei splitten und die
-Datenblock nacheinander verschicken. Zum Vergleich dazu ist eine Messreihen mit
-unterschiedlich vielen relevanten Bereichen für einen $5.000.000$ Byte Text
-aufgenommen worden. Hier ist zu erwarten, dass die Laufzeit gegenüber ersterer
-Betrachtung ansteigt. 
+Das Protokoll wird grundlegend mit zwei verschiedenen
+Compilereinstellungen getestet. Zum einen die Geschwindigkeits- (\glqq O$2$
+\grqq) und zum Anderen die Quellcodegrößenoptimierung (\glqq Os \grqq). Dabei
+wurde untersucht, wie lange das Protokoll für die Verarbeitung von Texten
+verschiedener Größe benötigt, die keine relevanten Bereiche besitzen. Dafür
+wurden Dateien mit verschiedenen Größen von $2$ Bytes bis $10$ Millionen Bytes 
+angelegt, durch das Programm eingelesen und der Schnittstelle des Protokolls
+übergeben. In diesem Fall ist keine Vorpriorisierung notwendig und die Datei
+kann sukzessive in maximale Datenblockgrößen zerlegt werden.
+Im Vergleich dazu ist eine Messreihen mit unterschiedlich vielen relevanten
+Bereichen für einen Text mit der Größe von $5.000.000$ Byte aufgenommen
+worden.
+Durch das Anfallen von zusätzlichen Berechnungen die zum Zerteilen 
+des Textes notwendig sind, ist zu erwarten, dass die Laufzeit gegenüber
+ersterer Betrachtung ansteigt.
 
 Die eben vorgestellten Messungen wurden auf zwei verschiedenen Wegen
-aufgenommen. Diese unterscheiden sich dahingehend, dass bei einem vor jedem
-neuen aufzunehmenden Messwert der RAM gelöscht wurde. Für den zweiten Fall
-wurden die Daten alle hintereinander verschickt um eine realistische Simulation
-darzustellen zu können. 
+aufgenommen. Diese unterscheiden sich dahingehend, dass das Modul vor dem Erhalt
+neuer Daten gelöscht und anschließend neu erstellt wurde. Somit sind alle
+Datenstrukturen bei jeden Messdurchgang leer, wodurch vorallem die Komplexität
+der Einsortierung in die priorisierende \gls{FIFO} verringert wurde. Für den
+zweiten Fall wurden die Daten alle nacheinander verschickt, um ein realistischeres
+Szenario darzustellen zu können.
 
-Für einen aussagekräftigen Wert und um etwaige Messungenauigkeiten zu
+Für einen aussagekräftigeren Wert und um potentielle Messungenauigkeiten zu
 kompensieren, wurde die Messung für jede Einstellung $10$ Mal wiederholt und der
-Mittelwert gebildet. Die Messreihen sind aufgrund der besseren Übersicht im
-Anhang zu finden (\ref{a:messtabellen}).
+Mittelwert gebildet. Die Messreihen sind zur besseren Übersicht im
+Anhang dargestellt (\ref{sec:messtabellen}).

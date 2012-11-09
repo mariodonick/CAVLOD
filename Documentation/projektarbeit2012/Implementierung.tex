@@ -26,12 +26,12 @@ darstellt.
 Dies bietet eine {\"U}bersicht zu den Modulen und zeigt wie diese untereinander 
 Kommunizieren. In der Grafik ist jedes Submodul durch ein M in der linken
 oberen Ecke des Blockes gekennezeichnt. Ebenso ist die Schnittstellenklasse angegeben
-und durch die Abk{\"u}rzung \gls{IF} (Interface) gekennzeichnet. Dadurch ist der
+und durch die Abk{\"u}rzung \gls{IF} gekennzeichnet. Dadurch ist der
 geforderte modulare Aufbau sichergestellt.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=.5]{BlockdiagrammSender.pdf} % skalieren
+\includegraphics[scale=.45]{BlockdiagrammSender.pdf} % skalieren
 \caption{Blockdiagramm des Senders}
 \label{fig:BlockdiagrammSender}
 \end{figure}
@@ -44,16 +44,15 @@ Content in bin{\"a}re Daten umgewandelt. Am Ende werden die Datenbl{\"o}cke mit 
 Headerinformationen in einer \gls{FIFO} gepuffert.
 Anschliessend wird jedem einzelnen Datenblock im n{\"a}chsten Modul eine Priorit{\"a}t zugewiesen. Die angesprochene
 Relevanz und die Priorit{\"a}t der Datenbl{\"o}cke werden in einem extra Modul namens
-\gls{CRODM} (Content Relevance-oriented Data Management)
-berechnet und den Modulen {\"u}bergeben.
+\gls{CRODM} berechnet und den Modulen {\"u}bergeben.
 Anhand dieser wird der Datenblock in die Datenstruktur
 \Code{SmartPrioritizedQueue} einsortiert. Dadurch wird
 gew{\"a}hrleistet, dass die wichtigen Daten zuerst gesendet werden. F{\"u}r diese
-Aufgabe wird eine einfache Liste aus der \gls{STL} (Standard Template Library)
-verwendet. Durch diese kann iteriert werden und es besteht ein schneller zufälliger Zugriff auf das jedes Element, welches ebenso effektiv eingefügt und
-gelöscht werden kann. Weiterhin exsistiert die notwendige Sortierfunktion. Diese
-hat f{\"u}r den durch sie ausgef{\"u}hrten Zweck eine vergleichsweise gute
-Laufzeit.
+Aufgabe wird eine einfache Liste aus der \gls{STL} verwendet. Durch diese kann
+iteriert werden und es besteht ein schneller zufälliger Zugriff auf das jedes
+Element, welches ebenso effektiv eingefügt und gelöscht werden kann. Weiterhin
+exsistiert die notwendige Sortierfunktion. Diese hat f{\"u}r den durch sie
+ausgef{\"u}hrten Zweck eine vergleichsweise gute Laufzeit.
 Damit die Verz{\"o}gerung, die durch gro{\ss}e Entfernungen auftritt, besser
 ber{\"u}cksichtigt werden kann, wird das Submodul \Code{Packetizer} als Thread
 gestartet.
@@ -107,9 +106,9 @@ eindimensionalen umgerechnet, dadurch konnte das herausschneiden der
 Textfragmente, welche Zeilenspr{\"u}nge beinhalten k{\"o}nnen oder {\"u}ber eine
 Zeile hinaus gehen k{\"o}nnen, vereinfacht werden. Daf{\"u}r
 werden zuerst die akkumulierten Gesamtl{\"a}ngen der einzelnen Zeilen berechnet.
-Vorhandene Umlaute und andere Zeichen die nicht im ASCII\footnote{ASCII
-(American Standard Code for Information Interchange) ist eine 7-Bit
-Zeichencodierung.}\todo{quelle f{\"u}r ascii} -Zeichensatz enthalten sind, ben{\"o}tigen die doppelte L{\"a}nge.
+Vorhandene Umlaute und andere Zeichen die nicht im
+\gls{ASCII}\footnote{\gls{ASCII} ist eine 7-Bit Zeichencodierung.}\todo{quelle
+f{\"u}r ascii}-Zeichensatz enthalten sind, ben{\"o}tigen die doppelte L{\"a}nge.
 Die Gesamtl{\"a}ngen der Zeilen sind in der Tabelle
 \ref{tab:UebersichtDerAkkumuliertenZeilenlaengen} angegeben.
 
@@ -198,7 +197,7 @@ caption=Pseudocode des Moduls SplitEncoding] {Listings/PseudocodeSplitEncoding.t
 
 Die priorisierten Datenbl{\"o}cke werden in diesem Schritt zu einer Nachricht
 verpackt. Hierbei ist darauf zu achten, dass die maximale Paketgr{\"o}{\ss}e
-nicht {\"u}berschritten wird. Weiterhin soll kein Platz verschwendet werden, \dahe
+nicht {\"u}berschritten wird. Weiterhin soll kein Platz verschwendet werden,
 \dahe die Nachricht soll die maximale Nachrichtenl{\"a}nge so genau wie
 m{\"o}glich erreichen.
 Um die Nachricht auf der Empf{\"a}ngerseite wieder korrekt darstellen zu k{\"o}nnen, ist
@@ -235,17 +234,17 @@ Der Algorithmus ist in \abbildung{AlgorithmusPacketizer} graphisch dargestellt.
 
 \subsection{Netzwerk}
 
-Als Netzwerkschnittstelle wird ein UDP Socket verwendet. Dieser erh{\"a}lt die
+Als Netzwerkschnittstelle wird ein \gls{UDP} Socket verwendet. Dieser erh{\"a}lt die
 erstellte Nachricht vom Submodul \Code{Packetizer} und leitet diese an einen
-zuvor ge{\"o}ffneten UDP Socket weiter. Durch eine Client/Server basierte
-Socket-Kommunikation {\"u}ber UDP (verbindungslose Kommunikation im Gegensatz
-zu TCP) wird der Datenstrom an die definierte Zieladresse und den definierten
-Zielport geleitet. Da es sich hierbei um eine UDP Socket-Verbindung handelt,
+zuvor ge{\"o}ffneten \gls{UDP} Socket weiter. Durch eine Client/Server basierte
+Socket-Kommunikation {\"u}ber \gls{UDP} (verbindungslose Kommunikation im Gegensatz
+zu \gls{TCP} wird der Datenstrom an die definierte Zieladresse und den
+definierten Zielport geleitet. Da es sich hierbei um eine \gls{UDP} Socket-Verbindung handelt,
 werden Paketverluste nicht bemerkt (keine Sicherung der Daten{\"u}bertragung).
-Lediglich ein {\"u}bergreifendes Protokoll wie CROP, welches dies erkennen
+Lediglich ein {\"u}bergreifendes Protokoll wie \gls{CROP}, welches dies erkennen
 k{\"o}nnte, kann dann eine erneute Sendung anfordern (zum jetzigen Zeitpunkt
-ist CROP jedoch nicht f{\"a}hig einen Verbindungsabbruch zu detektieren). Die
-f{\"u}r den Vorgang genutzte Adressierungsart wird im CROP Protokoll festgelegt
+ist \gls{CROP} jedoch nicht f{\"a}hig einen Verbindungsabbruch zu detektieren). Die
+f{\"u}r den Vorgang genutzte Adressierungsart wird im \gls{CROP} festgelegt
 und somit f{\"u}r die Socket-Kommunikation {\"u}bernommen. Im Testszenario
 dieser Arbeit kommt dabei IPv4 zum Einsatz.
 
@@ -259,7 +258,7 @@ dieser Arbeit kommt dabei IPv4 zum Einsatz.
 Abbildung \ref{fig:Socket-Kommunikation} zeigt ein vereinfachte Dartsellung der
 Socket Kommunikation zwischen Client und Server mit aufsetzendem Content
 Relevance-Oriented Protocol. In Abbildung \ref{fig:OSI} erfolgt eine Einordnung
-des CROP in das OSI-Referenzmodell.
+des \gls{CROP} in das OSI-Referenzmodell.
 
 \begin{figure}[H]
 \centering
@@ -277,7 +276,8 @@ weitere notwendige Eigenschaft der Software heraus.
 Die Daten, welchen w{\"a}hrend des Progammablaufes erstellt und zum Versenden
 gespeichert werden, sollen auch nach einem Programmabsturz oder nach einem
 Stromausfall noch vorhanden sein. Weil die Klasse \Code{SmartPrioritizedQueue}
-die Daten im RAM hinterlegt, w{\"a}ren diese bei einem Absturz verloren.
+die Daten im Arbeitsspeicher hinterlegt, w{\"a}ren diese bei einem Absturz
+verloren.
 F{\"u}r das Abspeichern der Daten auf die Festplatte existieren prinzipiell drei Methoden.
 
 \begin{enumerate}
@@ -306,7 +306,7 @@ gel{\"o}scht werden k{\"o}nnen.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=.5]{EinbettungStoreManager.pdf}
+\includegraphics[scale=.45]{EinbettungStoreManager.pdf}
 \caption{Integration des Submoduls \Code{StoreManager}}
 \label{fig:EinbettungStoreManager}
 \end{figure}
@@ -330,7 +330,7 @@ in Tabelle \ref{tab:Speicherformate} aufgef{\"u}hrt.
 \caption{Vergleich der Speicherformate} \\
 \hline
 \label{tab:Speicherformate}
-\textbf{} & \textbf{XML-Datei} & \textbf{Bin{\"a}re Datei}\\
+\textbf{} & \textbf{\gls{XML}-Datei} & \textbf{Bin{\"a}re Datei}\\
 \hline
   Menschliche Lesbarkeit      &  + & - \\
   Dateigr{\"o}{\ss}e      &  0 & + \\
@@ -341,10 +341,11 @@ in Tabelle \ref{tab:Speicherformate} aufgef{\"u}hrt.
 \end{longtable}
 \todo{ QUELLE???????????????????}
 
-Der Tabelle ist zu entnehmen, dass XML auf den ersten Blick das bessere Format
-ist. Dennoch wurde eine bin{\"a}re Datei verwendet, da die beiden
-entscheidenden Schwachstellen (die Portabilit{\"a}t und die Lesbarkeit) f{\"u}r
-einen Menschen im konkreten Anwendungsfall keine Bedeutung haben.
+Der Tabelle \ref{tab:Speicherformate} ist zu entnehmen, dass \gls{XML} auf den
+ersten Blick das bessere Format ist. Dennoch wurde eine bin{\"a}re Datei
+verwendet, da die beiden entscheidenden Schwachstellen (die Portabilit{\"a}t und
+die Lesbarkeit) f{\"u}r einen Menschen im konkreten Anwendungsfall keine
+Bedeutung haben.
 Weiterhin soll nur der Computer die Daten auf der Festplatte ablegen und
 wieder lesen k{\"o}nnen. F{\"u}r das Versenden {\"u}ber das Internet oder
 andere Medien besitzt die Portabilit{\"a}t zudem keinen gro{\ss}en Stellenwert.
@@ -361,12 +362,12 @@ aufgef{\"u}hrten Reihenfolge gespeichert:
 \item Content als ByteArray
 \end{itemize}
 
-\todo{Satz eventuell verstaendlicher formulieren ?!?}Aufgrund der Tatsache, dass
-der Datenblockheader eine Kompression beinhaltet, und damit die Gr{\"o}{\ss}e der Variablen unterschiedlich sein kann, wird f{\"u}r die
-Variablen festgelegt, dass f{\"u}r jeden Wert die h{\"o}chste auftretende Bitzahl
-aufgerundet zur n{\"a}chsten Zweierpotenz als Byte verwendet wird. Dadurch
-wird das Laden und Speichern stark vereinfacht. Der dabei auftretende zus{\"a}tzliche
-Speicherplatzbedarf kann vernachl{\"a}ssigt werden.
+Aufgrund der Tatsache, dass eine Kompression des Datenblockheaders möglich ist,
+und damit die Gr{\"o}{\ss}e der Variablen unterschiedlich sein kann, wird
+f{\"u}r die Variablen festgelegt, dass f{\"u}r jeden Wert die h{\"o}chste
+auftretende Bitzahl aufgerundet zur n{\"a}chsten Zweierpotenz als Byte verwendet
+wird. Dadurch wird das Laden und Speichern stark vereinfacht. Der dabei
+auftretende zus{\"a}tzliche Speicherplatzbedarf kann vernachl{\"a}ssigt werden.
 \newline 
 F{\"u}r die Ordnerstruktur wurde eine m{\"o}glichst flache Hierachie genutzt, welche in
 der obersten Stufe den Ordner \Code{Backup} beinhaltet. Darin befinden sich

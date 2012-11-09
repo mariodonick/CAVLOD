@@ -14,15 +14,15 @@ Informationen eine hohe Priorit{\"a}t zugewiesen bekommen.
 
 \textbf{Time To Live}
 
-Die Time To Live (TTL) bezeichnet die Lebensdauer eines Datenpakets und ist
+Die \gls{TTL} bezeichnet die Lebensdauer eines Datenpakets und ist
 dabei von unterschiedlichen Aspekten abh{\"a}ngig. So kann ein Paket einerseits nach
 Ablauf eines Zeitraums oder nach einer bestimmten Anzahl
-von hops verworfen werden. Das Ablaufen durch den Hop\footnote{Ein Hop
+von Hops verworfen werden. Das Ablaufen durch den Hop\footnote{Ein Hop
 bezeichnet eine Station einer Route auf dem Weg zum Ziel (Knoten)}-Zähler
 ist dabei in einem Szenario der interplanetaren Kommunikation derzeit eher
 unrealistisch, da zumeist eine Punkt-zu-Punkt Verbindung anvisiert wird (kein
 intensives Routing {\"u}ber eine Vielzahl an Stationen). Somit w{\"a}re unter
-Ber{\"u}cksichtigung einer interplanetaren Kommunikation eine TTL Realisierung
+Ber{\"u}cksichtigung einer interplanetaren Kommunikation eine \gls{TTL} Realisierung
 per Zeitstempel sinnvoller, da hier{\"u}ber, unter Ber{\"u}cksichtigung des
 {\"U}bertragungskontextes, unrealistische {\"U}bertragungszeiten einfach erkannt
 werden k{\"o}nnen.
@@ -34,17 +34,17 @@ Eine m{\"o}gliche Entscheidungsgrundlage daf{\"u}r, wann Daten aus einer
 \gls{FIFO} verworfen werden sollen, w{\"a}re die Wichtigkeit selbiger. So
 k{\"o}nnen Daten geringer Relevanz direkt nach dem Senden gel{\"o}scht werden.
 Wohingegen Daten hoher Relevanz erst nach Empfangsquittierung bzw. Ablauf des
-TTL Timers verworfen werden.
+\gls{TTL} Timers verworfen werden.
 
 \textbf{Protocol Stack} \label{sec:Konzept_Protocolstack}
 
-Die von der jeweiligen Anwendung an den CROP Stack {\"u}bergebenen Daten werden
-zun{\"a}chst in kleinere Datenbl{\"o}cke gesplittet. Diese Datenbl{\"o}cke
+Die von der jeweiligen Anwendung an den \gls{CROP} Stack {\"u}bergebenen Daten
+werden zun{\"a}chst in kleinere Datenbl{\"o}cke gesplittet. Diese Datenbl{\"o}cke
 werden der Relevanz nach evaluiert und anschlie{\ss}end priorisiert.
 Im Anschlu{\ss} daran werden die priorisierten Datenbl{\"o}cke der jeweiligen
 Wertigkeit in einer \gls{FIFO} gespeichert. Danach werden im
 \gls{glos:Packetizer} die Datenbl{\"o}cke h{\"o}chster Priorit{\"a}t zu einer
-Nachricht zusammengefasst, die danach an den UDP Stack {\"u}bergeben werden
+Nachricht zusammengefasst, die danach an den \gls{UDP} Stack {\"u}bergeben werden
 kann. Dieser grundlegende Ablauf ist in Abbildung \ref{fig:CRODT} schematisch
 dargestellt.
 
@@ -71,10 +71,10 @@ Vorganges.
 \end{figure}
  
 Die Abbildung \ref{fig:CROP_Stack} zeigt die Handhabung im CROP-Stack
-unter Nutzung des UDP-Protokolls f{\"u}r die finale Daten{\"u}bertragung. Der
-Application, Presentation und Session Layer des OSI Modells
+unter Nutzung des \gls{UDP}-Protokolls f{\"u}r die finale Daten{\"u}bertragung. Der
+Application, Presentation und Session Layer des OSI-Modells
 wird hierbei vereinfacht als Anwendungsschicht zusammengefasst.
-Der Transport Layer des OSI Modells entspricht der Transportschicht des
+Der Transport Layer des OSI-Modells entspricht der Transportschicht des
 vereinfachten Modells. Die Internetschicht repr{\"a}sentiert den Network
 Layer.
 Der Data Link Layer und der Physical Layer des OSI-Modells wird zur
@@ -83,8 +83,8 @@ equivalente Darstellung der Paketerweiterung um den jeweiligen Header
 hinzugef{\"u}gt. Der Protokollablauf sieht dabei nach Aufteilung der Daten in
 Bl{\"o}cke und Zuweisung einer Priorit{\"a}t, eine Zusammenfassung zu einer
 Nachricht mit ausschließlich höher priorisierten Daten vor. Dieses Datenpaket
-wird nun an den UDP-Stack weitergegeben. Diese werden
-anschlie{\ss}end um den IP-Header erweitert und dann entsprechend
+wird nun an den \gls{UDP}-Stack weitergegeben. Diese werden
+anschlie{\ss}end um den \gls{IP}-Header erweitert und dann entsprechend
 der {\"U}bertragungsschnittstelle und deren Protokoll versandt.
 
 \begin{figure}[H]

@@ -6,21 +6,16 @@ und bewertet werden sollte.
 
 Dabei wird in Kapitel \ref{cap:standDerTechnik} und \ref{cap:grundlagen} ein
 erster Überblick über den momentanen Stand der Technik, sowie Grundlagen zur
-Einordnung der Thematik gegeben \todo{kommentar}
-% ob das nu so wirklich stimmt
-% weiß ich net ... klingt erstmal toll aber vllt muss da noch was anderes gefunden werden}
-.
+Einordnung der Thematik gegeben.
+
 Die konzeptionelle Darstellung des Protokolls erfolgt in Kapitel
 \ref{cap:konzept}. Dazu gehören neben möglichen Implementierungen und
 Vorüberlegungen auch die eigentliche theoretische Umsetzung sowie Szenarien,
 welche den Ablauf des Protokolls beispielhaft vorstellen. Der eigentliche
 softwaretechnische Aufbau und die Implementierung wurden in Kapitel
 \ref{cap:implementierung} detailliert beschrieben. Abschließend wurde das
-Protokoll hinsichtlich Laufzeit und Speicherbedarf analysiert und ausgewertet
-(Kapitel \ref{cap:protokollAnalyse}). \todo{kommentar}
-% hier
-% müssen noch 1-2 sätze hin was bei der auswertung rauskam, kommt quasi am ende ... kapitel
-% ist am fertig werden ;)}
+Protokoll hinsichtlich Overhead, Laufzeit und Speicherbedarf analysiert und
+ausgewertet (Kapitel \ref{cap:protokollAnalyse}).
 
 Das in dieser Arbeit umgesetzte Protokoll bietet eine solide
 Grundlage zur Relevanz-Orientierten Kommunikation. Jedoch besteht noch Raum
@@ -35,6 +30,10 @@ die Festplattenzugriffe unabhängig vom eigentlichen Programmablauf. Ein
 weiterer Ansatzpunkt ist die Datenstruktur \Code{SmartPrioritizedQueue}. Für diese muss
 eine effiziente Möglichkeit gefunden werden Datenblöcke schnell
 einzusortieren, zu löschen und Bl{\"o}cke bestimmter Größe zu finden.
+Die angedachte Kompressionseinstellung aus Kapitel \ref{sec:ProtokolDesign}
+findet beispielsweise im \Code{StoreManager} schon Berücksichtigung, wurde aber
+noch nicht vollständig implementiert. Dadurch kann für viele kleine Datenblöcke
+weiterer Overhead eingespart werden.
 
 Das Protokoll ist aufgrund seiner Flexibilität auf eine Vielzahl an Datentypen
 anwendbar. Die Handhabung vieler Daten eines Datentyps zur selben Zeit könnten
@@ -53,11 +52,3 @@ Empfänger erreicht. Um das entwickelte Modul in Serverumgebungen zu integrieren
 muss ein Programm entwickelt werden, welches in der Lage ist dieses als
 Webservice zu starten.
 Dadurch können schon bestehende Benutzeroberflächen das Protokoll nutzen.
- 
-% !!!! WICHTIG Kommt auf dieser Seite nach ganz unten  für die QUELLEN ----> WICHTIG!!!!
-
-
-%\bibliographystyle{plaindin}
-%\bibliography{Referenzen}
-
-

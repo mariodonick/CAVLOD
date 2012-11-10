@@ -107,8 +107,7 @@ Textfragmente, welche Zeilenspr{\"u}nge beinhalten k{\"o}nnen oder {\"u}ber eine
 Zeile hinaus gehen k{\"o}nnen, vereinfacht werden. Daf{\"u}r
 werden zuerst die akkumulierten Gesamtl{\"a}ngen der einzelnen Zeilen berechnet.
 Vorhandene Umlaute und andere Zeichen die nicht im
-\gls{ASCII}\footnote{\gls{ASCII} ist eine 7-Bit Zeichencodierung.}\todo{quelle
-f{\"u}r ascii}-Zeichensatz enthalten sind, ben{\"o}tigen die doppelte L{\"a}nge.
+\gls{ASCII}\footnote{\gls{ASCII} ist eine 7-Bit Zeichencodierung.}-Zeichensatz enthalten sind, ben{\"o}tigen die doppelte L{\"a}nge.
 Die Gesamtl{\"a}ngen der Zeilen sind in der Tabelle
 \ref{tab:UebersichtDerAkkumuliertenZeilenlaengen} angegeben.
 
@@ -330,7 +329,7 @@ in Tabelle \ref{tab:Speicherformate} aufgef{\"u}hrt.
 \caption{Vergleich der Speicherformate} \\
 \hline
 \label{tab:Speicherformate}
-\textbf{} & \textbf{\gls{XML}-Datei} & \textbf{Bin{\"a}re Datei}\\
+\textbf{} & \textbf{XML-Datei} & \textbf{Bin{\"a}re Datei}\\
 \hline
   Menschliche Lesbarkeit      &  + & - \\
   Dateigr{\"o}{\ss}e      &  0 & + \\
@@ -339,7 +338,6 @@ in Tabelle \ref{tab:Speicherformate} aufgef{\"u}hrt.
 \hline
 \caption*{ + Gut, 0 Medium, - Schlecht }
 \end{longtable}
-\todo{ QUELLE???????????????????}
 
 Der Tabelle \ref{tab:Speicherformate} ist zu entnehmen, dass \gls{XML} auf den
 ersten Blick das bessere Format ist. Dennoch wurde eine bin{\"a}re Datei
@@ -362,12 +360,12 @@ aufgef{\"u}hrten Reihenfolge gespeichert:
 \item Content als ByteArray
 \end{itemize}
 
-Aufgrund der Tatsache, dass eine Kompression des Datenblockheaders möglich ist,
-und damit die Gr{\"o}{\ss}e der Variablen unterschiedlich sein kann, wird
-f{\"u}r die Variablen festgelegt, dass f{\"u}r jeden Wert die h{\"o}chste
-auftretende Bitzahl aufgerundet zur n{\"a}chsten Zweierpotenz als Byte verwendet
-wird. Dadurch wird das Laden und Speichern stark vereinfacht. Der dabei
-auftretende zus{\"a}tzliche Speicherplatzbedarf kann vernachl{\"a}ssigt werden.
+Für den Datenblockheader ist eine Kompression möglich und dadurch kann der
+Speicherplatzbedarf der Variablen unterschiedlich sein. Deshalb wird f{\"u}r
+diese festgelegt, dass die h{\"o}chste auftretende Bitzahl f{\"u}r jeden Wert zur
+n{\"a}chsten Zweierpotenz und ganzen Byte aufgerundet wird.
+Dadurch wird das Laden und Speichern stark vereinfacht. Der dabei auftretende
+zus{\"a}tzliche Speicherplatzbedarf kann vernachl{\"a}ssigt werden.
 \newline 
 F{\"u}r die Ordnerstruktur wurde eine m{\"o}glichst flache Hierachie genutzt, welche in
 der obersten Stufe den Ordner \Code{Backup} beinhaltet. Darin befinden sich

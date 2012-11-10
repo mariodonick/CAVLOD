@@ -50,14 +50,13 @@ nebensächlich.
 	\caption{Messung-Initial}
 \end{figure}
 
-\todo{ bild einfügen wobei man darauf wohl nicht viel erkennt?}
-Die Messung ist in Abbildung MUH dargestellt, bei der nacheinander
-unterschiedliche Datengrößen verarbeitet werden und das Modul nicht neu erstellt
-wurde. Hierbei ist zu erkennen, dass die Dauer immer grösser wird
-je mehr Daten schon bearbeitet wurden. Eine genauere Analyse zeigt, dass die
-priorisierenden \gls{FIFO} der Flaschenhals ist. Bei diesem Testdurchlauf
-wurden insgesamt $41.400$ Datenblöcke aus $548$ MB bewältigt \todo{bewältigt
-klingt in diesem zusammenhang iwi komisch hehe}.
+Bei der letzten Messung werden nacheinander unterschiedliche
+Datengrößen und zusätzlich Daten mit unterschiedlicher Anzahl an relevanten
+Bereichen betrachtet. Dabei wird das Modul nicht neu erstellt. Hierbei ist zu
+erkennen, dass die Verarbeitungsdauer ansteigt, je mehr Daten schon bearbeitet
+wurden. Eine genauere Analyse zeigt, dass die priorisierenden \gls{FIFO} der
+Flaschenhals ist. Bei diesem Testdurchlauf wurden insgesamt $41.400$ Datenblöcke
+aus $548$ MB verarbeitet.
 Dabei lagen alle Datenblöcke gleichzeitig in der \gls{FIFO}, wodurch das Einsortieren neuer
 Blöcke sehr viel Rechenleistung in Anspruch nimmt. Gleichzeitig werden diese
 Daten im Arbeitsspeicher und auf der Festplatte gespeichert. Hierbei gilt zu

@@ -88,22 +88,17 @@
 % Abkürzungsverzeichnis
 % --------------------------------------------------------
 % % für eine korrekte Überschrift in der Kopfzeile
-\clearpage %\markboth{\nomname}{\nomname}
- %\printnomenclature 
-\printindex
-% \label{sec:Glossar}
- 
-%\cleardoublepage{}
+\clearpage
  
 %Glossar ausgeben
 \printglossary[style=altlist,title=Glossar]
- 
+
 %Abkürzungen ausgeben
 \deftranslation[to=German]{Acronyms}{Abkürzungsverzeichnis}
-\printglossary[type=\acronymtype,style=long]
+\printglossary[type=\acronymtype,style=long,title=Abkürzungsverzeichnis]
 
 %Symbole ausgeben
-\printglossary[type=symbolslist,style=long]
+\printglossary[type=symbolslist,style=long,title=Symbolverzeichnis]
  
 
 \listoffigures % Abbildungsverzeichnis
@@ -172,6 +167,7 @@
 %   erstellt.
 % ------------------------------------------------------------------------------
 \renewcommand{\refname}{Literatur- und Webverzeichnis}
+\RaggedRight
 \bibliography{Referenzen} % Aufruf: bibtex BLA-Arbeit
 \bibliographystyle{natdin} % DIN-Stil des Literaturverzeichnisses
 

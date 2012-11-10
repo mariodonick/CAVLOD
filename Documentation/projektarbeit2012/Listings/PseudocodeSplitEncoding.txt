@@ -10,39 +10,43 @@ function splitAndEncode(text)
     lineLength[i] = previousLength + computeCurrentLineLength()
     previousLength = lineLength[i]
   end while
+   
+  if relevance empty then
+   createOneFragment()
+  else
+    for relevanceBegin to relevanceEnd with index i
+      	fragment = transformToGlobal(i, lineLength[i])
+      	addFragmentInPositionVector(fragment)
+    end for
+    for relevanceBegin to relevanceEnd with index i
+      difference = computeDifferenceBetweenBlocks(i-1, i)
+      if lengthOf(difference) != 0 then
+      	addToPositionVector(difference)
+    end for
     
-  for relevanceBegin to relevanceEnd with index i
-    	fragment = transformToGlobal(i, lineLength[i])
-    	addFragmentInPositionVector(fragment)
-  end for
-  for relevanceBegin to relevanceEnd with index i
-    difference = computeDifferenceBetweenBlocks(i-1, i)
-    if lengthOf(difference) != 0 then
-    	addToPositionVector(difference)
-  end for
-  
-  lastPart = lengthLastFragment()
-  if lastPart < lengthOf(text) then
-  	lastFragment = computeLastFragment()
-  	addToPositionVector(lastFragment)
+    lastPart = lengthLastFragment()
+    if lastPart < lengthOf(text) then
+    	lastFragment = computeLastFragment()
+    	addToPositionVector(lastFragment)
+    if end
+    
+    max = maximaleContentLength()
+    for positionsVector begin to positionsVector end with index i
+    	if lengthOf(i) > max
+    		numberOfParts = lengthOf(i)/max
+    		restLength = lengthOf(i) mod max
+    		for 0 to numberOfParts
+    			part = computePartFragment()
+    			addFragmentInPositionVector(part)
+    		end for
+    
+    		if restLength != 0 then
+    			endPart = computeLastPartFragment()
+    			addFragmentInPositionVector(endPart)
+    		end if
+    	end if
+    while end
   if end
-  
-  max = maximaleContentLength()
-  for positionsVector begin to positionsVector end with index i
-  	if lengthOf(i) > max
-  		numberOfParts = lengthOf(i)/max
-  		restLength = lengthOf(i) mod max
-  		for 0 to numberOfParts
-  			part = computePartFragment()
-  			addFragmentInPositionVector(part)
-  		end for
-  
-  		if restLength != 0 then
-  			endPart = computeLastPartFragment()
-  			addFragmentInPositionVector(endPart)
-  		end if
-  	end if
-  while end
   
   for positionVectorBegin to positionsVectorEnd with index i
     a = transformToLocal(i)

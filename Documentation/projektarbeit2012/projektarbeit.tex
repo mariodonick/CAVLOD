@@ -88,20 +88,17 @@
 % Abkürzungsverzeichnis
 % --------------------------------------------------------
 % % für eine korrekte Überschrift in der Kopfzeile
-\clearpage %\markboth{\nomname}{\nomname}
+\clearpage
  
-%\cleardoublepage{}
-\addcontentsline{toc}{chapter}{Glossar}
-\addcontentsline{toc}{chapter}{Abkürzungsverzeichnis}
 %Glossar ausgeben
 \printglossary[style=altlist,title=Glossar]
 
 %Abkürzungen ausgeben
 \deftranslation[to=German]{Acronyms}{Abkürzungsverzeichnis}
-\printglossary[type=\acronymtype,style=long,title=Abkurz]
- 
+\printglossary[type=\acronymtype,style=long,title=Abkürzungsverzeichnis]
+
 %Symbole ausgeben
-\printglossary[type=symbolslist,style=long]
+\printglossary[type=symbolslist,style=long,title=Symbolverzeichnis]
  
 
 \listoffigures % Abbildungsverzeichnis

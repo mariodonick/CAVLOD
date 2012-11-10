@@ -31,26 +31,26 @@ Das Installieren von Plugins unter Eclipse erfolgt {\"u}ber \Code{Help $\rightar
 Install New Software\ldots} durch die Eingabe der in den Fu{\ss}noten stehenden
 Internetadresse.
 
-\section{Git und Kompilierung}
+\section{Git}
 
-Als Erstes sollte eine SSH-Verbindung zum Git-Repository eingerichtet werden.
+Als Erstes sollte eine SSH verbindung zum Git-Repository eingerichtet werden.
 Dazu sei auf die Anleitung von Git verwiesen
 (Ref. \cite{web7}). Als n{\"a}chstes k{\"o}nnen
 die Quelldateien unter Eclipse heruntergeladen werden. Dazu wird im Eclipse die
 Ansicht zum Git-Repository gewechselt. Dies erfolgt mit \Code{Window
 $\rightarrow$ Open Perspective $\rightarrow$ Other\ldots $\rightarrow$ Git
-Reposity Exploring}. In der neuen Ansicht wird das Herunterladen durch Anklicken
-des Icons "`Clone a Git Repository and add the clone to this view"' gestartet.
-Im sich {\"o}ffnenden Assistenten m{\"u}ssen unter URI die SSH-Daten
+Reposity Exploring}. In der neuen Ansicht das Herunterladen durch anklicken des
+Icons "`Clone a Git Repository and add the clone to this view"'. Im sich {\"o}ffnenden
+Assistenten m{\"u}ssen unter URI die SSH-Daten
 \Code{ssh://git@github.com/Helferlein/CAVLOD.git} eingetragen und
 beim letzten Fenster sollte ein Pfad angegeben werde, welcher
-unabh{\"a}ngig des Pfades vom Workspace von Eclipse ist.\newline
+unabh{\"a}ngig des Workspaces von Eclipse ist.\newline
 Danach wird die Ansicht auf \Code{Window
 $\rightarrow$ Open Perspective $\rightarrow$ Other\ldots $\rightarrow$ C/C++}
 zur{\"u}ckgesetzt. Unter \Code{File $\rightarrow$ Import\ldots Git $\rightarrow$
 Projects from Git $\rightarrow$ local} kann das entsprechende Projekt von Git
 in die Eclipse-Projektumgebung importiert werden. Zum Kompilieren kann
-mit Rechtsklick auf den Projektname und Auswahl des Builds (\Code{Build Configurations
+mit Rechtsklick auf den Projektname und Auswahl des Buildes (\Code{Build Configurations
 $\rightarrow$ Set Active}) das Programm erstellt werden. Hierf{\"u}r existieren
 drei Auswahlm{\"o}glichkeiten:
 
@@ -65,17 +65,7 @@ Module in einem anderen Projekt.
 \end{enumerate}
 
 Der Kompiliervorgang kann durch Rechtsklick auf den Projektname und ausw{\"a}hlen
-von \Code{Build Project} gestartet werden. Die Projekteinstellungen sind im
-Git-Repository gespeichert, jedoch ist es in anderen Projekten notwendig gegen
-die folgenden Bibliotheken zu linken.
-
-\begin{itemize}
-\item pthread
-\item rt
-\item boost\_programm\_options
-\item boost\_system
-\item boost\_filesystem
-\end{itemize}
+von \Code{Build Project} gestartet werden.
 
 \section{Beispiel}
 
@@ -113,54 +103,4 @@ Sender]{Listings/BeispielcodeSender.cpp}
 Receiver]{Listings/BeispielcodeReceiver.cpp}
 
 % Hier kommen die Messreihen zur Laufzeitenanalyse
-\section{Messwerttabellen}
 
-\label{sec:messtabellen}
-
-\begin{figure}[H]
-	\includegraphics[angle=90,scale=.66]{MessungNormal_worp.pdf}
-	\caption{Messung-Normal}	
-\end{figure}
-
-\newpage
-
-\begin{figure}[H]
-	\includegraphics[angle=90,scale=.7]{MessungNormal_wrp.pdf}
-	\caption{Messung-Normal}	
-\end{figure}
-
-\newpage
-
-\begin{figure}[H]
-	\includegraphics[angle=90,scale=.75]{MessungInitial_worp.pdf}
-	\caption{Messung-Initial}	
-\end{figure}
-
-\newpage
-
-\begin{figure}[H]
-	\includegraphics[angle=90,scale=.75]{MessungInitial_wrp.pdf}
-	\caption{Messung-Initial}	
-\end{figure}
-
-% Die restlichen Diagramme. Müssen eventuell noch angepasst werden.
-\section{Diagramme}
-\label{sec:Diagramme}
-
-\newpage
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[angle=90,scale=.8]{DiagrammNormal_worp.pdf}
-	\label{fig:diagrammNormal_worp}
-	\caption{Messung-Normal ohne relevante Bereiche}
-\end{figure}
-
-\newpage
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[angle=90,scale=.8]{DiagrammNormal_wrp.pdf}
-	\label{fig:diagrammNormal_wrp}
-	\caption{Messung-Normal mit relevanten Bereichen}
-\end{figure}

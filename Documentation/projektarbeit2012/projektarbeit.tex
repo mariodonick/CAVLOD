@@ -178,14 +178,23 @@
 %   Dies geschieht in der Datei "Anhang.tex".
 % ------------------------------------------------------------------------------
 \begin{appendix}
+	\addcontentsline{toc}{chapter}{Anhang}							
     \clearpage
-    \pagenumbering{roman}
-    \chapter{Anhang}
+    %\pagenumbering{roman}
+    \chapter{Anleitung}
     \label{sec:Anhang}
     % Rand der Aufzählungen in Tabellen anpassen
     \setdefaultleftmargin{1em}{}{}{}{}{}
-    \input{Anhang}
+    \input{AnhangA}
+    % Rand der Aufzählungen in Tabellen anpassen
+    \chapter{Abbildungen}
+    \setdefaultleftmargin{1em}{}{}{}{}{}
+    \input{AnhangB}
+    	
 \end{appendix}
+
+
+
 
 % Index ------------------------------------------------------------------------
 %   Zum Erstellen eines Index, die folgende Zeile auskommentieren.

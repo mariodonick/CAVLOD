@@ -91,13 +91,14 @@
 \clearpage %\markboth{\nomname}{\nomname}
  
 %\cleardoublepage{}
- 
+\addcontentsline{toc}{chapter}{Glossar}
+\addcontentsline{toc}{chapter}{Abkürzungsverzeichnis}
 %Glossar ausgeben
 \printglossary[style=altlist,title=Glossar]
 
 %Abkürzungen ausgeben
 \deftranslation[to=German]{Acronyms}{Abkürzungsverzeichnis}
-\printglossary[type=\acronymtype,style=long]
+\printglossary[type=\acronymtype,style=long,title=Abkurz]
 
 %Symbole ausgeben
 \printglossary[type=symbolslist,style=long]

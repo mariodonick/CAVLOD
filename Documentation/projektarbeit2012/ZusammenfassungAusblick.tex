@@ -1,11 +1,11 @@
 Für die interplanetare Kommunikation stehen besondere Aspekte, wie Latenz,
-Bandbreite oder der lokale Speicher, im Vordergrund. Dazu ist ein besonderes
+Bandbreite oder der lokale Speicher im Vordergrund. Dazu ist ein besonderes
 Kommunikationsprotokoll notwendig. Für dieses Protokoll existiert
 bereits ein Konzept (\cite{Daher}), welches im Rahmen dieser Arbeit
 teilweise verfeinert, implementiert und bewertet werden soll.
 
 Dabei wird in Kapitel \ref{cap:standDerTechnik} und \ref{cap:grundlagen} ein
-erster Überblick über den momentanen Stand der Technik, sowie Grundlagen zur
+erster Überblick über den momentanen Stand der Technik sowie Grundlagen zur
 Einordnung der Thematik gegeben.
 
 Die konzeptionelle Darstellung des Protokolls erfolgt in Kapitel
@@ -13,22 +13,22 @@ Die konzeptionelle Darstellung des Protokolls erfolgt in Kapitel
 Vorüberlegungen auch die eigentliche theoretische Umsetzung sowie Szenarien,
 welche den Ablauf des Protokolls beispielhaft vorstellen. Der eigentliche
 softwaretechnische Aufbau und die Implementierung werden in Kapitel
-\ref{cap:implementierung} detailliert beschrieben. Abschließend wurde das
+\ref{cap:implementierung} detailliert beschrieben. Abschließend wird das
 Protokoll hinsichtlich Overhead, Laufzeit und Speicherbedarf analysiert und
 ausgewertet (Kapitel \ref{cap:protokollAnalyse}).
 
 Das in dieser Arbeit umgesetzte Protokoll bietet eine solide
-Grundlage zur Relevanz-Orientierten Kommunikation. Jedoch besteht noch Raum
+Grundlage zur relevanzorientierten Kommunikation. Jedoch besteht noch Raum
 für Erweiterungen und Optimierungen.
 
-Zum Einen ist eine Optimierung der implementierten Algorithmen sinnvoll.
+Weiterhin ist eine Optimierung der implementierten Algorithmen sinnvoll.
 Der erste Anhaltspunkt ist das Submodul \Code{StoreManager}.
 Die Festplattenzugriffe während des kontinuierlichen Speicherns und Ladens der Daten
-sind sehr langsam und bremsen das gesamte Modul. Eine Möglichkeit dies zu
-verbessern, ist das Modul in einem extra Prozess auszuf{\"u}hren. Somit sind
+sind sehr langsam und bremsen das gesamte Modul. Eine Möglichkeit, dies zu
+verbessern, wäre, das Modul in einem extra Prozess auszuf{\"u}hren. Somit sind
 die Festplattenzugriffe unabhängig vom eigentlichen Programmablauf. Ein
 weiterer Ansatzpunkt ist die Datenstruktur \Code{SmartPrioritizedQueue}. Für diese muss
-eine effiziente Möglichkeit gefunden werden Datenblöcke schnell
+eine effiziente Möglichkeit gefunden werden, Datenblöcke schnell
 einzusortieren, zu löschen und Bl{\"o}cke bestimmter Größe zu finden.
 Die angedachte Kompressionseinstellung aus Kapitel \ref{sec:ProtokolDesign}
 findet beispielsweise im \Code{StoreManager} schon Berücksichtigung, wurde aber
@@ -40,7 +40,7 @@ anwendbar. Die Handhabung vieler Daten eines Datentyps zur selben Zeit können
 in Form von parallel ablaufenden Prozessen zur Geschwindigkeitsoptimierung
 beitragen. Um andere Datentypen im Protokoll zu verwenden, sollte eine
 Schnittstelle zum Laden von Plugins implementiert werden. Damit besteht dann die
-Möglichkeit dem Protokoll Algorithmen hinzuzufügen, wodurch
+Möglichkeit, dem Protokoll Algorithmen hinzuzufügen, wodurch
 übliche Datenformate wie docx oder bmp verarbeitet werden können.
 
 Die ebenfalls im Rahmen dieser Arbeit entwickelte ChatGui in Kapitel
@@ -49,6 +49,6 @@ Verwendung des Protokolls geben. In dieser kann das Zusammenführen von
 Textfragmenten noch optimiert werden. Interessant ist auch eine Anzeige
 über die ablaufende Zeitdauer, nach welcher ein versendetes Paket den
 Empfänger erreicht. Um das entwickelte Modul in Serverumgebungen zu integrieren,
-muss ein Programm entwickelt werden, welches in der Lage ist dieses als
+muss ein Programm entwickelt werden, welches in der Lage ist, dieses als
 Webservice zu starten.
 Dadurch können schon bestehende Benutzeroberflächen das Protokoll nutzen.

@@ -5,8 +5,8 @@ erm{\"o}glicht eine nutzerfreundliche Chat-Kommunikation über das \gls{CRODT}
 Protokoll.
 Hierbei wurde auf Basis der Design Regeln nach Jakob Nielsen der erste Prototyp
 entwickelt. Das GUI besteht aus dem Empfangsfenster (Abbildung \ref{fig:GUI}
-rechts), dem Eingabenfenster (Abbildung \ref{fig:GUI}
-unten links) mit einer Anzeige über bisher verschckte Nachrichten
+rechts), dem Eingabefenster (Abbildung \ref{fig:GUI}
+unten links) mit einer Anzeige über bisher verschickte Nachrichten
 (Abbildnug \ref{fig:GUI} oben links) sowie der Priorit{\"a}tenliste
 (Abbildung \ref{fig:GUI} oben mitte) und den Bedienelementen (Abbildung
 \ref{fig:GUI} unten mitte). Die Implementierung erfolgte dabei in C++
@@ -32,7 +32,7 @@ Grunds{\"a}tzen (Ref. \cite{Nielsen}).
    \label{Nielsen}
    
 
-Je nach Komplexit{\"a}t des vorliegenden Projekts gilt es einzelne Punkte
+Je nach Komplexit{\"a}t des vorliegenden Projekts gilt es, einzelne Punkte
 hierbei eventuell schwerer zu gewichten als andere. So steigt z.B. bei
 zunehmender Komplexit{\"a}t des \gls{GUI} die Wichtigkeit einer ausf{\"u}hrlichen
 Hilfe und Dokumentation. Da die Komplexit{\"a}t des \gls{GUI} im Szenario der
@@ -47,7 +47,7 @@ Nielsen).
 \label{fig:GUI}
 \end{figure}
 
-Abbildung \ref{fig:GUI} zeigt das \gls{GUI} im {\"U}berblick. Die auf den
+Die Abbildung \ref{fig:GUI} zeigt das \gls{GUI} im {\"U}berblick. Die auf den
 ersten Blick ungew{\"o}hnlich anmutende (getrennte) Anordnung von Sende- und
 Empfangsfenster ist das Resultat der stark verz{\"o}gerten Kommunikation. Da
 Satzteile unterschiedliche Priorit{\"a}ten aufweisen k{\"o}nnen und somit eine
@@ -56,19 +56,19 @@ kann, ist eine gew{\"o}hnliche Chatoberfl{\"a}che ungeeignet. In der getrennten
 Anordnung kann die mit Verz{\"o}gerung empfangene Nachricht im rechten Teil der
 \gls{GUI} aufgebaut werden, w{\"a}hrend im linken Teil weiterhin Nachrichten
 verschickt werden k{\"o}nnen. F{\"u}r die Zukunft ist eine weitere Verbesserung dieses
-Verhaltens vorgesehen, so dass vollst{\"a}ndig empfangene Nachrichten im
+Verhaltens vorgesehen, sodass vollst{\"a}ndig empfangene Nachrichten im
 Sendefenster in die Kommunikation chronologisch eingeordnet werden. Die
 grundlegende Funktionalit{\"a}t des \gls{GUI} entspricht der eines {\"u}blichen
 Chat-Programms, welches Eingaben {\"u}ber ein Textfeld erm{\"o}glicht und diese
 nach Best{\"a}tigung versendet. Die Eingabe erfolgt {\"u}ber das Textfeld im
 linken unteren Bereich des \gls{GUI}. Nach erfolgter Eingabe kann die Nachricht
-durch dr{\"u}cken des Senden Buttons oder per Shortcut (Regel sieben nach
+durch Dr{\"u}cken des Senden Buttons oder per Shortcut (Regel sieben nach
 Nielsen) verschickt werden.
-Sollte dies geschehen ohne zuvor einem Wort, Satzteil oder Satz eine
+Sollte dies geschehen, ohne zuvor einem Wort, Satzteil oder Satz eine
 Priorit{\"a}t zuzuordnen, wird der Eingabe die Standardpriorit{\"a}t Null
 zugeordnet. F{\"u}r den Fall, dass zuvor eine Priorisierung erfolgen soll,
-besteht die M{\"o}glichkeit dies mit Hilfe der in der Mitte (unten) befindlichen
-Steuerelemente zu tun. Diese sind klar und eindeutig bezeichnet und nach
+besteht die M{\"o}glichkeit, dies mit Hilfe der in der Mitte (unten)
+befindlichen Steuerelemente zu tun. Diese sind klar und eindeutig bezeichnet und nach
 Zusammengeh{\"o}rigkeit angeordnet (Regel sechs nach Nielsen). Fehleingaben wie
 beispielsweise das Versenden leerer Nachrichten werden nach Regel neun durch das
 \gls{GUI} verhindert.

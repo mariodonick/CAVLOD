@@ -382,11 +382,11 @@ eindeutig zu identifizieren.
 Auf der Empf{\"a}ngerseite sollen die ankommenden Nachrichten empfangen und geparst
 werden, um an die darin enthaltenen Informationen zu gelangen. Das Empfangen
 durch das Submodul \Code{UDPSocket} ist blockend. Deswegen wird der Vorgang
-nebenl{\"a}ufig ausgef{\"u}hrt, damit der Programmablauf nicht behindert wird. Anschliessend wird
-die Nachricht geparst und nach dem Beenden des Vorganges ein Callback
+nebenl{\"a}ufig ausgef{\"u}hrt, damit der Programmablauf nicht behindert wird.
+Anschließend wird die Nachricht geparst und nach dem Beenden des Vorganges ein Callback
 ausgel{\"o}st. Bei einem Callback wird ein Zeiger auf die Speicheradresse der
 Funktion in der Klasse gespeichert. Durch Aufruf der Funktion ist es
-m{\"o}glich den sequentiellen Programmablauf an einer anderen Stelle
+m{\"o}glich, den sequentiellen Programmablauf an einer anderen Stelle
 weiterlaufen zu lassen. Nach Abarbeitung dieser kehrt der Ablauf zur
 urspr{\"u}nglichen Position zur{\"u}ck. Diese Funktion kann mittels einer
 Methode registriert werden, in der die geparsten Daten weiter verarbeitet werden
@@ -398,7 +398,7 @@ Moduls angezeigt. Eine weitere detaillierte Übersicht der Klassen
 und deren Interaktion untereinander ist im Anhang
 \ref{fig:KlassendiagrammParser} in Form eines Klassendiagramms 
 abgebildet.
-Die Implementierung wird im Folgendem n{\"a}her erl{\"a}utert.
+Die Implementierung wird im Folgenden n{\"a}her erl{\"a}utert.
 
 \begin{figure}[H]
 \centering
@@ -412,7 +412,7 @@ Die Implementierung wird im Folgendem n{\"a}her erl{\"a}utert.
 Der Parser basiert auf dem in Kapitel \ref{sec:ProtokolDesign}
 vorgestellten Protokoll-Design.
 Anhand dieser Daten wird die empfangene Nachricht Bit f{\"u}r Bit analysiert
-und die Informationen herrausgezogen. 
+und die Informationen herausgezogen. 
 Die Klasse \Code{UDPSocket} empf{\"a}ngt neue Daten und gibt diese an
 die Klasse \Code{MessageParser} weiter. Dieser parst den Nachrichtenheader.
 Dessen Algorithmus ist in \ref{fig:AlgorithmusMessageParser} dargestellt.
@@ -427,21 +427,22 @@ Klasse \Code{DataBlockProcessing} verarbeitet.
 \end{figure}
 
 Daf{\"u}r wird ein Softwarekonzept namens Policy-Based-Template-Meta Programmierung
-verwendet (Ref. \cite{Alexandrescu:2001:MCD:377789}), damit die unterschiedlichen Datentypen der Datenbl{\"o}cke nach dem Parsen wieder in einem typsicheren Format vorliegen und
-einfacher verwendet werden k{\"o}nnen.
+verwendet (Ref. \cite{Alexandrescu:2001:MCD:377789}), damit die
+unterschiedlichen Datentypen der Datenbl{\"o}cke nach dem Parsen wieder in einem
+typsicheren Format vorliegen und einfacher verwendet werden k{\"o}nnen.
 Der Templateklasse werden die folgenden vier Klassen als Templateparameter
 Klasse {\"u}bergeben:
 
 \begin{itemize}
 \item T - Datentyp des R{\"u}ckgabewertes des Parsers
 \item Parser - Klasse zum Parsen des Datentypes
-\item C - Datentyp der als Callback zur{\"u}ckgegeben wird
+\item C - Datentyp, der als Callback zur{\"u}ckgegeben wird
 \end{itemize}
 
 Der Parameter \Code{Parser} erbt zus{\"a}tzlich von einer
 Schnittstelle gleichen Namens. Die Klasse \Code{DataBlockProcessing} erbt
 wiederum von dem Parameter \Code{Parser}.
-Dadurch besteht die M{\"o}glichkeit in der Klasse auf Funktionen und
+Dadurch besteht die M{\"o}glichkeit, in der Klasse auf Funktionen und
 Membervariablen zugreifen zu k{\"o}nnen.
 Durch dieses Vorgehen kann das Verhalten der Klasse einfach durch die
 Templateparameter ver{\"a}ndert werden. Weil der Grundalgorithmus des Parsers

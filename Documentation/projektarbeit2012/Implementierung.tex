@@ -3,12 +3,14 @@ F{\"u}r die Umsetzung der im Kapitel \ref{cap:konzept} angesprochenen Ideen und
 Eigenschaften wurde die Programmiersprache C++ verwendet. Als
 Entwicklungsumgebung kam Eclipse zum Einsatz. Zur Verbesserung der Teamarbeit
 und des Austausches von Quellcode wurde ein Github Repository
-\footnote{www.github.com} angelegt, welches {\"u}ber das Eclipse-Plugin EGit genutzt wurde. \newline Im Folgenden wird
-im Detail auf die Art und Weise der Realisierung der beiden Top-Level-Module
-\Code{Sender} und \Code{Receiver} eingegangen. Hierf{\"u}r wurde eine flexible und
-modulare Softwarearchitektur entwickelt, damit auf sp{\"a}tere {\"A}nderungen, neue Anforderungen
-und erforderliche Optimierungen flexibel reagiert werden kann. Dies ist durch
-das einfache Austauschen kompletter Module m{\"o}glich.
+\footnote{www.github.com} angelegt, welches {\"u}ber das Eclipse-Plugin EGit
+genutzt wurde. \newline
+Im Folgenden wird im Detail auf die Art und Weise der Realisierung der beiden
+Top-Level-Module \Code{Sender} und \Code{Receiver} eingegangen. Hierf{\"u}r
+wurde eine flexible und modulare Softwarearchitektur entwickelt, damit auf
+sp{\"a}tere {\"A}nderungen, neue Anforderungen und erforderliche Optimierungen
+reagiert werden kann. Dies ist durch das einfache Austauschen kompletter Module
+m{\"o}glich.
 Daf{\"u}r wird ein objektorientiertes Design genutzt, womit Quellcoderedundanzen und damit
 zahlreiche potentielle Programmierfehler vermieden werden konnten.
 Weiterhin ist die Wiederverwendung einzelner Quellcodepassagen m{\"o}glich.\newline
@@ -21,8 +23,9 @@ Datentypen Text und Sensorwerte integriert.
  
 Die Aufgabe des Moduls \Code{Sender} besteht darin, die aus vier Phasen
 bestehende Verarbeitung der Daten (Ref. \cite{Daher}) umzusetzen.
-In \abbildung{BlockdiagrammSender} ist das Blockdiagramm des Moduls \Code{Sender}
-dargestellt.
+In \abbildung{BlockdiagrammSender} ist das Blockdiagramm und im Anhang
+\ref{fig:KlassendiagrammSender} das dazugehörige Klassendiagramm des Moduls
+\Code{Sender} dargestellt.
 Dies bietet eine {\"U}bersicht zu den Modulen und zeigt wie diese untereinander 
 kommunizieren. In der Grafik ist jedes Submodul durch ein M in der linken
 oberen Ecke des Blockes gekennzeichnt. Ebenso ist die Schnittstellenklasse angegeben
@@ -266,8 +269,6 @@ des \gls{CROP} in das OSI-Referenzmodell.
 \label{fig:OSI}
 \end{figure}
 
-
-
 \subsection{StoreManager}
 
 W{\"a}hrend der Entwicklung des Moduls \Code{Sender} kristallisierte sich eine
@@ -392,8 +393,12 @@ Methode registriert werden, in der die geparsten Daten weiter verarbeitet werden
 k{\"o}nnen.
 Die Callbackfunktion k{\"o}nnte beispielsweise die Visualisierung der Daten
 {\"u}bernehmen. \newline 
-In \abbildung{BlockdiagrammEmpfaenger} wird eine schematische Darstellung des
-Moduls angezeigt. Die Implementierung wird im Folgendem n{\"a}her erl{\"a}utert.
+In \ref{fig:BlockdiagrammEmpfaenger} wird eine schematische Darstellung des
+Moduls angezeigt. Eine weitere detaillierte Übersicht der Klassen
+und deren Interaktion untereinander ist im Anhang
+\ref{fig:KlassendiagrammParser} in Form eines Klassendiagramms 
+abgebildet.
+Die Implementierung wird im Folgendem n{\"a}her erl{\"a}utert.
 
 \begin{figure}[H]
 \centering

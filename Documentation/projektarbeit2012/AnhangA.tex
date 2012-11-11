@@ -42,8 +42,8 @@ $\rightarrow$ Open Perspective $\rightarrow$ Other\ldots $\rightarrow$ Git
 Reposity Exploring}. In der neuen Ansicht das Herunterladen durch anklicken des
 Icons "`Clone a Git Repository and add the clone to this view"'. Im sich {\"o}ffnenden
 Assistenten m{\"u}ssen unter URI die SSH-Daten
-\Code{ssh://git@github.com/Helferlein/CAVLOD.git} eingetragen und
-beim letzten Fenster sollte ein Pfad angegeben werde, welcher
+\Code{ssh://git@github.com/Helferlein/CAVLOD.git} eingetragen werden und
+beim letzten Fenster sollte ein Pfad angegeben werden, welcher
 unabh{\"a}ngig des Workspaces von Eclipse ist.\newline
 Danach wird die Ansicht auf \Code{Window
 $\rightarrow$ Open Perspective $\rightarrow$ Other\ldots $\rightarrow$ C/C++}
@@ -60,7 +60,7 @@ Daten an den Sender {\"u}bergibt, der diese verarbeitet und {\"u}ber eine
 \gls{UDP}-Schnitttelle ausgibt.
 \item \Code{server} bezeichnet die Testumgebung, welche die
 Daten vom Client empf{\"a}ngt und ausgibt.
-\item \Code{statLib} erstellt eine statische Bibliotheke zum weiterverwenden der
+\item \Code{statLib} erstellt eine statische Bibliotheke zum Weiterverwenden der
 Module in einem anderen Projekt.
 \end{enumerate}
 
@@ -69,8 +69,8 @@ ausw{\"a}hlen von \Code{Build Project} gestartet werden.
 
 \section{Beispiel}
 
-Nach erfolgreicher erstellen der Bibliothek m{\"u}ssen die folgenden Dateien
-im Pfad \Code{Crodt/include/} der statischen Bibliotheke aktualisiert werden,
+Nach erfolgreichem Erstellen der Bibliothek m{\"u}ssen die folgenden Dateien
+im Pfad \Code{Crodt/include/} der statischen Bibliothek aktualisiert werden,
 wenn diese ge{\"a}ndert wurden. Ebenso wie die erstellte Datei
 \Code{Crodt/lib/libcrodt.a}.
 
@@ -84,10 +84,10 @@ wenn diese ge{\"a}ndert wurden. Ebenso wie die erstellte Datei
 
 Zur Verwendung sind zwei Beispielquellcodes in Listing
 \ref{lst:BeispielcodeSender} und \ref{lst:BeispielcodeReceiver} dargestellt. Der
-erste erstellt ein Sendermodul und {\"u}bergibt diesen die passenden Daten, die
-gesendet werden sollen. Beim Zweiten wird ein Empfangsmodul erstellt. In diesem
-wird ein Callback registriert, welches die empfangenen Daten auf der Konsole
-ausgibt. Dabei sei zu beachten, dass in beiden die Header-Datei \Code{crodt.h}
+erste erstellt ein Sendermodul und {\"u}bergibt diesem die passenden Daten,
+welche gesendet werden sollen. Beim Zweiten wird ein Empfangsmodul erstellt. In
+diesem wird ein Callback registriert, welcher die empfangenen Daten in der
+Konsole ausgibt. Dabei sei zu beachten, dass in beiden die Header-Datei \Code{crodt.h}
 inkludiert werden muss.
 
 \newpage

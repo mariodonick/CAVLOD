@@ -23,7 +23,7 @@ Datentypen Text und Sensorwerte integriert.
  
 Die Aufgabe des Moduls \Code{Sender} besteht darin, die aus vier Phasen
 bestehende Verarbeitung der Daten (Ref. \cite{Daher}) umzusetzen.
-In \abbildung{BlockdiagrammSender} ist das Blockdiagramm und im Anhang
+In \ref{fig:BlockdiagrammSender} ist das Blockdiagramm und im Anhang
 \ref{fig:KlassendiagrammSender} das dazugehörige Klassendiagramm des Moduls
 \Code{Sender} dargestellt.
 Dies bietet eine {\"U}bersicht zu den Modulen und zeigt wie diese untereinander 
@@ -69,7 +69,7 @@ erl{\"a}utert.
 
 Die Aufgabe des Submoduls \Code{SplitEncoding} ist, die einkommenden Daten
 anhand ihrer Relevanz in kleine Datenbl{\"o}cke zu unterteilen. F{\"u}r die Entwicklung
-des daf{\"u}r erforderlichen Algorithmus wurde der in \abbildung{Beispieltext}
+des daf{\"u}r erforderlichen Algorithmus wurde der in \ref{fig:Beispieltext}
 dargestellte Beispieltext erstellt.
 
 \begin{figure}[H]
@@ -81,7 +81,7 @@ dargestellte Beispieltext erstellt.
 
 In diesem Testfall wurden die relevanten Bereiche willk{\"u}rlich festgelegt, mit
 dem Augenmerk m{\"o}gliche Randf{\"a}lle abzudecken. Die relevanten Bereiche sind in
-der \abbildung{Beispieltext} gelb markiert.\newline
+der \ref{fig:Beispieltext} gelb markiert.\newline
 Daraus ergeben sich folgenden Positionen der relevanten Bereiche:
 
 \begin{longtable}{|cccl|}
@@ -225,7 +225,7 @@ Datenbl{\"o}cken aufgef{\"u}llt bis die maximale Paketgr{\"o}sse erreicht ist. D
 die Datenstruktur \Code{SmartPrioritizedQueue} solange
 durchlaufen bis kein Paket mehr vorhanden ist, welches den noch freien Raum
 ausf{\"u}llen k{\"o}nnte. \newline 
-Der Algorithmus ist in \abbildung{AlgorithmusPacketizer} graphisch dargestellt.
+Der Algorithmus ist in \ref{fig:AlgorithmusPacketizer} graphisch dargestellt.
 
 \begin{figure}[H]
 \centering
@@ -257,8 +257,8 @@ dieser Arbeit kommt dabei IPv4 zum Einsatz.
 \label{fig:Socket-Kommunikation}
 \end{figure}
 
-Abbildung \ref{fig:Socket-Kommunikation} zeigt ein vereinfachte Dartsellung der
-Socket Kommunikation zwischen Client und Server mit aufsetzendem Content
+Die Abbildung \ref{fig:Socket-Kommunikation} zeigt ein vereinfachte Dartsellung
+der Socket Kommunikation zwischen Client und Server mit aufsetzendem Content
 Relevance-Oriented Protocol. In Abbildung \ref{fig:OSI} erfolgt eine Einordnung
 des \gls{CROP} in das OSI-Referenzmodell.
 
@@ -312,7 +312,7 @@ gel{\"o}scht werden k{\"o}nnen.
 \end{figure}
 
 Die Einbettung des Submoduls \Code{StoreManager} in das Modul \Code{Sender} ist
-in \abbildung{EinbettungStoreManager} veranschaulicht. Dazu wird der
+in \ref{fig:EinbettungStoreManager} veranschaulicht. Dazu wird der
 \Code{StoreManager} parallel zur \Code{SmartPrioritizedQueue} integriert. Alle
 Datenbl{\"o}cke, welche in die Queue gelangen, werden ebenfalls an die
 Klasse \Code{StoreManager} {\"u}bergeben. Die von dem Submodul \Code{Packetizer}
@@ -415,7 +415,7 @@ Anhand dieser Daten wird die empfangene Nachricht Bit f{\"u}r Bit analysiert
 und die Informationen herrausgezogen. 
 Die Klasse \Code{UDPSocket} empf{\"a}ngt neue Daten und gibt diese an
 die Klasse \Code{MessageParser} weiter. Dieser parst den Nachrichtenheader.
-Dessen Algorithmus ist in \abbildung{AlgorithmusMessageParser} dargestellt.
+Dessen Algorithmus ist in \ref{fig:AlgorithmusMessageParser} dargestellt.
 Anschlie{\ss}end werden die Datenblockheader geparst. Der Content wird von der
 Klasse \Code{DataBlockProcessing} verarbeitet.
 

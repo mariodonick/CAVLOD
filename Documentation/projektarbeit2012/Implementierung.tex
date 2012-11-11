@@ -22,10 +22,10 @@ Datentypen Text und Sensorwerte integriert.
 Die Aufgabe des Moduls \Code{Sender} besteht darin, die aus vier Phasen
 bestehende Verarbeitung der Daten (Ref. \cite{Daher}) umzusetzen.
 In \abbildung{BlockdiagrammSender} ist das Blockdiagramm des Moduls \Code{Sender}
-darstellt.
+dargestellt.
 Dies bietet eine {\"U}bersicht zu den Modulen und zeigt wie diese untereinander 
-Kommunizieren. In der Grafik ist jedes Submodul durch ein M in der linken
-oberen Ecke des Blockes gekennezeichnt. Ebenso ist die Schnittstellenklasse angegeben
+kommunizieren. In der Grafik ist jedes Submodul durch ein M in der linken
+oberen Ecke des Blockes gekennzeichnt. Ebenso ist die Schnittstellenklasse angegeben
 und durch die Abk{\"u}rzung \gls{IF} gekennzeichnet. Dadurch ist der
 geforderte modulare Aufbau sichergestellt.
 
@@ -272,7 +272,7 @@ des \gls{CROP} in das OSI-Referenzmodell.
 
 W{\"a}hrend der Entwicklung des Moduls \Code{Sender} kristallisierte sich eine
 weitere notwendige Eigenschaft der Software heraus.
-Die Daten, welchen w{\"a}hrend des Progammablaufes erstellt und zum Versenden
+Die Daten, welche w{\"a}hrend des Progammablaufes erstellt und zum Versenden
 gespeichert werden, sollen auch nach einem Programmabsturz oder nach einem
 Stromausfall noch vorhanden sein. Weil die Klasse \Code{SmartPrioritizedQueue}
 die Daten im Arbeitsspeicher hinterlegt, w{\"a}ren diese bei einem Absturz
@@ -288,7 +288,7 @@ infolgedessen werden alle wichtigen Daten gesichert.
 \end{enumerate}
 
 Die erste Methode hat den Vorteil, dass alle Daten sofort gesichert werden und
-somit diese nicht verloren gehen k{\"o}nnen. Jedoch sind daf{\"u}r sehr viele
+diese somit nicht verloren gehen k{\"o}nnen. Jedoch sind daf{\"u}r sehr viele
 Festplattenzugriffe notwendig, wodurch die Laufzeit des Programms stark
 beeintr{\"a}chtigt wird. Bei der dritten Methode sind die Festplattenzugriffe
 minimal, jedoch k{\"o}nnen nur Software- und Hardwarefehler bei der
@@ -348,7 +348,7 @@ Weiterhin soll nur der Computer die Daten auf der Festplatte ablegen und
 wieder lesen k{\"o}nnen. F{\"u}r das Versenden {\"u}ber das Internet oder
 andere Medien besitzt die Portabilit{\"a}t zudem keinen gro{\ss}en Stellenwert.
 Daf{\"u}r sind die beiden wichtigsten Eigenschaften, die Dateigr{\"o}{\ss}e und die
-Geschwindigkeit, bei gew{\"a}hlten Format im Vergleich besser.
+Geschwindigkeit, beim gew{\"a}hlten Format im Vergleich besser.
 \newline
 In der Datei werden die folgenden Daten aus dem Datenblock in der
 aufgef{\"u}hrten Reihenfolge gespeichert:
@@ -370,7 +370,7 @@ zus{\"a}tzliche Speicherplatzbedarf kann vernachl{\"a}ssigt werden.
 F{\"u}r die Ordnerstruktur wurde eine m{\"o}glichst flache Hierachie genutzt, welche in
 der obersten Stufe den Ordner \Code{Backup} beinhaltet. Darin befinden sich
 weitere Ordner, welche als Namen die Nummer des Datentypes beinhalten. In diesem liegen die bin{\"a}ren
-Dateien dessen Namen aus der Nummer der \gls{DOID} und der Sequenznummer
+Dateien, dessen Namen aus der Nummer der \gls{DOID} und der Sequenznummer
 besteht.
 Diese sind durch einen Unterstrich voneinander getrennt. Die drei Parameter
 werden von der Methode remove zum L{\"o}schen einer Datei {\"u}bergeben, um diese

@@ -3,12 +3,14 @@ F{\"u}r die Umsetzung der im Kapitel \ref{cap:konzept} angesprochenen Ideen und
 Eigenschaften wurde die Programmiersprache C++ verwendet. Als
 Entwicklungsumgebung kam Eclipse zum Einsatz. Zur Verbesserung der Teamarbeit
 und des Austausches von Quellcode wurde ein Github Repository
-\footnote{www.github.com} angelegt, welches {\"u}ber das Eclipse-Plugin EGit genutzt wurde. \newline Im Folgenden wird
-im Detail auf die Art und Weise der Realisierung der beiden Top-Level-Module
-\Code{Sender} und \Code{Receiver} eingegangen. Hierf{\"u}r wurde eine flexible und
-modulare Softwarearchitektur entwickelt, damit auf sp{\"a}tere {\"A}nderungen, neue Anforderungen
-und erforderliche Optimierungen flexibel reagiert werden kann. Dies ist durch
-das einfache Austauschen kompletter Module m{\"o}glich.
+\footnote{www.github.com} angelegt, welches {\"u}ber das Eclipse-Plugin EGit
+genutzt wurde. \newline
+Im Folgenden wird im Detail auf die Art und Weise der Realisierung der beiden
+Top-Level-Module \Code{Sender} und \Code{Receiver} eingegangen. Hierf{\"u}r
+wurde eine flexible und modulare Softwarearchitektur entwickelt, damit auf
+sp{\"a}tere {\"A}nderungen, neue Anforderungen und erforderliche Optimierungen
+reagiert werden kann. Dies ist durch das einfache Austauschen kompletter Module
+m{\"o}glich.
 Daf{\"u}r wird ein objektorientiertes Design genutzt, womit Quellcoderedundanzen und damit
 zahlreiche potentielle Programmierfehler vermieden werden konnten.
 Weiterhin ist die Wiederverwendung einzelner Quellcodepassagen m{\"o}glich.\newline
@@ -21,8 +23,9 @@ Datentypen Text und Sensorwerte integriert.
  
 Die Aufgabe des Moduls \Code{Sender} besteht darin, die aus vier Phasen
 bestehende Verarbeitung der Daten (Ref. \cite{Daher}) umzusetzen.
-In \abbildung{BlockdiagrammSender} ist das Blockdiagramm des Moduls \Code{Sender}
-dargestellt.
+In \ref{fig:BlockdiagrammSender} ist das Blockdiagramm und im Anhang
+\ref{fig:KlassendiagrammSender} das dazugehörige Klassendiagramm des Moduls
+\Code{Sender} dargestellt.
 Dies bietet eine {\"U}bersicht zu den Modulen und zeigt wie diese untereinander 
 kommunizieren. In der Grafik ist jedes Submodul durch ein M in der linken
 oberen Ecke des Blockes gekennzeichnt. Ebenso ist die Schnittstellenklasse angegeben
@@ -66,7 +69,7 @@ erl{\"a}utert.
 
 Die Aufgabe des Submoduls \Code{SplitEncoding} ist, die einkommenden Daten
 anhand ihrer Relevanz in kleine Datenbl{\"o}cke zu unterteilen. F{\"u}r die Entwicklung
-des daf{\"u}r erforderlichen Algorithmus wurde der in \abbildung{Beispieltext}
+des daf{\"u}r erforderlichen Algorithmus wurde der in \ref{fig:Beispieltext}
 dargestellte Beispieltext erstellt.
 
 \begin{figure}[H]
@@ -78,7 +81,7 @@ dargestellte Beispieltext erstellt.
 
 In diesem Testfall wurden die relevanten Bereiche willk{\"u}rlich festgelegt, mit
 dem Augenmerk m{\"o}gliche Randf{\"a}lle abzudecken. Die relevanten Bereiche sind in
-der \abbildung{Beispieltext} gelb markiert.\newline
+der \ref{fig:Beispieltext} gelb markiert.\newline
 Daraus ergeben sich folgenden Positionen der relevanten Bereiche:
 
 \begin{longtable}{|cccl|}
@@ -222,7 +225,7 @@ Datenbl{\"o}cken aufgef{\"u}llt bis die maximale Paketgr{\"o}sse erreicht ist. D
 die Datenstruktur \Code{SmartPrioritizedQueue} solange
 durchlaufen bis kein Paket mehr vorhanden ist, welches den noch freien Raum
 ausf{\"u}llen k{\"o}nnte. \newline 
-Der Algorithmus ist in \abbildung{AlgorithmusPacketizer} graphisch dargestellt.
+Der Algorithmus ist in \ref{fig:AlgorithmusPacketizer} graphisch dargestellt.
 
 \begin{figure}[H]
 \centering
@@ -254,8 +257,8 @@ dieser Arbeit kommt dabei IPv4 zum Einsatz.
 \label{fig:Socket-Kommunikation}
 \end{figure}
 
-Abbildung \ref{fig:Socket-Kommunikation} zeigt ein vereinfachte Dartsellung der
-Socket Kommunikation zwischen Client und Server mit aufsetzendem Content
+Die Abbildung \ref{fig:Socket-Kommunikation} zeigt ein vereinfachte Dartsellung
+der Socket Kommunikation zwischen Client und Server mit aufsetzendem Content
 Relevance-Oriented Protocol. In Abbildung \ref{fig:OSI} erfolgt eine Einordnung
 des \gls{CROP} in das OSI-Referenzmodell.
 
@@ -265,8 +268,6 @@ des \gls{CROP} in das OSI-Referenzmodell.
 \caption{{\"U}berblick des OSI-Schichtenmodells und der Zuordnung von CROP}
 \label{fig:OSI}
 \end{figure}
-
-
 
 \subsection{StoreManager}
 
@@ -311,7 +312,7 @@ gel{\"o}scht werden k{\"o}nnen.
 \end{figure}
 
 Die Einbettung des Submoduls \Code{StoreManager} in das Modul \Code{Sender} ist
-in \abbildung{EinbettungStoreManager} veranschaulicht. Dazu wird der
+in \ref{fig:EinbettungStoreManager} veranschaulicht. Dazu wird der
 \Code{StoreManager} parallel zur \Code{SmartPrioritizedQueue} integriert. Alle
 Datenbl{\"o}cke, welche in die Queue gelangen, werden ebenfalls an die
 Klasse \Code{StoreManager} {\"u}bergeben. Die von dem Submodul \Code{Packetizer}
@@ -381,19 +382,23 @@ eindeutig zu identifizieren.
 Auf der Empf{\"a}ngerseite sollen die ankommenden Nachrichten empfangen und geparst
 werden, um an die darin enthaltenen Informationen zu gelangen. Das Empfangen
 durch das Submodul \Code{UDPSocket} ist blockend. Deswegen wird der Vorgang
-nebenl{\"a}ufig ausgef{\"u}hrt, damit der Programmablauf nicht behindert wird. Anschliessend wird
-die Nachricht geparst und nach dem Beenden des Vorganges ein Callback
+nebenl{\"a}ufig ausgef{\"u}hrt, damit der Programmablauf nicht behindert wird.
+Anschließend wird die Nachricht geparst und nach dem Beenden des Vorganges ein Callback
 ausgel{\"o}st. Bei einem Callback wird ein Zeiger auf die Speicheradresse der
 Funktion in der Klasse gespeichert. Durch Aufruf der Funktion ist es
-m{\"o}glich den sequentiellen Programmablauf an einer anderen Stelle
+m{\"o}glich, den sequentiellen Programmablauf an einer anderen Stelle
 weiterlaufen zu lassen. Nach Abarbeitung dieser kehrt der Ablauf zur
 urspr{\"u}nglichen Position zur{\"u}ck. Diese Funktion kann mittels einer
 Methode registriert werden, in der die geparsten Daten weiter verarbeitet werden
 k{\"o}nnen.
 Die Callbackfunktion k{\"o}nnte beispielsweise die Visualisierung der Daten
 {\"u}bernehmen. \newline 
-In \abbildung{BlockdiagrammEmpfaenger} wird eine schematische Darstellung des
-Moduls angezeigt. Die Implementierung wird im Folgendem n{\"a}her erl{\"a}utert.
+In \ref{fig:BlockdiagrammEmpfaenger} wird eine schematische Darstellung des
+Moduls angezeigt. Eine weitere detaillierte Übersicht der Klassen
+und deren Interaktion untereinander ist im Anhang
+\ref{fig:KlassendiagrammParser} in Form eines Klassendiagramms 
+abgebildet.
+Die Implementierung wird im Folgenden n{\"a}her erl{\"a}utert.
 
 \begin{figure}[H]
 \centering
@@ -407,10 +412,10 @@ Moduls angezeigt. Die Implementierung wird im Folgendem n{\"a}her erl{\"a}utert.
 Der Parser basiert auf dem in Kapitel \ref{sec:ProtokolDesign}
 vorgestellten Protokoll-Design.
 Anhand dieser Daten wird die empfangene Nachricht Bit f{\"u}r Bit analysiert
-und die Informationen herrausgezogen. 
+und die Informationen herausgezogen. 
 Die Klasse \Code{UDPSocket} empf{\"a}ngt neue Daten und gibt diese an
 die Klasse \Code{MessageParser} weiter. Dieser parst den Nachrichtenheader.
-Dessen Algorithmus ist in \abbildung{AlgorithmusMessageParser} dargestellt.
+Dessen Algorithmus ist in \ref{fig:AlgorithmusMessageParser} dargestellt.
 Anschlie{\ss}end werden die Datenblockheader geparst. Der Content wird von der
 Klasse \Code{DataBlockProcessing} verarbeitet.
 
@@ -422,21 +427,22 @@ Klasse \Code{DataBlockProcessing} verarbeitet.
 \end{figure}
 
 Daf{\"u}r wird ein Softwarekonzept namens Policy-Based-Template-Meta Programmierung
-verwendet (Ref. \cite{Alexandrescu:2001:MCD:377789}), damit die unterschiedlichen Datentypen der Datenbl{\"o}cke nach dem Parsen wieder in einem typsicheren Format vorliegen und
-einfacher verwendet werden k{\"o}nnen.
+verwendet (Ref. \cite{Alexandrescu:2001:MCD:377789}), damit die
+unterschiedlichen Datentypen der Datenbl{\"o}cke nach dem Parsen wieder in einem
+typsicheren Format vorliegen und einfacher verwendet werden k{\"o}nnen.
 Der Templateklasse werden die folgenden vier Klassen als Templateparameter
 Klasse {\"u}bergeben:
 
 \begin{itemize}
 \item T - Datentyp des R{\"u}ckgabewertes des Parsers
 \item Parser - Klasse zum Parsen des Datentypes
-\item C - Datentyp der als Callback zur{\"u}ckgegeben wird
+\item C - Datentyp, der als Callback zur{\"u}ckgegeben wird
 \end{itemize}
 
 Der Parameter \Code{Parser} erbt zus{\"a}tzlich von einer
 Schnittstelle gleichen Namens. Die Klasse \Code{DataBlockProcessing} erbt
 wiederum von dem Parameter \Code{Parser}.
-Dadurch besteht die M{\"o}glichkeit in der Klasse auf Funktionen und
+Dadurch besteht die M{\"o}glichkeit, in der Klasse auf Funktionen und
 Membervariablen zugreifen zu k{\"o}nnen.
 Durch dieses Vorgehen kann das Verhalten der Klasse einfach durch die
 Templateparameter ver{\"a}ndert werden. Weil der Grundalgorithmus des Parsers

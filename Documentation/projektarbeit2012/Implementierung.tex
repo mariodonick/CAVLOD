@@ -49,9 +49,9 @@ Anhand dieser wird der Datenblock in die Datenstruktur
 \Code{SmartPrioritizedQueue} einsortiert. Dadurch wird
 gew{\"a}hrleistet, dass die wichtigen Daten zuerst gesendet werden. F{\"u}r diese
 Aufgabe wird eine einfache Liste aus der \gls{STL} verwendet. Durch diese kann
-iteriert werden und es besteht ein schneller zufälliger Zugriff auf das jedes
-Element, welches ebenso effektiv eingefügt und gelöscht werden kann. Weiterhin
-exsistiert die notwendige Sortierfunktion. Diese hat f{\"u}r den durch sie
+iteriert werden und es besteht ein schneller zufälliger Zugriff auf jedes
+Element, welches nun ebenso effektiv eingefügt und gelöscht werden kann.
+Weiterhin exsistiert die notwendige Sortierfunktion. Diese hat f{\"u}r den durch sie
 ausgef{\"u}hrten Zweck eine vergleichsweise gute Laufzeit.
 Damit die Verz{\"o}gerung, die durch gro{\ss}e Entfernungen auftritt, besser
 ber{\"u}cksichtigt werden kann, wird das Submodul \Code{Packetizer} als Thread
@@ -168,9 +168,9 @@ Zum Schluss muss noch der letzte Block berechnet werden, der nach dem letzten
 relevanten Bereich {\"u}brig ist, falls dieser nicht mit dem Ende abschliesst. Mit
 diesen Daten kann der Teiltext f{\"u}r jeden Block aus dem Content
 herrausgeschnitten werden. An dieser Stelle wird noch {\"u}berpr{\"u}ft, ob der
-Datenblock des Teiltextes gr{\"o}{\ss}er ist als die maximale Datenbl{\"o}ckgr{\"o}{\ss}e und
-gegebenenfalls in mehrere kleinere Teile zerlegt. Dieser wird danach zusammen
-mit den Informationen des Datenblockheaders in der Klasse \Code{Datablock}
+Datenblock des Teiltextes gr{\"o}{\ss}er ist als die maximale
+Datenbl{\"o}ckgr{\"o}{\ss}e und ob dieser gegebenenfalls in mehrere kleinere
+Teile zerlegt werden muss. Dieser wird danach zusammen mit den Informationen des Datenblockheaders in der Klasse \Code{Datablock}
 gespeichert und in einer einfachen \gls{FIFO} hinterlegt. F{\"u}r die Sensorwerte
 ist kein Zerlegen der Daten in Teilbl{\"o}cke notwendig.
 Hier werden lediglich mehrere Daten einer Quelle mit dem passenden

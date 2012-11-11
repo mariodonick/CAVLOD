@@ -28,8 +28,8 @@ In \ref{fig:BlockdiagrammSender} ist das Blockdiagramm und im Anhang
 \Code{Sender} dargestellt.
 Dies bietet eine {\"U}bersicht zu den Modulen und zeigt wie diese untereinander 
 kommunizieren. In der Grafik ist jedes Submodul durch ein M in der linken
-oberen Ecke des Blockes gekennzeichnt. Ebenso ist die Schnittstellenklasse angegeben
-und durch die Abk{\"u}rzung \gls{IF} gekennzeichnet. Dadurch ist der
+oberen Ecke des Blockes gekennzeichnet. Ebenso ist die Schnittstellenklasse
+angegeben und durch die Abk{\"u}rzung \gls{IF} gekennzeichnet. Dadurch ist der
 geforderte modulare Aufbau sichergestellt.
 
 \begin{figure}[H]
@@ -40,15 +40,15 @@ geforderte modulare Aufbau sichergestellt.
 \end{figure}
 
 Die Daten werden {\"u}ber die Schnittstelle des Topmoduls {\"u}bergeben und an die
-Klasse \Code{Partitionierung} weitergegeben. Dort werden diese, abh{\"a}ngig
+Klasse \Code{Partitionierung} weitergegeben. Dort werden diese, abh{\"a}ngig von
 ihrer Relevanz, in Datenbl{\"o}cke zerlegt. Zus{\"a}tzlich werden in diesem
 Schritt die Datenblockheader (siehe Kapitel \ref{sec:ProtokolDesign}) erstellt und der
 Content in bin{\"a}re Daten umgewandelt. Am Ende werden die Datenbl{\"o}cke mit den
 Headerinformationen in einer \gls{FIFO} gepuffert.
-Anschliessend wird jedem einzelnen Datenblock im n{\"a}chsten Modul eine Priorit{\"a}t zugewiesen. Die angesprochene
-Relevanz und die Priorit{\"a}t der Datenbl{\"o}cke werden in einem extra Modul namens
-\gls{CRODM} berechnet und den Modulen {\"u}bergeben.
-Anhand dieser wird der Datenblock in die Datenstruktur
+Anschließend wird jedem einzelnen Datenblock im n{\"a}chsten Modul eine
+Priorit{\"a}t zugewiesen. Die angesprochene Relevanz und die Priorit{\"a}t der
+Datenbl{\"o}cke werden in einem extra Modul namens \gls{CRODM} berechnet und den
+Modulen {\"u}bergeben. Anhand dieser wird der Datenblock in die Datenstruktur
 \Code{SmartPrioritizedQueue} einsortiert. Dadurch wird
 gew{\"a}hrleistet, dass die wichtigen Daten zuerst gesendet werden. F{\"u}r diese
 Aufgabe wird eine einfache Liste aus der \gls{STL} verwendet. Durch diese kann
@@ -60,14 +60,14 @@ Damit die Verz{\"o}gerung, die durch gro{\ss}e Entfernungen auftritt, besser
 ber{\"u}cksichtigt werden kann, wird das Submodul \Code{Packetizer} als Thread
 gestartet.
 Dieser holt sich die Pakete mit der h{\"o}chsten Priorit{\"a}t aus der
-\Code{SmartPriorisierendenQueue} und verpackt diese in eine Nachricht, welche
+\Code{SmartPrioritizedQueue} und verpackt diese in eine Nachricht, welche
 anschlie{\ss}end an die Netzwerkschnittstelle {\"u}bergeben und versandt wird.
-\newline Die Umsetzung der Submodule wird im Nachfolgenden genauer
+\newline Die Umsetzung der Submodule wird im Folgenden genauer
 erl{\"a}utert.
 
 \subsection{Splitten und Encoden}
 
-Die Aufgabe des Submoduls \Code{SplitEncoding} ist, die einkommenden Daten
+Die Aufgabe des Submoduls \Code{SplitEncoding} ist es, die einkommenden Daten
 anhand ihrer Relevanz in kleine Datenbl{\"o}cke zu unterteilen. F{\"u}r die Entwicklung
 des daf{\"u}r erforderlichen Algorithmus wurde der in \ref{fig:Beispieltext}
 dargestellte Beispieltext erstellt.
@@ -82,7 +82,7 @@ dargestellte Beispieltext erstellt.
 In diesem Testfall wurden die relevanten Bereiche willk{\"u}rlich festgelegt, mit
 dem Augenmerk m{\"o}gliche Randf{\"a}lle abzudecken. Die relevanten Bereiche sind in
 der \ref{fig:Beispieltext} gelb markiert.\newline
-Daraus ergeben sich folgenden Positionen der relevanten Bereiche:
+Daraus ergeben sich folgende Positionen der relevanten Bereiche:
 
 \begin{longtable}{|cccl|}
 	\caption{{\"U}bersicht der relevanten 2D-Bereiche} \\
@@ -103,16 +103,17 @@ F{\"u}r den Algorithmus ist es wichtig, dass die relevanten Bereiche den
 Positionen nach sortiert sind. Das bedeutet, je niedriger die Zeile und Spalte,
 desto weiter vorn ist diese Position in der Datenstruktur gespeichert.
 Deshalb werden alle Angaben, die von dem Submodul \Code{CRODM}
-{\"u}bergeben werden zuerst sortiert.
+{\"u}bergeben werden, zuerst sortiert.
 Im n{\"a}chsten Schritt werden die zweidimensionalen Koordinaten zu einer
-eindimensionalen umgerechnet, dadurch konnte das herausschneiden der
+eindimensionalen umgerechnet, dadurch konnte das Herausschneiden der
 Textfragmente, welche Zeilenspr{\"u}nge beinhalten k{\"o}nnen oder {\"u}ber eine
 Zeile hinaus gehen k{\"o}nnen, vereinfacht werden. Daf{\"u}r
 werden zuerst die akkumulierten Gesamtl{\"a}ngen der einzelnen Zeilen berechnet.
-Vorhandene Umlaute und andere Zeichen die nicht im
-\gls{ASCII}\footnote{\gls{ASCII} ist eine 7-Bit Zeichencodierung.}-Zeichensatz enthalten sind, ben{\"o}tigen die doppelte L{\"a}nge.
-Die Gesamtl{\"a}ngen der Zeilen sind in der Tabelle
-\ref{tab:UebersichtDerAkkumuliertenZeilenlaengen} angegeben.
+Vorhandene Umlaute und andere Zeichen, die nicht im
+\gls{ASCII}\footnote{\gls{ASCII} ist eine 7-Bit Zeichencodierung.}-Zeichensatz
+enthalten sind, ben{\"o}tigen die doppelte L{\"a}nge. Die Gesamtl{\"a}ngen der
+Zeilen sind in der Tabelle \ref{tab:UebersichtDerAkkumuliertenZeilenlaengen}
+angegeben.
 
 \begin{longtable}{|cc|}
 \caption{{\"U}bersicht der akkumulierten Zeilenl{\"a}ngen} \\
@@ -153,7 +154,7 @@ Zusammengefasst ergibt die Berechnung die in Tabelle
 \ref{tab:UebersichtDerUNRelevantenBereiche} aufgef{\"u}hrten Bereiche.
 
 \begin{longtable}{|ccl|}
-\caption{{\"U}bersicht der unrelevanten Bereiche} \\
+\caption{{\"U}bersicht der irrelevanten Bereiche} \\
 \hline
 \label{tab:UebersichtDerUNRelevantenBereiche}
 \textbf{Position x} & \textbf{L{\"a}nge x} &
@@ -168,7 +169,7 @@ Zusammengefasst ergibt die Berechnung die in Tabelle
 \end{longtable}
 
 Zum Schluss muss noch der letzte Block berechnet werden, der nach dem letzten
-relevanten Bereich {\"u}brig ist, falls dieser nicht mit dem Ende abschliesst. Mit
+relevanten Bereich {\"u}brig ist, falls dieser nicht mit dem Ende abschließt. Mit
 diesen Daten kann der Teiltext f{\"u}r jeden Block aus dem Content
 herrausgeschnitten werden. An dieser Stelle wird noch {\"u}berpr{\"u}ft, ob der
 Datenblock des Teiltextes gr{\"o}{\ss}er ist als die maximale
@@ -220,11 +221,11 @@ Diese ist in der Lage den Block mit der h{\"o}chsten Priorit{\"a}t zu finden, we
 noch in den vorhandenen freien Raum der Nachricht passt. Dies stellt die
 optimale L{\"o}sung dar, um den Platz sinnvoll aufzuf{\"u}llen. \newline 
 Ist das erste Paket gr{\"o}{\ss}er als die maximale Nachrichtengr{\"o}{\ss}e,
-f{\"u}r die ein CRC-16 genutzt werden kann, wird ein CRC-32 verwendet und die Nachricht mit weiteren
-Datenbl{\"o}cken aufgef{\"u}llt bis die maximale Paketgr{\"o}sse erreicht ist. Dabei wird
-die Datenstruktur \Code{SmartPrioritizedQueue} solange
-durchlaufen bis kein Paket mehr vorhanden ist, welches den noch freien Raum
-ausf{\"u}llen k{\"o}nnte. \newline 
+f{\"u}r die ein CRC-16 genutzt werden kann, wird ein CRC-32 verwendet und die
+Nachricht mit weiteren Datenbl{\"o}cken aufgef{\"u}llt, bis die maximale
+Paketgr{\"o}ße erreicht ist. Dabei wird die Datenstruktur
+\Code{SmartPrioritizedQueue} solange durchlaufen, bis kein Paket mehr vorhanden
+ist, welches den noch freien Raum ausf{\"u}llen k{\"o}nnte. \newline 
 Der Algorithmus ist in \ref{fig:AlgorithmusPacketizer} graphisch dargestellt.
 
 \begin{figure}[H]
@@ -240,13 +241,13 @@ Als Netzwerkschnittstelle wird ein \gls{UDP} Socket verwendet. Dieser erh{\"a}lt
 erstellte Nachricht vom Submodul \Code{Packetizer} und leitet diese an einen
 zuvor ge{\"o}ffneten \gls{UDP} Socket weiter. Durch eine Client/Server basierte
 Socket-Kommunikation {\"u}ber \gls{UDP} (verbindungslose Kommunikation im Gegensatz
-zu \gls{TCP} wird der Datenstrom an die definierte Zieladresse und den
+zu \gls{TCP}) wird der Datenstrom an die definierte Zieladresse und den
 definierten Zielport geleitet. Da es sich hierbei um eine \gls{UDP} Socket-Verbindung handelt,
 werden Paketverluste nicht bemerkt (keine Sicherung der Daten{\"u}bertragung).
 Lediglich ein {\"u}bergreifendes Protokoll wie \gls{CROP}, welches dies erkennen
 k{\"o}nnte, kann dann eine erneute Sendung anfordern (zum jetzigen Zeitpunkt
-ist \gls{CROP} jedoch nicht f{\"a}hig einen Verbindungsabbruch zu detektieren). Die
-f{\"u}r den Vorgang genutzte Adressierungsart wird im \gls{CROP} festgelegt
+ist \gls{CROP} jedoch nicht f{\"a}hig, einen Verbindungsabbruch zu detektieren).
+Die f{\"u}r den Vorgang genutzte Adressierungsart wird im \gls{CROP} festgelegt
 und somit f{\"u}r die Socket-Kommunikation {\"u}bernommen. Im Testszenario
 dieser Arbeit kommt dabei IPv4 zum Einsatz.
 
@@ -257,7 +258,7 @@ dieser Arbeit kommt dabei IPv4 zum Einsatz.
 \label{fig:Socket-Kommunikation}
 \end{figure}
 
-Die Abbildung \ref{fig:Socket-Kommunikation} zeigt ein vereinfachte Dartsellung
+Die Abbildung \ref{fig:Socket-Kommunikation} zeigt eine vereinfachte Darstellung
 der Socket Kommunikation zwischen Client und Server mit aufsetzendem Content
 Relevance-Oriented Protocol. In Abbildung \ref{fig:OSI} erfolgt eine Einordnung
 des \gls{CROP} in das OSI-Referenzmodell.
@@ -299,8 +300,8 @@ stellt den besten Kompromiss aus Datensicherheit und Performance dar. \newline
 F{\"u}r diese Aufgabe wurde ein Submodul entwickelt, welches die Datenbl{\"o}cke
 auf der Festplatte hinterlegt und bei einem Absturz neu l{\"a}dt und damit die
 \Code{SmartPrioritizedQueue} vorinitialisiert. Dadurch sind die Schnittstellen,
-welche das Modul bereitstellen soll, schon indirekt vorgegeben. Diese sind, eine
-Methode welche Datenbl{\"o}cke auf der Festplatte speichert, eine weitere um
+welche das Modul bereitstellen soll, schon indirekt vorgegeben. Diese sind eine
+Methode, welche Datenbl{\"o}cke auf der Festplatte speichert, eine weitere, um
 diese zu laden und eine Dritte, mit der bereits gespeicherte Datenbl{\"o}cke
 gel{\"o}scht werden k{\"o}nnen.
 
@@ -316,7 +317,7 @@ in \ref{fig:EinbettungStoreManager} veranschaulicht. Dazu wird der
 \Code{StoreManager} parallel zur \Code{SmartPrioritizedQueue} integriert. Alle
 Datenbl{\"o}cke, welche in die Queue gelangen, werden ebenfalls an die
 Klasse \Code{StoreManager} {\"u}bergeben. Die von dem Submodul \Code{Packetizer}
-gelesenen Datenbl{\"o}cke werden anschliesend wieder gel{\"o}scht. Somit ist immer der
+gelesenen Datenbl{\"o}cke werden anschließend wieder gel{\"o}scht. Somit ist immer der
 aktuelle Datenbestand der \Code{SmartPrioritizedQueue}
 zus{\"a}tzlich auf der Festplatte gesichert. Beim Programmstart wird in der
 Initialisierungsmethode des Topmoduls {\"u}berpr{\"u}ft, ob bereits alte Daten vorhanden
@@ -364,15 +365,15 @@ aufgef{\"u}hrten Reihenfolge gespeichert:
 Für den Datenblockheader ist eine Kompression möglich und dadurch kann der
 Speicherplatzbedarf der Variablen unterschiedlich sein. Deshalb wird f{\"u}r
 diese festgelegt, dass die h{\"o}chste auftretende Bitzahl f{\"u}r jeden Wert zur
-n{\"a}chsten Zweierpotenz und ganzen Byte aufgerundet wird.
+n{\"a}chsten Zweierpotenz und ganzem Byte aufgerundet wird.
 Dadurch wird das Laden und Speichern stark vereinfacht. Der dabei auftretende
 zus{\"a}tzliche Speicherplatzbedarf kann vernachl{\"a}ssigt werden.
 \newline 
-F{\"u}r die Ordnerstruktur wurde eine m{\"o}glichst flache Hierachie genutzt, welche in
-der obersten Stufe den Ordner \Code{Backup} beinhaltet. Darin befinden sich
-weitere Ordner, welche als Namen die Nummer des Datentypes beinhalten. In diesem liegen die bin{\"a}ren
-Dateien, dessen Namen aus der Nummer der \gls{DOID} und der Sequenznummer
-besteht.
+F{\"u}r die Ordnerstruktur wurde eine m{\"o}glichst flache Hierarchie genutzt,
+welche in der obersten Stufe den Ordner \Code{Backup} beinhaltet. Darin befinden sich
+weitere Ordner, welche als Namen die Nummer des Datentypes beinhalten. In diesem
+liegen die bin{\"a}ren Dateien, deren Namen aus der Nummer der \gls{DOID} und
+der Sequenznummer bestehen.
 Diese sind durch einen Unterstrich voneinander getrennt. Die drei Parameter
 werden von der Methode remove zum L{\"o}schen einer Datei {\"u}bergeben, um diese
 eindeutig zu identifizieren.

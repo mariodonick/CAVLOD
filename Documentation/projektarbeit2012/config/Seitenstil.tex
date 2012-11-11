@@ -4,7 +4,10 @@
 % Seitenraender
 % -----------------------------------------------------------------
 \setlength{\topskip}{\ht\strutbox} % behebt Warnung von geometry
-\geometry{paper=a4paper,left=35mm,right=35mm,top=30mm}
+\geometry{paper=a4paper,left=35mm,right=35mm,top=30mm} % Ohne Binderand
+
+\geometry{a4paper,inner=3.5cm,outer=2.5cm,top=2.5cm,bottom=2.5cm,pdftex} % Mit Binderand
+
 
 % Kopf- und Fußzeilen ----------------------------------------------------------
 \pagestyle{fancy} %scrheadings
@@ -20,6 +23,7 @@
 \fancyhead[EL]{\nouppercase{\sc\rightmark}}
 \fancyhead[OR]{\nouppercase{\sc\rightmark}}
 \fancyhead[OL]{\nouppercase{\sc\leftmark}}
+
 
 
 

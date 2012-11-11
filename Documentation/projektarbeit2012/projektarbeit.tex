@@ -75,12 +75,15 @@
 \include{Deckblatt} 
 
 % Aufgabenstellung
+\cleardoublepage
 \include{Aufgabenstellung}
 \ofoot{\pagemark}
 % Seitennummerierung -----------------------------------------------------------
 %   Vor dem Hauptteil werden die Seiten in großen römischen Ziffern 
 %   nummeriert.
 % ------------------------------------------------------------------------------
+
+
 \pagenumbering{Roman}
 \tableofcontents % Inhaltsverzeichnis
 
@@ -106,10 +109,13 @@
 \lstlistoflistings % Listings-Verzeichnis
 
 % arabische Seitenzahlen im Hauptteil ------------------------------------------
-\clearpage
+%\clearpage
+\cleardoublepage
 \pagenumbering{arabic}
 
+
 % die Inhaltskapitel werden in "Inhalt.tex" inkludiert -------------------------
+
 \chapter{Einleitung}
 	\input{Einleitung}
 

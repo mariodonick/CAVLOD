@@ -9,11 +9,19 @@
 % Kopf- und Fußzeilen ----------------------------------------------------------
 \pagestyle{fancy} %scrheadings
 % Kopf- und Fußzeile auch auf Kapitelanfangsseiten
+
 \renewcommand*{\chapterpagestyle}{fancy}
 
-\renewcommand{\chapterpagestyle}{fancy} 
+%\renewcommand{\chapterpagestyle}{fancy} 
 % Schriftform der Kopfzeile
 \renewcommand{\headfont}{\normalfont}
+
+\fancyhead[ER]{\nouppercase{\sc\leftmark}}
+\fancyhead[EL]{\nouppercase{\sc\rightmark}}
+\fancyhead[OR]{\nouppercase{\sc\rightmark}}
+\fancyhead[OL]{\nouppercase{\sc\leftmark}}
+
+
 
 
 %\renewcommand{\sectionmark}[1]{\markboth{#1}{}}

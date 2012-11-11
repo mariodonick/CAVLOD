@@ -6,9 +6,8 @@
 \setlength{\topskip}{\ht\strutbox} % behebt Warnung von geometry
 %\geometry{paper=a4paper,left=35mm,right=35mm,top=30mm} % Ohne Binderand
 
-\geometry{a4paper,inner=3.5cm,outer=2.5cm,top=2.5cm,bottom=2.5cm,pdftex} % Mit
-% Binderand
-
+% Mit Binderand
+\geometry{a4paper,inner=3.5cm,outer=2.5cm,top=2.5cm,bottom=2.5cm,pdftex} 
 
 % Kopf- und Fußzeilen ----------------------------------------------------------
 \pagestyle{fancy} %scrheadings
@@ -16,9 +15,7 @@
 
 \renewcommand*{\chapterpagestyle}{fancy}
 
-%\renewcommand{\chapterpagestyle}{fancy} 
-% Schriftform der Kopfzeile
-%\renewcommand{\headfont}{\normalfont}
+% Schriftform der Kopfzeile und Fu�zeile
 
 \fancyhead[ER]{\nouppercase{\sc\leftmark}}
 \fancyhead[EL]{\nouppercase{\sc\rightmark}}
@@ -30,23 +27,6 @@
 \fancyfoot[EL]{\thepage}
 \fancyfoot[ER]{\copyright\ \autor}
 \fancyfoot[C]{}
-
-
-
-
-
-%\renewcommand{\sectionmark}[1]{\markboth{#1}{}}
-
-
-% Kopfzeile
-%\ihead{\textit{\headmark}}
-%\chead{}
-%\ohead{\pagemark}
-
-% Fußzeile
-%\ifoot{\copyright\ \autor}
-%\cfoot{}
-%\ofoot{}
 
 % sonstige typographische Einstellungen ----------------------------------------
 

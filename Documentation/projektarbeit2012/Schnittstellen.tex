@@ -16,7 +16,7 @@ Daraus ergeben sich die folgenden Verallgemeinerungen:
 
 Die Schnittstelle (1) ist die Gesamtschnittstelle. Hier wird der
 Content an das Modul übergeben. Weiterhin erfolgt die Übergabe der \gls{DOID}, des
-Datentyps und eines Flags, welches angibt, ob ein Zeitangabe berücksichtigt
+Datentyps und eines Flags, welches angibt, ob eine Zeitangabe berücksichtigt
 werden soll.
 Optional sind ein oder mehrere zeichengenaue Positionsangaben mit einem
 Relevanzwert anzugeben. Der Relevanzwert weist hierbei eine
@@ -37,7 +37,7 @@ Positionsangaben übermittelt, wenn diese vorgegeben wurden.
 
 \textbf{Schnittstelle (3)} 
 
-Aus Schnittstelle (1) wird an die Partitonierung
+Aus Schnittstelle (1) wird an die Partitionierung
 die \gls{DOID}, der Datentyp, der Content und das Zeitflag weitergegeben.
 
 \textbf{Schnittstelle (4)} 
@@ -64,10 +64,10 @@ Content identifiziert werden.
 
 \textbf{Schnittstelle (8)}
 
-Durch erhalt der Daten in Schnittstelle (7) kann für
+Durch Erhalt der Daten in Schnittstelle (7) kann für
 den Datenblock eine Priorität berechnet werden, welche an die Priorisierung übergeben
-wird. Die Priorität wird als reelle Zahl aufgefasst und ist ähnlich des
-Relevanzwertes eine prozentuale Größe zwischen 0 und 100.
+wird. Die Priorität wird als reelle Zahl aufgefasst und ist ähnlich dem
+Relevanzwert eine prozentuale Größe zwischen 0 und 100.
 
 \textbf{Schnittstelle (9)} 
 
@@ -77,5 +77,5 @@ Datenblockheadern und der Priorität an das Verpackungsmodul übergeben.
 Bei den Schnittstellen ist zu beachten, dass manche Angaben abhängig von den
 jeweiligen Datentypen sind und für den Fall nicht benutzt oder
 standardmäßig auf einen bestimmten Wert gesetzt werden. Beispielsweise benötigt
-ein Text als Positionsangaben keine Länge in y-Richtung. Dieser ist bei einem
+ein Text als Positionsangaben keine Länge in y-Richtung. Diese ist bei einem
 Bild jedoch zwingend notwendig.

@@ -9,20 +9,20 @@ verf{\"u}gt {\"u}ber zahlreiche Messinstrumente, darunter Kameras, Sensoren zur
 Messung kosmischer Strahlung, Spektrografen, meteorologische Messinstrumente und
 vieles mehr. Der Rover selbst ist mit einem Gewicht von $900$ kg und der
 Gr{\"o}{\ss}e eines kompakten Kleinwagens das bisher mit Abstand gr{\"o}{\ss}te
-vom Menschen geschaffene Objekt das je die Marsoberfl{\"a}che erreichte.
+vom Menschen geschaffene Objekt, das je die Marsoberfl{\"a}che erreichte.
 Dieser stellt ein mobiles Labor dar, das neben den Sensoren und
 Messinstrumenten auch Greifarme und R{\"a}der zur Fortbewegung und Interaktion
 aufweist. Alle Messinstrumente und s{\"a}mtliche Peripherie des Rovers werden dabei von der
 Erde aus gesteuert. Mit steigender Komplexit{\"a}t der mobilen Labore
-steigt nat{\"u}rlich auch die Menge an Daten die es zu {\"u}bertragen gilt. Da
-die komplette Steuerung und Auswertung auf der Erde stattfindet, gilt es sowohl
+steigt nat{\"u}rlich auch die Menge an Daten, die es zu {\"u}bertragen gilt. Da
+die komplette Steuerung und Auswertung auf der Erde stattfindet, gilt es, sowohl
 Steuerdaten von der Erde an den Rover zu senden, als auch Messdaten, Bilder und
 {\"a}hnliches vom Rover an die Erde zu {\"u}bermitteln. Dabei unterliegt die
 Kommunikation einigen entscheidenden Restriktionen. Die wohl Wichtigste ist die
 Lichtgeschwindigkeit, welche sich im Vakuum mit $299 792 458$ m/s ausbreitet.
 Die Ausbreitung der entsandten Signale kann daher niemals schneller erfolgen. Da die
 Entfernung zum Mars je nach Konstellation variiert, ist es im Folgenden
-hilfreich von der mittleren minimalen Entfernung zur Erde auszugehen. Diese
+hilfreich, von der mittleren minimalen Entfernung zur Erde auszugehen. Diese
 betr{\"a}gt $0,52$ AE oder aber ca. $77,8$ Millionen Kilometer (Schwankung des
 $[Erde - Mars]$ Abstandes je nach Konstellation: $0,372 - 2,683$ AE, d.h. bei
 Opposition $[Sonne - Erde - Mars]$ zwischen ca. $55 - 105$ Millionen Kilometern
@@ -41,7 +41,7 @@ umkreisende Sendevorrichtung (Satellit) erfolgt, wird das Zeitfenster der
 pro Tag aufgeteilt in zwei Sendevorg{\"a}nge von je 15 Minuten, dies ist jeweils
 die Zeit f{\"u}r den Vorbeiflug des Orbiters von Horizont zu Horizont bezogen
 auf den Rover).
-Diese physikalisch begr{\"u}ndeten Latenzen sind ein wichtiger Faktor den es in
+Diese physikalisch begr{\"u}ndeten Latenzen sind ein wichtiger Faktor, den es in
 der interplanetaren Kommunikation zu ber{\"u}cksichtigen gilt. Die hieraus
 abzuleitende Erkenntnis ist, dass eine Kommunikation beispielsweise zwischen
 Erde und Mars nicht mit einer heutigen irdischen Kommunikation zu vergleichen
@@ -54,12 +54,11 @@ geraten. Die irdische Kommunikation im $21$. Jahrhundert setzt auf geringe
 Latenzen und kann somit idealisiert als verz{\"o}gerungsfrei betrachtet werden.
 Doch eine interplanetare Kommunikation wird nicht allein durch die
 unvermeidlichen Latenzen beeinflusst. Auch die Bandbreite unserer
-{\"U}bertragung unterliegt auf der Erde abgewandten Seite
-einer Beschr{\"a}nkung. Am Beispiel der Mars Rover sei hier auf die genutzten
-Solarpanele bzw. eingesetzten Batterien (zumeist Radionuklidbatterien)
-verwiesen, welche nur eine begrenzte Energieversorgung gew{\"a}hrleisten und
-somit keine nahezu unbegrenzte Sendeleistung erm{\"o}glichen, wie es auf der
-Erde der Fall ist.
+{\"U}bertragung unterliegt der Erde abgewandten Seite einer Beschr{\"a}nkung. Am
+Beispiel der Mars Rover sei hier auf die genutzten Solarpanele bzw. eingesetzten
+Batterien (zumeist Radionuklidbatterien) verwiesen, welche nur eine begrenzte
+Energieversorgung gew{\"a}hrleisten und somit keine nahezu unbegrenzte
+Sendeleistung erm{\"o}glichen, wie es auf der Erde der Fall ist.
 Ein weiterer Punkt ist die f{\"u}r den Rover eingesetzte Technologie. Hierbei 
 sind unter anderem Faktoren wie Gr{\"o}{\ss}e und Gewicht von Bedeutung, da 
 diese die Kosten der Unternehmung stark beeinflussen. So kostet beispielsweise 
@@ -69,7 +68,7 @@ Hieraus ergibt sich f{\"u}r dieses Beispiel ein Preis von ca. $7.000$ Euro pro k
 Nutzlast. An diesem Beispiel zeigt sich die Wichtigkeit einer genauen
 Kalkulation des Gewichtes der Rover. Diese Restriktion wirkt sich direkt auf die
 verbaute Hardware des Rovers aus und somit auch indirekt auf Ressourcen wie z.B.
-die Gr{\"o}{\ss}e des verbauten Speichers zum ablegen lokaler Daten.
+die Gr{\"o}{\ss}e des verbauten Speichers zum Ablegen lokaler Daten.
 Zusammenfassend kann anhand der Beispiele festgestellt werden, dass Latenz, 
 Bandbreite sowie lokaler Speicher wichtige Restriktionen sind, denen die 
 interplanetare Kommunikation unterliegt. Diese Voraussetzungen verlangen 
@@ -88,13 +87,13 @@ Kapiteln der Arbeit gew{\"a}hrt.
 In \textbf{Kapitel zwei} werden die Grundlagen der Netzwerkkommunikation
 aufgef{\"u}hrt, welche zum Verst{\"a}ndnis der Arbeit notwendig sind. Dabei wird
 \zB das OSI-Referenzmodell aufgegriffen und erl{\"a}utert. Die im Weiteren
-erl{\"a}uterten Modelle, k{\"o}nnen alle vom OSI-Schichtenmodell abgeleitet
+erl{\"a}uterten Modelle k{\"o}nnen alle vom OSI-Schichtenmodell abgeleitet
 werden. Die weiteren Grundlagen betreffen die Zeitmessung auf dem Mars und
 andere allgemeine Erl{\"a}uterungen.
 
 Das \textbf{dritte Kapitel} befasst sich mit dem aktuellen Stand der Technik.
-Hier werden aktuelle Technologien und Protokolle vorgestellt, welche in der interplanetaren
-Kommunikation zum Einsatz kommen.
+Hier werden aktuelle Technologien und Protokolle vorgestellt, welche in der
+interplanetaren Kommunikation zum Einsatz kommen.
 
 \textbf{Kapitel vier} umfasst das Konzept der Arbeit. Hier werden
 Vor{\"u}berlegungen ausgef{\"u}hrt und grundlegende Funktionen erl{\"a}utert.
@@ -109,7 +108,7 @@ f{\"u}r eine einfache Chat Kommunikation.
 
 Im \textbf{sechsten Kapitel} wird die ausf{\"u}hrliche Analyse des Protokolls
 betrachtet.
-Dabei wird eine Overhead sowie eine Speicherverbrauch- und
+Dabei wird eine Overhead- sowie eine Speicherverbrauch- und
 Laufzeitanalyse diskutiert.
 
 Im \textbf{siebten und letzten Kapitel} wird eine Zusammenfassung und ein

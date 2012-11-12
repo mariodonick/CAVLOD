@@ -13,7 +13,8 @@ vom Menschen geschaffene Objekt, das je die Marsoberfl{\"a}che erreichte.
 \textit{Curiosity} stellt ein mobiles Labor dar, das neben den Sensoren und
 Messinstrumenten auch Greifarme und R{\"a}der zur Fortbewegung und Interaktion
 aufweist. Alle Messinstrumente und s{\"a}mtliche Peripherie des Rovers werden dabei von der
-Erde aus gesteuert. Mit steigender Komplexit{\"a}t der mobilen Labore
+Erde aus gesteuert. \newline
+Mit steigender Komplexit{\"a}t der mobilen Labore
 steigt nat{\"u}rlich auch die Menge an Daten, die es zu {\"u}bertragen gilt. Da
 die komplette Steuerung und Auswertung auf der Erde stattfindet, gilt es, sowohl
 Steuerdaten von der Erde an den Rover zu senden, als auch Messdaten, Bilder und
@@ -21,9 +22,9 @@ Steuerdaten von der Erde an den Rover zu senden, als auch Messdaten, Bilder und
 Kommunikation einigen entscheidenden Restriktionen. Die wohl Wichtigste ist die
 Lichtgeschwindigkeit, welche sich im Vakuum mit $299 792 458$ m/s ausbreitet.
 Die Ausbreitung der entsandten Signale kann daher niemals schneller erfolgen. Da die
-Entfernung zum Mars je nach Konstellation variiert, ist es im Folgenden
-hilfreich, von der mittleren minimalen Entfernung zur Erde auszugehen. Diese
-betr{\"a}gt $0,52$ AE oder aber ca. $77,8$ Millionen Kilometer (Schwankung des
+Entfernung zum Mars je nach Konstellation (Position der Planeten zueinander,
+w{\"a}hrend ihrer Bewegung um die Sonne) variiert, ist es im Folgenden
+hilfreich, von der mittleren minimalen Entfernung zur Erde auszugehen. Diese betr{\"a}gt $0,52$ AE oder aber ca. $77,8$ Millionen Kilometer (Schwankung des
 $[Erde - Mars]$ Abstandes je nach Konstellation: $0,372 - 2,683$ AE, d.h. bei
 Opposition $[Sonne - Erde - Mars]$ zwischen ca. $55 - 105$ Millionen Kilometern
 und bei Konjunktion $[Mars - Sonne - Erde]$ ca. $400$ Millionen Kilometer).
@@ -33,14 +34,13 @@ pro {\"U}bertragungsrichtung. Daraus folgt, dass die Antwort, auf eine an den
 Mars gesandte Anfrage bei diesem Szenario im Idealfall nach $8,6$
 Minuten, die Erde erreicht (im Fall der maximalen Entfernung zwischen Erde und
 Mars erst nach $44$ Minuten, wobei in dieser Konstellation eine direkte
-Funkverbindung nahezu unm{\"o}glich ist).
-Da der Mars jedoch genau wie die Erde eine Rotation um seine eigene Achse
-ausf{\"u}hrt und die Kommunikation {\"u}ber eine den Mars
+Funkverbindung nahezu unm{\"o}glich ist). Da der Mars jedoch genau wie die Erde
+eine Rotation um seine eigene Achse ausf{\"u}hrt und die Kommunikation {\"u}ber eine den Mars
 umkreisende Sendevorrichtung (Satellit) erfolgt, wird das Zeitfenster der
 {\"U}bertragung weiter beschr{\"a}nkt (Zeitfenster betr{\"a}gt ca. 30 Minuten
 pro Tag aufgeteilt in zwei Sendevorg{\"a}nge von je 15 Minuten, dies ist jeweils
 die Zeit f{\"u}r den Vorbeiflug des Orbiters von Horizont zu Horizont bezogen
-auf den Rover).
+auf den Rover).\newline \newline
 Diese physikalisch begr{\"u}ndeten Latenzen sind ein wichtiger Faktor, den es in
 der interplanetaren Kommunikation zu ber{\"u}cksichtigen gilt. Die hieraus
 abzuleitende Erkenntnis ist, dass eine Kommunikation beispielsweise zwischen
@@ -58,7 +58,7 @@ unvermeidlichen Latenzen beeinflusst. Auch die Bandbreite unserer
 Beispiel der Mars Rover sei hier auf die genutzten Solarpanele bzw. eingesetzten
 Batterien (zumeist Radionuklidbatterien) verwiesen, welche nur eine begrenzte
 Energieversorgung gew{\"a}hrleisten und somit keine nahezu unbegrenzte
-Sendeleistung erm{\"o}glichen, wie es auf der Erde der Fall ist.
+Sendeleistung erm{\"o}glichen, wie es auf der Erde der Fall ist.\newline
 Ein weiterer Punkt ist die f{\"u}r den Rover eingesetzte Technologie. Hierbei 
 sind unter anderem Faktoren wie Gr{\"o}{\ss}e und Gewicht von Bedeutung, da 
 diese die Kosten der Unternehmung stark beeinflussen. So kostet beispielsweise 
@@ -68,7 +68,7 @@ Hieraus ergibt sich f{\"u}r dieses Beispiel ein Preis von ca. $7.000$ Euro pro k
 Nutzlast. An diesem Beispiel zeigt sich die Wichtigkeit einer genauen
 Kalkulation des Gewichtes der Rover. Diese Restriktion wirkt sich direkt auf die
 verbaute Hardware des Rovers aus und somit auch indirekt auf Ressourcen wie z.B.
-die Gr{\"o}{\ss}e des verbauten Speichers zum Ablegen lokaler Daten.
+die Gr{\"o}{\ss}e des verbauten Speichers zum Ablegen lokaler Daten.\newline
 Zusammenfassend kann anhand der Beispiele festgestellt werden, dass Latenz, 
 Bandbreite sowie lokaler Speicher wichtige Restriktionen sind, denen die 
 interplanetare Kommunikation unterliegt. Diese Voraussetzungen verlangen 

@@ -1,5 +1,8 @@
 \label{subCap:Messreihen}
 
+
+\textbf{Testumgebung}
+
 Die Messungen wurden mit einem Notebook aufgenommen, welches
 folgende Hardwarekonfigurationen besitzt.
 
@@ -13,33 +16,9 @@ Da eine ähnliche Hardware bei einer Verwendung des Protokolls auf dem Mars
 weniger zu erwarten ist, sind die Größenordnungen der nachfolgenden Ergebnisse
 nur ein Richtwert. Für die folgenden Betrachtungen sind die Beziehungen und
 Entwicklungen der einzelnen Werte zueinander wichtig, welche mit schwächerer
-Hardware nahezu identisch sind.
+Hardware nahezu identisch sind. Zum Vergleich der weniger performanten Curiosity
+Computer sei auf das Kapitel \ref{cap:standDerTechnik} verwiesen. 
+\\
 
-Das Protokoll wird grundlegend mit zwei verschiedenen
-Compilereinstellungen getestet. Dies sind die Geschwindigkeits- (\glqq O$2$
-\grqq) und die Quellcodegrößenoptimierung (\glqq Os \grqq). Dabei
-wurde untersucht, wie lange das Protokoll für die Verarbeitung von Texten
-verschiedener Größe benötigt, die keine relevanten Bereiche besitzen. Dafür
-wurden Dateien mit verschiedenen Größen von $2$ Bytes bis $10$ Millionen Bytes 
-angelegt, durch das Programm eingelesen und der Schnittstelle des Protokolls
-übergeben. In diesem Fall ist keine Vorpriorisierung notwendig und die Datei
-kann sukzessive in maximale Datenblockgrößen zerlegt werden.
-Im Vergleich dazu ist eine Messreihen mit unterschiedlich vielen relevanten
-Bereichen für einen Text mit der Größe von $5.000.000$ Byte aufgenommen
-worden.
-Durch das Anfallen von zusätzlichen Berechnungen, die zum Zerteilen 
-des Textes notwendig sind, ist zu erwarten, dass die Laufzeit gegenüber
-ersterer Betrachtung ansteigt.
+\textbf{Methodik}
 
-Die eben vorgestellten Messungen wurden auf zwei verschiedenen Wegen
-aufgenommen. Diese unterscheiden sich dahingehend, dass das Modul vor dem Erhalt
-neuer Daten gelöscht und anschließend neu erstellt wurde. Somit sind alle
-Datenstrukturen bei jeden Messdurchgang leer, wodurch vor allem die Komplexität
-der Einsortierung in die priorisierende \gls{FIFO} verringert wurde. Für den
-zweiten Fall wurden die Daten alle nacheinander verschickt, um ein realistischeres
-Szenario darstellen zu können.
-
-Für einen aussagekräftigeren Wert und um potentielle Messungenauigkeiten zu
-kompensieren, wurde die Messung für jede Einstellung $10$ Mal wiederholt und der
-Mittelwert gebildet. Die Messreihen sind zur besseren Übersicht im
-Anhang dargestellt (\ref{sec:messtabellen}).

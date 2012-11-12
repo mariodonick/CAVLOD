@@ -121,28 +121,15 @@ Einsortieren neuer Blöcke sehr viel Rechenleistung in Anspruch nimmt.
 Gleichzeitig werden diese Daten im Arbeitsspeicher und auf der Festplatte
 hinterlegt. Hierbei gilt zu untersuchen, ob diese Form der Datensicherung bei
 einem Rover auf dem Mars praktikabel ist, da dieser über sehr begrenzte
-Speicherressourcen verfügt. Alternativ müssen neue Methoden gefunden werden, den
+Speicherressourcen verfügt. \newline
+Alternativ müssen neue Methoden gefunden werden, den
 Speicherverbrauch einzuschränken. So besteht die Möglichkeit, die Daten nur auf
-der Festplatte zu speichern und in der priorisiernden Datenstruktur die Indizes
+der Festplatte zu speichern und in der priorisierenden Datenstruktur die Indizes
 zu diesen zu hinterlegen. Dadurch kann der Speicherverbrauch im Arbeitsspeicher
 stark reduziert werden. Aufgrund von langen Zeiträumen in denen nicht gesendet
 werden kann, wird sukzessive Speicherplatz belegt (siehe \todo{verweis ind
 grnudlagen}).
-Deshalb ist diese Methode bei sehr vielen Daten nicht optimal. Eine bessere Möglichkeit wäre, anhand einer
-\gls{TTL} (siehe Kapitel \ref{sec:Vorueberlegung}) unrelevante Daten nur sehr
-kurzfristig vorzuhalten, damit mehr Raum für Daten von hoher Relevanz ist.
-
-
-% Die eben vorgestellten Messungen wurden auf zwei verschiedenen Wegen
-% aufgenommen. Diese unterscheiden sich dahingehend, dass das Modul vor dem Erhalt
-% neuer Daten gelöscht und anschließend neu erstellt wurde. Somit sind alle
-% Datenstrukturen bei jedem Messdurchgang leer, wodurch vor allem die Komplexität
-% der Einsortierung in die priorisierende \gls{FIFO} verringert wurde. Für den
-% zweiten Fall wurden die Daten alle nacheinander verschickt, um ein realistischeres
-% Szenario darstellen zu können.
-
-% Die Messreihen sind der besseren Übersicht halber
-% nocheinmal im Anhang dargestellt (\ref{sec:messtabellen}).
- 
-
-
+Deshalb ist diese Methode bei sehr vielen Daten nicht optimal. Eine bessere
+Möglichkeit wäre, anhand einer \gls{TTL} (siehe Kapitel
+\ref{sec:Vorueberlegung}) unrelevante Daten nur sehr kurzfristig vorzuhalten,
+damit mehr Raum für Daten von hoher Relevanz ist.

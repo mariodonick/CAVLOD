@@ -96,10 +96,10 @@ weitgehend unter der Bezeichnung Bundle-Protokoll bekannt. In diesem werden
 Folgen von Datenbl{\"o}cken als B{\"u}ndel zusammengefasst. Jedes B{\"u}ndel enth{\"a}lt
 dabei ausreichende semantische Informationen, um eine etwaige Applikation
 fortzusetzen. Exemplarisch sei hier ein Webbrowser angef{\"u}hrt, welcher ein
-Bundle-Paket erh{\"a}lt und dadurch eine komplette Webseite anzeigt. Auch hier
-erfolgt die {\"U}bertragung per \textit{store-and-forward}. Die eingesetzten
-Transportprotokolle k{\"o}nnen dabei variieren (\gls{IP} basierend o.a.). Das
-Bundle-Protokoll z{\"a}hlt zu den Overlay-Netzwerken, welche
+Bundle-Paket erh{\"a}lt und dadurch eine komplette Webseite anzeigt.
+Die {\"U}bertragung erfolgt dabei per \textit{store-and-forward}. Neben
+IP-basierenden Protokollen k{\"o}nnen auch andere Protokolle zum einsatz kommen
+(z.B. LTP). Das Bundle-Protokoll z{\"a}hlt zu den Overlay-Netzwerken, welche
 auf einer bereits bestehenden Netzwerkstruktur aufsetzen \cite{web1}.
 
 \textbf{Licklider Transmission Protocol}
@@ -238,14 +238,14 @@ Bestandteile einer Ontologie:
    
    \textbf{Relation} beschreiben, welche Beziehungen zwischen den Instanzen
    bestehen (z.B. Professor:Meier->unterrichtet->Student:Mueller). Relationen
-   werden auch als Eigenschaften bezeichnet.
-   \newline   \newline
+   werden auch als Eigenschaften bezeichnet. 
+   \newline
    Die allgemeine mathematische Definition einer Relation lautet:
-   \newline
+   \newline    \newline
    $R \subseteq M_1 \times \ldots \times M_n$
-   \newline   \newline
-   Beispiel einer Relation:
    \newline
+   Beispiel einer Relation:
+   \newline    \newline
    $\forall x,y : (eingeschrieben(x,y) \rightarrow Student(x) \wedge Kurs(y))$
    
    Durch \textbf{Vererbung} ist es m{\"o}glich, Relationen und Eigenschaften der
@@ -259,8 +259,7 @@ Bestandteile einer Ontologie:
    
    Beispiel eines Axioms:\newline
    $\forall x : (Professor(x) \rightarrow \neg Student(x))$   
-   
-\newpage   
+      
 \textbf{Vergleich der aktuellen Technologien mit CRODT}
 
 Das CRODT-Framework stellt eine umfangreiche Sammlung an Funktionalit{\"a}ten

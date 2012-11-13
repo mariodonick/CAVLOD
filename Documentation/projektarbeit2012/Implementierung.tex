@@ -247,10 +247,10 @@ Socket-Kommunikation {\"u}ber \gls{UDP} (verbindungslose Kommunikation im Gegens
 zu \gls{TCP}) wird der Datenstrom an die definierte Zieladresse und den
 definierten Zielport geleitet. Da es sich hierbei um eine \gls{UDP} Socket-Verbindung handelt,
 werden Paketverluste nicht bemerkt (keine Sicherung der Daten{\"u}bertragung).
-Lediglich ein {\"u}bergreifendes Protokoll wie \gls{CROP}, welches dies erkennen
+Lediglich ein {\"u}bergreifendes Protokoll wie \gls{ROTP}, welches dies erkennen
 k{\"o}nnte, kann dann eine erneute Sendung anfordern (zum jetzigen Zeitpunkt
-ist \gls{CROP} jedoch nicht f{\"a}hig, einen Verbindungsabbruch zu detektieren).
-Die f{\"u}r den Vorgang genutzte Adressierungsart wird im \gls{CROP} festgelegt
+ist \gls{ROTP} jedoch nicht f{\"a}hig, einen Verbindungsabbruch zu detektieren).
+Die f{\"u}r den Vorgang genutzte Adressierungsart wird im \gls{ROTP} festgelegt
 und somit f{\"u}r die Socket-Kommunikation {\"u}bernommen. Im Testszenario
 dieser Arbeit kommt dabei IPv4 zum Einsatz.
 
@@ -264,12 +264,12 @@ dieser Arbeit kommt dabei IPv4 zum Einsatz.
 Die Abbildung \ref{fig:Socket-Kommunikation} zeigt eine vereinfachte Darstellung
 der Socket Kommunikation zwischen Client und Server mit aufsetzendem Content
 Relevance-Oriented Protocol. In Abbildung \ref{fig:OSI} erfolgt eine Einordnung
-des \gls{CROP} in das OSI-Referenzmodell.
+des \gls{CROP}/\gls{ROTP} in das OSI-Referenzmodell.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=.38]{OSI.pdf}
-\caption{{\"U}berblick des OSI-Schichtenmodells und der Zuordnung von CROP}
+\caption{{\"U}berblick des OSI-Schichtenmodells und der Zuordnung der CROP/ROTP}
 \label{fig:OSI}
 \end{figure}
 

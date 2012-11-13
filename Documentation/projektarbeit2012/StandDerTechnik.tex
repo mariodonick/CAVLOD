@@ -118,15 +118,16 @@ Handelt es sich um wichtige Daten, werden w{\"a}hrend des Sendevorgangs
 innerhalb der im \gls{LTP} verwendeten Segmente spezielle Flags gesetzt.
 Diese einfach als Checkpoints bezeichneten Signale erfordern eine Quittierung
 durch den Empf{\"a}nger, um so bei einem eventuellen Verbindungsabbruch ein
-erneutes Senden des jeweiligen Datenpakets auszul{\"o}sen. Die Daten werden
-solange beim Sender im Speicher (RAM oder lokaler Festspeicher z.B. Flash)
-vorgehalten, bis der zugeh{\"o}rige Checkpoint quittiert wurde. Wenn ein Checkpoint nicht quittiert wird, kann durch
-einen ablaufenden Timer auf der Seite des Senders ein erneutes Senden
-durchgeführt werden. Sowohl das Senden als auch Empfangen eines Blocks kann per
-Signal abgebrochen werden. Zudem ist die Gr{\"o}{\ss}e der Segmente einstellbar,
-um diese an den jeweiligen Zweck anzupassen. Handelt es sich bei den zu sendenden
+erneutes Senden des jeweiligen Datenpakets auszul{\"o}sen (vergleichbar mit
+TCP). Die Daten werden solange beim Sender im Speicher (RAM oder lokaler
+Festspeicher z.B. Flash) vorgehalten, bis der zugeh{\"o}rige Checkpoint
+quittiert wurde. Wenn ein Checkpoint nicht quittiert wird, kann durch einen
+ablaufenden Timer auf der Seite des Senders ein erneutes Senden durchgeführt
+werden. Sowohl das Senden als auch Empfangen eines Blocks kann per Signal
+abgebrochen werden. Zudem ist die Gr{\"o}{\ss}e der Segmente einstellbar, um
+diese an den jeweiligen Zweck anzupassen. Handelt es sich bei den zu sendenden
 Daten um Daten mit geringerer Relevanz, so ist keine Best{\"a}tigung durch den
-Empf{\"a}nger notwendig.
+Empf{\"a}nger notwendig (vergleichbar mit UDP).
 Diese Daten werden direkt nach dem Versenden gel{\"o}scht \cite{web4}.
 
 \begin{figure}[H]
@@ -211,14 +212,16 @@ zur Verf{\"u}gung. Diese {\"a}hneln in ihrem Einsatz zum Teil denen der
 vorgestellten Protokolle (LTP/Bundle Protokoll). So unterscheidet das LTP
 beispielsweise nach wichtigen und unwichtigen Daten (red/green data). Diese
 Funktionalit{\"a}t gleicht in ihrer Intension der Relevanzevaluierung im
-CRODT-Framework. Zudem sollen die Datenbl{\"o}cke aus den Messages, die durch
-CROP verschickt werden, auf Seiten des Empf{\"a}ngers direkt lesbar sein. Diese
-Funktionalit{\"a}t gleicht der Bundle-Strategie des Bundle Protokolls. Der
-Einsatzgedanke der Ontologien innerhalb des CRODT-Frameworks hingegen,
-unterscheidet sich deutlich von den anderen angef{\"u}hrten Protokollen. Hierbei
-sollen wichtige Daten automatisch erkannt und bewertet werden. Zudem ist das
-Contentsplitting und die Relevanzevaluierung innerhalb von CRODT wesentlich
-differenzierter (Werte zwischen 0 und 100). Die eigentliche {\"U}bertragung
-erfolgt beim CRODT-Framework bisher paketorientiert und ungesichert. Eine LTP
-{\"a}hnliche Ende-zu-Ende Verbindung mit einer Empfangsquittierung w{\"a}re
-jedoch auch denkbar.
+CRODT-Framework. Allerdings bleibt zu konstatieren, dass die vom LTP getroffene
+Unterscheidung recht grob ist. Zudem sollen die
+Datenbl{\"o}cke aus den Messages, die durch CROP verschickt werden, auf Seiten
+des Empf{\"a}ngers direkt lesbar sein. Diese Funktionalit{\"a}t gleicht der
+Bundle-Strategie des Bundle Protokolls. Der Einsatzgedanke der Ontologien
+innerhalb des CRODT-Frameworks hingegen, unterscheidet sich deutlich von den
+anderen angef{\"u}hrten Protokollen. Hierbei sollen wichtige Daten automatisch
+erkannt und bewertet werden. Zudem ist das Contentsplitting und die
+Relevanzevaluierung innerhalb von CRODT wesentlich differenzierter (Werte
+zwischen 0 und 100). Die {\"U}bertragung betreffend ist das CROP flexibel, da es
+durchaus mit anderen Protokollen kombiniert ("'gestackt"') werden kann. Somit
+k{\"o}nnte sowohl eine Paketorientierte und Verbindungslose Kommunikation (UDP
+{\"a}hnlich), als auch eine TCP {\"a}hnliche Verbindung infrage kommen.

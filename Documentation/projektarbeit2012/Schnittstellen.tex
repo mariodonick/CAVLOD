@@ -17,19 +17,23 @@ bezeichnet. Daraus ergeben sich die folgenden Verallgemeinerungen:
 
 \textbf{Schnittstelle (1)}
 
-Die Schnittstelle (1) ist die Gesamtschnittstelle. Hier wird der
-Content an das Modul übergeben. Weiterhin erfolgt die Übergabe der \gls{DOID}, des
+Die Schnittstelle (1) ist die Gesamtschnittstelle. Hier werden die
+Daten an das Modul übergeben. Weiterhin erfolgt die Übergabe der \gls{DOID}, des
 Datentyps und eines Flags, welches angibt, ob eine Zeitangabe berücksichtigt
 werden soll.
 Optional sind ein oder mehrere zeichengenaue Positionsangaben mit einem
-Relevanzwert anzugeben. Der Relevanzwert weist hierbei eine
-prozentuale Angabe im Bereich von $0$ bis $100$ auf. Dabei wird $0$ als
-unwichtig und $100$ als sehr wichtig eingestuft. Die Positionsangaben beinhalten
-zum einen den Startpunkt des relevanten Bereiches mit einer x- und y-Koordinate. Weiterhin
+Relevanzwert anzugeben. Der Relevanzwert weist hierbei eine prozentuale Angabe
+im Bereich von $0$ bis $100$ auf. Dabei wird $0$ als unwichtig und $100$ als
+sehr wichtig eingestuft. Die Positionsangaben beinhalten zum einen den
+Startpunkt des relevanten Bereiches mit einer x- und y-Koordinate. Weiterhin
 wird die Fläche des Bereiches mit einer Länge in x- und y-Richtung angegeben.
 Die Angabe der Positionen und des Relevanzwertes ist beispielsweise notwendig,
 wenn diese Daten nicht selbst berechnet werden sollen, sondern der Benutzer
-diese über eine grafische Benutzeroberfläche vorgibt.\newline
+diese über eine grafische Benutzeroberfläche vorgibt. Diese Daten werden
+anschliessend an den Evaluator weitergereicht. Wenn der Evaluator diese
+Berechnung der Relevanzdaten automatisch übernimmt, wird dieser Teil der
+Schnittstelle nicht verwendet.
+\newline 
 System-Input $\rightarrow$ SenderModul: Content, \gls{DOID}, Datentyp,
 Timestampflag, Relevanzdaten
 

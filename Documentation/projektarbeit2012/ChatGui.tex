@@ -1,16 +1,17 @@
 \label{cap:chatGui}
 
-Dieser Abschnitt befasst sich mit der Entwicklung des \gls{GUI}, diese
-erm{\"o}glicht eine nutzerfreundliche Chat-Kommunikation über das \gls{CRODT}
-Protokoll. Hierbei wurde auf Basis der Design Regeln nach Jakob Nielsen der
-erste Prototyp entwickelt. \newline Das GUI besteht aus dem Empfangsfenster
-(Abbildung
+Dieser Abschnitt befasst sich mit der Entwicklung des \gls{GUI}. Mit dieser
+wird eine nutzerfreundliche Chat-Kommunikation über das \gls{CRODT} Protokoll
+angestrebt.
+Hierbei wurde auf Basis der Designregeln nach Jakob Nielsen der erste Prototyp
+entwickelt.
+\newline Das GUI besteht aus dem Empfangsfenster (Abbildung
 \ref{fig:GUI} rechts), dem Eingabefenster (Abbildung \ref{fig:GUI}
 unten links) mit einer Anzeige über bisher verschickte Nachrichten
 (Abbildnug \ref{fig:GUI} oben links) sowie der Priorit{\"a}tenliste
-(Abbildung \ref{fig:GUI} oben mitte) und den Bedienelementen (Abbildung
+(Abbildung \ref{fig:GUI} oben Mitte) und den Bedienelementen (Abbildung
 \ref{fig:GUI} unten mitte). Die Implementierung erfolgte dabei in C++
-durch die Nutzung der Qt-Bibliothek. Aufgrund der geringen Entwicklungszeit,
+durch die Nutzung der Qt-Bibliothek. Aufgrund der geringen Entwicklungszeit
 wurde dabei von einer nutzerzentrierten \gls{GUI} Entwicklung abgesehen. Der
 somit genutzte anwenderunabh{\"a}ngige Entwurf fu{\ss}t dabei auf zehn
 Grunds{\"a}tzen (Ref. \cite{Nielsen}).
@@ -50,13 +51,13 @@ Die Abbildung \ref{fig:GUI} zeigt das \gls{GUI} im {\"U}berblick. Die auf den
 ersten Blick ungew{\"o}hnlich anmutende (getrennte) Anordnung von Sende- und
 Empfangsfenster ist das Resultat der stark verz{\"o}gerten Kommunikation. Da
 Satzteile unterschiedliche Priorit{\"a}ten aufweisen k{\"o}nnen und somit die
-{U}bertragung einer Nachricht {\"u}ber einen l{\"a}ngeren Zeitraum erfolgen
+{\"U}bertragung einer Nachricht {\"u}ber einen l{\"a}ngeren Zeitraum erfolgen
 kann, ist eine gew{\"o}hnliche Chatoberfl{\"a}che ungeeignet. In der getrennten
-Anordnung kann die mit Verz{\"o}gerung empfangene Nachricht im rechten Teil der
+Anordnung kann die mit Verz{\"o}gerung empfangene Nachricht im rechten Teil des
 \gls{GUI} aufgebaut werden, w{\"a}hrend im linken Teil weiterhin Nachrichten
-verschickt werden k{\"o}nnen. F{\"u}r die Zukunft ist eine weitere Verbesserung dieses
+verschickt werden k{\"o}nnen\footnote{F{\"u}r die Zukunft ist eine weitere Verbesserung dieses
 Verhaltens vorgesehen, sodass vollst{\"a}ndig empfangene Nachrichten im
-Sendefenster in die Kommunikation chronologisch eingeordnet werden. \newline
+Sendefenster in die Kommunikation chronologisch eingeordnet werden.}. \newline
 \newline Die grundlegende Funktionalit{\"a}t des \gls{GUI} entspricht der eines
 {\"u}blichen Chat-Programms, welches Eingaben {\"u}ber ein Textfeld erm{\"o}glicht und diese
 nach Best{\"a}tigung versendet. Die Eingabe erfolgt {\"u}ber das Textfeld im

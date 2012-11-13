@@ -39,21 +39,24 @@ geforderte modulare Aufbau sichergestellt.
 \label{fig:BlockdiagrammSender}
 \end{figure}
 
-Die Daten werden {\"u}ber die Schnittstelle des Topmoduls {\"u}bergeben und an die
-Klasse \Code{Partitionierung} weitergegeben. Dort werden diese, abh{\"a}ngig von
-ihrer Relevanz, in Datenbl{\"o}cke zerlegt. Zus{\"a}tzlich werden in diesem
-Schritt die Datenblockheader (siehe Kapitel \ref{sec:ProtokolDesign}) erstellt und der
-Content in bin{\"a}re Daten umgewandelt. Am Ende werden die Datenbl{\"o}cke mit den
-Headerinformationen in einer \gls{FIFO} gepuffert.
+Die Daten werden {\"u}ber die Schnittstelle des Topmoduls \Code{Sender}
+{\"u}bergeben und an die Klasse \Code{Partitionierung} weitergegeben. Dort
+werden diese, abh{\"a}ngig von ihrer Relevanz, in Datenbl{\"o}cke zerlegt.
+Zus{\"a}tzlich werden in diesem Schritt die Datenblockheader (siehe Kapitel
+\ref{sec:ProtokolDesign}) erstellt und der Content in bin{\"a}re Daten
+umgewandelt. Am Ende werden die Datenbl{\"o}cke mit den Headerinformationen in
+einer \gls{FIFO} gepuffert.
 Anschließend wird jedem einzelnen Datenblock im n{\"a}chsten Modul eine
 Priorit{\"a}t zugewiesen. Die angesprochene Relevanz und die Priorit{\"a}t der
-Datenbl{\"o}cke werden in einem extra Modul namens \gls{CRODM} berechnet und den
-Modulen {\"u}bergeben. Anhand dieser wird der Datenblock in die Datenstruktur
-\Code{SmartPrioritizedQueue} einsortiert. Dadurch wird
-gew{\"a}hrleistet, dass die wichtigen Daten zuerst gesendet werden. F{\"u}r diese
-Aufgabe wird eine einfache Liste aus der \gls{STL} verwendet. Durch diese kann
-iteriert werden und es besteht ein schneller zufälliger Zugriff auf jedes
-Element, welches nun ebenso effektiv eingefügt und gelöscht werden kann.
+Datenbl{\"o}cke werden in einem extra Modul namens \gls{CRODM} berechnet oder
+manuell durch den Nutzer zugewiesen und anschließend dem Modul \Code{Priority}
+{\"u}bergeben.
+Anhand dieser wird der Datenblock in die Datenstruktur
+\Code{SmartPrioritizedQueue} einsortiert. Dadurch wird gew{\"a}hrleistet, dass
+die wichtigen Daten zuerst gesendet werden. F{\"u}r diese Aufgabe wird eine
+einfache Liste aus der \gls{STL} verwendet. Durch diese kann iteriert werden und
+es besteht ein schneller zufälliger Zugriff auf jedes Element, welches nun
+ebenso effektiv eingefügt und gelöscht werden kann.
 Weiterhin exsistiert die notwendige Sortierfunktion. Diese hat f{\"u}r den durch sie
 ausgef{\"u}hrten Zweck eine vergleichsweise gute Laufzeit.
 Damit die Verz{\"o}gerung, die durch gro{\ss}e Entfernungen auftritt, besser
@@ -279,7 +282,8 @@ gespeichert werden, sollen auch nach einem Programmabsturz oder nach einem
 Stromausfall noch vorhanden sein. Weil die Klasse \Code{SmartPrioritizedQueue}
 die Daten im Arbeitsspeicher hinterlegt, w{\"a}ren diese bei einem Absturz
 verloren.
-F{\"u}r das Abspeichern der Daten auf die Festplatte existieren prinzipiell drei Methoden.
+F{\"u}r das Abspeichern der Daten auf einem Speichermedium existieren
+prinzipiell drei Methoden.
 
 \begin{enumerate}
 \item Jede erzeugte Variable wird direkt auf der Festplatte abgespeichert.
@@ -392,10 +396,10 @@ weiterlaufen zu lassen. Nach Abarbeitung dieser kehrt der Ablauf zur
 urspr{\"u}nglichen Position zur{\"u}ck. Diese Funktion kann mittels einer
 Methode registriert werden, in der die geparsten Daten weiter verarbeitet werden
 k{\"o}nnen.
-Die Callbackfunktion k{\"o}nnte beispielsweise die Visualisierung der Daten
-{\"u}bernehmen. \newline 
-In \ref{fig:BlockdiagrammEmpfaenger} wird eine schematische Darstellung des
-Moduls angezeigt. Eine weitere detaillierte Übersicht der Klassen
+Die Callbackfunktion k{\"o}nnte beispielsweise die Visualisierung und das
+Zwischenspeichern der unvollständigen Daten {\"u}bernehmen. \newline 
+In Abbildung \ref{fig:BlockdiagrammEmpfaenger} wird eine schematische
+Darstellung des Moduls angezeigt. Eine weitere detaillierte Übersicht der Klassen
 und deren Interaktion untereinander ist im Anhang
 \ref{fig:KlassendiagrammParser} in Form eines Klassendiagramms 
 abgebildet.

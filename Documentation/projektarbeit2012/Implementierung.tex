@@ -22,7 +22,7 @@ Datentypen Text und Sensorwerte integriert.
 \section{Modulaufbau Sender}
  
 Die Aufgabe des Moduls \Code{Sender} besteht darin, die aus vier Phasen
-bestehende Verarbeitung der Daten (Ref. \cite{Daher}) umzusetzen.
+bestehende Verarbeitung der Daten umzusetzen \cite{Daher}.
 In \ref{fig:BlockdiagrammSender} ist das Blockdiagramm und im Anhang
 \ref{fig:KlassendiagrammSender} das dazugehörige Klassendiagramm des Moduls
 \Code{Sender} dargestellt.
@@ -428,7 +428,7 @@ Klasse \Code{DataBlockProcessing} verarbeitet.
 \end{figure}
 
 Daf{\"u}r wird ein Softwarekonzept namens Policy-Based-Template-Meta Programmierung
-verwendet (Ref. \cite{Alexandrescu:2001:MCD:377789}), damit die
+verwendet \cite{Alexandrescu:2001:MCD:377789}, damit die
 unterschiedlichen Datentypen der Datenbl{\"o}cke nach dem Parsen wieder in einem
 typsicheren Format vorliegen und einfacher verwendet werden k{\"o}nnen.
 Der Templateklasse werden die folgenden vier Klassen als Templateparameter
@@ -452,7 +452,7 @@ Art und Weise ver{\"a}ndert werden muss, wie die Daten geparst werden,
 ist dieser Weg der optimale. Durch das Konzept wurden
 Redundanzen im Quellcode vermieden und weitere Datentypen lassen sich
 sehr einfach hinzuf{\"u}gen ohne bestehenden Quellcode zu ver{\"a}ndern. Dadurch konnten
-die Grundprinzipien der objektorientierten Programmierung eingehalten werden (Ref. \cite{herold2001go}).
+die Grundprinzipien der objektorientierten Programmierung eingehalten werden \cite{herold2001go}.
 Der eben angesprochene Grundalgorithmus, welcher f{\"u}r jeden Datentyp
 durchlaufen wird, ist in Listing \ref{lst:PseudocodeDBParser} dargestellt.
 

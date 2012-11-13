@@ -1,10 +1,14 @@
 \label{cap:standDerTechnik}
 Dieses Kapitel befasst sich mit dem aktuellen Stand der Technik. Dies
-umfasst sowohl die gegenw{\"a}rtig eingesetzte Hardware, als auch bereits
-entwickelte Protokolle zur interplanetaren Kommunikation.
+umfasst sowohl die gegenw{\"a}rtig eingesetzte Hardware (Rover Curiosity, Deep
+Space Antennen), als auch bereits entwickelte Protokolle zur interplanetaren
+Kommunikation (Bundle-Protokoll etc.). Abschlie{\ss}end wird ein Bezug zum im
+Zuge dieser Arbeit implementierten Content Relevance-Oriented Protocol
+hergestellt.
 
 \section{Weltraum-Technologien}
-\textbf{Mars Rover Curiosity} 
+
+\textbf{Mars Rover Curiosity} \newline
 
 Der Mars Rover \textit{Curiosity} (Abbildung \ref{fig:Curiosity}) verf{\"u}gt
 {\"u}ber einen RAD750 Prozessor von BAE-Systems.
@@ -12,8 +16,9 @@ Dieser hat eine Taktfrequenz von bis zu 200 MHz und kann 266 MIPS
 verarbeiten\footnote{Dieser Prozessor ist verglichem mit der Hardware, die im
 Verlauf dieser Arbeit zum Test des entwickelten Protokolls eingesetzt wurde
 sehr schwach.}. Desweiteren verf{\"u}gt \textit{Curiosity} {\"u}ber einen
-Arbeitsspeicher von 256 MB und einen Flash-Speicher von 2 GB. Zus{\"a}tzlich hat \textit{Curiosity} einen EPROM von 256 KB. Alle Bauteile sind dabei besonders
-strahlungsresistent und unempfindlich gegen{\"u}ber gro{\ss}en
+Arbeitsspeicher von 256 MB und einen Flash-Speicher von 2 GB. Zus{\"a}tzlich
+hat \textit{Curiosity} einen EPROM von 256 KB. Alle Bauteile sind dabei
+besonders strahlungsresistent und unempfindlich gegen{\"u}ber gro{\ss}en
 Temperaturschwankungen. Das genutzte Betriebssystem ist VxWorks \cite{WR}.
 Zur Kommunikation nutzt der Rover einerseits das X-Band (7 - 8 GHz), welches zur
 {\"U}bertragung von Statusdaten und zum Empfang von Steuerdaten genutzt wird.
@@ -28,16 +33,17 @@ weitere Kameras, Sensoren etc., welche weitere Analysedaten beisteuern
 \cite{web5}. Anhand der Vielzahl von Messinstrumenten, Kameras etc. wird
 erkennbar, dass eine Menge unterschiedlicher Datentypen zu verwalten ist.
 Desweiteren zeigt beispielsweise die Aufl{\"o}sung der Mastkameras, dass zudem
-auch gro{\ss}e Datenmengen zu verwalten sind.
+auch gro{\ss}e Datenmengen zu verwalten sind. Diese Anforderungen gilt es in den
+verwendeten Kommunikationsprotokollen zu ber{\"u}cksichtigen.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=.12]{Curiosity.png}
+\includegraphics[scale=.14]{Curiosity.png}
 \caption[Mars Rover Curiosity]{Mars Rover Curiosity \cite{imgCuriosity}}
 \label{fig:Curiosity}
 \end{figure}
 
-\textbf{Deep Space Network}
+\textbf{Deep Space Network} \newline
 
 Das Deep Space Network bezeichnet ein Netz von Parabolantennen, welche zur
 Kommunikation mit Raumsonden, Satelliten sowie zu radio-
@@ -96,10 +102,10 @@ weitgehend unter der Bezeichnung Bundle-Protokoll bekannt. In diesem werden
 Folgen von Datenbl{\"o}cken als B{\"u}ndel zusammengefasst. Jedes B{\"u}ndel enth{\"a}lt
 dabei ausreichende semantische Informationen, um eine etwaige Applikation
 fortzusetzen. Exemplarisch sei hier ein Webbrowser angef{\"u}hrt, welcher ein
-Bundle-Paket erh{\"a}lt und dadurch eine komplette Webseite anzeigt. Auch hier
-erfolgt die {\"U}bertragung per \textit{store-and-forward}. Die eingesetzten
-Transportprotokolle k{\"o}nnen dabei variieren (\gls{IP} basierend o.a.). Das
-Bundle-Protokoll z{\"a}hlt zu den Overlay-Netzwerken, welche
+Bundle-Paket erh{\"a}lt und dadurch eine komplette Webseite anzeigt.
+Die {\"U}bertragung erfolgt dabei per \textit{store-and-forward}. Neben
+IP-basierenden Protokollen k{\"o}nnen auch andere Protokolle zum einsatz kommen
+(z.B. LTP). Das Bundle-Protokoll z{\"a}hlt zu den Overlay-Netzwerken, welche
 auf einer bereits bestehenden Netzwerkstruktur aufsetzen \cite{web1}.
 
 \textbf{Licklider Transmission Protocol}
@@ -165,7 +171,7 @@ Ende-zu-Ende Kommunikation \cite{DTNBundle}.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=.35]{PSSBN.pdf}
+\includegraphics[width=\textwidth]{PSSBN.pdf}
 \caption[Protokoll-Stack eines interplanetaren Netzwerks]
 {Protokoll-Stack eines interplanetaren Netzwerks \cite{DTNBundle}}
 \label{fig:PSSBN}
@@ -189,16 +195,27 @@ dieses aufgrund der hohen Latenzzeiten in der {\"U}bertragung eher einer
 postalischen Kommunikation (QoS hingegen ist auf eine synchrone Kommunikation
 ausgelegt). Aus diesem Grund wurde mit dem QoI (Quality of Interaction) ein
 speziell f{\"u}r diesen Anwendungsfall konzipiertes Verfahren entwickelt
-\cite{Daher2}. Dabei werden, neben klassischen QoS-Merkmalen, welche ebenfalls
-genutzt werden k{\"o}nnen, neue Verbindungsmerkmale betrachetet.
-Diese sind z.B. die Dauer der Verbindung, {\"u}bertragene Daten pro Verbindung
-und andere Merkmale.
+\cite{Daher2}. Dabei wurde ein Konzept entwickelt welches auf Signalen basiert
+(REQ\footnote{Request-Signal}, RSP\footnote{Response-Signal},
+INFO\footnote{Information-Signal}). Durch diese Signale ist es m{\"o}glich
+sowohl eine Transaktions- (\textit{Transaction Time}) als auch eine Antwortzeit
+(\textit{Response Time}) zu bestimmen. Klassische QoS-Merkmale k{\"o}nnen
+ebenfalls zur Evaluierung der Verbindung hinzugezogen werden. Jedoch werden in
+erster Linie QoI-Merkmale verwendet (z.B. Dauer einer Verbindung,
+{\"U}bertragungen pro Verbindung usw.). Zusammenfassend kann gesagt werden, dass
+das QoI-Modell (im Gegesatz zum QoS-Modell) die Qualit{\"a}t der
+Interaktion bewertet und somit nicht in erster Linie den Fokus auf die
+Qualit{\"a}t der Verbindung legt. Dies ist wie bereits erw{\"a}hnt im
+vorliegenden asynchronen Kommunikationsmodell begr{\"u}ndet.
 
 \textbf{Ontologien}
 
 Ontologien sind Sammlungen aus Inferenz- und Integrit{\"a}tsregeln, um
 Schlussfolgerungen auf komplexe Probleme zu beziehen. Ontologien werden zum
-Austausch von Wissen in digitaler Form genutzt.
+Austausch von Wissen in digitaler Form genutzt. Die wichtigste Bedingung einer
+Ontologie ist die Allgemeing{\"u}ltigkeit. Dies unterscheidet die Ontologien von
+anderen Datenmodellen, welche speziell an einen bestimmten Zweck angepasst
+werden.
 
 Bestandteile einer Ontologie:
 
@@ -210,7 +227,45 @@ Bestandteile einer Ontologie:
      \item \textit{Vererbung}
      \item \textit{Axiome}
    \end{compactenum}
-\newpage   
+   
+   \textbf{Begriffe} werden auch als Klassen bezeichnet. Diese
+   k{\"o}nnen in einer Klassenstruktur mit {\"U}ber- und Unterklasse angeordnet
+   werden. Sie stellen Sammlungen von Objekten gleicher Eigenschaften dar
+   (z.B. Student, Professor bei der Klasse Mensch).
+   
+   \textbf{Typen} repr{\"a}sentieren Objekttypen (z.B. Student, Professor) in
+   der Ontologie und stellen die zur Verf{\"u}gung stehenden Typen in Klassen dar.
+   Diese werden anhand vorher definierter Begriffe erzeugt.
+   
+   \textbf{Istanzen} repr{\"a}sentieren Objekte in
+   der Ontologie und stellen das zur Verf{\"u}gung stehende Wissen dar
+   (z.B. Student Mueller, Professor Meier). Diese werden anhand vorher
+   definierter Begriffe erzeugt.
+   
+   \textbf{Relation} beschreiben, welche Beziehungen zwischen den Instanzen
+   bestehen (z.B. Professor:Meier->unterrichtet->Student:Mueller). Relationen
+   werden auch als Eigenschaften bezeichnet. 
+   \newline
+   Die allgemeine mathematische Definition einer Relation lautet:
+   \newline    \newline
+   $R \subseteq M_1 \times \ldots \times M_n$
+   \newline
+   Beispiel einer Relation:
+   \newline    \newline
+   $\forall x,y : (eingeschrieben(x,y) \rightarrow Student(x) \wedge Kurs(y))$
+   
+   Durch \textbf{Vererbung} ist es m{\"o}glich, Relationen und Eigenschaften der
+   Begriffe zu vererben. Dabei werden alle Eigenschaften an das erbende Element
+   weitergegeben. Mehrfachvererbung bei Begriffen ist grunds{\"a}tzlich
+   m{\"o}glich.
+   
+   \textbf{Axiome} sind Aussagen innerhalb der Ontologie, die immer wahr sind.
+   Diese werden normalerweise dazu verwendet, Wissen zu repr{\"a}sentieren, das
+   nicht aus anderen Begriffen abgeleitet werden kann.
+   
+   Beispiel eines Axioms:\newline
+   $\forall x : (Professor(x) \rightarrow \neg Student(x))$   
+      
 \textbf{Vergleich der aktuellen Technologien mit CRODT}
 
 Das CRODT-Framework stellt eine umfangreiche Sammlung an Funktionalit{\"a}ten

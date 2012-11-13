@@ -479,3 +479,25 @@ morestring=[b]',%
 {$\cap$}{2} {||} {$\cup$}{2} } \lstinputlisting[label=lst:PseudocodeDBParser,caption=Pseudocode
 des Datenblock Parsers]
 {Listings/PseudocodeDBParser.txt}
+
+\section{UniversalDecoder}
+
+Nachdem dem Parsen der ankommenden Datenpakete müssen diese im nächsten
+Schritt sortiert werden. Daf{\"u}r existieren im Header des Datenblockes die
+\gls{DOID} und die Sequenznummer (siehe Kapitel \ref{sec:ProtokolDesign}).
+F{\"u}r diese Aufgabe wurde eine Template-Klasse \Code{UniversalDecoder}
+geschrieben, welche die Datenstrukturen zur leichteren Verwendung kapselt. Als
+Datenstruktur kommt ein verschachteltes assoziatives Datenfeld, im Folgenden als
+Map bezeichnet, aus der \gls{STL} zum Einsatz. Die Datenstruktur ist ähnlich zu
+einem Vektor, allerdings wird hier jedes Datenfeld mit einem Schlüssel belegt,
+anhand dessen die Daten schnell gefunden werden können.
+Jeder Schl{\"u}ssel ist einzigartig.\newline
+F{\"u}r die innere Map wird die
+Sequenznummer als Schl{\"u}ssel und für die {\"A}ußere die \gls{DOID} verwendet.
+Damit diese Klasse für alle Datentypen verwendet werden kann, wird der Datentyp
+als Templateparameter {\"u}bergeben. Die Datenstruktur kann sowohl im Modul
+\Code{Empfänger}, als auch in dem ChatGui zum sortieren der Daten genutzt
+werden. F{\"u}r diese Implementierung wid diese Klasse in dem \gls{GUI}
+integriert. Dadurch wird das Darstellen der Zeichen auf dem Textfeld vereinfacht
+und es besteht die Möglichkeit bei einer wechselnden \gls{DOID} einen
+Zeilenumbruch hinzuzufügen.

@@ -3,17 +3,18 @@ Dieses Kapitel befasst sich mit dem aktuellen Stand der Technik. Dies
 umfasst sowohl die gegenw{\"a}rtig eingesetzte Hardware, als auch bereits
 entwickelte Protokolle zur interplanetaren Kommunikation.
 
+\section{Weltraum-Technologien}
 \textbf{Mars Rover Curiosity} 
 
 Der Mars Rover \textit{Curiosity} (Abbildung \ref{fig:Curiosity}) verf{\"u}gt
 {\"u}ber einen RAD750 Prozessor von BAE-Systems.
 Dieser hat eine Taktfrequenz von bis zu 200 MHz und kann 266 MIPS
-verarbeiten. Desweiteren verf{\"u}gt \textit{Curiosity} {\"u}ber einen
-Arbeitsspeicher von 256 MB und einen Flash-Speicher von 2 GB. Zus{\"a}tzlich hat
-\textit{Curiosity} einen EPROM von 256 KB. Alle Bauteile sind dabei besonders
+verarbeiten\footnote{Dieser Prozessor ist verglichem mit der Hardware, die im
+Verlauf dieser Arbeit zum Test des entwickelten Protokolls eingesetzt wurde
+sehr schwach.}. Desweiteren verf{\"u}gt \textit{Curiosity} {\"u}ber einen
+Arbeitsspeicher von 256 MB und einen Flash-Speicher von 2 GB. Zus{\"a}tzlich hat \textit{Curiosity} einen EPROM von 256 KB. Alle Bauteile sind dabei besonders
 strahlungsresistent und unempfindlich gegen{\"u}ber gro{\ss}en
-Temperaturschwankungen. Das genutzte Betriebssystem ist VxWorks (Ref.
-\cite{WR}).
+Temperaturschwankungen. Das genutzte Betriebssystem ist VxWorks \cite{WR}.
 Zur Kommunikation nutzt der Rover einerseits das X-Band (7 - 8 GHz), welches zur
 {\"U}bertragung von Statusdaten und zum Empfang von Steuerdaten genutzt wird.
 Des Weiteren verf{\"u}gt der Rover {\"u}ber ein Kommunikationssystem im UHF-Band
@@ -23,13 +24,16 @@ wissenschaftlichen Instrumenten umfasst zehn Ger{\"a}te. Darunter z.B. zwei
 Mastkameras welche je eine Aufl{\"o}sung von 1200 x 1200 Pixeln haben (1,44
 Megapixel). Diese Kameras sind ebenfalls in der Lage 720p-Videos mit einer
 Framerate von 10 Bildern pro Sekunde aufzunehmen. Hinzu kommen Spektrografen,
-weitere Kameras, Sensoren etc., welche weitere Analysedaten beisteuern (Ref.
-\cite{web5}).
+weitere Kameras, Sensoren etc., welche weitere Analysedaten beisteuern
+\cite{web5}. Anhand der Vielzahl von Messinstrumenten, Kameras etc. wird
+erkennbar, dass eine Menge unterschiedlicher Datentypen zu verwalten ist.
+Desweiteren zeigt beispielsweise die Aufl{\"o}sung der Mastkameras, dass zudem
+auch gro{\ss}e Datenmengen zu verwalten sind.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=.12]{Curiosity.png}
-\caption[Mars Rover Curiosity]{Mars Rover Curiosity (Ref. \cite{imgCuriosity})}
+\caption[Mars Rover Curiosity]{Mars Rover Curiosity \cite{imgCuriosity}}
 \label{fig:Curiosity}
 \end{figure}
 
@@ -53,15 +57,17 @@ Rover \textit{Curiosity} und der Erde genutzt. Die Anlagen liegen an exponierter
 Einfluss von St{\"o}rungen z.B. durch Radiofrequenzen reduzieren. Die Stationen
 befinden sich je in einem Abstand von einem drittel Erd{\"a}quator, um eine
 fortw{\"a}hrende Kommunikation mit Raumfahrzeugen trotz Erdrotation zu
-erm{\"o}glichen (Ref. \cite{web6}).
+erm{\"o}glichen \cite{web6}.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=.3]{Goldstone.jpg}
 \caption[Antenne der NASA Deep Space Network Einrichtung in Goldstone, Kalifornien, USA]
-{Antenne der NASA Deep Space Network Einrichtung in Goldstone, Kalifornien, USA (Ref. \cite{imgGoldstone})}
+{Antenne der NASA Deep Space Network Einrichtung in Goldstone, Kalifornien, USA \cite{imgGoldstone}}
 \label{fig:Goldstone}
 \end{figure}
+
+\section{Definitionen}
 
 \textbf{Interplanetary Internet}
 
@@ -79,7 +85,9 @@ Ende-zu-Ende Netzwerkverbindungen mit geringer Stabilit{\"a}t. Die Basis der
 Bestandteil dieser Netzwerke ist der Umgang mit gro{\ss}en Latenzen. Zudem
 m{\"u}ssen die an der Kommunikation beteiligten Knoten (Teilnehmer)
 Daten solange zwischenspeichern, bis der Empf{\"a}nger den Erhalt quittiert hat
-(store-and-forward) (Ref. \cite{web3}).
+(store-and-forward) \cite{web3}.
+
+\section{Protokolle}
 
 \textbf{Bundle-Protokoll}
 
@@ -92,7 +100,7 @@ Bundle-Paket erh{\"a}lt und dadurch eine komplette Webseite anzeigt. Auch hier
 erfolgt die {\"U}bertragung per \textit{store-and-forward}. Die eingesetzten
 Transportprotokolle k{\"o}nnen dabei variieren (\gls{IP} basierend o.a.). Das
 Bundle-Protokoll z{\"a}hlt zu den Overlay-Netzwerken, welche
-auf einer bereits bestehenden Netzwerkstruktur aufsetzen (Ref. \cite{web1}).
+auf einer bereits bestehenden Netzwerkstruktur aufsetzen \cite{web1}.
 
 \textbf{Licklider Transmission Protocol}
 
@@ -111,20 +119,20 @@ innerhalb der im \gls{LTP} verwendeten Segmente spezielle Flags gesetzt.
 Diese einfach als Checkpoints bezeichneten Signale erfordern eine Quittierung
 durch den Empf{\"a}nger, um so bei einem eventuellen Verbindungsabbruch ein
 erneutes Senden des jeweiligen Datenpakets auszul{\"o}sen. Die Daten werden
-solange beim Sender in einer \gls{FIFO} vorgehalten, bis der zugeh{\"o}rige
-Checkpoint quittiert wurde. Wenn ein Checkpoint nicht quittiert wird, kann durch
+solange beim Sender im Speicher (RAM oder lokaler Festspeicher z.B. Flash)
+vorgehalten, bis der zugeh{\"o}rige Checkpoint quittiert wurde. Wenn ein Checkpoint nicht quittiert wird, kann durch
 einen ablaufenden Timer auf der Seite des Senders ein erneutes Senden
 durchgeführt werden. Sowohl das Senden als auch Empfangen eines Blocks kann per
 Signal abgebrochen werden. Zudem ist die Gr{\"o}{\ss}e der Segmente einstellbar,
 um diese an den jeweiligen Zweck anzupassen. Handelt es sich bei den zu sendenden
 Daten um Daten mit geringerer Relevanz, so ist keine Best{\"a}tigung durch den
 Empf{\"a}nger notwendig.
-Diese Daten werden direkt nach dem Versenden gel{\"o}scht (Ref. \cite{web4}).
+Diese Daten werden direkt nach dem Versenden gel{\"o}scht \cite{web4}.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=.4]{LTP.pdf}
-\caption{Einordnung des LTP in das Kommunikationsmodell}
+\caption{Einordnung des LTP in das Kommunikationsmodell nach \cite{Burleigh}}
 \label{fig:LTP}
 \end{figure}
 
@@ -152,13 +160,13 @@ Orbiter kommuniziert mit der \gls{DSN} Bodenstation {\"u}ber einen
 auf der rechten {\"a}u{\ss}eren Seite symbolisiert eine Missionskontrollstation,
 welche mit der \gls{DSN} Bodenstation {\"u}ber einen klassische
 \gls{TCP}/\gls{IP} Stack kommuniziert. Das Bundle Protokoll sichert dabei eine
-Ende-zu-Ende Kommunikation (Ref. \cite{DTNBundle}).
+Ende-zu-Ende Kommunikation \cite{DTNBundle}.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=.35]{PSSBN.pdf}
 \caption[Protokoll-Stack eines interplanetaren Netzwerks]
-{Protokoll-Stack eines interplanetaren Netzwerks (Ref. \cite{DTNBundle})}
+{Protokoll-Stack eines interplanetaren Netzwerks \cite{DTNBundle}}
 \label{fig:PSSBN}
 \end{figure}
 
@@ -174,14 +182,14 @@ Das QoS-Modell ist zwar theoretisch auch auf eine interplanetare Kommunikation
 anwendbar (z.B. DTN/IPN), jedoch gleicht dieses aufgrund der hohen Latenzzeiten
 in der {\"U}bertragung eher einer postalischen Kommunikation. Aus diesem Grund
 wurde mit dem QoI (Quality of Interaction) ein speziell f{\"u}r diesen
-Anwendungsfall konzipiertes Verfahren entwickelt (Ref. \cite{Daher2}). Dabei
+Anwendungsfall konzipiertes Verfahren entwickelt \cite{Daher2}. Dabei
 werden, neben klassischen QoS-Merkmalen, welche ebenfalls genutzt werden
 k{\"o}nnen, neue Verbindungsmerkmale betrachetet. Diese sind z.B. die
 Dauer der Verbindung, {\"u}bertragene Daten pro Verbindung und andere Merkmale. 
 
 \textbf{Ontologien}
 
-Ontologien sind Sammlungen aus Inferenz- und Integrit{\"a}tsregeln um
+Ontologien sind Sammlungen aus Inferenz- und Integrit{\"a}tsregeln, um
 Schlussfolgerungen auf komplexe Probleme zu beziehen. Ontologien werden zum
 Austausch von Wissen in digitaler Form genutzt.
 
@@ -199,21 +207,18 @@ Bestandteile einer Ontologie:
 \textbf{Vergleich der aktuellen Technologien mit CRODT}
 
 Das CRODT-Framework stellt eine umfangreiche Sammlung an Funktionalit{\"a}ten
-zur verf{\"u}gung. Diese {\"a}hneln in ihrem Einsatz zum Teil denen der
+zur Verf{\"u}gung. Diese {\"a}hneln in ihrem Einsatz zum Teil denen der
 vorgestellten Protokolle (LTP/Bundle Protokoll). So unterscheidet das LTP
 beispielsweise nach wichtigen und unwichtigen Daten (red/green data). Diese
 Funktionalit{\"a}t gleicht in ihrer Intension der Relevanzevaluierung im
 CRODT-Framework. Zudem sollen die Datenbl{\"o}cke aus den Messages, die durch
-CROP verschickt werden, aufseiten des Empf{\"a}ngers direkt lesbar sein. Diese
-Funktionalit{\"a}t gleicht der Bundle Strategie des Bundle Protokolls. Der
-Einsatzgedanke der Ontologien innerhalb des CRODT-Frameworks hingegen
+CROP verschickt werden, auf Seiten des Empf{\"a}ngers direkt lesbar sein. Diese
+Funktionalit{\"a}t gleicht der Bundle-Strategie des Bundle Protokolls. Der
+Einsatzgedanke der Ontologien innerhalb des CRODT-Frameworks hingegen,
 unterscheidet sich deutlich von den anderen angef{\"u}hrten Protokollen. Hierbei
 sollen wichtige Daten automatisch erkannt und bewertet werden. Zudem ist das
 Contentsplitting und die Relevanzevaluierung innerhalb von CRODT wesentlich
 differenzierter (Werte zwischen 0 und 100). Die eigentliche {\"U}bertragung
-erfolgt beim CRODT-Framework bisher Paketorientiert und ungesichert. Eine LTP
+erfolgt beim CRODT-Framework bisher paketorientiert und ungesichert. Eine LTP
 {\"a}hnliche Ende-zu-Ende Verbindung mit einer Empfangsquittierung w{\"a}re
-jedoch auch denkbar. Zusammenfassend bietet das CRODT-Framework eine Sammlung an
-Funktionalit{\"a}ten, welche im Vergleich zu den anderen Protokollen
-differenzierter und umfangreicher ist. Der allgemine Grundgedanke ist jedoch
-{\"a}hnlich.
+jedoch auch denkbar.

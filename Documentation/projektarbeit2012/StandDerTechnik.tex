@@ -286,4 +286,12 @@ zwischen 0 und 100). Die {\"U}bertragung betreffend ist das unter \gls{CRODT}
 genutzte \gls{ROTP} flexibel, da es durchaus mit anderen Protokollen kombiniert
 ("'gestackt"') werden kann. Somit k{\"o}nnte sowohl eine Paketorientierte und
 Verbindungslose Kommunikation (UDP {\"a}hnlich), als auch eine TCP {\"a}hnliche
-Verbindung infrage kommen.
+Verbindung infrage kommen (z.B. LTP). ROTP repr{\"a}sentiert somit ein
+\textit{Overlay} Protokoll oberhalb Layer-4. Bezogen Auf das zuvor gegebene
+Beispiel eines Stacks einer interplanetaren Kommunikation, k{\"o}nnte das
+CRODT-Framework (CROP und ROTP) als eine Erweiterung dienen. Diese
+k{\"o}nnte auf dem Bundle-Protokoll aufsetzen um diesem bei Bedarf die
+M{\"o}glichkeit einer relevanzorientierten Datenaufteilung und Sortierung
+hinzuzuf{\"u}gen. Als Layer-4 Protokoll k{\"o}nnte weiterhin LTP eingesetzt
+werden. Das ROTP {\"u}bergibt dann die Messages, welche mit den nach Relevanz
+geordneten Datenbl{\"o}cken gef{\"u}llt sind, an das LTP.

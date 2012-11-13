@@ -10,14 +10,13 @@ zuk{\"u}nftige Ziel ist es, mit Hilfe der Ontologien eine automatisierte
 Priorisierung von Daten vorzunehmen. Somit kann ein auf dem Mars befindliches
 System (z.B. ein Rover) selbstst{\"a}ndig entscheiden, welche Informationen eine
 hohe Priorit{\"a}t zugewiesen bekommen. F{\"u}r einen Einstieg in das Thema der
-Ontologieentwicklung sei in diesem Zusammenhang auf das Paper von \cite{Noy2000}
-verwiesen.
+Ontologieerstellung und deren Entwicklung im Bezug auf die vorliegende Arbeit,
+sei auf die Paper von \cite{Noy2000} und \cite{Daher} verwiesen.
 
 \textbf{Datenkompression}
 
-Ein weiteres Thema der Vor{\"u}berlegungen ist die Komprimierung von Daten.
-Dieser Aspekt gewinnt ein gro{\ss}es Ma{\ss} an Wichtigkeit, da die zur
-Verf{\"u}gung stehende Bandbreite stark begrenzt ist. In Abh{\"a}ngigkeit der zu
+Die Komprimierung von Daten gewinnt ein gro{\ss}es Ma{\ss} an Wichtigkeit, da
+die zur Verf{\"u}gung stehende Bandbreite stark begrenzt ist. In Abh{\"a}ngigkeit der zu
 verschickenden Daten (Bilder, Audio, Sensordaten etc.), sind hierbei
 unterschiedliche Ans{\"a}tze denkbar. Einige dieser Ans{\"a}tze werden in
 \cite{Kiely2006} und \cite{Kiely2007} vorgestellt. Im Rahmen der angefertigten
@@ -33,8 +32,8 @@ bezeichnet eine Station einer Route auf dem Weg zum Ziel (Knoten)}-Zähler
 ist dabei in einem Szenario der interplanetaren Kommunikation derzeit eher
 unrealistisch, da zumeist eine Punkt-zu-Punkt Verbindung anvisiert wird (kein
 intensives Routing {\"u}ber eine Vielzahl an Stationen). Somit w{\"a}re unter
-Ber{\"u}cksichtigung einer interplanetaren Kommunikation eine \gls{TTL} Realisierung
-per Zeitstempel sinnvoller, da hier{\"u}ber, unter Ber{\"u}cksichtigung des
+Ber{\"u}cksichtigung einer interplanetaren Kommunikation eine
+\gls{TTL}-Realisierung per Zeitstempel sinnvoller, da hier{\"u}ber, unter Ber{\"u}cksichtigung des
 {\"U}bertragungskontextes, unrealistische {\"U}bertragungszeiten einfach erkannt
 werden k{\"o}nnen.
 Aufgrund der beschr{\"a}nkten Ressourcen unter interplanetaren
@@ -62,7 +61,7 @@ dargestellt.
 \begin{figure}[H]
 \centering
 \includegraphics[scale=.3]{CRODT.pdf}
-\caption[Das CRODT Framework]{Das CRODT Framework (Ref. \cite{Daher})}
+\caption[Das CRODT Framework]{Das CRODT Framework \cite{Daher}}
 \label{fig:CRODT}
 \end{figure}
 
@@ -94,9 +93,11 @@ equivalente Darstellung der Paketerweiterung um den jeweiligen Header
 hinzugef{\"u}gt. Der Protokollablauf sieht dabei nach Aufteilung der Daten in
 Bl{\"o}cke und Zuweisung einer Priorit{\"a}t eine Zusammenfassung zu einer
 Nachricht mit ausschließlich höher priorisierten Daten vor. Dieses Datenpaket
-wird an den \gls{UDP}-Stack weitergegeben, anschlie{\ss}end um den
+wird nun z.B. an den \gls{UDP}-Stack weitergegeben, anschlie{\ss}end um den
 \gls{IP}-Header erweitert und dann entsprechend der
-{\"U}bertragungsschnittstelle und deren Protokoll versandt.
+{\"U}bertragungsschnittstelle und deren Protokoll versandt. Die Nutzung von UDP
+ist dabei beispielhaft zu betrachten, da andere Layer-4 Protokolle ebenso
+infrage kommen.
 
 \begin{figure}[H]
 \centering
@@ -167,5 +168,5 @@ Das Ergebnis muss dabei null sein. Das im Beispiel genutzte Polynom kann mit der
 Ordnung $4$ ($2^4=16$) auf Daten von $16$ Bit Länge angewendet werden. Das
 Polynom $x16+x12+x5+1$ wird hingegen beispielsweise beim CRC-CCITT $16$ Bit-Verfahren
 genutzt und kann auf Datenframes bis zu einer Gr{\"o}{\ss}e von $2^{16}=65536$
-Bit angewendet werden (Ref. \cite{web2}).
+Bit angewendet werden \cite{web2}.
 

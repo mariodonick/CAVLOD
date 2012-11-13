@@ -1,10 +1,14 @@
 \label{cap:standDerTechnik}
 Dieses Kapitel befasst sich mit dem aktuellen Stand der Technik. Dies
-umfasst sowohl die gegenw{\"a}rtig eingesetzte Hardware, als auch bereits
-entwickelte Protokolle zur interplanetaren Kommunikation.
+umfasst sowohl die gegenw{\"a}rtig eingesetzte Hardware (Rover Curiosity, Deep
+Space Antennen), als auch bereits entwickelte Protokolle zur interplanetaren
+Kommunikation (Bundle-Protokoll etc.). Abschlie{\ss}end wird ein Bezug zum im
+Zuge dieser Arbeit implementierten Content Relevance-Oriented Protocol
+hergestellt.
 
 \section{Weltraum-Technologien}
-\textbf{Mars Rover Curiosity} 
+
+\textbf{Mars Rover Curiosity} \newline
 
 Der Mars Rover \textit{Curiosity} (Abbildung \ref{fig:Curiosity}) verf{\"u}gt
 {\"u}ber einen RAD750 Prozessor von BAE-Systems.
@@ -12,8 +16,9 @@ Dieser hat eine Taktfrequenz von bis zu 200 MHz und kann 266 MIPS
 verarbeiten\footnote{Dieser Prozessor ist verglichem mit der Hardware, die im
 Verlauf dieser Arbeit zum Test des entwickelten Protokolls eingesetzt wurde
 sehr schwach.}. Desweiteren verf{\"u}gt \textit{Curiosity} {\"u}ber einen
-Arbeitsspeicher von 256 MB und einen Flash-Speicher von 2 GB. Zus{\"a}tzlich hat \textit{Curiosity} einen EPROM von 256 KB. Alle Bauteile sind dabei besonders
-strahlungsresistent und unempfindlich gegen{\"u}ber gro{\ss}en
+Arbeitsspeicher von 256 MB und einen Flash-Speicher von 2 GB. Zus{\"a}tzlich
+hat \textit{Curiosity} einen EPROM von 256 KB. Alle Bauteile sind dabei
+besonders strahlungsresistent und unempfindlich gegen{\"u}ber gro{\ss}en
 Temperaturschwankungen. Das genutzte Betriebssystem ist VxWorks \cite{WR}.
 Zur Kommunikation nutzt der Rover einerseits das X-Band (7 - 8 GHz), welches zur
 {\"U}bertragung von Statusdaten und zum Empfang von Steuerdaten genutzt wird.
@@ -28,16 +33,17 @@ weitere Kameras, Sensoren etc., welche weitere Analysedaten beisteuern
 \cite{web5}. Anhand der Vielzahl von Messinstrumenten, Kameras etc. wird
 erkennbar, dass eine Menge unterschiedlicher Datentypen zu verwalten ist.
 Desweiteren zeigt beispielsweise die Aufl{\"o}sung der Mastkameras, dass zudem
-auch gro{\ss}e Datenmengen zu verwalten sind.
+auch gro{\ss}e Datenmengen zu verwalten sind. Diese Anforderungen gilt es in den
+verwendeten Kommunikationsprotokollen zu ber{\"u}cksichtigen.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=.12]{Curiosity.png}
+\includegraphics[scale=.14]{Curiosity.png}
 \caption[Mars Rover Curiosity]{Mars Rover Curiosity \cite{imgCuriosity}}
 \label{fig:Curiosity}
 \end{figure}
 
-\textbf{Deep Space Network}
+\textbf{Deep Space Network} \newline
 
 Das Deep Space Network bezeichnet ein Netz von Parabolantennen, welche zur
 Kommunikation mit Raumsonden, Satelliten sowie zu radio-
@@ -165,7 +171,7 @@ Ende-zu-Ende Kommunikation \cite{DTNBundle}.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=.35]{PSSBN.pdf}
+\includegraphics[width=\textwidth]{PSSBN.pdf}
 \caption[Protokoll-Stack eines interplanetaren Netzwerks]
 {Protokoll-Stack eines interplanetaren Netzwerks \cite{DTNBundle}}
 \label{fig:PSSBN}

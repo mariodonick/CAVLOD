@@ -1,3 +1,5 @@
+\section{Motivation}
+
 Seit {\"u}ber f{\"u}nfzig Jahren entwickeln Forscher Strategien
 zur Erkundung des Weltraums. Dabei hat sich seit der Entsendung des ersten k{\"u}nstlichen
 Satelliten namens Sputnik und der ersten Mondlandung viel getan.
@@ -73,15 +75,32 @@ Zusammenfassend kann anhand der Beispiele festgestellt werden, dass Latenz,
 Bandbreite sowie lokaler Speicher wichtige Restriktionen sind, denen die 
 interplanetare Kommunikation unterliegt. Diese Voraussetzungen verlangen 
 eine besondere Kommunikationsstruktur die von den {\"u}blichen Protokollen 
-abweicht. Das \gls{CROP} soll hier f{\"u}r Abhilfe sorgen.
-Der Gedanke des Protokolls ist ein gezielter Umgang mit den begrenzten 
-Ressourcen. Hierbei wird einerseits eine Verallgemeinerung der vorhandenen 
+abweicht. 
+
+\section{Ziel der Arbeit}
+
+Das \gls{CROP} soll bei den zuvor erw{\"a}hnten Sachverhalten f{\"u}r Abhilfe
+sorgen. Der Gedanke des Protokolls ist ein gezielter Umgang mit den begrenzten 
+Ressourcen. Hierbei wird einerseits eine Unterteilung der vorhandenen 
 Daten in Datenbl{\"o}cke vorgenommen und andererseits eine Priorisierung der 
 Daten erwirkt, welche {\"u}ber die Reihenfolge und den Zeitpunkt des 
 Versendens entscheidet. Daraus resultiert, dass Daten von hoher Relevanz 
-vor Daten mit niederer Relevanz verschickt werden. Somit k{\"o}nnen 
+vor Daten niederer Relevanz verschickt werden. Somit k{\"o}nnen 
 beispielsweise zeitkritische Daten das Kontrollzentrum auf der Erde 
-schneller erreichen. Im Folgenden wird ein kurzer {\"U}berblick zu den einzelnen
+schneller erreichen. Zudem hat das priorisierte Zerteilen der Daten
+(priorisiertes Contentsplitting) den Vorteil, dass Daten gro{\ss}er
+Speichermenge (z.B.
+hochaufl{\"o}sende Bilder) bereits vor dem vollst{\"a}ndigen Empfang auf der
+Erde partiell visualisiert und ausgewertet werden k{\"o}nnen. Das Ziel der
+vorliegenden Arbeit ist die Implementation des \gls{CROP} und einer Anwendung
+zur Nutzung dieses Protokolls (Chatanwendung). Zudem erfolgt eine Evaluierung
+des implementierten Protokolls hinsichtlich der Performanz und Stabilit{\"a}t.
+Au{\ss}erdem umfasst die Arbeit weiterf{\"u}hrende {\"U}berlegungen im Bezug auf
+die zuk{\"u}nftige Weiterentwicklung des \gls{CROP}.
+
+\section{Aufbau der Arbeit}
+
+Im Folgenden wird ein kurzer {\"U}berblick zu den einzelnen
 Kapiteln der Arbeit gew{\"a}hrt.
 
 In \textbf{Kapitel zwei} werden die Grundlagen der Netzwerkkommunikation
@@ -96,21 +115,20 @@ Hier werden aktuelle Technologien und Protokolle vorgestellt, welche in der
 interplanetaren Kommunikation zum Einsatz kommen.
 
 \textbf{Kapitel vier} umfasst das Konzept der Arbeit. Hier werden
-Vor{\"u}berlegungen ausgef{\"u}hrt und grundlegende Funktionen erl{\"a}utert.
+Vor{\"u}berlegungen zur Entwicklung eines \gls{CROP} ausgef{\"u}hrt und
+grundlegende Funktionen erl{\"a}utert, die dabei zum Einsatz kommen.
 Zudem werden einige Ideen beleuchtet, welche in der weiteren
 Protokollentwicklung zu ber{\"u}cksichtigen sind, die aber im derzeitigen Stand
 nicht implementiert wurden.
 
 \textbf{Kapitel f{\"u}nf} behandelt die Implementierung des Protokolls. Dabei
 wird sowohl die Implementierung der betreffenden Module für das Protokoll
-genauer beleuchtet, als auch die Entwicklung der grafischen Benutzeroberfläche
-f{\"u}r eine einfache Chat Kommunikation.
+genauer er{\"o}rtert, als auch die Entwicklung der grafischen
+Benutzeroberfläche f{\"u}r eine einfache Chat-Kommunikation.
 
-Im \textbf{sechsten Kapitel} wird die ausf{\"u}hrliche Analyse des Protokolls
-betrachtet.
-Dabei wird eine Overhead- sowie eine Speicherverbrauch- und
-Laufzeitanalyse diskutiert.
+Im \textbf{sechsten Kapitel} wird unsere Implementierung des Protokolls
+hinsichtlich Overhead, Speicherverbrauch und Laufzeit analysiert und diskutiert.
 
-Im \textbf{siebten und letzten Kapitel} wird eine Zusammenfassung und ein
+Im \textbf{siebten und letzten Kapitel} werden eine Zusammenfassung und ein
 Ausblick auf die zuk{\"u}nftige Entwicklung im bearbeiteten Themenbereich gegeben.
 

@@ -110,8 +110,8 @@ innerhalb der im \gls{LTP} verwendeten Segmente spezielle Flags gesetzt.
 Diese einfach als Checkpoints bezeichneten Signale erfordern eine Quittierung
 durch den Empf{\"a}nger, um so bei einem eventuellen Verbindungsabbruch ein
 erneutes Senden des jeweiligen Datenpakets auszul{\"o}sen. Die Daten werden
-solange beim Sender in einer \gls{FIFO} vorgehalten, bis der zugeh{\"o}rige
-Checkpoint quittiert wurde. Wenn ein Checkpoint nicht quittiert wird, kann durch
+solange beim Sender im Speicher (RAM oder lokaler Festspeicher z.B. Flash)
+vorgehalten, bis der zugeh{\"o}rige Checkpoint quittiert wurde. Wenn ein Checkpoint nicht quittiert wird, kann durch
 einen ablaufenden Timer auf der Seite des Senders ein erneutes Senden
 durchgeführt werden. Sowohl das Senden als auch Empfangen eines Blocks kann per
 Signal abgebrochen werden. Zudem ist die Gr{\"o}{\ss}e der Segmente einstellbar,
@@ -123,7 +123,7 @@ Diese Daten werden direkt nach dem Versenden gel{\"o}scht \cite{web4}.
 \begin{figure}[H]
 \centering
 \includegraphics[scale=.4]{LTP.pdf}
-\caption{Einordnung des LTP in das Kommunikationsmodell}
+\caption{Einordnung des LTP in das Kommunikationsmodell nach \cite{Burleigh}}
 \label{fig:LTP}
 \end{figure}
 

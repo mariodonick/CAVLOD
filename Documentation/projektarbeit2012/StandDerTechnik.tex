@@ -189,10 +189,18 @@ dieses aufgrund der hohen Latenzzeiten in der {\"U}bertragung eher einer
 postalischen Kommunikation (QoS hingegen ist auf eine synchrone Kommunikation
 ausgelegt). Aus diesem Grund wurde mit dem QoI (Quality of Interaction) ein
 speziell f{\"u}r diesen Anwendungsfall konzipiertes Verfahren entwickelt
-\cite{Daher2}. Dabei werden, neben klassischen QoS-Merkmalen, welche ebenfalls
-genutzt werden k{\"o}nnen, neue Verbindungsmerkmale betrachetet.
-Diese sind z.B. die Dauer der Verbindung, {\"u}bertragene Daten pro Verbindung
-und andere Merkmale.
+\cite{Daher2}. Dabei wurde ein Konzept entwickelt welches auf Signalen basiert
+(REQ\footnote{Request-Signal}, RSP\footnote{Response-Signal},
+INFO\footnote{Information-Signal}). Durch diese Signale ist es m{\"o}glich
+sowohl eine Transaktions- (\textit{Transaction Time}) als auch eine Antwortzeit
+(\textit{Response Time}) zu bestimmen. Klassische QoS-Merkmale k{\"o}nnen
+ebenfalls zur Evaluierung der Verbindung hinzugezogen werden. Jedoch werden in
+erster Linie QoI-Merkmale verwendet (z.B. Dauer einer Verbindung,
+{\"U}bertragungen pro Verbindung usw.). Zusammenfassend kann gesagt werden, dass
+das QoI-Modell (im Gegesatz zum QoS-Modell) die Qualit{\"a}t der
+Interaktion bewertet und somit nicht in erster Linie den Fokus auf die
+Qualit{\"a}t der Verbindung legt. Dies ist wie bereits erw{\"a}hnt im
+vorliegenden asynchronen Kommunikationsmodell begr{\"u}ndet.
 
 \textbf{Ontologien}
 

@@ -206,7 +206,10 @@ vorliegenden asynchronen Kommunikationsmodell begr{\"u}ndet.
 
 Ontologien sind Sammlungen aus Inferenz- und Integrit{\"a}tsregeln, um
 Schlussfolgerungen auf komplexe Probleme zu beziehen. Ontologien werden zum
-Austausch von Wissen in digitaler Form genutzt.
+Austausch von Wissen in digitaler Form genutzt. Die wichtigste Bedingung einer
+Ontologie ist die Allgemeing{\"u}ltigkeit. Dies unterscheidet die Ontologien von
+anderen Datenmodellen, welche speziell an einen bestimmten Zweck angepasst
+werden.
 
 Bestandteile einer Ontologie:
 
@@ -218,6 +221,45 @@ Bestandteile einer Ontologie:
      \item \textit{Vererbung}
      \item \textit{Axiome}
    \end{compactenum}
+   
+   \textbf{Begriffe} werden auch als Klassen bezeichnet. Diese
+   k{\"o}nnen in einer Klassenstruktur mit {\"U}ber- und Unterklasse angeordnet
+   werden. Sie stellen Sammlungen von Objekten gleicher Eigenschaften dar
+   (z.B. Student, Professor bei der Klasse Mensch).
+   
+   \textbf{Typen} repr{\"a}sentieren Objekttypen (z.B. Student, Professor) in
+   der Ontologie und stellen die zur Verf{\"u}gung stehenden Typen in Klassen dar.
+   Diese werden anhand vorher definierter Begriffe erzeugt.
+   
+   \textbf{Istanzen} repr{\"a}sentieren Objekte in
+   der Ontologie und stellen das zur Verf{\"u}gung stehende Wissen dar
+   (z.B. Student Mueller, Professor Meier). Diese werden anhand vorher
+   definierter Begriffe erzeugt.
+   
+   \textbf{Relation} beschreiben, welche Beziehungen zwischen den Instanzen
+   bestehen (z.B. Professor:Meier->unterrichtet->Student:Mueller). Relationen
+   werden auch als Eigenschaften bezeichnet.
+   \newline   \newline
+   Die allgemeine mathematische Definition einer Relation lautet:
+   \newline
+   $R \subseteq M_1 \times \ldots \times M_n$
+   \newline   \newline
+   Beispiel einer Relation:
+   \newline
+   $\forall x,y : (eingeschrieben(x,y) \rightarrow Student(x) \wedge Kurs(y))$
+   
+   Durch \textbf{Vererbung} ist es m{\"o}glich, Relationen und Eigenschaften der
+   Begriffe zu vererben. Dabei werden alle Eigenschaften an das erbende Element
+   weitergegeben. Mehrfachvererbung bei Begriffen ist grunds{\"a}tzlich
+   m{\"o}glich.
+   
+   \textbf{Axiome} sind Aussagen innerhalb der Ontologie, die immer wahr sind.
+   Diese werden normalerweise dazu verwendet, Wissen zu repr{\"a}sentieren, das
+   nicht aus anderen Begriffen abgeleitet werden kann.
+   
+   Beispiel eines Axioms:\newline
+   $\forall x : (Professor(x) \rightarrow \neg Student(x))$   
+   
 \newpage   
 \textbf{Vergleich der aktuellen Technologien mit CRODT}
 

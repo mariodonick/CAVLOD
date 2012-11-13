@@ -3,7 +3,7 @@ Dieses Kapitel befasst sich mit dem aktuellen Stand der Technik. Dies
 umfasst sowohl die gegenw{\"a}rtig eingesetzte Hardware (Rover Curiosity, Deep
 Space Antennen), als auch bereits entwickelte Protokolle zur interplanetaren
 Kommunikation (Bundle-Protokoll etc.). Abschlie{\ss}end wird ein Bezug zum im
-Zuge dieser Arbeit implementierten Content Relevance-Oriented Protocol
+Zuge dieser Arbeit implementierten Relevance-Oriented Transport Protocol
 hergestellt.
 
 \section{Weltraum-Technologien}
@@ -275,14 +275,15 @@ beispielsweise nach wichtigen und unwichtigen Daten (red/green data). Diese
 Funktionalit{\"a}t gleicht in ihrer Intension der Relevanzevaluierung im
 CRODT-Framework. Allerdings bleibt zu konstatieren, dass die vom LTP getroffene
 Unterscheidung recht grob ist. Zudem sollen die
-Datenbl{\"o}cke aus den Messages, die durch CROP verschickt werden, auf Seiten
+Datenbl{\"o}cke aus den Messages, die durch ROTP verschickt werden, auf Seiten
 des Empf{\"a}ngers direkt lesbar sein. Diese Funktionalit{\"a}t gleicht der
 Bundle-Strategie des Bundle Protokolls. Der Einsatzgedanke der Ontologien
 innerhalb des CRODT-Frameworks hingegen, unterscheidet sich deutlich von den
 anderen angef{\"u}hrten Protokollen. Hierbei sollen wichtige Daten automatisch
 erkannt und bewertet werden. Zudem ist das Contentsplitting und die
 Relevanzevaluierung innerhalb von CRODT wesentlich differenzierter (Werte
-zwischen 0 und 100). Die {\"U}bertragung betreffend ist das CROP flexibel, da es
-durchaus mit anderen Protokollen kombiniert ("'gestackt"') werden kann. Somit
-k{\"o}nnte sowohl eine Paketorientierte und Verbindungslose Kommunikation (UDP
-{\"a}hnlich), als auch eine TCP {\"a}hnliche Verbindung infrage kommen.
+zwischen 0 und 100). Die {\"U}bertragung betreffend ist das unter \gls{CRODT}
+genutzte \gls{ROTP} flexibel, da es durchaus mit anderen Protokollen kombiniert
+("'gestackt"') werden kann. Somit k{\"o}nnte sowohl eine Paketorientierte und
+Verbindungslose Kommunikation (UDP {\"a}hnlich), als auch eine TCP {\"a}hnliche
+Verbindung infrage kommen.

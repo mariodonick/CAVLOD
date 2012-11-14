@@ -60,10 +60,10 @@ werden kann. Dieser grundlegende Ablauf ist in Abbildung \ref{fig:CRODT} schemat
 dargestellt.
 
 \begin{figure}[H]
-\centering
-\includegraphics[scale=.3]{CRODT.pdf}
-\caption[Das CRODT Framework]{Das CRODT Framework \cite{Daher}}
-\label{fig:CRODT}
+	\centering
+	\includegraphics[scale=.3]{CRODT.pdf}
+	\caption[Das CRODT Framework]{Das CRODT Framework \cite{Daher}}
+	\label{fig:CRODT}
 \end{figure}
 
 In Abbildung \ref{fig:OSI_Stack} wird die Schachtelung der Daten
@@ -75,10 +75,10 @@ den Empf{\"a}nger erweitert. Auf der Empf{\"a}ngerseite erfolgt eine Invertierun
 Vorganges. 
 
 \begin{figure}[H]
-\centering
-\includegraphics[scale=.5]{OSI_Stack.pdf}
-\caption{Der OSI Stack}
-\label{fig:OSI_Stack}
+	\centering
+	\includegraphics[scale=.5]{OSI_Stack.pdf}
+	\caption{Der OSI Stack}
+	\label{fig:OSI_Stack}
 \end{figure}
  
 Die Abbildung \ref{fig:CROP_Stack} zeigt die Handhabung im CROP-/ROTP-Stack
@@ -101,10 +101,10 @@ ist dabei beispielhaft zu betrachten, da andere Layer-4 Protokolle ebenso
 infrage kommen.
 
 \begin{figure}[H]
-\centering
-\includegraphics[scale=.5]{CROP_Stack.pdf}
-\caption{Der CROP-/ROTP-Stack}
-\label{fig:CROP_Stack}
+	\centering
+	\includegraphics[scale=.5]{CROP_Stack.pdf}
+	\caption{Der CROP-/ROTP-Stack}
+	\label{fig:CROP_Stack}
 \end{figure}
 
 \textbf{Error Correction Code}
@@ -133,31 +133,31 @@ Generatorpolynom, welche nachfolgend dargestellt ist.
 \makeatother
 
 \begin{figure}[H]
-\jot-0.6mm
-\begin{alignat*}{14}
-1&1&0&1&0&1&1&0&1&1&0&0&0&0& : 10011=1100001010 \\
-1&0&0&1&1\\ \cline{1-5}
-&1&0&0&1&1& \\ 
-&1&0&0&1&1& \\ \cline{2-6}
-&&0&0&0&0&1& \\ 
-&&1&0&0&1&1& \\ \cline{3-7}
-&&&0&0&0&1&0& \\                                                 
-&&&1&0&0&1&1& \\ \cline{4-8}
-&&&&0&0&1&0&1& \\                                               
-&&&&1&0&0&1&1& \\ \cline{5-9}
-&&&&&0&1&0&1&1& \\                                           
-&&&&&1&0&0&1&1&  \\ \cline{6-10}                                                                                  
-&&&&&&1&0&1&1&0& \\                                           
-&&&&&&1&0&0&1&1& \\   \cline{7-11}                                                                                      
-&&&&&&&0&1&0&1&0& \\                                         
-&&&&&&&1&0&0&1&1& \\ \cline{8-12}                                                                                     
-&&&&&&&&1&0&1&0&0& \\                                       
-&&&&&&&&1&0&0&1&1& \\ \cline{9-13}                                                                               
-&&&&&&&&&0&1&1&1&0& \\                                     
-&&&&&&&&&1&0&0&1&1& \\ \cline{10-14}    
-&&&&&&&&&&1&1&1&0& 
-\end{alignat*}
-\caption{Modulo-2-Division} 
+	\jot-0.6mm
+	\begin{alignat*}{14}
+	1&1&0&1&0&1&1&0&1&1&0&0&0&0& : 10011=1100001010 \\
+	1&0&0&1&1\\ \cline{1-5}
+	&1&0&0&1&1& \\ 
+	&1&0&0&1&1& \\ \cline{2-6}
+	&&0&0&0&0&1& \\ 
+	&&1&0&0&1&1& \\ \cline{3-7}
+	&&&0&0&0&1&0& \\                                                 
+	&&&1&0&0&1&1& \\ \cline{4-8}
+	&&&&0&0&1&0&1& \\                                               
+	&&&&1&0&0&1&1& \\ \cline{5-9}
+	&&&&&0&1&0&1&1& \\                                           
+	&&&&&1&0&0&1&1&  \\ \cline{6-10}                                                                                  
+	&&&&&&1&0&1&1&0& \\                                           
+	&&&&&&1&0&0&1&1& \\   \cline{7-11}                                                                                      
+	&&&&&&&0&1&0&1&0& \\                                         
+	&&&&&&&1&0&0&1&1& \\ \cline{8-12}                                                                                     
+	&&&&&&&&1&0&1&0&0& \\                                       
+	&&&&&&&&1&0&0&1&1& \\ \cline{9-13}                                                                               
+	&&&&&&&&&0&1&1&1&0& \\                                     
+	&&&&&&&&&1&0&0&1&1& \\ \cline{10-14}    
+	&&&&&&&&&&1&1&1&0& 
+	\end{alignat*}
+	\caption{Modulo-2-Division} 
 \end{figure}
 
 Der Rest $1110$ dieser Modulo-$2$-Division wird an das

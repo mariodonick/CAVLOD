@@ -6,23 +6,40 @@ Kommunikationsprotokoll notwendig. Für dieses Protokoll existiert
 bereits ein Konzept \cite{Daher}, welches im Rahmen dieser Arbeit
 teilweise verfeinert, implementiert und bewertet wurde.
 
-Dabei wurde in Kapitel \ref{cap:grundlagen} und \ref{cap:standDerTechnik} ein
-erster Überblick über den momentanen Stand der Technik sowie Grundlagen zur
-Einordnung der Thematik gegeben. Dazu
+Kapitel \ref{cap:grundlagen} und \ref{cap:standDerTechnik} beschäftigte sich
+mit den momentanen Stand der Technik sowie Grundlagen zur Einordnung der
+Thematik gegeben. Dabei wurde eine Übersicht gegeben, welche die Bedeutung und
+Auswirkung des nur geringen Zeitslots zur Kommunikation mit dem Mars
+verdeutlicht und wie wichtig eine genaue Ermittlung der Zeitdifferenzen von Mars
+und Erde ist.
 
-Die konzeptionelle Darstellung des Protokolls erfolgte in Kapitel
-\ref{cap:konzept}. Dazu gehörten neben möglichen Implementierungen und
-Vorüberlegungen auch die eigentliche theoretische Umsetzung sowie Szenarien,
-welche den Ablauf des Protokolls beispielhaft vorstellten. 
+In Kapitel \ref{cap:konzept} wurden mehrere Konzepte für die CROP vorgestellt,
+miteinander verglichen und bewertet, die ein Verpacken unterschiedlicher
+Datenformate ermöglichen. Neben dem eigentlichen Konzept war die Überlegung der
+Handhabung von Verbindungsabbrüchen und Systemabstürzen ein wichtiger
+Bestandteil der Arbeit. Dazu wurde unteranderem ein Storemanager entwickelt, der
+vor dem Einsortieren in die priorisierende Datenstruktur ein Backup selbiger
+durchführt. Somit ist nach einem Neustart ein Wiederherstellen der Datenblöcke
+möglich. Schlussendlich wurden die für die Implementierung genutzten
+Schnittstellen vorgestellt.
 
 Der eigentliche softwaretechnische Aufbau und die Implementierung wurden in
-Kapitel \ref{cap:implementierung} detailliert beschrieben.  
+Kapitel \ref{cap:implementierung} detailliert beschrieben. Weiterhin wurde eine
+Kommunikationsumgebung in Form eines ChatGui entwickelt. Unter Verwendung des ROTP
+können hier Prioritäten vom Benutzer selbst festgelegt und vom CROP verarbeitet
+werden. Damit steht ein Beispiel-Tool zur Verfügung, mit dessen Hilfe sich
+unter anderem die Effizienz von M$2$M-Kommunikation des CROP-Protokolls testen
+lassen.
 
-Abschließend wurde das
-Protokoll hinsichtlich Overhead, Laufzeit und Speicherbedarf analysiert und
-ausgewertet (Kapitel \ref{cap:protokollAnalyse}).
+Abschließend wurde das Protokoll hinsichtlich Overhead, Laufzeit und
+Speicherbedarf analysiert und ausgewertet (Kapitel \ref{cap:protokollAnalyse}).
+Dabei kamen zwei verschiedene Compilereinstellungen zum Einsatz, die entweder
+die Größe des Quellcodes oder die Laufzeit des Programms beeinflussen. Die
+Ergebnisse der Analyse zeigten wie wichtig eine sinnvolle Priorisierung durch
+die CROP ist und wie stark der Overhead und die Laufzeit von dieser abhängen.
 
 % Ausblick
+------------------------------------------- \newline
 Das in dieser Arbeit umgesetzte Protokoll bietet eine solide
 Grundlage zur relevanzorientierten Übertragung. Jedoch besteht noch Raum
 für Erweiterungen und Optimierungen.
@@ -49,11 +66,10 @@ Schnittstelle zum Laden von Plugins implementiert werden. Damit besteht dann die
 Möglichkeit, dem Protokoll Algorithmen hinzuzufügen, wodurch
 übliche Datenformate wie docx oder bmp verarbeitet werden können.
 
-Die ebenfalls im Rahmen dieser Arbeit entwickelte ChatGui in Kapitel
-\ref{cap:chatGui} soll einen ersten Einstieg in die benutzerfreundliche
-Verwendung des Protokolls geben. In dieser kann das Zusammenführen von
-Textfragmenten noch optimiert werden. Sinnvoll wäre hier eine Anzeige über die
-ablaufende Zeitdauer, nach welcher ein versendetes Paket den Empfänger erreicht.
+Das ebenfalls im Rahmen dieser Arbeit entwickelte ChatGui in Kapitel
+\ref{cap:chatGui} hinsichtlich des Zusammenführens der einzelnen Textfragmente
+zu optimiert. Sinnvoll wäre hier eine Anzeige über die ablaufende Zeitdauer,
+nach welcher ein versendetes Paket den Empfänger erreicht.
 
 Um das entwickelte Modul in Serverumgebungen zu integrieren, muss ein Programm
 entwickelt werden, welches in der Lage ist, dieses als Webservice zu starten.

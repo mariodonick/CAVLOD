@@ -42,9 +42,18 @@ geforderte modulare Aufbau sichergestellt.
 	\label{fig:BlockdiagrammSender}
 \end{figure}
 
-Die Daten werden {\"u}ber die Schnittstelle des Topmoduls \Code{Sender}
-{\"u}bergeben und an die Klasse \Code{Partitionierung} weitergegeben. Dort
-werden diese, abh{\"a}ngig von ihrer Relevanz, in Datenbl{\"o}cke zerlegt.
+Die erste Phase aus Abbildung \ref{fig:CRODT} im Kapitel \ref{sec:Vorueberlegung} der
+Verarbeitungskette wird aus dem Topmodul herausgezogen.
+In dieser werden die eigentlichen Daten aufgenommen. Jedoch ist die Art dieser
+Aufnahme abhängig vom Datentyp und dem Einsatzgebiet der in dieser Arbeit
+implementierten Module.
+Durch diese Aufteilung wird die Anpassung an verschiedene Einsatzgebiete
+vereinfacht.
+\newline
+Die Daten werden {\"u}ber die Schnittstelle des Topmoduls
+\Code{Sender} {\"u}bergeben und an die Klasse \Code{Partitionierung}
+weitergegeben. Dort werden diese, abh{\"a}ngig von ihrer Relevanz, in
+Datenbl{\"o}cke zerlegt.
 Zus{\"a}tzlich werden in diesem Schritt die Datenblockheader (siehe Kapitel
 \ref{sec:ProtokolDesign}) erstellt und der Content in bin{\"a}re Daten
 umgewandelt. Am Ende werden die Datenbl{\"o}cke mit den Headerinformationen in
@@ -60,11 +69,10 @@ die wichtigen Daten zuerst gesendet werden. F{\"u}r diese Aufgabe wird eine
 einfache Liste aus der \gls{STL} verwendet. Durch diese kann iteriert werden und
 es besteht ein schneller zufälliger Zugriff auf jedes Element, welches nun
 ebenso effektiv eingefügt und gelöscht werden kann.
-Weiterhin exsistiert die notwendige Sortierfunktion. Diese hat f{\"u}r den durch sie
-ausgef{\"u}hrten Zweck eine vergleichsweise gute Laufzeit.
-Damit die Verz{\"o}gerung, die durch gro{\ss}e Entfernungen auftritt, besser
-ber{\"u}cksichtigt werden kann, wird das Submodul \Code{Packetizer} als Thread
-gestartet.
+Weiterhin exsistiert die notwendige Sortierfunktion. Die Liste hat f{\"u}r
+diesen Zweck eine vergleichsweise gute Laufzeit.
+Damit die Verz{\"o}gerung, die durch gro{\ss}e Entfernungen auftritt, simuliert
+werden kann, wird das Submodul \Code{Packetizer} als Thread gestartet.
 Dieser holt sich die Pakete mit der h{\"o}chsten Priorit{\"a}t aus der
 \Code{SmartPrioritizedQueue} und verpackt diese in eine Nachricht, welche
 anschlie{\ss}end an die Netzwerkschnittstelle {\"u}bergeben und versandt wird.
@@ -111,8 +119,8 @@ desto weiter vorn ist diese Position in der Datenstruktur gespeichert.
 Deshalb werden alle Angaben, die von dem Submodul \Code{CRODM}
 {\"u}bergeben werden, zuerst sortiert.
 Im n{\"a}chsten Schritt werden die zweidimensionalen Koordinaten zu einer
-eindimensionalen umgerechnet, dadurch konnte das Herausschneiden der
-Textfragmente, welche Zeilenspr{\"u}nge beinhalten k{\"o}nnen oder {\"u}ber eine
+Eindimensionalen umgerechnet, dadurch konnte das Herausschneiden der
+Textfragmente, welche Zeilenspr{\"u}nge beinhalten oder {\"u}ber eine
 Zeile hinaus gehen k{\"o}nnen, vereinfacht werden. Daf{\"u}r
 werden zuerst die akkumulierten Gesamtl{\"a}ngen der einzelnen Zeilen berechnet.
 Vorhandene Umlaute und andere Zeichen, die nicht im
@@ -154,7 +162,7 @@ Daraus ergeben sich die folgenden eindimensionalen Positionsangaben:
 Die Bl{\"o}cke f{\"u}r die relevanten Bereiche k{\"o}nnen genutzt werden,
 um die dazwischenliegenden irrelevanten Fragmente zu berechnen. Die Differenz
 zwischen der Endposition des ersten Blockes und der Anfangsposition des
-darauf Folgenden ergibt die L{\"a}nge des neuen Blockes. Die Anfangspositon des
+darauf Folgenden ergibt die L{\"a}nge des neuen Blockes. Die Anfangsposition des
 neuen Blockes ist die Endposition des Vorhergehenden. Die Relevanz ist Null.
 Zusammengefasst ergibt die Berechnung die in Tabelle
 \ref{tab:UebersichtDerUNRelevantenBereiche} aufgef{\"u}hrten Bereiche.
@@ -305,7 +313,7 @@ beeintr{\"a}chtigt wird. Bei der dritten Methode sind die Festplattenzugriffe
 minimal, jedoch k{\"o}nnen nur Software- und Hardwarefehler bei der
 Programmabarbeitung abgefangen werden. Bei einem Stromausfall w{\"u}rden
 trotzdem alle Daten verloren gehen. Deshalb wird Methode Zwei verwendet. Diese
-stellt den besten Kompromiss aus Datensicherheit und Performance dar. \newline
+stellt den besten Kompromiss aus Datensicherheit und Performanz dar. \newline
 F{\"u}r diese Aufgabe wurde ein Submodul entwickelt, welches die Datenbl{\"o}cke
 auf der Festplatte hinterlegt und bei einem Absturz neu l{\"a}dt und damit die
 \Code{SmartPrioritizedQueue} vorinitialisiert. Dadurch sind die Schnittstellen,
@@ -380,12 +388,11 @@ zus{\"a}tzliche Speicherplatzbedarf kann vernachl{\"a}ssigt werden.
 \newline 
 F{\"u}r die Ordnerstruktur wurde eine m{\"o}glichst flache Hierarchie genutzt,
 welche in der obersten Stufe den Ordner \Code{Backup} beinhaltet. Darin befinden sich
-weitere Ordner, welche als Namen die Nummer des Datentypes beinhalten. In diesem
-liegen die bin{\"a}ren Dateien, deren Namen aus der Nummer der \gls{DOID} und
-der Sequenznummer bestehen.
-Diese sind durch einen Unterstrich voneinander getrennt. Die drei Parameter
-werden von der Methode remove zum L{\"o}schen einer Datei {\"u}bergeben, um diese
-eindeutig zu identifizieren.
+weitere Ordner, welche als Namen die Nummer des Datentypes und der
+\gls{DOID} beinhalten. Diese sind durch einen Unterstrich voneinander getrennt.
+In diesem liegen die bin{\"a}ren Dateien, deren Namen aus der Sequenznummer bestehen.
+Die drei Parameter werden der Methode \Code{remove} zum L{\"o}schen einer
+Datei {\"u}bergeben, um diese eindeutig zu identifizieren.
 
 \section{Modulaufbau Empf{\"a}nger}
 
@@ -451,7 +458,7 @@ Klasse {\"u}bergeben:
 \end{itemize}
 
 Der Parameter \Code{Parser} erbt zus{\"a}tzlich von einer
-Schnittstelle gleichen Namens. Die Klasse \Code{DataBlockProcessing} erbt
+Schnittstellenklasse gleichen Namens. Die Klasse \Code{DataBlockProcessing} erbt
 wiederum von dem Parameter \Code{Parser}.
 Dadurch besteht die M{\"o}glichkeit, in der Klasse auf Funktionen und
 Membervariablen zugreifen zu k{\"o}nnen.
@@ -482,11 +489,13 @@ des Datenblock Parsers]
 
 \section{UniversalDecoder}
 
-Nachdem dem Parsen der ankommenden Datenpakete müssen diese im nächsten
-Schritt sortiert werden. Daf{\"u}r existieren im Header des Datenblockes die
-\gls{DOID} und die Sequenznummer (siehe Kapitel \ref{sec:ProtokolDesign}).
+Nach dem Parsen der ankommenden Datenpakete müssen diese im nächsten
+Schritt sortiert und zwischengespeichert werden. F{\"u}r das
+Zusammensetzen existieren im Header die \gls{DOID} und die
+Sequenznummer (siehe Kapitel \ref{sec:ProtokolDesign}), durch diese die
+Datenbl{\"o}cke eindeutig zugeordnen werden können.
 F{\"u}r diese Aufgabe wurde eine Template-Klasse \Code{UniversalDecoder}
-geschrieben, welche die Datenstrukturen zur leichteren Verwendung kapselt. Als
+entwickelt, welche die Datenstruktur zur leichteren Verwendung kapselt. Als
 Datenstruktur kommt ein verschachteltes assoziatives Datenfeld, im Folgenden als
 Map bezeichnet, aus der \gls{STL} zum Einsatz. Die Datenstruktur {\"a}hnelt
 einem Vektor, allerdings wird hier jedes Datenfeld mit einem Schlüssel belegt,
@@ -498,5 +507,6 @@ als Templateparameter {\"u}bergeben. Die Datenstruktur kann sowohl im Modul
 \Code{Empfänger}, als auch in dem ChatGui zum sortieren der Daten genutzt
 werden. F{\"u}r diese Implementierung wurde die Klasse in das \gls{GUI}
 integriert. Dadurch wird die Art der Zeichendarstellung im Textfeld
-vereinfacht und es besteht die Möglichkeit bei einer wechselnden \gls{DOID} einen
-Zeilenumbruch hinzuzufügen.
+vereinfacht und es besteht die Möglichkeit bei jeder wechselnden \gls{DOID}
+einen Zeilenumbruch hinzuzufügen, welcher die Darstellung sichtlich
+verbessert.

@@ -64,8 +64,8 @@ Sendefenster in die Kommunikation chronologisch eingeordnet werden.}. \newline
 {\"u}blichen Chat-Programms, welches Eingaben {\"u}ber ein Textfeld erm{\"o}glicht und diese
 nach Best{\"a}tigung versendet. Die Eingabe erfolgt {\"u}ber das Textfeld im
 linken unteren Bereich des \gls{GUI}. Nach erfolgter Eingabe kann die Nachricht
-durch Dr{\"u}cken des Senden Buttons oder per Shortcut (Regel sieben nach
-Nielsen) verschickt werden.
+durch Dr{\"u}cken des Buttons \Code{Senden} oder per Shortcut (Regel
+sieben nach Nielsen) verschickt werden. \newline
 Sollte dies geschehen, ohne zuvor einem Wort, Satzteil oder Satz eine
 Priorit{\"a}t zuzuordnen, wird der Eingabe die Standardpriorit{\"a}t Null
 zugeordnet. F{\"u}r den Fall, dass zuvor eine Priorisierung erfolgen soll,
@@ -114,16 +114,22 @@ Users (Regel drei nach Nielsen).
 
 \subsection{Implementierung des GUI}
 
-Abbildung \ref{fig:KlassendiagrammGui} zeigt die Klassenstruktur der Chatgui.
-Die Hauptklasse ChatGui, welche von der Klasse QMainWindow erbt, {\"u}bergibt
-den Inhalt (String, Positionsinformationen, Relevanz) des Textfeldes des UI an
-die Klasse SenderModulIF.
-Die {\"U}bergabe erfolgt als Vector in welchen zuvor die daten per Push geschoben wurden. Ab hier
-durchlaufen die Daten den standard ROTP Ablauf. Daten die {\"u}ber
-die Klasse ReceiverModulIF empfangen werden, m{\"u}ssen via UniversalDecoder
-sortiert und dann {\"u}ber das UI der Klasse ChatGui ausgegeben werden. Der
-Zugriff zum CROP/ROTP erfolgt somit durch die Klassen SenderModulIF und
-ReceiverModulIF.
+Die Abbildung \ref{fig:KlassendiagrammGui} zeigt das vereinfachte
+Klassendiagramm.
+Die Hauptklasse \Code{ChatGui} erbt von der Klasse \Code{QMainWindow}. Diese
+wird durch Qt bereitgestellt und erstellt sowie verwaltet ein einfaches Fenster.
+In dieser wird das Layout mit der Klasse \Code{Ui::ChatGui} integriert.
+Der Austausch der Daten mit den Layout erfolgt über einen Pointer auf die
+Klasse \Code{Ui::ChatGui}. \newline
+Das \gls{GUI} wird dem implementierten Protokoll übergeordnet und die Klassen
+zum Verwenden der Schnittstelle von \gls{ROTP}/\gls{CROP} über die statische
+Bibliothek bereitgestellt. Dafür werden die beiden Schnittstellenklassen
+\Code{ReceiverModulIF} und \Code{SenderModulIF} genutzt. Diesen werden die Daten
+übergeben welche versendet werden sollen. Weiterhin wird eine Callbackfunktion
+zum Empfangen der geparsten Daten registriert. In dieser werden die ankommenden
+Daten in der Klasse \Code{UniversalDecoder} gespeichert und gleichzeitig
+sortiert. Die sortierten Daten werden danach in dem Empfangsteil des \gls{GUI}
+über die Klasse \Code{Ui::ChatGui} dargestellt.
 
 \begin{figure}[H]
 	\centering

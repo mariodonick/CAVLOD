@@ -6,33 +6,42 @@ Kommunikationsprotokoll notwendig. Für dieses Protokoll existiert
 bereits ein Konzept \cite{Daher}, welches im Rahmen dieser Arbeit
 teilweise verfeinert, implementiert und bewertet wurde.
 
-Das Kapitel \ref{cap:grundlagen} und \ref{cap:standDerTechnik} beschäftigte sich
+Das Kapitel \ref{cap:grundlagen} beschäftigte sich
 mit den momentanen Stand der Technik sowie den Grundlagen zur Einordnung der
-Thematik. Dabei wurde eine Übersicht gegeben, welche die Bedeutung und
-Auswirkung eines geringen Zeitslots für die Kommunikation mit dem Mars
-verdeutlicht und wie wichtig eine genaue Ermittlung der Zeitdifferenzen zwischen
-Mars und Erde ist.
+Thematik. Dabei wurde eine Übersicht über die grundlegenden Begriffe im
+Bereich der Kommunikation gegeben. Weiterhin wurde die Bedeutung und
+Auswirkung eines geringen Zeitslots für die Kommunikation zwischen Mars und Erde
+verdeutlicht.\newline
+Einen umfassenden Überblick über aktuelle Technologien, welche auf heutigen
+Marsmissionen eingesetzt werden, werden in Kapitel \ref{cap:standDerTechnik}
+dargelegt.
+Dabei wird neben der verbauten Technik der Marsrover auch bisher verwendete
+Kommunikationsprotokolle vorgestellt.
 
-In Kapitel \ref{cap:konzept} wurden mehrere Konzepte für die CROP vorgestellt,
-miteinander verglichen und bewertet, die ein Verpacken unterschiedlicher
-Datenformate ermöglichen. Neben dem eigentlichen Konzept war die Überlegung der
-Handhabung von Verbindungsabbrüchen und Systemabstürzen ein wichtiger
-Bestandteil der Arbeit. Dazu wurde unter anderem ein Storemanager entwickelt,
-der vor dem Einsortieren in die priorisierende Datenstruktur ein Backup selbiger
-durchführt. Somit ist nach einem Neustart ein Wiederherstellen der Datenblöcke
-möglich. Schlussendlich wurden die für die Implementierung genutzten
-Schnittstellen vorgestellt.
+In Kapitel \ref{cap:konzept} wurden weitere Ansätze und Ideen für das Konzept
+\gls{CRODT}/\gls{CROP} vorgestellt dieses zu verfeinern. Dabei wurde die
+Möglichkeit der Verwendung einer \gls{TTL}, einer Datenkompression und einer
+Prüfsumme diskutiert. Für die Realisierung wurde ein Protokoll-Design
+entwickelt. Darin wurden die optimale Größen und Anordnungen der Daten erörtert,
+um ein Ver- und Entpacken unterschiedlicher Datenformate auf beiden Seiten der
+Kommunikation zu ermöglichen.
+Schlussendlich wurde anhand von Anwendungsszenarien die Schnittstellen der
+Module abgeleitet, welche in der Realisierung verwendet wurden.
 
-Der eigentliche softwaretechnische Aufbau und die Implementierung wurden in
-Kapitel \ref{cap:implementierung} detailliert beschrieben. Weiterhin wurde eine
-Kommunikationsumgebung in Form eines ChatGui entwickelt. Unter Verwendung des ROTP
-können hier Prioritäten vom Benutzer selbst festgelegt und vom CROP verarbeitet
-werden. Damit steht ein Beispiel-Tool zur Verfügung, mit dessen Hilfe sich
-unter anderem die Effizienz von M$2$M-Kommunikation des CROP-Protokolls testen
-lassen.
+Der softwaretechnische Aufbau und die Realisierung des Konzepte
+wurde in Kapitel \ref{cap:implementierung} detailliert beschrieben. Dabei wurde
+jeweils ein Modul zum Empfangen und Senden implementiert.
+Dabei wurden auch Verbindungsabbrüche und Systemabstürze berücksichtigt, worauf
+das Modul \Code{StoreManager} entwickelt wurde. Dieses ist in der Lage nach
+einem Fehler den vorherigen Zustand wiederherzustellen.
+Weiterhin wurde eine Kommunikationsumgebung in Form eines ChatGui entwickelt.
+Unter Verwendung des \gls{ROTP} können hier Prioritäten vom Benutzer selbst
+festgelegt und vom CROP verarbeitet werden. Damit steht eine Beispielanwendung
+zur Verfügung, mit dessen Hilfe sich unter anderem die Effizienz von
+M$2$M-Kommunikation des \gls{CROP}-Protokolls durchführen läßt.
 
-Abschließend wurde das Protokoll hinsichtlich Overhead, Laufzeit und
-Speicherbedarf analysiert und ausgewertet (Kapitel \ref{cap:protokollAnalyse}).
+Abschließend wurde im Kapitel \ref{cap:protokollAnalyse} das Protokoll
+hinsichtlich Overhead, Laufzeit und Speicherbedarf analysiert und ausgewertet.
 Dabei kamen zwei verschiedene Compilereinstellungen zum Einsatz, die entweder
 die Größe des Quellcodes oder die Laufzeit des Programms beeinflussen. Die
 Ergebnisse der Analyse zeigten wie wichtig eine sinnvolle Priorisierung durch

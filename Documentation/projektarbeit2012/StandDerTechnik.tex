@@ -7,7 +7,7 @@ Zuge dieser Arbeit implementierten Relevance-Oriented Transport Protocol
 hergestellt. Zudem wird eine Einordnung der vorgestellten Protokolle in
 den Stack einer interplanetaren Kommunikation vorgenommen. Au{\ss}erdem wird ein
 Vergleich der Handhabung von relevanten Daten innerhalb der unterschiedlichen
-Protokolle aufgezeigt. Im Zuge dessen wird Bezug auf die im CRODT-Framework
+Protokolle aufgezeigt. Im Zuge dessen wird Bezug auf die im \gls{CRODT}-Framework
 eingesetzte \gls{CROP} genommen \cite{Daher}.
 
 \section{Weltraum-Technologien}
@@ -108,8 +108,8 @@ dabei ausreichende semantische Informationen, um eine etwaige Applikation
 fortzusetzen. Exemplarisch sei hier ein Webbrowser angef{\"u}hrt, welcher ein
 Bundle-Paket erh{\"a}lt und dadurch eine komplette Webseite anzeigt.
 Die {\"U}bertragung erfolgt dabei per \textit{store-and-forward}. Neben
-IP-basierenden Protokollen k{\"o}nnen auch andere Protokolle zum einsatz kommen
-(z.B. LTP). Das Bundle-Protokoll z{\"a}hlt zu den Overlay-Netzwerken, welche
+IP-basierenden Protokollen k{\"o}nnen auch andere Protokolle zum Einsatz kommen
+(z.B. \gls{LTP}). Das Bundle-Protokoll z{\"a}hlt zu den Overlay-Netzwerken, welche
 auf einer bereits bestehenden Netzwerkstruktur aufsetzen \cite{web1}.
 
 \textbf{Licklider Transmission Protocol}
@@ -129,7 +129,7 @@ innerhalb der im \gls{LTP} verwendeten Segmente spezielle Flags gesetzt.
 Diese einfach als Checkpoints bezeichneten Signale erfordern eine Quittierung
 durch den Empf{\"a}nger, um so bei einem eventuellen Verbindungsabbruch ein
 erneutes Senden des jeweiligen Datenpakets auszul{\"o}sen (vergleichbar mit
-TCP). Die Daten werden solange beim Sender im Speicher (Arbeits- oder lokaler
+\gls{TCP}). Die Daten werden solange beim Sender im Speicher (Arbeits- oder lokaler
 Festspeicher z.B. Flash) vorgehalten, bis der zugeh{\"o}rige Checkpoint
 quittiert wurde. Wenn ein Checkpoint nicht quittiert wird, kann durch einen
 ablaufenden Timer auf der Seite des Senders ein erneutes Senden durchgeführt
@@ -137,7 +137,7 @@ werden. Sowohl das Senden als auch Empfangen eines Blocks kann per Signal
 abgebrochen werden. Zudem ist die Gr{\"o}{\ss}e der Segmente einstellbar, um
 diese an den jeweiligen Zweck anzupassen. Handelt es sich bei den zu sendenden
 Daten um Daten mit geringerer Relevanz, so ist keine Best{\"a}tigung durch den
-Empf{\"a}nger notwendig (vergleichbar mit UDP).
+Empf{\"a}nger notwendig (vergleichbar mit \gls{UDP}).
 Diese Daten werden direkt nach dem Versenden gel{\"o}scht \cite{web4}.
 
 \begin{figure}[H]
@@ -181,10 +181,10 @@ Ende-zu-Ende Kommunikation \cite{DTNBundle}.
 \label{fig:PSSBN}
 \end{figure}
 
-\textbf{\gls{QoS}}
+\textbf{Quality of Service}
 
 Die G{\"u}te eines Kommunikationsdienstes wird in irdischen Netzwerken
-{\"u}blicherweise als Quality of Service (QoS) bezeichnet. Hierbei gibt es eine
+{\"u}blicherweise als \gls{QoS} bezeichnet. Hierbei gibt es eine
 Auswahl von Qualit{\"a}tsmerkmalen, mit Hilfe derer die Qualit{\"a}t eines
 Service bewertet werden kann. Im Beispiel eines IP-Netzwerks w{\"a}ren dies
 Parameter wie Jitter \footnote{zeitl. Fluktuation (Taktzittern) in der
@@ -195,46 +195,47 @@ Video-/Audiostream ihre Ressourcennutzung verlagern bzw. anpassen
 (Beispiel: Videochat sendet infolge einer Bandbreitenverschlechterung ein
 st{\"a}rker komprimiertes Bild). 
 
-\textbf{\gls{QoI}} 
+\textbf{Qualitiy of Interaction} 
 
-Das QoS-Modell ist zwar theoretisch auch auf eine interplanetare Kommunikation
-anwendbar (z.B. DTN/IPN), jedoch gleicht dieses aufgrund der hohen Latenzzeiten
-in der {\"U}bertragung eher einer postalischen Kommunikation (QoS hingegen ist
-auf eine synchrone Kommunikation optimiert). Aus diesem Grund wurde mit dem QoI
-(Quality of Interaction) ein speziell f{\"u}r den asynchronen
-Kommunikationsfall konzipiertes Verfahren entwickelt \cite{Daher2} (QoI kann
-auch irdische Kommunikationen verbessern). Dabei wurde ein Konzept erdacht,
+Das \gls{QoS}-Modell ist zwar theoretisch auch auf eine interplanetare Kommunikation
+anwendbar (z.B. \gls{DTN}/\gls{IPN}), jedoch gleicht dieses aufgrund der hohen
+Latenzzeiten in der {\"U}bertragung eher einer postalischen Kommunikation (\gls{QoS} hingegen
+ist auf eine synchrone Kommunikation optimiert). Aus diesem Grund wurde mit dem
+\gls{QoI} ein speziell f{\"u}r den asynchronen
+Kommunikationsfall konzipiertes Verfahren entwickelt \cite{Daher2} (\gls{QoI}
+kann auch irdische Kommunikationen verbessern). Dabei wurde ein Konzept erdacht,
 welches auf Signalen basiert (REQ\footnote{Request-Signal},
 RSP\footnote{Response-Signal}, INFO\footnote{Information-Signal}). Mit diesen
-Signalen kann nun eine Interaktion ausgel{\"o}{\ss}t werden. Die bewertung der
-QoI erfolgt in zwei Ebenen. Ebene 1 ist die low-level QoI. Diese befasst sich
-neben klassischen QoS-Merkmalen mit der Analyse der Ausnutzung von
-Kommunikationsressourcen. Die zweite Ebene wird als high-level QoI bezeichnet
-und bewertet den Erfolg einer Kommunikation.
+Signalen kann nun eine Interaktion ausgel{\"o}{\ss}t werden. Die Bewertung der
+\gls{QoI} erfolgt in zwei Ebenen. Ebene $1$ ist die low-level \gls{QoI}. Diese
+befasst sich neben klassischen \gls{QoS}-Merkmalen mit der Analyse der Ausnutzung von
+Kommunikationsressourcen. Die zweite Ebene wird als high-level \gls{QoI}
+bezeichnet und bewertet den Erfolg einer Kommunikation.
 
-Zur Evaluierung der low-level QoI werden neben klassischen QoS-Merkmalen
-spezielle Merkmale zur Kommunikationsbewertung eingestzt. Klassische
-QoS-Merkmale wie Bandbreite und Jitter k{\"o}nnen mit Hilfe der \textit{Contact
-Duration}, \textit{Contact Period} und des \textit{One Way Delay} auf einen QoI-Fall
-gemappt werden. Steigt z.B. die CD und sinkt zugleich die CP so resultiert
-daraus eine steigende Bandbreite. Um die Ausnutzung verf{\"u}gbarer
-Kommunikationsressourcen zu analysieren stehen eine vielzahl an
-Session\footnote{Kommunikationsphase, welche durch einen REQ von Sender A an
+Zur Evaluierung der low-level \gls{QoI} werden neben klassischen \gls{QoS}-Merkmalen
+spezielle Merkmale zur Kommunikationsbewertung eingesetzt. Klassische
+\gls{QoS}-Merkmale wie Bandbreite und Jitter k{\"o}nnen mit Hilfe der
+\textit{Contact Duration} (CD), \textit{Contact Period} (CP) und des \textit{One
+Way Delay} auf einen \gls{QoI}-Fall gemappt werden. Steigt z.B. die CD und sinkt
+zugleich die CP so resultiert daraus eine steigende Bandbreite. Um die
+Ausnutzung verf{\"u}gbarer Kommunikationsressourcen zu analysieren stehen eine
+Vielzahl an Session\footnote{Kommunikationsphase, welche durch einen REQ von Sender A an
 Empf{\"a}nger B gestartet wird und erst nach einem empfangenen RSP beendet
 wird.}-Analysemethoden zur Verf{\"u}gung. Diese umfassen z.B. den
 \textit{Session Load} (SL), die \textit{Session Duration} (SD), die
 \textit{Session Signaling Rate} (SSR) oder die \textit{Sesssion Data Exchange Rate} (SDXR). Ist
-z.B. die SSR gering, so ist die low-level QoI hoch.
+z.B. die SSR gering, so ist die low-level \gls{QoI} hoch.
 
 Das in dieser Arbeit implementierte Anwendungsszenario einer Kommunikation
-zwischen Erde und Mars via CRODT-Framework unter nutzung einer Chat-Applikation
-ist ein idealer Ansatzpunkt um die high-level QoI zu definieren. Diese nutzt die
-Ergebnisse der low-level QoI kombiniert mit einigen sprachspezifischen
-Erweiterungen \cite{Donick}. Prim{\"a}r wird dabei {\"u}ber die SD und die
-SDXR in Kombination mit der \textit{Session Coherence}\footnote{Ma{\ss} f{\"u}r
-den Grad an iniziierten relevanten Anschlusshandlungen zwischen zwei
-Kommunikationspartnern \cite{Donick}} (SC) die high-level QoI evaluiert. Sind
-die SD und die SDXR gering und ist die SC hoch, so ist die high-level QoI hoch.
+zwischen Erde und Mars via \gls{CRODT}-Framework unter Nutzung einer
+Chat-Applikation ist ein idealer Ansatzpunkt um die high-level \gls{QoI} zu
+definieren. Diese nutzt die Ergebnisse der low-level \gls{QoI} kombiniert mit
+einigen sprachspezifischen Erweiterungen \cite{Donick}. Prim{\"a}r wird dabei
+{\"u}ber die SD und die SDXR in Kombination mit der \textit{Session
+Coherence}\footnote{Ma{\ss} f{\"u}r den Grad an iniziierten relevanten
+Anschlusshandlungen zwischen zwei Kommunikationspartnern \cite{Donick}} (SC) die
+high-level \gls{QoI} evaluiert. Sind die SD und die SDXR gering und ist die SC hoch,
+so ist die high-level \gls{QoI} hoch.
 Der Interaktionserfolg ist daher mit hoch zu bewerten.
 
 \textbf{Ontologien}
@@ -297,42 +298,42 @@ Bestandteile einer Ontologie:
       
 \textbf{Zusammenfassung und Vergleich zu CRODT}
 
-Das CRODT-Framework stellt eine umfangreiche Sammlung an Funktionalit{\"a}ten
+Das \gls{CRODT}-Framework stellt eine umfangreiche Sammlung an Funktionalit{\"a}ten
 zur Verf{\"u}gung. Diese {\"a}hneln in ihrem Einsatz zum Teil denen der
-vorgestellten Protokolle (LTP/Bundle Protokoll). So unterscheidet das LTP
+vorgestellten Protokolle (\gls{LTP}/Bundle Protokoll). So unterscheidet das \gls{LTP}
 beispielsweise nach wichtigen und unwichtigen Daten (red/green data). Diese
-Funktionalit{\"a}t gleicht in ihrer Intension der Relevanzevaluierung im
-CRODT-Framework. Allerdings bleibt zu konstatieren, dass die vom LTP getroffene
+Funktionalit{\"a}t gleicht in der Intension der Relevanzevaluierung im
+\gls{CRODT}-Framework. Allerdings bleibt zu konstatieren, dass die vom \gls{LTP} getroffene
 Unterscheidung recht grob ist. Zudem sollen die
-Datenbl{\"o}cke aus den Messages, die durch ROTP verschickt werden, auf Seiten
-des Empf{\"a}ngers direkt lesbar sein. Diese Funktionalit{\"a}t gleicht der
+Datenbl{\"o}cke aus den Nachrichten, die durch \gls{ROTP} verschickt werden, auf
+Seiten des Empf{\"a}ngers direkt lesbar sein. Diese Funktionalit{\"a}t gleicht der
 Bundle-Strategie des Bundle Protokolls. Der Einsatzgedanke der Ontologien
-innerhalb des CRODT-Frameworks hingegen, unterscheidet sich deutlich von den
+innerhalb des \gls{CRODT}-Frameworks hingegen, unterscheidet sich deutlich von den
 anderen angef{\"u}hrten Protokollen. Hierbei sollen wichtige Daten automatisch
 erkannt und bewertet werden. Zudem ist das Contentsplitting und die
-Relevanzevaluierung innerhalb von CRODT wesentlich differenzierter (Werte
+Relevanzevaluierung innerhalb von \gls{CRODT} wesentlich differenzierter (Werte
 zwischen 0 und 100). Die {\"U}bertragung betreffend ist das unter \gls{CRODT}
 genutzte \gls{ROTP} flexibel, da es durchaus mit anderen Protokollen kombiniert
-("'gestackt"') werden kann. Somit k{\"o}nnte sowohl eine Paketorientierte und
-Verbindungslose Kommunikation (UDP {\"a}hnlich), als auch eine TCP {\"a}hnliche
-Verbindung infrage kommen (z.B. LTP). ROTP repr{\"a}sentiert somit ein
-\textit{Overlay} Protokoll oberhalb Layer-4. 
+("'gestackt"') werden kann. Somit k{\"o}nnte sowohl eine paketorientierte und
+verbindungslose Kommunikation (\gls{UDP} {\"a}hnlich), als auch eine \gls{TCP}
+{\"a}hnliche Verbindung infrage kommen (z.B. \gls{LTP}). \gls{ROTP} repr{\"a}sentiert somit ein
+\textit{Overlay} Protokoll oberhalb von Layer-4. 
 
-Bezogen Auf das zuvor gegebene Beispiel eines Stacks einer interplanetaren
-Kommunikation, k{\"o}nnte das CRODT-Framework (CROP und ROTP) als eine
-Erweiterung dienen. Diese k{\"o}nnte auf dem Bundle-Protokoll aufsetzen um
+Bezogen auf das zuvor gegebene Beispiel eines Stacks einer interplanetaren
+Kommunikation, k{\"o}nnte das \gls{CRODT}-Framework (\gls{CROP} und \gls{ROTP}) als eine
+Erweiterung dienen. Diese k{\"o}nnte auf dem Bundle-Protokoll aufsetzen, um
 diesem bei Bedarf die M{\"o}glichkeit einer relevanzorientierten
-Datenaufteilung und Sortierung hinzuzuf{\"u}gen. Als Layer-4 Protokoll
-k{\"o}nnte weiterhin LTP eingesetzt werden. Das ROTP {\"u}bergibt dann die
+Datenaufteilung und -sortierung hinzuzuf{\"u}gen. Als Layer-4 Protokoll
+k{\"o}nnte weiterhin \gls{LTP} eingesetzt werden. Das \gls{ROTP} {\"u}bergibt dann die
 Messages, welche mit den nach Relevanz geordneten Datenbl{\"o}cken gef{\"u}llt
-sind, an das LTP.
+sind, an das \gls{LTP}.
 
-Zur Bewertung der Kommunikationsqualit{\"a}t k{\"o}nnte das QoI-Modell genutzt
-werden. Die grundlegende low-level QoI kann dabei Gegebenheiten wie das geringe
-Sendezeitfenster des Rovers an den Orbiter (CD), sowie die Menge der Dabei
+Zur Bewertung der Kommunikationsqualit{\"a}t k{\"o}nnte das \gls{QoI}-Modell genutzt
+werden. Die grundlegende low-level \gls{QoI} kann dabei Gegebenheiten wie das geringe
+Sendezeitfenster des Rovers an den Orbiter, sowie die Menge der dabei
 {\"u}bertragenen Daten (SDXR) analysieren. Mit Hilfe der s{\"a}mtlichen im
-Modell betrachteten Parameter kann so eine QoS equivalente Erhebung von
-Daten erfolgen. Die high-level QoI-Ebene ist eher auf eine zuk{\"u}nftige
+Modell betrachteten Parameter kann so eine \gls{QoS} equivalente Erhebung von
+Daten erfolgen. Die high-level \gls{QoI}-Ebene ist eher auf eine zuk{\"u}nftige
 Mars-Erde Kommunikation zwischen Menschen also \textit{human-to-human
 interaction} (H2H) ausgelegt. Diese k{\"o}nnte die zwischen den
 Kommunikationsparteinen via GUI ausgetauschten Daten so analysieren, dass eine

@@ -3,8 +3,10 @@
 Dieser Abschnitt befasst sich mit der Entwicklung des \gls{GUI}. Mit dieser
 wird eine nutzerfreundliche Chat-Kommunikation über die \gls{CROP}
 und das \gls{ROTP} angestrebt.
-Hierbei wurde auf Basis der Designregeln nach Jakob Nielsen der erste Prototyp
-entwickelt.
+
+\subsection{Interface Entwicklung}
+Auf Basis der Designregeln nach Jakob Nielsen wurde der
+erste Prototyp des GUI entwickelt.
 \newline Das GUI besteht aus dem Empfangsfenster (Abbildung
 \ref{fig:GUI} rechts), dem Eingabefenster (Abbildung \ref{fig:GUI}
 unten links) mit einer Anzeige über bisher verschickte Nachrichten
@@ -109,3 +111,25 @@ vergebenen Priorit{\"a}ten. Da die bereits priorisierten Textpassagen zudem farb
 markiert werden, muss der User sich nicht merken, welche Bereiche er bereits
 priorisiert hat. Es erfolgt somit eine Minimierung der Ged{\"a}chtnislast des
 Users (Regel drei nach Nielsen).
+
+\subsection{Implementierung des GUI}
+
+Abbildung \ref{fig:KlassendiagrammGui} zeigt die Klassenstruktur der Chatgui.
+Die Hauptklasse ChatGui, welche von der Klasse QMainWindow erbt, {\"u}bergibt
+den Inhalt (String, Positionsinformationen, Relevanz) des Textfeldes des UI an
+die Klasse SenderModulIF.
+Die {\"U}bergabe erfolgt als Vector in welchen zuvor die daten per Push geschoben wurden. Ab hier
+durchlaufen die Daten den standard ROTP Ablauf. Daten die {\"u}ber
+die Klasse ReceiverModulIF empfangen werden, m{\"u}ssen via UniversalDecoder
+sortiert und dann {\"u}ber das UI der Klasse ChatGui ausgegeben werden. Der
+Zugriff zum CROP/ROTP erfolgt somit durch die Klassen SenderModulIF und
+ReceiverModulIF.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{KlassendiagrammGui.pdf}
+\caption{Klassendiagramm des GUI}
+\label{fig:KlassendiagrammGui}
+\end{figure}
+
+

@@ -6,12 +6,13 @@ Die bereits im Grundlagenkapitel erw{\"a}hnten Ontologien sind aufgrund ihrer
 Komplexit{\"a}t und umfangreichen Einbindungszeit nicht Bestandteil des im
 Verlaufe dieser Arbeit entwickelten Protokolls. Jedoch ist eine Einbindung
 selbiger im weiteren Entwicklungsverlauf des Protokolls unabdingbar. Das
-zuk{\"u}nftige Ziel ist es, mit Hilfe der Ontologien eine automatisierte
-Priorisierung von Daten vorzunehmen. Somit kann ein auf dem Mars befindliches
-System (z.B. ein Rover) selbstst{\"a}ndig entscheiden, welche Informationen eine
-hohe Priorit{\"a}t zugewiesen bekommen. F{\"u}r einen Einstieg in das Thema der
-Ontologieerstellung und deren Entwicklung im Bezug auf die vorliegende Arbeit,
-sei auf die Paper von \cite{Noy2000} und \cite{Daher} verwiesen.
+zuk{\"u}nftige Ziel ist es einerseits, mit Hilfe der Ontologien eine
+automatisierte Priorisierung von Daten vorzunehmen, als auch eine manuelle
+Priorisierungsm{\"o}glichkeit anzubieten (GUI). Somit kann ein auf dem Mars
+befindliches System (z.B. ein Rover) selbstst{\"a}ndig entscheiden, welche
+Informationen eine hohe Priorit{\"a}t zugewiesen bekommen. F{\"u}r einen
+Einstieg in das Thema der Ontologieerstellung und deren Entwicklung im Bezug
+auf die vorliegende Arbeit, sei auf die Paper von \cite{Noy2000} und \cite{Daher} verwiesen.
 
 \textbf{Datenkompression}
 
@@ -48,7 +49,7 @@ Wohingegen Daten hoher Relevanz erst nach Empfangsquittierung bzw. Ablauf des
 
 \textbf{Protokoll-Stack} \label{sec:Konzept_Protocolstack}
 
-Die von der jeweiligen Anwendung an den \gls{CROP} Stack {\"u}bergebenen Daten
+Die von der jeweiligen Anwendung an den \gls{CROP}-Stack {\"u}bergebenen Daten
 werden zun{\"a}chst in kleinere Datenbl{\"o}cke gesplittet. Diese Datenbl{\"o}cke
 werden der Relevanz nach evaluiert und anschlie{\ss}end priorisiert.
 Im Anschlu{\ss} daran werden die priorisierten Datenbl{\"o}cke der jeweiligen
@@ -80,7 +81,7 @@ Vorganges.
 \label{fig:OSI_Stack}
 \end{figure}
  
-Die Abbildung \ref{fig:CROP_Stack} zeigt die Handhabung im CROP-Stack
+Die Abbildung \ref{fig:CROP_Stack} zeigt die Handhabung im CROP-/ROTP-Stack
 unter Nutzung des \gls{UDP}-Protokolls f{\"u}r die finale Daten{\"u}bertragung. Der
 Application, Presentation und Session Layer des OSI-Modells
 werden hierbei vereinfacht als Anwendungsschicht zusammengefasst.
@@ -102,7 +103,7 @@ infrage kommen.
 \begin{figure}[H]
 \centering
 \includegraphics[scale=.5]{CROP_Stack.pdf}
-\caption{Der CROP Stack}
+\caption{Der CROP-/ROTP-Stack}
 \label{fig:CROP_Stack}
 \end{figure}
 

@@ -177,36 +177,61 @@ Ende-zu-Ende Kommunikation \cite{DTNBundle}.
 \label{fig:PSSBN}
 \end{figure}
 
-\textbf{\gls{QoS} vs. \gls{QoI}}
+\textbf{\gls{QoS}}
 
 Die G{\"u}te eines Kommunikationsdienstes wird in irdischen Netzwerken
 {\"u}blicherweise als Quality of Service (QoS) bezeichnet. Hierbei gibt es eine
 Auswahl von Qualit{\"a}tsmerkmalen, mit Hilfe derer die Qualit{\"a}t eines
 Service bewertet werden kann. Im Beispiel eines IP-Netzwerks w{\"a}ren dies
-Parameter wie Jitter \footnote{zeitl. Schwankung (Taktzittern) in der
+Parameter wie Jitter \footnote{zeitl. Fluktuation (Taktzittern) in der
 {\"U}bertragung von Digitalsignalen}, Latenzzeit, die Paketverlustrate sowie der
 Datendurchsatz. Mit Hilfe der gewonnenen Erkenntnisse, kann dann die
 Kommunikation beeinflusst werden. Dadurch k{\"o}nnen Dienste wie z.B. ein
 Video-/Audiostream ihre Ressourcennutzung verlagern bzw. anpassen
 (Beispiel: Videochat sendet infolge einer Bandbreitenverschlechterung ein
-st{\"a}rker komprimiertes Bild). Das QoS-Modell ist zwar theoretisch auch auf
-eine interplanetare Kommunikation anwendbar (z.B. DTN/IPN), jedoch gleicht
-dieses aufgrund der hohen Latenzzeiten in der {\"U}bertragung eher einer
-postalischen Kommunikation (QoS hingegen ist auf eine synchrone Kommunikation
-ausgelegt). Aus diesem Grund wurde mit dem QoI (Quality of Interaction) ein
-speziell f{\"u}r diesen Anwendungsfall konzipiertes Verfahren entwickelt
-\cite{Daher2}. Dabei wurde ein Konzept entwickelt welches auf Signalen basiert
-(REQ\footnote{Request-Signal}, RSP\footnote{Response-Signal},
-INFO\footnote{Information-Signal}). Durch diese Signale ist es m{\"o}glich
-sowohl eine Transaktions- (\textit{Transaction Time}) als auch eine Antwortzeit
-(\textit{Response Time}) zu bestimmen. Klassische QoS-Merkmale k{\"o}nnen
-ebenfalls zur Evaluierung der Verbindung hinzugezogen werden. Jedoch werden in
-erster Linie QoI-Merkmale verwendet (z.B. Dauer einer Verbindung,
-{\"U}bertragungen pro Verbindung usw.). Zusammenfassend kann gesagt werden, dass
-das QoI-Modell (im Gegesatz zum QoS-Modell) die Qualit{\"a}t der
-Interaktion bewertet und somit nicht in erster Linie den Fokus auf die
-Qualit{\"a}t der Verbindung legt. Dies ist wie bereits erw{\"a}hnt im
-vorliegenden asynchronen Kommunikationsmodell begr{\"u}ndet.
+st{\"a}rker komprimiertes Bild). 
+
+\textbf{\gls{QoI}} 
+
+Das QoS-Modell ist zwar theoretisch auch auf eine interplanetare Kommunikation
+anwendbar (z.B. DTN/IPN), jedoch gleicht dieses aufgrund der hohen Latenzzeiten
+in der {\"U}bertragung eher einer postalischen Kommunikation (QoS hingegen ist
+auf eine synchrone Kommunikation optimiert). Aus diesem Grund wurde mit dem QoI
+(Quality of Interaction) ein speziell f{\"u}r den asynchronen
+Kommunikationsfall konzipiertes Verfahren entwickelt \cite{Daher2} (QoI kann
+auch irdische Kommunikationen verbessern). Dabei wurde ein Konzept erdacht,
+welches auf Signalen basiert (REQ\footnote{Request-Signal},
+RSP\footnote{Response-Signal}, INFO\footnote{Information-Signal}). Mit diesen
+Signalen kann nun eine Interaktion ausgel{\"o}{\ss}t werden. Die bewertung der
+QoI erfolgt in zwei Ebenen. Ebene 1 ist die low-level QoI. Diese befasst sich
+neben klassischen QoS-Merkmalen mit der Analyse der Ausnutzung von
+Kommunikationsressourcen. Die zweite Ebene wird als high-level QoI bezeichnet
+und bewertet den Erfolg einer Kommunikation.
+
+Zur Evaluierung der low-level QoI werden neben klassischen QoS-Merkmalen
+spezielle Merkmale zur Kommunikationsbewertung eingestzt. Klassische
+QoS-Merkmale wie Bandbreite und Jitter k{\"o}nnen mit Hilfe der \textit{Contact
+Duration}, \textit{Contact Period} und des \textit{One Way Delay} auf einen QoI-Fall
+gemappt werden. Steigt z.B. die CD und sinkt zugleich die CP so resultiert
+daraus eine steigende Bandbreite. Um die Ausnutzung verf{\"u}gbarer
+Kommunikationsressourcen zu analysieren stehen eine vielzahl an
+Session\footnote{Kommunikationsphase, welche durch einen REQ von Sender A an
+Empf{\"a}nger B gestartet wird und erst nach einem empfangenen RSP beendet
+wird.}-Analysemethoden zur Verf{\"u}gung. Diese umfassen z.B. den
+\textit{Session Load} (SL), die \textit{Session Duration} (SD), die
+\textit{Session Signaling Rate} (SSR) oder die \textit{Sesssion Data Exchange Rate} (SDXR). Ist
+z.B. die SSR gering, so ist die low-level QoI hoch.
+
+Das in dieser Arbeit implementierte Anwendungsszenario einer Kommunikation
+zwischen Erde und Mars via CRODT-Framework unter nutzung einer Chat-Applikation
+ist ein idealer Ansatzpunkt um die high-level QoI zu definieren. Diese nutzt die
+Ergebnisse der low-level QoI kombiniert mit einigen sprachspezifischen
+Erweiterungen \cite{Donick}. Prim{\"a}r wird dabei {\"u}ber die SD und die
+SDXR in Kombination mit der \textit{Session Coherence}\footnote{Ma{\ss} f{\"u}r
+den Grad an iniziierten relevanten Anschlusshandlungen zwischen zwei
+Kommunikationspartnern \cite{Donick}} (SC) die high-level QoI evaluiert. Sind
+die SD und die SDXR gering und ist die SC hoch, so ist die high-level QoI hoch.
+Der Interaktionserfolg ist daher mit hoch zu bewerten.
 
 \textbf{Ontologien}
 

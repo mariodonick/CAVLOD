@@ -36,10 +36,10 @@ angegeben und durch die Abk{\"u}rzung \gls{IF} gekennzeichnet. Dadurch ist der
 geforderte modulare Aufbau sichergestellt.
 
 \begin{figure}[H]
-\centering
-\includegraphics[scale=.49]{BlockdiagrammSender.pdf} % skalieren
-\caption{Blockdiagramm des Senders}
-\label{fig:BlockdiagrammSender}
+	\centering
+	\includegraphics[scale=.49]{BlockdiagrammSender.pdf} % skalieren
+	\caption{Blockdiagramm des Senders}
+	\label{fig:BlockdiagrammSender}
 \end{figure}
 
 Die Daten werden {\"u}ber die Schnittstelle des Topmoduls \Code{Sender}
@@ -122,33 +122,33 @@ Zeilen sind in der Tabelle \ref{tab:UebersichtDerAkkumuliertenZeilenlaengen}
 angegeben.
 
 \begin{longtable}{|cc|}
-\caption{{\"U}bersicht der akkumulierten Zeilenl{\"a}ngen} \\
-\hline
-\label{tab:UebersichtDerAkkumuliertenZeilenlaengen}
-\textbf{Zeile} & \textbf{L{\"a}nge}\\
-\hline
-  0 &    0 \\
-  1 &   27 \\
-  2 &   78 \\
-  3 &  192 \\
-\hline
+	\caption{{\"U}bersicht der akkumulierten Zeilenl{\"a}ngen} \\
+	\hline
+	\label{tab:UebersichtDerAkkumuliertenZeilenlaengen}
+	\textbf{Zeile} & \textbf{L{\"a}nge}\\
+	\hline
+	  0 &    0 \\
+	  1 &   27 \\
+	  2 &   78 \\
+	  3 &  192 \\
+	\hline
 \end{longtable}
 
 Daraus ergeben sich die folgenden eindimensionalen Positionsangaben:
 
 \begin{longtable}{|ccl|}
-\caption{{\"U}bersicht der relevanten 1D-Bereiche} \\
-\hline
-\label{tab:UebersichtDerEindimensionalenBereiche}
-\textbf{x-Position} & \textbf{x-L{\"a}nge} &
-\textbf{relevanter Text}\\
-\hline
-   13 & 14 & "`Beispieltext:\ensuremath{\backslash}n"' \\
-   27 &  9 & "`Hallo ich"' \\
-   62 & 22 & "`komme vom Mars.\ensuremath{\backslash}nDabei"' \\
-  115 & 18 & "`dann priorisiert,"' \\
-  151 &  4 & "`und "' \\
-\hline
+	\caption{{\"U}bersicht der relevanten 1D-Bereiche} \\
+	\hline
+	\label{tab:UebersichtDerEindimensionalenBereiche}
+	\textbf{x-Position} & \textbf{x-L{\"a}nge} &
+	\textbf{relevanter Text}\\
+	\hline
+	   13 & 14 & "`Beispieltext:\ensuremath{\backslash}n"' \\
+	   27 &  9 & "`Hallo ich"' \\
+	   62 & 22 & "`komme vom Mars.\ensuremath{\backslash}nDabei"' \\
+	  115 & 18 & "`dann priorisiert,"' \\
+	  151 &  4 & "`und "' \\
+	\hline
 \end{longtable}
 
 Die Bl{\"o}cke f{\"u}r die relevanten Bereiche k{\"o}nnen genutzt werden,
@@ -160,18 +160,18 @@ Zusammengefasst ergibt die Berechnung die in Tabelle
 \ref{tab:UebersichtDerUNRelevantenBereiche} aufgef{\"u}hrten Bereiche.
 
 \begin{longtable}{|ccl|}
-\caption{{\"U}bersicht der irrelevanten Bereiche} \\
-\hline
-\label{tab:UebersichtDerUNRelevantenBereiche}
-\textbf{x-Position} & \textbf{x-L{\"a}nge} &
-\textbf{unrelevanter Text}\\
-\hline
-   0 & 13 & "`Es folgt ein "' \\
-  36 & 26 & "` bin ein Beispieltext und "' \\
-  84 & 31 & "`wurde ich zerst{\"u}ckelt, "' \\
- 133 & 18 & "`einzeln versendet "' \\
- 155 & 37 & "` auf der Erde wieder zusammengesetzt.\ensuremath{\backslash}n"' \\
-\hline
+	\caption{{\"U}bersicht der irrelevanten Bereiche} \\
+	\hline
+	\label{tab:UebersichtDerUNRelevantenBereiche}
+	\textbf{x-Position} & \textbf{x-L{\"a}nge} &
+	\textbf{unrelevanter Text}\\
+	\hline
+	   0 & 13 & "`Es folgt ein "' \\
+	  36 & 26 & "` bin ein Beispieltext und "' \\
+	  84 & 31 & "`wurde ich zerst{\"u}ckelt, "' \\
+	 133 & 18 & "`einzeln versendet "' \\
+	 155 & 37 & "` auf der Erde wieder zusammengesetzt.\ensuremath{\backslash}n"' \\
+	\hline
 \end{longtable}
 
 Zum Schluss muss noch der letzte Block berechnet werden, der nach dem letzten
@@ -236,10 +236,10 @@ Der Algorithmus ist in Abbildung \ref{fig:AlgorithmusPacketizer} graphisch
 dargestellt.
 
 \begin{figure}[H]
-\centering
-\includegraphics[scale=.6]{AlgorithmusPacketizer.pdf}
-\caption{Algorithmus Packetizer}
-\label{fig:AlgorithmusPacketizer}
+	\centering
+	\includegraphics[scale=.6]{AlgorithmusPacketizer.pdf}
+	\caption{Algorithmus Packetizer}
+	\label{fig:AlgorithmusPacketizer}
 \end{figure}
 
 \subsection{Netzwerk}
@@ -259,10 +259,10 @@ und somit f{\"u}r die Socket-Kommunikation {\"u}bernommen. Im Testszenario
 dieser Arbeit kommt dabei IPv4 zum Einsatz.
 
 \begin{figure}[H]
-\centering
-\includegraphics[scale=.5]{UDP_CROP.pdf}
-\caption{Client/Server Kommunikation {\"u}ber UDP-Socket}
-\label{fig:Socket-Kommunikation}
+	\centering
+	\includegraphics[scale=.5]{UDP_CROP.pdf}
+	\caption{Client/Server Kommunikation {\"u}ber UDP-Socket}
+	\label{fig:Socket-Kommunikation}
 \end{figure}
 
 Die Abbildung \ref{fig:Socket-Kommunikation} zeigt eine vereinfachte Darstellung
@@ -271,10 +271,10 @@ Relevance-Oriented Priorization bzw. aufsetzendem \gls{ROTP}. In Abbildung
 \ref{fig:OSI} erfolgt eine Einordnung des \gls{CROP}/\gls{ROTP} in das OSI-Referenzmodell.
 
 \begin{figure}[H]
-\centering
-\includegraphics[scale=.38]{OSI.pdf}
-\caption{{\"U}berblick des OSI-Schichtenmodells und der Zuordnung von CROP/ROTP}
-\label{fig:OSI}
+	\centering
+	\includegraphics[scale=.38]{OSI.pdf}
+	\caption{{\"U}berblick des OSI-Schichtenmodells und der Zuordnung von CROP/ROTP}
+	\label{fig:OSI}
 \end{figure}
 
 \subsection{StoreManager}
@@ -315,10 +315,10 @@ diese zu laden und eine Dritte, mit der bereits gespeicherte Datenbl{\"o}cke
 gel{\"o}scht werden k{\"o}nnen.
 
 \begin{figure}[H]
-\centering
-\includegraphics[scale=.49]{EinbettungStoreManager.pdf}
-\caption{Integration des Submoduls \Code{StoreManager}}
-\label{fig:EinbettungStoreManager}
+	\centering
+	\includegraphics[scale=.49]{EinbettungStoreManager.pdf}
+	\caption{Integration des Submoduls \Code{StoreManager}}
+	\label{fig:EinbettungStoreManager}
 \end{figure}
 
 Die Einbettung des Submoduls \Code{StoreManager} in das Modul \Code{Sender} ist
@@ -337,17 +337,17 @@ Lesen erm{\"o}glicht. Dazu wurden zwei M{\"o}glichkeiten gegen{\"u}bergestellt. 
 in Tabelle \ref{tab:Speicherformate} aufgef{\"u}hrt.
 
 \begin{longtable}{|lcc|}
-\caption{Vergleich der Speicherformate} \\
-\hline
-\label{tab:Speicherformate}
-\textbf{} & \textbf{XML-Datei} & \textbf{Bin{\"a}re Datei}\\
-\hline
-  Menschliche Lesbarkeit      &  + & - \\
-  Dateigr{\"o}{\ss}e      &  0 & + \\
-  Geschwindigkeit &  0 & + \\
-  Portabilit{\"a}t    &  + & - \\
-\hline
-\caption*{ + Gut, 0 Medium, - Schlecht }
+	\caption{Vergleich der Speicherformate} \\
+	\hline
+	\label{tab:Speicherformate}
+	\textbf{} & \textbf{XML-Datei} & \textbf{Bin{\"a}re Datei}\\
+	\hline
+	  Menschliche Lesbarkeit      &  + & - \\
+	  Dateigr{\"o}{\ss}e      &  0 & + \\
+	  Geschwindigkeit &  0 & + \\
+	  Portabilit{\"a}t    &  + & - \\
+	\hline
+	\caption*{ + Gut, 0 Medium, - Schlecht }
 \end{longtable}
 
 Der Tabelle \ref{tab:Speicherformate} ist zu entnehmen, dass \gls{XML} auf den
@@ -365,10 +365,10 @@ In der Datei werden die folgenden Daten aus dem Datenblock in der
 aufgef{\"u}hrten Reihenfolge gespeichert:
 
 \begin{itemize}
-\item Datenblockheader 
-\item Priorit{\"a}t
-\item Zeitstempel
-\item Content als ByteArray
+	\item Datenblockheader 
+	\item Priorit{\"a}t
+	\item Zeitstempel
+	\item Content als ByteArray
 \end{itemize}
 
 Für den Datenblockheader ist eine Kompression möglich und dadurch kann der
@@ -411,10 +411,10 @@ abgebildet.
 Die Implementierung wird im Folgenden n{\"a}her erl{\"a}utert.
 
 \begin{figure}[H]
-\centering
-\includegraphics[scale=.6]{BlockdiagrammEmpfaenger.pdf}
-\caption{{\"U}bersicht des Empf{\"a}ngers}
-\label{fig:BlockdiagrammEmpfaenger}
+	\centering
+	\includegraphics[scale=.6]{BlockdiagrammEmpfaenger.pdf}
+	\caption{{\"U}bersicht des Empf{\"a}ngers}
+	\label{fig:BlockdiagrammEmpfaenger}
 \end{figure}
 
 \subsection{Parser}
@@ -431,10 +431,10 @@ Anschlie{\ss}end werden die Datenblockheader geparst. Der Content wird von der
 Klasse \Code{DataBlockProcessing} verarbeitet.
 
 \begin{figure}[H]
-\centering
-\includegraphics[scale=.6]{AlgorithmusMessageParser.pdf}
-\caption{Algorithmus zum Parsen der Nachricht}
-\label{fig:AlgorithmusMessageParser}
+	\centering
+	\includegraphics[scale=.6]{AlgorithmusMessageParser.pdf}
+	\caption{Algorithmus zum Parsen der Nachricht}
+	\label{fig:AlgorithmusMessageParser}
 \end{figure}
 
 Daf{\"u}r wird ein Softwarekonzept namens Policy-Based-Template-Meta Programmierung
@@ -445,9 +445,9 @@ Der Templateklasse werden die folgenden vier Klassen als Templateparameter
 Klasse {\"u}bergeben:
 
 \begin{itemize}
-\item T - Datentyp des R{\"u}ckgabewertes des Parsers
-\item Parser - Klasse zum Parsen des Datentypes
-\item C - Datentyp, der als Callback zur{\"u}ckgegeben wird
+	\item T - Datentyp des R{\"u}ckgabewertes des Parsers
+	\item Parser - Klasse zum Parsen des Datentypes
+	\item C - Datentyp, der als Callback zur{\"u}ckgegeben wird
 \end{itemize}
 
 Der Parameter \Code{Parser} erbt zus{\"a}tzlich von einer

@@ -117,7 +117,21 @@ F{\"u}r den Algorithmus ist es wichtig, dass die relevanten Bereiche den
 Positionen nach sortiert sind. Das bedeutet, je niedriger die Zeile und Spalte,
 desto weiter vorn ist diese Position in der Datenstruktur gespeichert.
 Deshalb werden alle Angaben, die von dem Submodul \Code{CRODM}
-{\"u}bergeben werden, zuerst sortiert.
+{\"u}bergeben werden, zuerst sortiert.\newline
+
+\begin{longtable}{|cc|}
+  \caption{{\"U}bersicht der akkumulierten Zeilenl{\"a}ngen} \\
+  \hline
+  \label{tab:UebersichtDerAkkumuliertenZeilenlaengen}
+  \textbf{Zeile} & \textbf{L{\"a}nge}\\
+  \hline
+    0 &    0 \\
+    1 &   27 \\
+    2 &   78 \\
+    3 &  192 \\
+  \hline
+\end{longtable}
+
 Im n{\"a}chsten Schritt werden die zweidimensionalen Koordinaten zu einer
 Eindimensionalen umgerechnet, dadurch konnte das Herausschneiden der
 Textfragmente, welche Zeilenspr{\"u}nge beinhalten oder {\"u}ber eine
@@ -127,21 +141,7 @@ Vorhandene Umlaute und andere Zeichen, die nicht im
 \gls{ASCII}\footnote{\gls{ASCII} ist eine 7-Bit Zeichencodierung.}-Zeichensatz
 enthalten sind, ben{\"o}tigen die doppelte L{\"a}nge. Die Gesamtl{\"a}ngen der
 Zeilen sind in der Tabelle \ref{tab:UebersichtDerAkkumuliertenZeilenlaengen}
-angegeben.
-
-\begin{longtable}{|cc|}
-	\caption{{\"U}bersicht der akkumulierten Zeilenl{\"a}ngen} \\
-	\hline
-	\label{tab:UebersichtDerAkkumuliertenZeilenlaengen}
-	\textbf{Zeile} & \textbf{L{\"a}nge}\\
-	\hline
-	  0 &    0 \\
-	  1 &   27 \\
-	  2 &   78 \\
-	  3 &  192 \\
-	\hline
-\end{longtable}
-
+angegeben. \newline
 Daraus ergeben sich die folgenden eindimensionalen Positionsangaben:
 
 \begin{longtable}{|ccl|}
@@ -472,6 +472,8 @@ sehr einfach hinzuf{\"u}gen ohne bestehenden Quellcode zu ver{\"a}ndern. Dadurch
 die Grundprinzipien der objektorientierten Programmierung eingehalten werden \cite{herold2001go}.
 Der eben angesprochene Grundalgorithmus, welcher f{\"u}r jeden Datentyp
 durchlaufen wird, ist in Listing \ref{lst:PseudocodeDBParser} dargestellt.
+
+\newpage
 
 \lstdefinelanguage{pseudo}{
 morekeywords={if, else, for, in, remove, from, case, do, forever, to, false,

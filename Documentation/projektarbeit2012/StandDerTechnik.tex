@@ -4,7 +4,11 @@ umfasst sowohl die gegenw{\"a}rtig eingesetzte Hardware (Rover Curiosity, Deep
 Space Antennen), als auch bereits entwickelte Protokolle zur interplanetaren
 Kommunikation (Bundle-Protokoll etc.). Abschlie{\ss}end wird ein Bezug zum im
 Zuge dieser Arbeit implementierten Relevance-Oriented Transport Protocol
-hergestellt.
+hergestellt. Zudem wird eine Einordnung der vorgestellten Protokolle in
+den Stack einer interplanetaren Kommunikation vorgenommen. Au{\ss}erdem wird ein
+Vergleich der Handhabung von relevanten Daten innerhalb der unterschiedlichen
+Protokolle aufgezeigt. Im Zuge dessen wird Bezug auf die im CRODT-Framework
+eingesetzte \gls{CROP} genommen \cite{Daher}.
 
 \section{Weltraum-Technologien}
 
@@ -24,9 +28,9 @@ Zur Kommunikation nutzt der Rover einerseits das X-Band (7 - 8 GHz), welches zur
 {\"U}bertragung von Statusdaten und zum Empfang von Steuerdaten genutzt wird.
 Des Weiteren verf{\"u}gt der Rover {\"u}ber ein Kommunikationssystem im UHF-Band
 (0,4 GHz), welches f{\"u}r wissenschaftliche Daten mit hohem Datenvolumen
-genutzt wird (bis zu 250 Mbit pro Tag, somit ca. 30 MB/Tag). Die Ausstattung an
-wissenschaftlichen Instrumenten umfasst zehn Ger{\"a}te. Darunter z.B. zwei
-Mastkameras welche je eine Aufl{\"o}sung von 1200 x 1200 Pixeln haben (1,44
+genutzt wird (bis zu 250 Mbit pro Tag, somit ca. 30 MB/Tag).\newline 
+Die Ausstattung an wissenschaftlichen Instrumenten umfasst zehn Ger{\"a}te.
+Darunter z.B. zwei Mastkameras welche je eine Aufl{\"o}sung von 1200 x 1200 Pixeln haben (1,44
 Megapixel). Diese Kameras sind ebenfalls in der Lage 720p-Videos mit einer
 Framerate von 10 Bildern pro Sekunde aufzunehmen. Hinzu kommen Spektrografen,
 weitere Kameras, Sensoren etc., welche weitere Analysedaten beisteuern
@@ -291,7 +295,7 @@ Bestandteile einer Ontologie:
    Beispiel eines Axioms:\newline
    $\forall x : (Professor(x) \rightarrow \neg Student(x))$   
       
-\textbf{Vergleich der aktuellen Technologien mit CRODT}
+\textbf{Zusammenfassung und Vergleich zu CRODT}
 
 Das CRODT-Framework stellt eine umfangreiche Sammlung an Funktionalit{\"a}ten
 zur Verf{\"u}gung. Diese {\"a}hneln in ihrem Einsatz zum Teil denen der
@@ -312,11 +316,30 @@ genutzte \gls{ROTP} flexibel, da es durchaus mit anderen Protokollen kombiniert
 ("'gestackt"') werden kann. Somit k{\"o}nnte sowohl eine Paketorientierte und
 Verbindungslose Kommunikation (UDP {\"a}hnlich), als auch eine TCP {\"a}hnliche
 Verbindung infrage kommen (z.B. LTP). ROTP repr{\"a}sentiert somit ein
-\textit{Overlay} Protokoll oberhalb Layer-4. Bezogen Auf das zuvor gegebene
-Beispiel eines Stacks einer interplanetaren Kommunikation, k{\"o}nnte das
-CRODT-Framework (CROP und ROTP) als eine Erweiterung dienen. Diese
-k{\"o}nnte auf dem Bundle-Protokoll aufsetzen um diesem bei Bedarf die
-M{\"o}glichkeit einer relevanzorientierten Datenaufteilung und Sortierung
-hinzuzuf{\"u}gen. Als Layer-4 Protokoll k{\"o}nnte weiterhin LTP eingesetzt
-werden. Das ROTP {\"u}bergibt dann die Messages, welche mit den nach Relevanz
-geordneten Datenbl{\"o}cken gef{\"u}llt sind, an das LTP.
+\textit{Overlay} Protokoll oberhalb Layer-4. 
+
+Bezogen Auf das zuvor gegebene Beispiel eines Stacks einer interplanetaren
+Kommunikation, k{\"o}nnte das CRODT-Framework (CROP und ROTP) als eine
+Erweiterung dienen. Diese k{\"o}nnte auf dem Bundle-Protokoll aufsetzen um
+diesem bei Bedarf die M{\"o}glichkeit einer relevanzorientierten
+Datenaufteilung und Sortierung hinzuzuf{\"u}gen. Als Layer-4 Protokoll
+k{\"o}nnte weiterhin LTP eingesetzt werden. Das ROTP {\"u}bergibt dann die
+Messages, welche mit den nach Relevanz geordneten Datenbl{\"o}cken gef{\"u}llt
+sind, an das LTP.
+
+Zur Bewertung der Kommunikationsqualit{\"a}t k{\"o}nnte das QoI-Modell genutzt
+werden. Die grundlegende low-level QoI kann dabei Gegebenheiten wie das geringe
+Sendezeitfenster des Rovers an den Orbiter (CD), sowie die Menge der Dabei
+{\"u}bertragenen Daten (SDXR) analysieren. Mit Hilfe der s{\"a}mtlichen im
+Modell betrachteten Parameter kann so eine QoS equivalente Erhebung von
+Daten erfolgen. Die high-level QoI-Ebene ist eher auf eine zuk{\"u}nftige
+Mars-Erde Kommunikation zwischen Menschen also \textit{human-to-human
+interaction} (H2H) ausgelegt. Diese k{\"o}nnte die zwischen den
+Kommunikationsparteinen via GUI ausgetauschten Daten so analysieren, dass eine
+Aussage {\"u}ber die Qualit{\"a}t der vorgehenden Interaktion/Kommunikation
+getroffen werden kann.
+
+F{\"u}r den Fall einer nicht durch den Menschen festgelegten Bewertung
+relevanter Informationen/Daten, sollte eine Ontologie eingesetzt werden. Diese
+Wissensbasis liefert Informationen {\"u}ber die Bedeutung der
+Informationen/Daten und {\"u}ber die (logischen) Regeln, die f{\"u}r sie gelten.

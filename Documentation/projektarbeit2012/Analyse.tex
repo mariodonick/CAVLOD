@@ -108,7 +108,7 @@ Die bisherigen Messungen werden noch einmal ohne Zurücksetzen wiederholt. Dabei
 werden relevante und nicht relevante Bereiche nacheinander jeweils $10$ Mal vom
 Modul verarbeitet (Verweis auf Anhang \ref{sec:messtabellen}), um den
 erwarteten Effekt erzielen zu können. Damit sind insgesamt $41.400$ Datenblöcke
-mit $548$ MB zu bewältigen.
+mit $548$ MB zu bewältigen. 
 % Auswertung 3
 \newline
 Bei der Durchführung ist ein Anstieg der Laufzeit zu erkennen (siehe
@@ -127,8 +127,8 @@ Speicherverbrauch einzuschränken. So besteht die Möglichkeit, die Daten nur au
 der Festplatte zu speichern und in der priorisierenden Datenstruktur die Indizes
 zu diesen zu hinterlegen. Dadurch kann der Speicherverbrauch im Arbeitsspeicher
 stark reduziert werden. Aufgrund von langen Zeiträumen in denen nicht gesendet
-werden kann, wird sukzessive Speicherplatz belegt (siehe \ref{Empfangsfenster}).
-Deshalb ist diese Methode bei sehr vielen Daten nicht optimal. Eine bessere
-Möglichkeit wäre, anhand einer \gls{TTL} (siehe Kapitel
+werden kann, wird sukzessive Speicherplatz belegt (siehe Kapitel \ref{sec:SendeZeitdauern}).
+Deshalb ist diese Methode bei sehr vielen und großen Daten nicht optimal. Eine
+bessere Möglichkeit wäre, anhand einer \gls{TTL} (siehe Kapitel
 \ref{sec:Vorueberlegung}) unrelevante Daten nur sehr kurzfristig vorzuhalten,
 damit mehr Raum für Daten von hoher Relevanz ist.

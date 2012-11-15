@@ -263,21 +263,20 @@ Bestandteile einer Ontologie:
  \textbf{Begriffe} werden auch als Klassen bezeichnet. Diese
  k{\"o}nnen in einer Klassenstruktur mit {\"U}ber- und Unterklasse angeordnet
  werden. Sie stellen Sammlungen von Objekten gleicher Eigenschaften dar
- (z.B. Student, Professor bei der Klasse Mensch).
+ (z.B. Krater, Berg bei der Klasse Marsoberfl{\"a}che).
  
- \textbf{Typen} repr{\"a}sentieren Objekttypen (z.B. Student, Professor) in
+ \textbf{Typen} repr{\"a}sentieren Objekttypen (z.B. Krater, Berg) in
  der Ontologie und stellen die zur Verf{\"u}gung stehenden Typen in Klassen dar.
  Diese werden anhand vorher definierter Begriffe erzeugt.
  
  \textbf{Istanzen} repr{\"a}sentieren Objekte in
  der Ontologie und stellen das zur Verf{\"u}gung stehende Wissen dar
- (z.B. Student Mueller, Professor Meier). Diese werden anhand vorher
+ (z.B. "`Gale"'-Krater, "`Olympus Mons"'-Berg). Diese werden anhand vorher
  definierter Begriffe erzeugt.
  
  \textbf{Relation} beschreiben, welche Beziehungen zwischen den Instanzen
- bestehen (z.B. Professor:Meier $\rightarrow$ unterrichtet $\rightarrow$
- Student:Mueller).
- Relationen werden auch als Eigenschaften bezeichnet. 
+ bestehen (z.B. "`Gale"'-Krater liegt auf dem Mars). Relationen werden auch als
+ Eigenschaften bezeichnet.
  \newline
  Die allgemeine mathematische Definition einer Relation lautet:
  \newline    \newline
@@ -285,7 +284,7 @@ Bestandteile einer Ontologie:
  \newline
  Beispiel einer Relation:
  \newline    \newline
- $\forall x,y : (eingeschrieben(x,y) \rightarrow Student(x) \wedge Kurs(y))$
+ $\forall x,y : (Aufnahme(x,y) \rightarrow Kamera(x) \wedge Stein(y))$
  
  Durch \textbf{Vererbung} ist es m{\"o}glich, Relationen und Eigenschaften der
  Begriffe zu vererben. Dabei werden alle Eigenschaften an das erbende Element
@@ -297,9 +296,9 @@ Bestandteile einer Ontologie:
  nicht aus anderen Begriffen abgeleitet werden kann.
  
  Beispiel eines Axioms:\newline
- $\forall x : (Professor(x) \rightarrow \neg Student(x))$   
+ $\forall x : (Krater(x) \rightarrow \neg Berg(x))$   
       
-\textbf{Zusammenfassung und Vergleich zu CRODT}
+\textbf{Zusammenfassung und Vergleich zum CRODT-Framework}
 
 Das \gls{CRODT}-Framework stellt eine umfangreiche Sammlung an Funktionalit{\"a}ten
 zur Verf{\"u}gung. Diese {\"a}hneln in ihrem Einsatz zum Teil denen der
@@ -345,5 +344,5 @@ getroffen werden kann.
 
 F{\"u}r den Fall einer nicht durch den Menschen festgelegten Bewertung
 relevanter Informationen/Daten, sollte eine Ontologie eingesetzt werden. Diese
-Wissensbasis liefert Informationen {\"u}ber die Bedeutung der
-Informationen/Daten und {\"u}ber die (logischen) Regeln, die f{\"u}r sie gelten.
+Wissensbasis liefert Informationen {\"u}ber die Bedeutung der Daten und {\"u}ber
+die (logischen) Regeln, die f{\"u}r sie gelten.

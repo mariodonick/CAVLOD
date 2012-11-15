@@ -183,6 +183,8 @@ Ende-zu-Ende Kommunikation \cite{DTNBundle}.
 	\label{fig:PSSBN}
 \end{figure}
 
+\section{Dienstg{\"u}te und Datenanalyse}
+
 \textbf{Quality of Service}
 
 Die G{\"u}te eines Kommunikationsdienstes wird in irdischen Netzwerken
@@ -206,11 +208,9 @@ ist auf eine synchrone Kommunikation optimiert). Aus diesem Grund wurde mit dem
 \gls{QoI} ein speziell f{\"u}r den asynchronen
 Kommunikationsfall konzipiertes Verfahren entwickelt \cite{Daher2} (\gls{QoI}
 kann auch irdische Kommunikationen verbessern). Dabei wurde ein Konzept erdacht,
-welches auf Signalen basiert (REQ\footnote{Request-Signal},
-RSP\footnote{Response-Signal}, INFO\footnote{Information-Signal}). Mit diesen
-Signalen kann nun eine Interaktion ausgel{\"o}{\ss}t werden. Die Bewertung der
-\gls{QoI} erfolgt in zwei Ebenen. Ebene $1$ ist die low-level \gls{QoI}. Diese
-befasst sich neben klassischen \gls{QoS}-Merkmalen mit der Analyse der Ausnutzung von
+welches auf Signalen basiert (Request-Signal (REQ), Response-Signal (RSP),
+Information-Signal (INFO)). Mit diesen Signalen kann nun eine Interaktion
+ausgel{\"o}{\ss}t werden. Die Bewertung der \gls{QoI} erfolgt in zwei Ebenen. Ebene $1$ ist die low-level \gls{QoI}. Diese befasst sich neben klassischen \gls{QoS}-Merkmalen mit der Analyse der Ausnutzung von
 Kommunikationsressourcen. Die zweite Ebene wird als high-level \gls{QoI}
 bezeichnet und bewertet den Erfolg einer Kommunikation.
 
@@ -248,7 +248,6 @@ Austausch von Wissen in digitaler Form genutzt. Die wichtigste Bedingung einer
 Ontologie ist die Allgemeing{\"u}ltigkeit. Dies unterscheidet die Ontologien von
 anderen Datenmodellen, welche speziell an einen bestimmten Zweck angepasst
 werden.
-
 Bestandteile einer Ontologie:
 
  \begin{compactenum}[I]
@@ -281,7 +280,7 @@ Bestandteile einer Ontologie:
  Die allgemeine mathematische Definition einer Relation lautet:
  \newline    \newline
  $R \subseteq M_1 \times \ldots \times M_n$
- \newline
+ \newline    \newline
  Beispiel einer Relation:
  \newline    \newline
  $\forall x,y : (Aufnahme(x,y) \rightarrow Kamera(x) \wedge Stein(y))$
@@ -298,7 +297,9 @@ Bestandteile einer Ontologie:
  Beispiel eines Axioms:\newline
  $\forall x : (Krater(x) \rightarrow \neg Berg(x))$   
       
-\textbf{Zusammenfassung und Vergleich zum CRODT-Framework}
+\section{Zusammenfassung}
+      
+\textbf{Vergleich zum CRODT-Framework}
 
 Das \gls{CRODT}-Framework stellt eine umfangreiche Sammlung an Funktionalit{\"a}ten
 zur Verf{\"u}gung. Diese {\"a}hneln in ihrem Einsatz zum Teil denen der

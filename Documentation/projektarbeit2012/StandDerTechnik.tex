@@ -305,10 +305,10 @@ Das \gls{CRODT}-Framework stellt eine umfangreiche Sammlung an Funktionalit{\"a}
 zur Verf{\"u}gung. Diese {\"a}hneln in ihrem Einsatz zum Teil denen der
 vorgestellten Protokolle (\gls{LTP}/Bundle Protokoll). So unterscheidet das \gls{LTP}
 beispielsweise nach wichtigen und unwichtigen Daten (red/green data). Diese
-Funktionalit{\"a}t gleicht in der Intension der Relevanzevaluierung im
+Funktionalit{\"a}t gleicht in ihrer Intension der Relevanzevaluierung im
 \gls{CRODT}-Framework. Allerdings bleibt zu konstatieren, dass die vom \gls{LTP} getroffene
-Unterscheidung recht grob ist. Zudem sollen die
-Datenbl{\"o}cke aus den Nachrichten, die durch \gls{ROTP} verschickt werden, auf
+Unterscheidung recht grob gefasst ist. Im Verlauf einer Kommunikation sollen
+die Datenbl{\"o}cke aus den Nachrichten, die durch \gls{ROTP} verschickt werden, auf
 Seiten des Empf{\"a}ngers direkt lesbar sein. Diese Funktionalit{\"a}t gleicht der
 Bundle-Strategie des Bundle Protokolls. Der Einsatzgedanke der Ontologien
 innerhalb des \gls{CRODT}-Frameworks hingegen, unterscheidet sich deutlich von den
@@ -316,15 +316,15 @@ anderen angef{\"u}hrten Protokollen. Hierbei sollen wichtige Daten automatisch
 erkannt und bewertet werden. Zudem ist das Contentsplitting und die
 Relevanzevaluierung innerhalb von \gls{CRODT} wesentlich differenzierter (Werte
 zwischen 0 und 100). Die {\"U}bertragung betreffend ist das unter \gls{CRODT}
-genutzte \gls{ROTP} flexibel, da es durchaus mit anderen Protokollen kombiniert
-("'gestackt"') werden kann. Somit k{\"o}nnte sowohl eine paketorientierte und
+genutzte \gls{ROTP} zudem sehr flexibel, da es durchaus mit anderen Protokollen
+kombiniert ("'gestackt"') werden kann. Somit k{\"o}nnte sowohl eine paketorientierte und
 verbindungslose Kommunikation (\gls{UDP} {\"a}hnlich), als auch eine \gls{TCP}
 {\"a}hnliche Verbindung infrage kommen (z.B. \gls{LTP}). \gls{ROTP} repr{\"a}sentiert somit ein
 \textit{Overlay} Protokoll oberhalb von Layer-4. 
 
 Bezogen auf das zuvor gegebene Beispiel eines Stacks einer interplanetaren
 Kommunikation, k{\"o}nnte das \gls{CRODT}-Framework (\gls{CROP} und \gls{ROTP}) als eine
-Erweiterung dienen. Diese k{\"o}nnte auf dem Bundle-Protokoll aufsetzen, um
+Erweiterung dienen. Diese k{\"o}nnte auf dem Bundle Protokoll aufsetzen, um
 diesem bei Bedarf die M{\"o}glichkeit einer relevanzorientierten
 Datenaufteilung und -sortierung hinzuzuf{\"u}gen. Als Layer-4 Protokoll
 k{\"o}nnte weiterhin \gls{LTP} eingesetzt werden. Das \gls{ROTP} {\"u}bergibt dann die
@@ -337,7 +337,7 @@ Sendezeitfenster des Rovers an den Orbiter, sowie die Menge der dabei
 {\"u}bertragenen Daten (SDXR) analysieren. Mit Hilfe der s{\"a}mtlichen im
 Modell betrachteten Parameter kann so eine \gls{QoS} equivalente Erhebung von
 Daten erfolgen. Die high-level \gls{QoI}-Ebene ist eher auf eine zuk{\"u}nftige
-Mars-Erde Kommunikation zwischen Menschen also \textit{human-to-human
+Mars-Erde-Kommunikation zwischen Menschen also \textit{human-to-human
 interaction} (H2H) ausgelegt. Diese k{\"o}nnte die zwischen den
 Kommunikationsparteien via GUI ausgetauschten Daten so analysieren, dass eine
 Aussage {\"u}ber die Qualit{\"a}t der vorgehenden Interaktion/Kommunikation

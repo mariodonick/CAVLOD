@@ -109,10 +109,11 @@ infrage kommen.
 
 \textbf{Error Correction Code}
 
-Zur Fehlererkennung bzw. -korrektur wird ein CRC-Code verwendet. Dieser wird
-innerhalb des Protokolls abhängig von der Paketgr{\"o}{\ss}e auf CRC 16 Bit oder
-CRC 32 Bit eingestellt. Die Pr{\"u}fsumme wird durch einen mathematischen
-Algorithmus ermittelt und dann mit dem Paket {\"u}bertragen. Wenn der
+Zur Fehlererkennung bzw. -korrektur wird ein \gls{CRC}-Code (kurz CRC)
+verwendet.
+Dieser wird innerhalb des Protokolls abhängig von der Paketgr{\"o}{\ss}e auf
+\gls{CRC} 16 Bit oder \gls{CRC} 32 Bit eingestellt. Die Pr{\"u}fsumme wird durch
+einen mathematischen Algorithmus ermittelt und dann mit dem Paket {\"u}bertragen. Wenn der
 Empf{\"a}nger die R{\"u}ckrechnung unter Einbeziehnung der Pr{\"u}fsumme
 vornimmt, kann anhand des Ergebnisses ermittelt werden, ob das Paket
 verf{\"a}lscht wurde. Die Berechnung einer Checksumme funktioniert dabei wie

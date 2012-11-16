@@ -1,6 +1,6 @@
 Nachfolgend wird eine Anleitung dargestellt, um die in
-dieser Arbeit verwendeten Tools einzurichten, womit der erstellte
-Quellcode kompiliert werden kann. Weiterhin wird ein Anwendungsbeispiel
+dieser Arbeit verwendeten Werkzeuge einzurichten, mit Hilfe derer der
+erstellte Quellcode kompiliert werden kann. Weiterhin wird ein Anwendungsbeispiel
 gegeben, welches die statische Bibliothek nutzt. Dazu werden die notwendigen
 Header-Dateien aktualisiert und in das Beispiel eingebunden.
 
@@ -8,7 +8,7 @@ Header-Dateien aktualisiert und in das Beispiel eingebunden.
 
 Als Betriebssystem wurde Ubuntu 12.4 verwendet. In diesem m{\"u}ssen
 {\"u}ber den Packetmanager zuerst folgenden Programme und Bibliotheken installiert
-werden, wenn diese noch nicht vorhanden sind.
+werden, sofern diese noch nicht vorhanden sind.
 
 \begin{itemize}
 \item "`libboost-all-dev"' (ab Version 1.48.0.2) 
@@ -17,9 +17,9 @@ werden, wenn diese noch nicht vorhanden sind.
 \item "`build-essential"'
 \end{itemize}
 
-Im n{\"a}chsten Schritt wird die Eclipse IDE for C/C++
-Developers\footnote{http://www.eclipse.org/downloads/packages/release/helios/sr2}
-heruntergeladen und eingerichtet. F{\"u}r dieses wurden die folgenden Plugins installiert:
+Im n{\"a}chsten Schritt wird die \textit{Eclipse IDE for C/C++
+Developers}\footnote{http://www.eclipse.org/downloads/packages/release/helios/sr2}
+heruntergeladen und eingerichtet. F{\"u}r diese wurden die folgenden Plugins installiert:
 
 \begin{itemize}
 \item EGit\footnote{http://download.eclipse.org/egit/updates-nightly}
@@ -33,15 +33,16 @@ stehenden Internetadresse.
 
 \section{Git}
 
-Als Erstes sollte eine SSH-Verbindung zum Git-Repository eingerichtet werden.
+Als Erstes sollte nun eine SSH-Verbindung zum Git-Repository eingerichtet
+werden.
 Dazu sei auf die Anleitung von Git verwiesen
 \cite{web7}. Als n{\"a}chstes k{\"o}nnen
 die Quelldateien unter Eclipse heruntergeladen werden. Dazu wird im Eclipse die
 Ansicht zum Git-Repository gewechselt. Dies erfolgt mit \Code{Window
 $\rightarrow$ Open Perspective $\rightarrow$ Other\ldots $\rightarrow$ Git
 Reposity Exploring}. In der neuen Ansicht das Herunterladen durch anklicken des
-Icons "`Clone a Git Repository and add the clone to this view"'. Im sich {\"o}ffnenden
-Assistenten m{\"u}ssen unter URI die SSH-Daten
+Icons "`Clone a Git Repository and add the clone to this view"' ausl{\"o}sen. Im
+sich {\"o}ffnenden Assistenten m{\"u}ssen unter URI die SSH-Daten
 \Code{ssh://git@github.com/Helferlein/CAVLOD.git} eingetragen werden und
 beim letzten Fenster sollte ein Pfad angegeben werden, welcher
 unabh{\"a}ngig des Workspaces von Eclipse ist.\newline
@@ -55,7 +56,7 @@ Configurations $\rightarrow$ Set Active}) das Programm erstellt werden. Hierf{\"
 drei Auswahlm{\"o}glichkeiten:
 
 \begin{enumerate}
-\item \Code{client} bezeichnet die Testumgebung, welches
+\item \Code{client} bezeichnet die Testumgebung, welche
 Daten an den Sender {\"u}bergibt, der diese verarbeitet und {\"u}ber eine
 \gls{UDP}-Schnitttelle ausgibt.
 \item \Code{server} bezeichnet die Testumgebung, welche die
@@ -71,7 +72,7 @@ ausw{\"a}hlen von \Code{Build Project} gestartet werden.
 
 Nach erfolgreichem Erstellen der Bibliothek m{\"u}ssen die folgenden Dateien
 im Pfad \Code{Crodt/include/} der statischen Bibliothek aktualisiert werden,
-wenn diese ge{\"a}ndert wurden. Ebenso wie die erstellte Datei
+sofern diese ge{\"a}ndert wurden. Selbiges gilt f{\"u} die erstellte Datei
 \Code{Crodt/lib/libcrodt.a}.
 
 \begin{itemize}
@@ -85,10 +86,11 @@ wenn diese ge{\"a}ndert wurden. Ebenso wie die erstellte Datei
 Zur Verwendung sind zwei Beispielquellcodes in Listing
 \ref{lst:BeispielcodeSender} und \ref{lst:BeispielcodeReceiver} dargestellt. Der
 erste erstellt ein Sendermodul und {\"u}bergibt diesem die passenden Daten,
-welche gesendet werden sollen. Beim Zweiten wird ein Empfangsmodul erstellt. In
-diesem wird ein Callback registriert, welcher die empfangenen Daten in der
-Konsole ausgibt. Dabei sei zu beachten, dass in beiden die Header-Datei \Code{crodt.h}
-inkludiert werden muss.
+welche dann gesendet werden sollen. Beim Zweiten wird ein Empfangsmodul
+erstellt.
+In diesem wird ein Callback registriert, welcher die empfangenen Daten in der
+Konsole ausgibt. Dabei sei zu beachten, dass in beiden F{\"a}llen die
+Header-Datei \Code{crodt.h} inkludiert werden muss.
 
 \newpage
 

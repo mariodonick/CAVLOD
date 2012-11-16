@@ -19,7 +19,7 @@ Der Mars Rover \textit{Curiosity} (Abbildung \ref{fig:Curiosity}) verf{\"u}gt
 Dieser hat eine Taktfrequenz von bis zu 200 MHz und kann 266 MIPS
 verarbeiten\footnote{Dieser Prozessor ist verglichen mit der Hardware, die im
 Verlauf dieser Arbeit zum Test des entwickelten Protokolls eingesetzt wurde
-sehr schwach.}. Desweiteren verf{\"u}gt \textit{Curiosity} {\"u}ber einen
+sehr schwach.}. Des Weiteren verf{\"u}gt \textit{Curiosity} {\"u}ber einen
 Arbeitsspeicher von 256 MB und einen Flash-Speicher von 2 GB. Zus{\"a}tzlich
 hat \textit{Curiosity} einen EPROM von 256 KB. Alle Bauteile sind dabei
 besonders strahlungsresistent und unempfindlich gegen{\"u}ber gro{\ss}en
@@ -37,7 +37,7 @@ kommen Spektrografen, weitere Kameras, Sensoren etc., welche weitere
 Analysedaten beisteuern \cite{web5}. Anhand der Vielzahl von Messinstrumenten,
 Kameras etc. wird erkennbar, dass eine Menge unterschiedlicher Datentypen zu
 verwalten ist.
-Desweiteren zeigt beispielsweise die Aufl{\"o}sung der Mastkameras, dass zudem
+Des Weiteren zeigt beispielsweise die Aufl{\"o}sung der Mastkameras, dass zudem
 auch gro{\ss}e Datenmengen zu verwalten sind. Diese Anforderungen gilt es in den
 verwendeten Kommunikationsprotokollen zu ber{\"u}cksichtigen.
 
@@ -207,10 +207,13 @@ Latenzzeiten in der {\"U}bertragung eher einer postalischen Kommunikation (\gls{
 ist auf eine synchrone Kommunikation optimiert). Aus diesem Grund wurde mit dem
 \gls{QoI} ein speziell f{\"u}r den asynchronen
 Kommunikationsfall konzipiertes Verfahren entwickelt \cite{Daher2} (\gls{QoI}
-kann auch irdische Kommunikationen verbessern). Dabei wurde ein Konzept erdacht,
-welches auf Signalen basiert (Request-Signal (REQ), Response-Signal
-(RSP), Information-Signal (INFO)). Mit diesen Signalen kann nun eine
-Interaktion ausgel{\"o}{\ss}t werden. Die Bewertung der \gls{QoI} erfolgt in zwei Ebenen. Ebene $1$ ist die low-level \gls{QoI}. Diese befasst sich neben klassischen \gls{QoS}-Merkmalen mit der Analyse der Ausnutzung von
+kann dabei, je nach Anwendungsfall, auch eine irdische Kommunikationen
+verbessern).
+Mit der QoI wurde ein Konzept erdacht, welches auf Signalen basiert
+(Request-Signal (REQ), Response-Signal (RSP), Information-Signal (INFO)). Mit diesen Signalen kann nun eine
+Interaktion ausgel{\"o}{\ss}t werden. Die Bewertung der \gls{QoI} erfolgt in
+zwei Ebenen. Ebene $1$ ist die low-level \gls{QoI}. Diese befasst sich, neben
+klassischen \gls{QoS}-Merkmalen, mit der Analyse der Ausnutzung von
 Kommunikationsressourcen. Die zweite Ebene wird als high-level \gls{QoI}
 bezeichnet und bewertet den Erfolg einer Kommunikation.
 
@@ -218,11 +221,11 @@ Zur Evaluierung der low-level \gls{QoI} werden neben klassischen \gls{QoS}-Merkm
 spezielle Merkmale zur Kommunikationsbewertung eingesetzt. Klassische
 \gls{QoS}-Merkmale wie Bandbreite und Jitter k{\"o}nnen mit Hilfe der
 \textit{Contact Duration} (CD), \textit{Contact Period} (CP) und des \textit{One
-Way Delay} auf einen \gls{QoI}-Fall übertragen werden. Steigt z.B. die CD und
-sinkt zugleich die CP so resultiert daraus eine steigende Bandbreite. Um die
-Ausnutzung verf{\"u}gbarer Kommunikationsressourcen zu analysieren stehen eine
-Vielzahl an Session\footnote{Kommunikationsphase, welche durch einen REQ von Sender A an
-Empf{\"a}nger B gestartet wird und erst nach einem empfangenen RSP beendet
+Way Delay} (OWD) auf einen \gls{QoI}-Fall übertragen werden. Steigt z.B. die CD
+und sinkt zugleich die CP so resultiert daraus eine steigende Bandbreite. Um die
+Ausnutzung verf{\"u}gbarer Kommunikationsressourcen zu analysieren, stehen
+dabei eine Vielzahl an Session\footnote{Kommunikationsphase, welche durch einen
+REQ von Sender A an Empf{\"a}nger B gestartet wird und erst nach einem empfangenen RSP beendet
 wird.}-Analysemethoden zur Verf{\"u}gung. Diese umfassen z.B. den
 \textit{Session Load} (SL), die \textit{Session Duration} (SD), die
 \textit{Session Signaling Rate} (SSR) oder die \textit{Sesssion Data Exchange Rate} (SDXR). Ist
@@ -237,7 +240,7 @@ einigen sprachspezifischen Erweiterungen \cite{Donick}. Prim{\"a}r wird dabei
 Coherence}\footnote{Ma{\ss} f{\"u}r den Grad an iniziierten relevanten
 Anschlusshandlungen zwischen zwei Kommunikationspartnern \cite{Donick}} (SC) die
 high-level \gls{QoI} evaluiert. Sind die SD und die SDXR gering und ist die SC hoch,
-so ist die high-level \gls{QoI} hoch.
+so ist auch die high-level \gls{QoI} hoch.
 Der Interaktionserfolg ist daher mit hoch zu bewerten.
 
 \textbf{Ontologien}
@@ -245,9 +248,9 @@ Der Interaktionserfolg ist daher mit hoch zu bewerten.
 Ontologien sind Sammlungen aus Inferenz- und Integrit{\"a}tsregeln, um
 Schlussfolgerungen auf komplexe Probleme zu beziehen. Ontologien werden zum
 Austausch von Wissen in digitaler Form genutzt. Die wichtigste Bedingung einer
-Ontologie ist die Allgemeing{\"u}ltigkeit. Dies unterscheidet die Ontologien von
-anderen Datenmodellen, welche speziell an einen bestimmten Zweck angepasst
-werden. \newline \newline
+Ontologie ist dabei die Allgemeing{\"u}ltigkeit. Dies unterscheidet die
+Ontologien von anderen Datenmodellen, welche speziell an einen bestimmten Zweck angepasst
+werden \cite{web14}, \cite{web15}. \newline \newline
 Bestandteile einer Ontologie:
 
  \begin{compactenum}[I]
@@ -337,11 +340,11 @@ Sendezeitfenster des Rovers an den Orbiter, sowie die Menge der dabei
 {\"u}bertragenen Daten (SDXR) analysieren. Mit Hilfe der s{\"a}mtlichen im
 Modell betrachteten Parameter kann so eine \gls{QoS} equivalente Erhebung von
 Daten erfolgen. Die high-level \gls{QoI}-Ebene ist eher auf eine zuk{\"u}nftige
-Mars-Erde-Kommunikation zwischen Menschen also \textit{human-to-human
-interaction} (H2H) ausgelegt. Diese k{\"o}nnte die zwischen den
-Kommunikationsparteien via GUI ausgetauschten Daten so analysieren, dass eine
-Aussage {\"u}ber die Qualit{\"a}t der vorgehenden Interaktion/Kommunikation
-getroffen werden kann.
+Mars-Erde-Kommunikation zwischen Menschen, eine sogenannte
+\textit{human-to-human interaction} (H2H) ausgelegt. Diese k{\"o}nnte die
+zwischen den Kommunikationsparteien via GUI ausgetauschten Daten so
+analysieren, dass eine Aussage {\"u}ber die Qualit{\"a}t der vorgehenden
+Interaktion/Kommunikation getroffen werden kann.
 
 F{\"u}r den Fall einer nicht durch den Menschen festgelegten Bewertung
 relevanter Informationen/Daten, sollte eine Ontologie eingesetzt werden. Diese

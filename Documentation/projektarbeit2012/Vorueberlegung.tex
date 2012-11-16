@@ -5,8 +5,9 @@
 Die bereits im Grundlagenkapitel erw{\"a}hnten Ontologien sind aufgrund ihrer
 Komplexit{\"a}t und umfangreichen Einbindungszeit nicht Bestandteil des im
 Verlaufe dieser Arbeit entwickelten Protokolls. Jedoch ist eine Einbindung
-selbiger im weiteren Entwicklungsverlauf des Protokolls unabdingbar. Das
-zuk{\"u}nftige Ziel ist es einerseits, mit Hilfe der Ontologien eine
+selbiger im weiteren Entwicklungsverlauf des CRODT-Frameworks vorgesehen und
+somit unabdingbar.
+Das zuk{\"u}nftige Ziel ist dabei einerseits durch die Ontologien eine
 automatisierte Priorisierung von Daten vorzunehmen, als auch eine manuelle
 Priorisierungsm{\"o}glichkeit anzubieten (\gls{GUI}). Somit kann ein auf dem
 Mars befindliches System (z.B. ein Rover) selbstst{\"a}ndig entscheiden, welche
@@ -32,20 +33,20 @@ von Hops verworfen werden. Das Ablaufen durch den Hop\footnote{Ein Hop
 bezeichnet eine Station einer Route auf dem Weg zum Ziel (Knoten)}-Zähler
 ist dabei in einem Szenario der interplanetaren Kommunikation derzeit eher
 unrealistisch, da zumeist eine Punkt-zu-Punkt Verbindung anvisiert wird (kein
-intensives Routing {\"u}ber eine Vielzahl an Stationen). Somit w{\"a}re unter
-Ber{\"u}cksichtigung einer interplanetaren Kommunikation eine
-\gls{TTL}-Realisierung per Zeitstempel sinnvoller, da hier{\"u}ber, unter Ber{\"u}cksichtigung des
-{\"U}bertragungskontextes, unrealistische {\"U}bertragungszeiten einfach erkannt
-werden k{\"o}nnen.
+intensives Routing {\"u}ber eine Vielzahl an Stationen). Somit w{\"a}re im
+Szenario einer interplanetaren Kommunikation eine \gls{TTL}-Realisierung per
+Zeitstempel sinnvoller, da hier{\"u}ber, unter Ber{\"u}cksichtigung des
+{\"U}bertragungskontextes, unrealistische {\"U}bertragungszeiten einfach erkannt werden k{\"o}nnen.
 Aufgrund der beschr{\"a}nkten Ressourcen unter interplanetaren
 Kommunikationsumgebungen ist die Frage nach der Vorhaltedauer von
 entscheidender Bedeutung. Damit wird die Speicherung der
 Daten auf Seiten des extraterrestrischen Senders bezeichnet. 
 Eine m{\"o}gliche Entscheidungsgrundlage daf{\"u}r, wann Daten aus einer
-\gls{FIFO} verworfen werden sollen, w{\"a}re die Wichtigkeit selbiger. So
-k{\"o}nnen Daten geringer Relevanz direkt nach dem Senden gel{\"o}scht werden.
-Wohingegen Daten hoher Relevanz erst nach Empfangsquittierung bzw. Ablauf des
-\gls{TTL}-Timers verworfen werden.
+\gls{FIFO}\footnote{Datenstruktur zur Speicherung und Handhabung von Daten}
+verworfen werden sollen, w{\"a}re die Wichtigkeit selbiger. So k{\"o}nnen Daten
+geringer Relevanz direkt nach dem Senden gel{\"o}scht werden.
+Wohingegen Daten hoher Relevanz erst nach Empfangsquittierung bzw. nach Ablauf
+des \gls{TTL}-Timers verworfen werden.
 
 \textbf{Protokoll-Stack} \label{sec:Konzept_Protocolstack}
 
@@ -53,7 +54,7 @@ Die von der jeweiligen Anwendung an den \gls{CROP}-Stack {\"u}bergebenen Daten
 werden zun{\"a}chst in kleinere Datenbl{\"o}cke gesplittet. Diese Datenbl{\"o}cke
 werden der Relevanz nach evaluiert und anschlie{\ss}end priorisiert.
 Im Anschlu{\ss} daran werden die priorisierten Datenbl{\"o}cke der jeweiligen
-Wertigkeit in einer \gls{FIFO} gespeichert. Danach werden im
+Wertigkeit nach in einer \gls{FIFO} gespeichert. Danach werden im
 Packetizer die Datenbl{\"o}cke h{\"o}chster Priorit{\"a}t zu einer
 Nachricht zusammengefasst, die daraufhin an den \gls{UDP} Stack {\"u}bergeben
 werden kann. Dieser grundlegende Ablauf ist in Abbildung \ref{fig:CRODT} schematisch
@@ -70,9 +71,9 @@ In Abbildung \ref{fig:OSI_Stack} wird die Schachtelung der Daten
 innerhalb des OSI-Stacks aufgezeigt. Dabei wird das Weiterreichen der Daten an
 die jeweils n{\"a}chste Schicht des Stacks verdeutlicht. In jedem dieser Schritte wird dem neuen
 Datenpaket der Header der aktuellen Schicht angeh{\"a}ngt und somit das
-weitergereichte Datenpaket um notwendige {\"U}bersetzungsinformationen f{\"u}r
-den Empf{\"a}nger erweitert. Auf der Empf{\"a}ngerseite erfolgt eine Invertierung dieses
-Vorganges. 
+weitergereichte Datenpaket um notwendige {\"U}bersetzungsinformationen, f{\"u}r
+den Empf{\"a}nger, erweitert. Auf der Empf{\"a}ngerseite erfolgt dann eine
+Invertierung dieses Vorganges. 
 
 \begin{figure}[H]
 	\centering
@@ -91,14 +92,14 @@ Layer.
 Der Data Link Layer und der Physical Layer des OSI-Modells werden zur
 Netzzugangsschicht zusammengefasst. Dem OSI-Modell entsprechend wird eine
 equivalente Darstellung der Paketerweiterung um den jeweiligen Header
-hinzugef{\"u}gt. Der Protokollablauf sieht dabei nach Aufteilung der Daten in
-Bl{\"o}cke und Zuweisung einer Priorit{\"a}t eine Zusammenfassung zu einer
+hinzugef{\"u}gt. Der Protokollablauf sieht dabei, nach Aufteilung der Daten in
+Bl{\"o}cke und Zuweisung einer Priorit{\"a}t, eine Zusammenfassung zu einer
 Nachricht mit ausschließlich höher priorisierten Daten vor. Dieses Datenpaket
 wird nun z.B. an den \gls{UDP}-Stack weitergegeben, anschlie{\ss}end um den
 \gls{IP}-Header erweitert und dann entsprechend der
 {\"U}bertragungsschnittstelle und deren Protokoll versandt. Die Nutzung von UDP
 ist dabei beispielhaft zu betrachten, da andere Layer-4 Protokolle ebenso
-infrage kommen.
+infrage kommen k{\"o}nnten.
 
 \begin{figure}[H]
 	\centering
@@ -166,7 +167,7 @@ ergibt sich das Frame inklusive Pr{\"u}fsumme: $11 0101 1011 1110$. Der
 Empf{\"a}nger kann damit {\"u}berpr{\"u}fen, ob das Frame korrekt {\"u}bertragen
 wurde. Dazu wird dieses durch das Generatorpolynom (Generatorbits) geteilt.
 Das Ergebnis muss dabei null sein. Das im Beispiel genutzte Polynom kann mit der
-Ordnung $4$ ($2^4=16$) auf Daten von $16$ Bit Länge angewendet werden. Das
+Ordnung $4$ ($2^4=16$) auf Daten von $16$ Bit Länge angewandt werden. Das
 Polynom $x16+x12+x5+1$ wird hingegen beispielsweise beim CRC-CCITT $16$ Bit-Verfahren
 genutzt und kann auf Datenframes bis zu einer Gr{\"o}{\ss}e von $2^{16}=65536$
 Bit angewendet werden \cite{web2}.

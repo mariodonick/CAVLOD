@@ -1,4 +1,4 @@
-\textbf{Testumgebung}
+Ko\textbf{Testumgebung}
 
 Die Messungen wurden mit einem Notebook aufgenommen, welches
 folgende Hardwarekonfigurationen besitzt.
@@ -22,7 +22,7 @@ performanten Rovers \textit{Curiosity} sei auf das Kapitel
 
 Alle nachfolgend aufgeführten Diagramme und Messwerte sind noch einmal im Anhang
 in einer größeren Darstellung aufgeführt.\newline
-Das Protokoll wird grundlegend mit zwei verschiedenen Kompilereinstellungen
+Das Protokoll wird grundlegend mit zwei verschiedenen Compilereinstellungen
 getestet. Dies sind die Geschwindigkeits- (\glqq O$2$ \grqq) und die
 Quellcodegrößenoptimierung (\glqq Os \grqq).
 \newline
@@ -113,8 +113,8 @@ mit $548$ MB zu bewältigen.
 \newline
 Bei der Durchführung ist ein Anstieg der Laufzeit zu erkennen (siehe
 Messwerttabelle \ref{fig:messung_normal_worp} und \ref{fig:messung_normal_wrp}),
-je mehr Daten bereits verarbeitet wurden. Eine genauere Analyse zeigt, dass das
-Einsortieren in die Datenstruktur \Code{SmartPrioritizedQueue} der Grund für die
+welcher abh{/"a}ngig von der verarbeiteten Datenmenge ist. Eine genauere Analyse
+zeigt, dass das Einsortieren in die Datenstruktur \Code{SmartPrioritizedQueue} der Grund für die
 Laufzeitverlängerung ist.
 Dabei lagen alle Datenblöcke gleichzeitig im Speicher, wodurch das
 Einsortieren neuer Blöcke sehr viel Rechenleistung in Anspruch nimmt.
@@ -131,4 +131,4 @@ werden kann, wird sukzessive Speicherplatz belegt (siehe Kapitel \ref{sec:SendeZ
 Deshalb ist diese Methode bei sehr vielen und großen Daten nicht optimal. Eine
 bessere Möglichkeit wäre, anhand einer \gls{TTL} (siehe Kapitel
 \ref{sec:Vorueberlegung}) unrelevante Daten nur sehr kurzfristig vorzuhalten,
-damit mehr Raum für Daten von hoher Relevanz ist.
+damit mehr Raum für Daten von hoher Relevanz vorhanden ist.

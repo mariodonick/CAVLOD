@@ -87,6 +87,7 @@ void DataBlockProcessing<T, Parser, C>::start(const DataBlock::Header& dbh, cons
     coi.sequenceNumber = dbh.sequenceNumber.to_uint();
 
     output.sortedContent = coi;
+    sleep(5); // for presentation
     callback(output);
   }
   INFO() << "\n--------------- DB END ---------------------------" << ENDL;

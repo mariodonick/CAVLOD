@@ -1,174 +1,66 @@
-% Anpassung des Seitenlayouts --------------------------------------------------
-%   siehe Seitenstil.tex
-% ------------------------------------------------------------------------------
-
-% Anpassung an Landessprache ---------------------------------------------------
-\usepackage[ngerman]{babel}
-
-% Umlaute ----------------------------------------------------------------------
-%   Umlaute/Sonderzeichen wie aeoeue direkt im Quelltext verwenden (CodePage).
-%   Erlaubt automatische Trennung von Worten mit Umlauten.
-% ------------------------------------------------------------------------------
-\usepackage[utf8]{inputenc}
-%\usepackage[T1]{fontenc}
-\usepackage{textcomp} % Euro-Zeichen etc.
-
-% Schrift ----------------------------------------------------------------------
-\usepackage{lmodern} % bessere Fonts
-\usepackage{relsize} % Schriftgroesse relativ festlegen
- 
-% Grafiken ---------------------------------------------------------------------
-% Einbinden von JPG-Grafiken ermoeglichen
-\usepackage[pdftex]{graphicx}
-%Möglichkeit des Einfügens von Subfigures um Bilder nebeneinander einzufügen
-\usepackage{subfigure}
-% hier liegen die Bilder des Dokuments
-\graphicspath{{Bilder/}}
-% zum richtigen Positionieren der Bilder
-\usepackage{float}
-% zum seitenfüllenden Einfügen von PDFs und JPGs
-\usepackage{pdfpages}
-
-% Befehle aus AMSTeX f�r mathematische Symbole z.B. \boldsymbol \mathbb --------
-\usepackage{amsmath,amsfonts}
-
-% f�r Index-Ausgabe mit \printindex --------------------------------------------
-\usepackage{makeidx}
-
-% Einfache Definition der Zeilenabstaende und Seitenraender etc.
-% -----------------
-\usepackage{setspace}
-\usepackage{geometry}
-
-% glossar/Symbolverzeichnis
-% ------------------------------------------------------------   Symbolverzeichnisse bequem erstellen. Beruht auf MakeIndex:
-%     makeindex.exe %Name%.nlo -s nomencl.ist -o %Name%.nls
-%   erzeugt dann das Verzeichnis. Dieser Befehl kann z.B. im TeXnicCenter
-%   als Postprozessor eingetragen werden, damit er nicht staendig manuell
-%   ausgefuehrt werden muss.
-%   Die Definitionen sind ausgegliedert in die Datei "Glossar.tex".
-% ------------------------------------------------------------------------------
-%Paket laden 
-\usepackage[
-nonumberlist, %keine Seitenzahlen anzeigen
-acronym,      %ein Abkürzungsverzeichnis erstellen
-toc]          %Einträge im Inhaltsverzeichnis
-{glossaries}
-
-
-% zum Umfliessen von Bildern
-% ----------------------------------------------------
-\usepackage{floatflt}
-
-
-% zum Einbinden von Programmcode -----------------------------------------------
-\usepackage{listings}
-\usepackage{xcolor} 
-\definecolor{hellgelb}{rgb}{1,1,0.9}
-\definecolor{colKeys}{rgb}{0,0,1}
-\definecolor{colIdentifier}{rgb}{0,0,0}
-\definecolor{colComments}{rgb}{1,0,0}
-\definecolor{colString}{rgb}{0,0.5,0}
-\lstset{
-    float=hbp,
-    basicstyle=\ttfamily\color{black}\small\smaller,
-    identifierstyle=\color{colIdentifier},
-    keywordstyle=\color{colKeys},
-    stringstyle=\color{colString},
-    commentstyle=\color{colComments},
-    columns=flexible,
-    tabsize=2,
-    frame=single,
-    extendedchars=true,
-    showspaces=false,
-    showstringspaces=false,
-    numbers=left,
-    numberstyle=\tiny,
-    breaklines=true,
-    backgroundcolor=\color{hellgelb},
-    breakautoindent=true
-}
-\lstset{literate=%
-{Ö}{{\"O}}1
-{Ä}{{\"A}}1
-{Ü}{{\"U}}1
-{ß}{{\ss}}2
-{ü}{{\"u}}1
-{ä}{{\"a}}1
-{ö}{{\"o}}1
-}
-
-% URL verlinken, lange URLs umbrechen etc. -------------------------------------
-\usepackage{url}
-
-% wichtig f�r korrekte Zitierweise ---------------------------------------------
-%\usepackage[square]{natbib}
-
-% PDF-Optionen -----------------------------------------------------------------
-\usepackage[
-    bookmarks,
-    bookmarksopen=true,
-    colorlinks=true,
-% diese Farbdefinitionen zeichnen Links im PDF farblich
-%     linkcolor=black, % einfache interne Verknuepfungen
-%     anchorcolor=black,% Ankertext
-%     citecolor=blue, % Verweise auf Literaturverzeichniseintraege im Text
-%     filecolor=magenta, % Verknuepfungen, die lokale Dateien oeffnen
-%     menucolor=red, % Acrobat-Menuepunkte
-%     urlcolor=cyan, 
-% diese Farbdefinitionen sollten fuer den Druck verwendet werden (alles schwarz)
-linkcolor=black, % einfache interne Verknuepfungen
-anchorcolor=black, % Ankertext
-citecolor=black, % Verweise auf Literaturverzeichniseintraege im Text
-filecolor=black, % Verknuepfungen, die lokale Dateien oeffnen
-menucolor=black, % Acrobat-Men�punkte
-urlcolor=black,
-    backref,
-    plainpages=false, % zur korrekten Erstellung der Bookmarks
-    pdfpagelabels, % zur korrekten Erstellung der Bookmarks
-    hypertexnames=false, % zur korrekten Erstellung der Bookmarks
-    %linktocpage % Seitenzahlen anstatt Text im Inhaltsverzeichnis verlinken
-]{hyperref}
-% Befehle, die Umlaute ausgeben, f�hren zu Fehlern, wenn sie hyperref als
-% Optionen uebergeben werden
-\hypersetup{
-    pdftitle={\titel \untertitel},
-    pdfauthor={\autor},
-    pdfcreator={\autor},
-    pdfsubject={\titel \untertitel},
-    pdfkeywords={\titel \untertitel},
-}
-
-% fortlaufendes Durchnummerieren der Fussnoten
-% ----------------------------------
-\usepackage{chngcntr}
-
-% f�r (lange) Tabellen ---------------------------------------------------------
-\usepackage{longtable}
-\usepackage{array}
-\usepackage{ragged2e}
-\usepackage{lscape}
-\usepackage{tabularx}
-
-% Spaltendefinition rechtsbuendig mit definierter Breite
-% ------------------------
-\newcolumntype{w}[1]{>{\raggedleft\hspace{0pt}}p{#1}}
-
-% Formatierung von Listen aendern
-% -----------------------------------------------
-\usepackage{paralist}
-
-% bei der Definition eigener Befehle benoetigt
-\usepackage{ifthen}
-
-% definiert u.a. die Befehle \todo und \listoftodos
-\usepackage{todonotes}
-
-% sorgt daf�r, dass Leerzeichen hinter parameterlosen Makros nicht als Makroendezeichen interpretiert werden
-\usepackage{xspace}
-
-\usepackage{fancyhdr}
-\raggedbottom
-
-%  Latex wird sich bemühen, immer im Blocksatz zu bleiben, auch wenn dadurch große Abstände zwischen Wörtern entstehen
-\sloppy
+ (249498394) hat den Status von Beschäftigt zu Verfügbar geändert @ 08.07.2012 19:39:41 ----
+---- Annelain (260258518) hat den Status von Offline zu Verfügbar geändert @ 08.07.2012 19:41:38 ----
+---- Annelain wurde tätig @ 08.07.2012 19:41:41 ----
+---- Daniel  Kern (146940065) hat den Status von Beschäftigt zu Verfügbar geändert @ 08.07.2012 19:46:24 ----
+---- Daniel  Kern (146940065) hat den Status von Verfügbar zu Beschäftigt geändert @ 08.07.2012 19:46:36 ----
+---- Pastalord (271895084) hat den Status von Verfügbar zu Abwesend geändert @ 08.07.2012 19:48:25 ----
+---- Pastalord wurde untätig @ 08.07.2012 19:48:25 ----
+---- +++ 228314687 wurde untätig @ 08.07.2012 19:43:35 ----
+---- Daniel  Kern (146940065) hat den Status von Beschäftigt zu Verfügbar geändert @ 08.07.2012 19:50:17 ----
+---- Caro (249498394) hat den Status von Verfügbar zu Abwesend geändert @ 08.07.2012 19:50:38 ----
+---- Caro wurde untätig @ 08.07.2012 19:50:38 ----
+---- Caro (249498394) hat den Status von Abwesend zu Verfügbar geändert @ 08.07.2012 19:50:40 ----
+---- Caro wurde tätig @ 08.07.2012 19:50:40 ----
+---- Caro (249498394) hat den Status von Verfügbar zu Beschäftigt geändert @ 08.07.2012 19:50:43 ----
+---- Annelain (260258518) hat den Status von Verfügbar zu Abwesend geändert @ 08.07.2012 19:52:51 ----
+---- Annelain wurde untätig @ 08.07.2012 19:52:51 ----
+---- Betäubär (462638214) hat den Status von Beschäftigt zu Abwesend geändert @ 08.07.2012 19:53:46 ----
+---- Betäubär (462638214) hat den Status von Abwesend zu Beschäftigt geändert @ 08.07.2012 19:53:49 ----
+---- Betäubär (462638214) hat den Status von Beschäftigt zu Abwesend geändert @ 08.07.2012 19:53:55 ----
+---- +++ 228314687 wurde tätig @ 08.07.2012 19:54:10 ----
+---- Betäubär (462638214) hat den Status von Abwesend zu Beschäftigt geändert @ 08.07.2012 19:54:13 ----
+---- Betäubär (462638214) hat den Status von Beschäftigt zu Abwesend geändert @ 08.07.2012 19:56:19 ----
+---- Annelain (260258518) hat den Status von Abwesend zu Offline geändert @ 08.07.2012 19:57:56 ----
+---- +++ 228314687 wurde untätig @ 08.07.2012 19:54:17 ----
+---- Phil (309353968) hat den Status von Abwesend zu Verfügbar geändert @ 08.07.2012 20:00:31 ----
+---- +++ 228314687 wurde tätig @ 08.07.2012 20:00:36 ----
+---- Daniel  Kern (146940065) hat den Status von Verfügbar zu Abwesend geändert @ 08.07.2012 20:01:04 ----
+---- Daniel  Kern wurde untätig @ 08.07.2012 20:01:04 ----
+---- +++ 228314687 wurde untätig @ 08.07.2012 20:03:38 ----
+---- Daniel  Kern (146940065) hat den Status von Abwesend zu Verfügbar geändert @ 08.07.2012 20:09:47 ----
+---- Daniel  Kern wurde tätig @ 08.07.2012 20:09:47 ----
+---- Daniel  Kern (146940065) hat den Status von Verfügbar zu Beschäftigt geändert @ 08.07.2012 20:11:58 ----
+---- Caro (249498394) hat den Status von Beschäftigt zu Verfügbar geändert @ 08.07.2012 20:12:00 ----
+---- Daniel  Kern (146940065) hat den Status von Beschäftigt zu Verfügbar geändert @ 08.07.2012 20:15:46 ----
+---- Daniel  Kern (146940065) hat den Status von Verfügbar zu Beschäftigt geändert @ 08.07.2012 20:16:17 ----
+---- DeutschesBadGirl-x3 (353909571) hat den Status von Verfügbar zu Abwesend geändert @ 08.07.2012 20:20:17 ----
+---- DeutschesBadGirl-x3 wurde untätig @ 08.07.2012 20:20:18 ----
+---- +++ 228314687 wurde tätig @ 08.07.2012 20:20:58 ----
+---- Betäubär (462638214) hat den Status von Abwesend zu Beschäftigt geändert @ 08.07.2012 20:21:16 ----
+---- Betäubär (462638214) hat den Status von Beschäftigt zu Abwesend geändert @ 08.07.2012 20:21:34 ----
+---- Daniel  Kern (146940065) hat den Status von Beschäftigt zu Verfügbar geändert @ 08.07.2012 20:24:05 ----
+---- Daniel  Kern (146940065) hat den Status von Verfügbar zu Beschäftigt geändert @ 08.07.2012 20:24:12 ----
+---- Philipp Koschorrek (627454334) hat den Status von Offline zu Verfügbar geändert @ 08.07.2012 20:28:10 ----
+---- Betäubär (462638214) hat den Status von Abwesend zu Beschäftigt geändert @ 08.07.2012 20:28:42 ----
+---- Daniel  Kern (146940065) hat den Status von Beschäftigt zu Verfügbar geändert @ 08.07.2012 20:28:53 ----
+---- Betäubär (462638214) hat den Status von Beschäftigt zu Abwesend geändert @ 08.07.2012 20:32:03 ----
+---- Betäubär (462638214) hat den Status von Abwesend zu Beschäftigt geändert @ 08.07.2012 20:32:40 ----
+---- Betäubär (462638214) hat den Status von Beschäftigt zu Abwesend geändert @ 08.07.2012 20:32:43 ----
+---- Betäubär (462638214) hat den Status von Abwesend zu Beschäftigt geändert @ 08.07.2012 20:32:46 ----
+---- Betäubär (462638214) hat den Status von Beschäftigt zu Abwesend geändert @ 08.07.2012 20:32:49 ----
+---- Betäubär (462638214) hat den Status von Abwesend zu Beschäftigt geändert @ 08.07.2012 20:33:19 ----
+---- +++ 228314687 wurde untätig @ 08.07.2012 20:29:08 ----
+---- +++ 228314687 wurde tätig @ 08.07.2012 20:35:07 ----
+---- Betäubär (462638214) hat den Status von Beschäftigt zu Abwesend geändert @ 08.07.2012 20:45:06 ----
+---- Betäubär (462638214) hat den Status von Abwesend zu Beschäftigt geändert @ 08.07.2012 20:45:43 ----
+---- Daniel  Kern (146940065) hat den Status von Verfügbar zu Abwesend geändert @ 08.07.2012 20:47:08 ----
+---- Daniel  Kern wurde untätig @ 08.07.2012 20:47:08 ----
+---- Daniel  Kern (146940065) hat den Status von Abwesend zu Verfügbar geändert @ 08.07.2012 20:48:27 ----
+---- Daniel  Kern wurde tätig @ 08.07.2012 20:48:27 ----
+---- Annelain (260258518) hat den Status von Offline zu Verfügbar geändert @ 08.07.2012 20:49:57 ----
+---- Annelain wurde tätig @ 08.07.2012 20:50:04 ----
+---- DeutschesBadGirl-x3 (353909571) hat den Status von Abwesend zu Verfügbar geändert @ 08.07.2012 20:50:12 ----
+---- DeutschesBadGirl-x3 wurde tätig @ 08.07.2012 20:50:12 ----
+---- Daniel  Kern (146940065) hat den Status von Verfügbar zu Beschäftigt geändert @ 08.07.2012 20:50:16 ----
+---- Daniel  Kern (146940065) hat den Status von Beschäftigt zu Verfügbar geändert @ 08.07.2012 20:50:22 ----
+---- DeutschesBadGirl-x3 (353909571) hat den Status von Verfügbar zu Verfügbar ge
